@@ -1,0 +1,1 @@
+web: gunicorn festival.wsgi --log-file -
