@@ -6,3 +6,4 @@
 /media/
 .env
 dev.py
+settings/
