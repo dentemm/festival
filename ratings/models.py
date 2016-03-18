@@ -7,7 +7,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.auth.models import User
 #from django.utils import timezone
 
-#from .managers import ScoreManager
+from .managers import RatingManager
 
 # Create your models here.
 
@@ -92,6 +92,8 @@ class Score(BaseContentTypesModel):
 	total_score = models.PositiveIntegerField(null=True) 
 	num_votes = models.PositiveIntegerField(default=0)
 
+	objects = RatingManager()
+
 
 	class Meta:
 		unique_together = ('content_type', 'object_id', )
@@ -124,3 +126,7 @@ class RatedModelMixin(models.Model):
 
 	class Meta:
 		abstract = True
+
+	def get_ratings(self):
+
+		return Rating.objects.get_for(self)

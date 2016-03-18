@@ -12,6 +12,9 @@ from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+
+from taggit.models import TaggedItemBase
 
 from ratings.models import RatedModelMixin
 
@@ -61,12 +64,17 @@ HomePage.content_panels = models.Page.content_panels + [
 ]
 
 
+class FestivalPageTag(TaggedItemBase):
+	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items')
+
 class FestivalPage(models.Page):
 
 	name = djangomodels.CharField(max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
 
 	rateable_attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', null=True, blank=True)
+
+	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
 
 
@@ -78,9 +86,11 @@ FestivalPage.content_panels = models.Page.content_panels + [
 	FieldPanel('name'),
 	FieldPanel('description'),
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
-
 ]
 
+FestivalPage.promote_panels = models.Page.promote_panels + [
+	FieldPanel('tags'),
+]
 
 
 class FestivalPageRatebleAttributeValue(djangomodels.Model):
@@ -98,6 +108,10 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 
 @register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
+	'''
+	Deze klasse beschrijft een te beoordelen kenmerk van een festival. Het erft van de RatedModelMixin klasse
+	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
+	'''
 
 	#page = djangomodels.ForeignKey('home.FestivalPage')
 	name = djangomodels.CharField(max_length=27)
@@ -113,3 +127,9 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 		return self.name
 
+@register_snippet
+class AddressInformation(djangomodels.Model):
+	'''
+	'''
+
+	pass
