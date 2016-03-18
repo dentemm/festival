@@ -27,6 +27,10 @@ INSTALLED_APPS = [
     'home',
     'search',
 
+    # Custom non-wagtail apps
+    'comments',
+    'ratings',
+
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
