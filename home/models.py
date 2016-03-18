@@ -34,12 +34,6 @@ class HomePageStreamBlock(blocks.StreamBlock):
 	carousel = blocks.ListBlock(ImageWithCaptionBlock(), template='home/blocks/carousel.html', icon='image')
 
 
-'''
-class Comment(djangomodels.Model):
-
-	comment_title = djangomodels.CharField(max_length=63, null=True, blank=True)
-	comment_text = djangomodels.CharField(max_length=511, null=True)'''
-
 
 class Rating(djangomodels.Model):
 
@@ -65,23 +59,7 @@ HomePage.content_panels = models.Page.content_panels + [
 
 	StreamFieldPanel('body'),
 ]
-'''
-class FestivalPageComment(models.Orderable, djangomodels.Model):
 
-	page = ParentalKey('home.FestivalPage', related_name='festival_comments')
-	comment = djangomodels.ForeignKey('home.Comment', related_name='+')
-
-	class Meta:
-		verbose_name = 'Festivalpagina comment'
-		verbose_name_plural = 'Festivalpagina comments'
-
-	def __str__(self):
-		return self.page.title + ' -> ' + self.comment.title
-
-	panels = [
-		SnippetChooserPanel('comment')
-	]
-'''
 
 class FestivalPage(models.Page):
 
@@ -90,14 +68,6 @@ class FestivalPage(models.Page):
 
 	rateable_attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', null=True, blank=True)
 
-	test_attribute = djangomodels.ForeignKey('home.Test', null=True)
-
-	
-	'''panels = [
-		#FieldPanel('name'),
-		InlinePanel('home.FestivalPageRateableAttribute', 'rateable_attributes', label='te beoordelen'),
-		InlinePanel('home.FestivalPage', 'tests', label='tests')
-	]'''
 
 
 	class Meta:
@@ -107,14 +77,7 @@ class FestivalPage(models.Page):
 FestivalPage.content_panels = models.Page.content_panels + [
 	FieldPanel('name'),
 	FieldPanel('description'),
-	#FieldPanel('test_attribute')
-	#SnippetChooserPanel('test_attribute'),
-	InlinePanel('tests', label='tests'),
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
-	#InlinePanel('')
-	#SnippetChooserPanel('home.FestivalPageRateableAttribute')
-
-	#InlinePanel('home.FestivalPage', 'rateable_attributes', label='te beoordelen')
 
 ]
 
@@ -141,7 +104,6 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 	panels = [
 		FieldPanel('name'),
-		#PageChooserPanel('page')
 	]
 
 	class Meta:
@@ -151,22 +113,3 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 		return self.name
 
-@register_snippet
-class Test(djangomodels.Model):
-	'''
-	Eenvoudige FK test
-	'''
-
-	name = djangomodels.CharField(max_length=8)
-
-	def __str__(self):
-		return self.name
-
-class FestivalPageTest(djangomodels.Model):
-
-	test = djangomodels.ForeignKey(Test, related_name='+')
-	page = ParentalKey('home.FestivalPage', related_name='tests')
-
-	panels = [
-		FieldPanel('test'),
-	]
