@@ -88,11 +88,15 @@ class FestivalPage(models.Page):
 	name = djangomodels.CharField(max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
 
-	'''
+	attribute = djangomodels.ForeignKey('home.FestivalPageRatebleAttributeValue', null=True, blank=True)
+
+	test_attribute = djangomodels.ForeignKey('home.Test', null=True)
+
+	
 	panels = [
-		FieldPanel('name'),
-		InlinePanel(FestivalPage, 'rateable_attributes', label='te beoordelen')
-	]'''
+		#FieldPanel('name'),
+		InlinePanel('home.FestivalPageRateableAttribute', 'rateable_attributes', label='te beoordelen')
+	]
 
 
 	class Meta:
@@ -102,7 +106,11 @@ class FestivalPage(models.Page):
 FestivalPage.content_panels = models.Page.content_panels + [
 	FieldPanel('name'),
 	FieldPanel('description'),
-	InlinePanel(FestivalPage, 'rateable_attributes', label='te beoordelen')
+	#FieldPanel('test_attribute')
+	SnippetChooserPanel('test_attribute')
+	#SnippetChooserPanel('home.FestivalPageRateableAttribute')
+
+	#InlinePanel('home.FestivalPage', 'rateable_attributes', label='te beoordelen')
 
 ]
 
@@ -113,7 +121,7 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	Join model for FestivalPage en FestivalAttribute
 	'''
 
-	attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', related_name='+')
+	attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', related_name='attributes')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 
 	panels = [
@@ -121,19 +129,28 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 		PageChooserPanel('page')
 	]
 
+@register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 	page = djangomodels.ForeignKey('home.FestivalPage')
-
 	name = djangomodels.CharField(max_length=27)
 
-
+	panels = [
+		FieldPanel(name),
+		PageChooserPanel('page')
+	]
 
 	class Meta:
 		verbose_name = 'attribute'
 
+@register_snippet
+class Test(djangomodels.Model):
+	'''
+	Eenvoudige FK test
+	'''
 
+	name = djangomodels.CharField(max_length=8)
 
-
-
+	def __str__(self):
+		return self.name
 
