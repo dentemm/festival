@@ -88,15 +88,16 @@ class FestivalPage(models.Page):
 	name = djangomodels.CharField(max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
 
-	attribute = djangomodels.ForeignKey('home.FestivalPageRatebleAttributeValue', null=True, blank=True)
+	rateable_attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', null=True, blank=True)
 
 	test_attribute = djangomodels.ForeignKey('home.Test', null=True)
 
 	
-	panels = [
+	'''panels = [
 		#FieldPanel('name'),
-		InlinePanel('home.FestivalPageRateableAttribute', 'rateable_attributes', label='te beoordelen')
-	]
+		InlinePanel('home.FestivalPageRateableAttribute', 'rateable_attributes', label='te beoordelen'),
+		InlinePanel('home.FestivalPage', 'tests', label='tests')
+	]'''
 
 
 	class Meta:
@@ -107,7 +108,10 @@ FestivalPage.content_panels = models.Page.content_panels + [
 	FieldPanel('name'),
 	FieldPanel('description'),
 	#FieldPanel('test_attribute')
-	SnippetChooserPanel('test_attribute')
+	#SnippetChooserPanel('test_attribute'),
+	InlinePanel('tests', label='tests'),
+	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
+	#InlinePanel('')
 	#SnippetChooserPanel('home.FestivalPageRateableAttribute')
 
 	#InlinePanel('home.FestivalPage', 'rateable_attributes', label='te beoordelen')
@@ -121,27 +125,31 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	Join model for FestivalPage en FestivalAttribute
 	'''
 
-	attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', related_name='attributes')
+	attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 
 	panels = [
-		FieldPanel(attribute),
-		PageChooserPanel('page')
+		FieldPanel('attribute'),
+		#PageChooserPanel('page')
 	]
 
 @register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
-	page = djangomodels.ForeignKey('home.FestivalPage')
+	#page = djangomodels.ForeignKey('home.FestivalPage')
 	name = djangomodels.CharField(max_length=27)
 
 	panels = [
-		FieldPanel(name),
-		PageChooserPanel('page')
+		FieldPanel('name'),
+		#PageChooserPanel('page')
 	]
 
 	class Meta:
 		verbose_name = 'attribute'
+
+	def __str__(self):
+
+		return self.name
 
 @register_snippet
 class Test(djangomodels.Model):
@@ -154,3 +162,11 @@ class Test(djangomodels.Model):
 	def __str__(self):
 		return self.name
 
+class FestivalPageTest(djangomodels.Model):
+
+	test = djangomodels.ForeignKey(Test, related_name='+')
+	page = ParentalKey('home.FestivalPage', related_name='tests')
+
+	panels = [
+		FieldPanel('test'),
+	]
