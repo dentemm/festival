@@ -7,11 +7,13 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore import fields
 from wagtail.wagtailcore import models
 from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel, PageChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from modelcluster.fields import ParentalKey
+
+from ratings.models import RatedModelMixin
 
 
 # Global StreamField definitions
@@ -32,10 +34,11 @@ class HomePageStreamBlock(blocks.StreamBlock):
 	carousel = blocks.ListBlock(ImageWithCaptionBlock(), template='home/blocks/carousel.html', icon='image')
 
 
+'''
 class Comment(djangomodels.Model):
 
-	title = djangomodels.CharField(max_length=63)
-	text = djangomodels.CharField(max_length=511)
+	comment_title = djangomodels.CharField(max_length=63, null=True, blank=True)
+	comment_text = djangomodels.CharField(max_length=511, null=True)'''
 
 
 class Rating(djangomodels.Model):
@@ -58,10 +61,11 @@ class HomePage(models.Page):
 	class Meta:
 		verbose_name = 'Startpagina'
 
-HomePage.content_panels = [
+HomePage.content_panels = models.Page.content_panels + [
+
 	StreamFieldPanel('body'),
 ]
-
+'''
 class FestivalPageComment(models.Orderable, djangomodels.Model):
 
 	page = ParentalKey('home.FestivalPage', related_name='festival_comments')
@@ -77,11 +81,59 @@ class FestivalPageComment(models.Orderable, djangomodels.Model):
 	panels = [
 		SnippetChooserPanel('comment')
 	]
+'''
 
 class FestivalPage(models.Page):
+
+	name = djangomodels.CharField(max_length=40, default='')
+	description = djangomodels.TextField(max_length=500, default='')
+
+	'''
+	panels = [
+		FieldPanel('name'),
+		InlinePanel(FestivalPage, 'rateable_attributes', label='te beoordelen')
+	]'''
 
 
 	class Meta:
 		verbose_name = 'FestivalPagina'
+
+
+FestivalPage.content_panels = models.Page.content_panels + [
+	FieldPanel('name'),
+	FieldPanel('description'),
+	InlinePanel(FestivalPage, 'rateable_attributes', label='te beoordelen')
+
+]
+
+
+
+class FestivalPageRatebleAttributeValue(djangomodels.Model):
+	'''
+	Join model for FestivalPage en FestivalAttribute
+	'''
+
+	attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', related_name='+')
+	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
+
+	panels = [
+		FieldPanel(attribute),
+		PageChooserPanel('page')
+	]
+
+class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
+
+	page = djangomodels.ForeignKey('home.FestivalPage')
+
+	name = djangomodels.CharField(max_length=27)
+
+
+
+	class Meta:
+		verbose_name = 'attribute'
+
+
+
+
 
 

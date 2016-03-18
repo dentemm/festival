@@ -27,9 +27,6 @@ INSTALLED_APPS = [
     'home',
     'search',
 
-    # Custom non-wagtail apps
-    'comments',
-    'ratings',
 
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
@@ -53,6 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Custom non-wagtail apps
+    'comments',
+    'ratings',
 ]
 
 MIDDLEWARE_CLASSES = [
