@@ -1,4 +1,5 @@
 from django import template
+from django.contrib.contenttypes.models import ContentType
 
 from ..models import Score, Vote
 
@@ -14,6 +15,8 @@ def rating_count(obj):
 	'''
 
 	print('---------- rating count!-----------')
+	print('pk: ' + str(obj.pk))
+	print('ct: ' + str(ContentType.objects.get_for_model(obj)))
 
 	count = Vote.objects.filter(
 		object_id=obj.pk,
