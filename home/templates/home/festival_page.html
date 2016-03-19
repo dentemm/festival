@@ -13,12 +13,14 @@ FESTIVAL PAGINA: {{ page.name }}
 << {{ page.rateable_attributes }} >><br>
 ** {{ page.attribute }}  **<br>
 °° {{ page.rateable_attribute }} °°<br>
-{% for attribute in page.rateable_attribute %}
-	joepies
+{% for attribute in page.rate.all %}
+	{{ attribute }}
+	{{ attribute.pk }}
 {% endfor %}
 <br>
 <br>
 
-totaal: { rating_count <obj> }
+hierzo: {{ page.rate.all.2.rateable_attribute.rating_votes.first }} <br>
+totaal: { rating_count page.rate.all.2 }
 
 {% endblock content %}
