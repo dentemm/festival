@@ -72,7 +72,7 @@ class FestivalPage(models.Page):
 	name = djangomodels.CharField(max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
 
-	rateable_attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', null=True, blank=True)
+	#rateable_attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', null=True, blank=True)
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
@@ -98,13 +98,17 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	Join model for FestivalPage en FestivalAttribute
 	'''
 
-	attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', related_name='+')
-	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
+	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='tja')
+	page = ParentalKey('home.FestivalPage', related_name='rate')
 
 	panels = [
-		FieldPanel('attribute'),
+		FieldPanel('rateable_attribute'),
 		#PageChooserPanel('page')
 	]
+
+	def __str__(self):
+
+		return self.rateable_attribute.__str__()
 
 @register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
@@ -115,9 +119,13 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 	#page = djangomodels.ForeignKey('home.FestivalPage')
 	name = djangomodels.CharField(max_length=27)
+	attribute = djangomodels.CharField(max_length=12, default='')
+	rateable_attribute = djangomodels.CharField(max_length=16, default='')
 
 	panels = [
 		FieldPanel('name'),
+		#FieldPanel('attribute'),
+		#FieldPanel('rateable_attribute')
 	]
 
 	class Meta:

@@ -3,5 +3,22 @@
 {% load rating_tags %}
 
 {% block content %}
-FESTIVAL PAGINA
+FESTIVAL PAGINA: {{ page.name }}
+
+<br>
+<br>
+(( {{ page.rate.first }} )) ** {{ page.rate.last }}
+
+!! {{ page.attributes }} !! <br>
+<< {{ page.rateable_attributes }} >><br>
+** {{ page.attribute }}  **<br>
+°° {{ page.rateable_attribute }} °°<br>
+{% for attribute in page.rateable_attribute %}
+	joepies
+{% endfor %}
+<br>
+<br>
+
+totaal: { rating_count <obj> }
+
 {% endblock content %}
