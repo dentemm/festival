@@ -68,14 +68,15 @@ class FestivalPageTag(TaggedItemBase):
 	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items')
 
 class FestivalPage(models.Page):
+	'''
+	Deze klasse beschrijft een festival. 
+	- Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
+	'''
 
 	name = djangomodels.CharField(max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
 
-	#rateable_attribute = djangomodels.ForeignKey('home.FestivalPageRateableAttribute', null=True, blank=True)
-
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
-
 
 
 	class Meta:
@@ -103,7 +104,6 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 
 	panels = [
 		FieldPanel('rateable_attribute'),
-		#PageChooserPanel('page')
 	]
 
 	def __str__(self):
@@ -117,15 +117,10 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
 	'''
 
-	#page = djangomodels.ForeignKey('home.FestivalPage')
 	name = djangomodels.CharField(max_length=27)
-	attribute = djangomodels.CharField(max_length=12, default='')
-	rateable_attribute = djangomodels.CharField(max_length=16, default='')
 
 	panels = [
 		FieldPanel('name'),
-		#FieldPanel('attribute'),
-		#FieldPanel('rateable_attribute')
 	]
 
 	class Meta:
