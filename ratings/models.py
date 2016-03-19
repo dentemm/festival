@@ -104,7 +104,7 @@ class Score(BaseContentTypesModel):
 	def update(self, score):
 
 		num_votes = num_votes + 1
-		total_score = total_score + score
+		total_score = self.total_score + score
 		self.save()
 
 		return self.score
@@ -112,7 +112,7 @@ class Score(BaseContentTypesModel):
 	@property
 	def score(self):
 
-		score = float(total_score/num_votes)
+		score = float(self.total_score/self.num_votes)
 
 		return score
 
