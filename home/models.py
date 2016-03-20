@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 # Django imports
 from django.db import models as djangomodels
 from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Wagtail imports
 from wagtail.wagtailcore import blocks
@@ -78,6 +79,8 @@ class FestivalIndexPage(models.Page):
 	Deze klasse is een listview van alle opkomende festivals
 	'''
 
+	parent_page_types = ['home.FestivalPage']
+
 	@property
 	def festivals(self):
 
@@ -86,7 +89,27 @@ class FestivalIndexPage(models.Page):
 
 		return festivals
 
+	def get_context(self, request):
 
+		festivals = self.festivals
+
+		# pagination
+		page = request.GET.get('page')
+		paginator = Paginator(festivals, 16)
+
+		try:
+			festivals = paginator.page(page)
+
+		except PageNotAnInteger:
+			festivals = paginator.page(1)
+
+		except EmptyPage:
+			festivals = paginator.page(paginator.num_pages)
+
+		context = super(FestivalIndexPage, self).get_context(request)
+		content['festivals'] = festivals
+
+		return context
 
 
 #
@@ -111,6 +134,7 @@ class FestivalPage(models.Page):
 	descr = fields.RichTextField('Festival promo tekst', blank=True, default='')
 
 	date = djangomodels.DateField('Festival Datum', null=True)
+	duration = djangomodels.PositiveIntegerField(default=0)
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
@@ -121,6 +145,7 @@ class FestivalPage(models.Page):
 	class Meta:
 		verbose_name = 'FestivalPagina'
 		ordering = ['-date', ]
+
 
 
 FestivalPage.content_panels = models.Page.content_panels + [
@@ -188,7 +213,7 @@ class Location(djangomodels.Model):
 	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
 	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
 
-	address = djangomodels.OneToOneField(AddressInformation)
+	address = djangomodels.OneToOneField('home.AddressInformation')
 
 	def __str__(self):
 		return self.name
@@ -199,6 +224,8 @@ class Person(djangomodels.Model):
 
 	first_name = djangomodels.CharField(max_length=28)
 	last_name = djangomodels.CharField(max_length=64)
+	email = djangomodels.EmailField(null=True)
+	phone = djangomodels.CharField(max_length=28, null=True)
 
 	class Meta:
 		verbose_name = 'person'
