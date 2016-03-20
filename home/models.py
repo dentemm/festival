@@ -7,7 +7,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore import fields
 from wagtail.wagtailcore import models
 from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel, PageChooserPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel, PageChooserPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
@@ -104,7 +104,7 @@ class FestivalPage(models.Page):
 	description = djangomodels.TextField(max_length=500, default='')
 	descr = fields.RichTextField('Festival promo tekst', blank=True, default='')
 
-	data = djangomodels.DateField('Festival Datum', null=True)
+	date = djangomodels.DateField('Festival Datum', null=True)
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
@@ -114,10 +114,20 @@ class FestivalPage(models.Page):
 
 
 FestivalPage.content_panels = models.Page.content_panels + [
-	FieldPanel('name'),
-	FieldPanel('description'),
-	FieldPanel('descr'),
-	FieldPanel('date'),
+	MultiFieldPanel([
+			FieldRowPanel([
+				FieldPanel('name', classname='col6'),
+				FieldPanel('date', classname='col6'),
+				],
+			),
+
+			FieldPanel('descr'),
+		],
+		heading='Festival'
+	),
+
+	#FieldPanel('description'),
+	
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
 ]
 
