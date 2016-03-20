@@ -132,9 +132,11 @@ class FestivalPage(models.Page):
 	name = djangomodels.CharField('Festival naam', max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
 	descr = fields.RichTextField('Festival promo tekst', blank=True, default='')
+	date = djangomodels.DateField('Festival datum', null=True)
+	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 
-	date = djangomodels.DateField('Festival Datum', null=True)
-	duration = djangomodels.PositiveIntegerField(default=0)
+	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True)
+	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True)
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
@@ -149,16 +151,20 @@ class FestivalPage(models.Page):
 
 
 FestivalPage.content_panels = models.Page.content_panels + [
+
 	MultiFieldPanel([
+			FieldPanel('name'),
 			FieldRowPanel([
-				FieldPanel('name', classname='col6'),
 				FieldPanel('date', classname='col6'),
+				FieldPanel('duration', classname='col6'),
 				],
 			),
 			FieldPanel('descr'),
+			FieldPanel('contact_person'),
 		],
-		heading='Festival'
+		heading='Festival gegevens'
 	),
+
 
 	#FieldPanel('description'),
 	
@@ -213,7 +219,7 @@ class Location(djangomodels.Model):
 	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
 	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
 
-	address = djangomodels.OneToOneField('home.AddressInformation')
+	address = djangomodels.ForeignKey('home.AddressInformation', related_name='festivals')
 
 	def __str__(self):
 		return self.name
@@ -229,6 +235,7 @@ class Person(djangomodels.Model):
 
 	class Meta:
 		verbose_name = 'person'
+		ordering = ['last_name', ]
 
 	def __str__(self):
 		return self.first_name + ' ' + self.last_name
