@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
 
+# Django imports
 from django.db import models as djangomodels
 from django.conf import settings
 
+# Wagtail imports
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore import fields
 from wagtail.wagtailcore import models
@@ -11,12 +13,16 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, Inl
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
+# Third party wagtail dependancies 
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
-
 from taggit.models import TaggedItemBase
 
+# Custom app imports
 from ratings.models import RatedModelMixin
+
+# Current app imports
+from .managers import UpcomingFestivalManager
 
 
 # Global StreamField definitions
@@ -109,8 +115,12 @@ class FestivalPage(models.Page):
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
 
+	upcoming = UpcomingFestivalManager()
+
+
 	class Meta:
 		verbose_name = 'FestivalPagina'
+		ordering = ['-date', ]
 
 
 FestivalPage.content_panels = models.Page.content_panels + [
@@ -120,7 +130,6 @@ FestivalPage.content_panels = models.Page.content_panels + [
 				FieldPanel('date', classname='col6'),
 				],
 			),
-
 			FieldPanel('descr'),
 		],
 		heading='Festival'
