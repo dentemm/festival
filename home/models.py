@@ -178,12 +178,36 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 		verbose_name = 'attribute'
 
 	def __str__(self):
-
 		return self.name
+
+@register_snippet
+class Location(djangomodels.Model):
+
+	name = djangomodels.CharField(max_length=28)
+
+	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
+	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
+
+	address = djangomodels.OneToOneField(AddressInformation)
+
+	def __str__(self):
+		return self.name
+
+
+@register_snippet
+class Person(djangomodels.Model):
+
+	first_name = djangomodels.CharField(max_length=28)
+	last_name = djangomodels.CharField(max_length=64)
+
+	class Meta:
+		verbose_name = 'person'
+
+	def __str__(self):
+		return self.first_name + ' ' + self.last_name
 
 @register_snippet
 class AddressInformation(djangomodels.Model):
 	'''
 	'''
-
 	pass
