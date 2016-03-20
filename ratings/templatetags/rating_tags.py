@@ -14,13 +14,13 @@ def rating_count(obj):
 	Gebruik {% rating count <obj> %}
 	'''
 
-	print('---------- rating count!-----------')
-	print('pk: ' + str(obj.pk))
-	print('ct: ' + str(ContentType.objects.get_for_model(obj)))
+	#print('---------- rating count!-----------')
+	#print('pk: ' + str(obj.pk))
+	#print('ct: ' + str(ContentType.objects.get_for_model(obj)))
 
 	count = Vote.objects.filter(
 		object_id=obj.pk,
 		content_type=ContentType.objects.get_for_model(obj),
-		).exclude(rating=0).count()
+		).exclude(overall_rating=0).count()
 
 	return count

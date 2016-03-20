@@ -63,8 +63,15 @@ HomePage.content_panels = models.Page.content_panels + [
 	StreamFieldPanel('body'),
 ]
 
-
+#
+#
+# FESTIVAL PAGE 
+#
+#
 class FestivalPageTag(TaggedItemBase):
+	'''
+	Tags voor FestivalPage
+	'''
 	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items')
 
 class FestivalPage(models.Page):
@@ -75,6 +82,7 @@ class FestivalPage(models.Page):
 
 	name = djangomodels.CharField(max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
+	descr = fields.RichTextField(blank=True, default='')
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
