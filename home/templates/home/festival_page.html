@@ -134,7 +134,7 @@
 		<< {{ page.rateable_attributes }} >><br>
 		** {{ page.attribute }}  **<br>
 		°° {{ page.rateable_attribute }} °°<br>
-		{% for attribute in page.rate.all %}
+		{% for attribute in page.rateable_attributes.all %}
 			{{ attribute }}
 			{{ attribute.pk }}
 		{% endfor %}

@@ -62,6 +62,26 @@ HomePage.content_panels = models.Page.content_panels + [
 
 	StreamFieldPanel('body'),
 ]
+#
+#
+# FESTIVAL INDEX PAGE
+#
+#
+class FestivalIndexPage(models.Page):
+	'''
+	Deze klasse is een listview van alle opkomende festivals
+	'''
+
+	@property
+	def festivals(self):
+
+		festivals = FestivalPage.objects.live().descendant_of(self)
+		festivals = fesetivals.order_by('-date')
+
+		return festivals
+
+
+
 
 #
 #
@@ -84,6 +104,8 @@ class FestivalPage(models.Page):
 	description = djangomodels.TextField(max_length=500, default='')
 	descr = fields.RichTextField('Festival promo tekst', blank=True, default='')
 
+	data = djangomodels.DateField('Festival Datum', null=True)
+
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
 
@@ -95,6 +117,7 @@ FestivalPage.content_panels = models.Page.content_panels + [
 	FieldPanel('name'),
 	FieldPanel('description'),
 	FieldPanel('descr'),
+	FieldPanel('date'),
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
 ]
 
