@@ -80,9 +80,9 @@ class FestivalPage(models.Page):
 	- Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
 	'''
 
-	name = djangomodels.CharField(max_length=40, default='')
+	name = djangomodels.CharField('Festival naam', max_length=40, default='')
 	description = djangomodels.TextField(max_length=500, default='')
-	descr = fields.RichTextField(blank=True, default='')
+	descr = fields.RichTextField('Festival promo tekst', blank=True, default='')
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
@@ -94,6 +94,7 @@ class FestivalPage(models.Page):
 FestivalPage.content_panels = models.Page.content_panels + [
 	FieldPanel('name'),
 	FieldPanel('description'),
+	FieldPanel('descr'),
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
 ]
 
@@ -108,7 +109,7 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	'''
 
 	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='tja')
-	page = ParentalKey('home.FestivalPage', related_name='rate')
+	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 
 	panels = [
 		FieldPanel('rateable_attribute'),
