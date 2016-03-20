@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 from django.db import models as djangomodels
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.translation import ugettext as _
 
 
 # Wagtail imports
@@ -66,7 +67,7 @@ class HomePage(models.Page):
 	body = fields.StreamField(HomePageStreamBlock(), null=True)
 
 	class Meta:
-		verbose_name = 'Startpagina'
+		verbose_name = _('Startpagina')
 
 HomePage.content_panels = models.Page.content_panels + [
 
@@ -158,7 +159,7 @@ FestivalPage.content_panels = models.Page.content_panels + [
 	MultiFieldPanel([
 			FieldRowPanel([
 					FieldPanel('name', classname='col6'),
-					FieldPanel('location', classname='col6'),
+					#FieldPanel('location', classname='col6'),
 				]
 			),
 			
@@ -168,11 +169,12 @@ FestivalPage.content_panels = models.Page.content_panels + [
 				],
 			),
 			FieldPanel('descr'),
-			FieldPanel('contact_person'),
+			SnippetChooserPanel('contact_person', 'home.Person'),
+			SnippetChooserPanel('location', 'home.Location'),
+
 		],
 		heading='Festival gegevens'
 	),
-
 
 	#FieldPanel('description'),
 	
