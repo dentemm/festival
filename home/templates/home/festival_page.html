@@ -1,28 +1,159 @@
 {% extends 'base.html' %}
 
-{% load rating_tags %}
+{% load rating_tags static %}
 
-{% block content %}
-FESTIVAL PAGINA: {{ page.name }}
 
-<br>
-<br>
-(( {{ page.rate.first }} )) ** {{ page.rate.last }}
+{% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.theme.css' %}">
+    <!-- custom css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/advisor.css' %}">
+{% endblock %}
 
-!! {{ page.attributes }} !! <br>
-<< {{ page.rateable_attributes }} >><br>
-** {{ page.attribute }}  **<br>
-°° {{ page.rateable_attribute }} °°<br>
-{% for attribute in page.rate.all %}
-	{{ attribute }}
-	{{ attribute.pk }}
-{% endfor %}
-<br>
-<br>
+{% block content %} 
+	<div class="stage-shelf stage-shelf-right hidden" id="sidebar">
+	  	<ul class="nav nav-bordered nav-stacked">
+	    	<li class="nav-header">Examples</li>
+	    	<li class="active">
+	      		<a href="index.html">Startup</a>
+	    	</li>
+	    	<li>
+	      		<a href="minimal/index.html">Minimal</a>
+	    	</li>
+	    	<li>
+	      		<a href="bold/index.html">Bold</a>
+	    	</li>
+	    	<li class="nav-divider"></li>
+	    	<li class="nav-header">Docs</li>
+	    	<li>
+	      		<a href="docs/index.html">Toolkit</a>
+	    	</li>
+	    	<li>
+	      		<a href="http://getbootstrap.com">Bootstrap</a>
+	    	</li>
+	  	</ul>
+	</div>
+	<div class="stage" id="stage">
+		<div class="block block-inverse block-fill-height app-header" style="background-image: url(assets/img/startup-1.jpg);">
+			<nav class="navbar navbar-transparent navbar-fixed-top navbar-padded app-navbar p-t-md">
+  				<div class="container">
+				    <div class="navbar-header">
+				      	<button type="button" class="navbar-toggle collapsed p-x-0" data-target="#stage" data-toggle="stage" data-distance="-250">
+					        <span class="sr-only">Toggle navigation</span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+				      	</button>
+      					<a class="navbar-brand" href="">
+					        <strong style="background: transparent; padding: 12px; border-radius: 4px; color: #77933C;">
+					          	<span style="color: #FFF;">festival</span>advisor.be
+					        </strong>
+      					</a>
+    				</div>
+    				<div class="navbar-collapse collapse text-uppercase">
+      					<ul class="nav navbar-nav navbar-right">
+					        <li >
+					          	<a href="">Muzieksstijl</a>
+					        </li>
+					        <li >
+					          	<a href="">Prijscategorie</a>
+					        </li>
+					        <li >
+					          	<a href="">Schrijf een beoordeling</a>
+					        </li>
+					    </ul>
+    				</div><!--/.nav-collapse -->
+  				</div>
+			</nav>
+  			<img class="app-graph" src="">
+  			<div class="block-xs-middle p-b-lg">
+    			<div class="container">
+      				<div class="row">
+        				<div class="col-md-4 fad-abs hidden-xs">
+          					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					          	<!-- Wrapper for slides -->
+					          	<div class="carousel-inner" role="listbox">
+					            	<div class="item active">
+					               		<img class="img-circle" src="assets/img/minaj2.jpg">
+					              		<div class="carousel-caption text-center">
+					                		<div class="carousel-title">"Een unieke beleving.."</div>
+					                		Silvie Mol - Zottegem <br>
+					                		<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+					              		</div>
+					            	</div>
+						            <div class="item">
+						               	<img class="img-circle" src="assets/img/cudi2.jpg">
+						              	<div class="carousel-caption text-center">
+						                	<div class="carousel-title">"Volgend jaar meer van dit!"</div>
+						                	Geert Pasmans - Eeklo <br>
+						                	<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star fad-white"></i>
+						              	</div>
+						            </div>
+						        </div> <!-- end of slides-->
+        					</div>
+      					</div>
+				        <div class="col-sm-10 col-md-6">
+				          	<h1 class="block-title m-b-sm">Tomorrowland</h1>
+				          	<p class="lead m-b-md text-muted">23, 24, 25 juni</p>
+				          	<button class="btn btn-success m-b">Dance</button>
+				          	<br>
+				          	<div class="statcard p-a text-center" data-transition="entrance" style="transform: translateY(50px)">
+				            	<div class="col-md-6 fad-points" >
+				              		<h3 class="statcard-number">9</h3>
+				              		<span class="statcard-desc fad-points ">Line-up</span>
+				            	</div>
+					            <div class="col-md-6 fad-points">
+					              	<h3 class="statcard-number">8</h3>
+					              	<span class="statcard-desc fad-points">Food & Drinks</span>
+					            </div>
+					            <div class="col-md-6 fad-points">
+					              	<h3 class="statcard-number">7</h3>
+					              	<span class="statcard-desc fad-points">Netheid</span>
+					            </div>
+					            <div class="col-md-6 fad-points">
+					              	<h3 class="statcard-number">7</h3>
+					              	<span class="statcard-desc fad-points">Camping</span>
+					            </div>
+          					</div>
+        				</div>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+	</div>
+	<div class="container">
+		FESTIVAL PAGINA: {{ page.name }}
 
-PK: PK: {{ page.rate.all.2.rateable_attribute.pk }} <br>
+		<br>
+		<br>
+		(( {{ page.rate.first }} )) ** {{ page.rate.last }}
 
-hierzo: {{ page.rate.all.2.rateable_attribute.rating_scores.first }} <br>
-totaal: {% rating_count page.rate.all.2.rateable_attribute %}
+		!! {{ page.attributes }} !! <br>
+		<< {{ page.rateable_attributes }} >><br>
+		** {{ page.attribute }}  **<br>
+		°° {{ page.rateable_attribute }} °°<br>
+		{% for attribute in page.rate.all %}
+			{{ attribute }}
+			{{ attribute.pk }}
+		{% endfor %}
+		<br>
+		<br>
+
+		PK: PK: {{ page.rate.all.2.rateable_attribute.pk }} <br>
+
+		hierzo: {{ page.rate.all.2.rateable_attribute.rating_scores.first }} <br>
+		totaal: {% rating_count page.rateable_attributes.all.2.rateable_attribute %}
+			
+	</div>
 
 {% endblock content %}
+
+{% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    <!-- Owl Carousel -->
+    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+    <!-- festad? -->
+    <script type="text/javascript" src="{% static 'js/festad.js' %}"></script>
+{% endblock extra_js %}
