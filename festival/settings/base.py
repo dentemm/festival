@@ -110,7 +110,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'nl-be'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'CET'
 
 USE_I18N = True
 
