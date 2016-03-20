@@ -1,9 +1,12 @@
 from __future__ import unicode_literals
 
 # Django imports
+#from django import forms
+#from django.contrib import admin
 from django.db import models as djangomodels
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Wagtail imports
 from wagtail.wagtailcore import blocks
@@ -153,7 +156,12 @@ class FestivalPage(models.Page):
 FestivalPage.content_panels = models.Page.content_panels + [
 
 	MultiFieldPanel([
-			FieldPanel('name'),
+			FieldRowPanel([
+					FieldPanel('name', classname='col6'),
+					FieldPanel('location', classname='col6'),
+				]
+			),
+			
 			FieldRowPanel([
 				FieldPanel('date', classname='col6'),
 				FieldPanel('duration', classname='col6'),
@@ -181,7 +189,7 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	Join model for FestivalPage en FestivalAttribute
 	'''
 
-	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='tja')
+	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 
 	panels = [
@@ -190,7 +198,18 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 
 	def __str__(self):
 
-		return self.rateable_attribute.__str__()
+		return 'kenmerk'
+
+'''
+class FestivalPageRateableAttributeValueAdmin(admin.ModelAdmin):
+
+	form = CustomAttributeAdminForm
+
+class CustomAttributeAdminForm(forms.ModelForm):'''
+
+
+
+
 
 @register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
@@ -201,28 +220,40 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 	name = djangomodels.CharField(max_length=27)
 
-	panels = [
-		FieldPanel('name'),
-	]
-
 	class Meta:
-		verbose_name = 'attribute'
+		verbose_name = 'Beoordeelbaar kenmerk'
+		verbose_name_plural = 'Beoordeelbare kenmerken'
 
 	def __str__(self):
 		return self.name
+
+FestivalPageRateableAttribute.panels = [
+		FieldPanel('name'),
+	]
 
 @register_snippet
 class Location(djangomodels.Model):
 
 	name = djangomodels.CharField(max_length=28)
 
-	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
-	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=6)
+	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=7)
+	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=7)
 
-	address = djangomodels.ForeignKey('home.AddressInformation', related_name='festivals')
+	address = djangomodels.ForeignKey('home.Address', related_name='festivals', null=True)
+
+	class Meta:
+		verbose_name = 'locatie'
+		verbose_name_plural = 'locaties'
 
 	def __str__(self):
 		return self.name
+
+Location.panels = [
+	FieldPanel('name'),
+	FieldPanel('latitude'),
+	FieldPanel('longitude'),
+	FieldPanel('address')
+]
 
 
 @register_snippet
@@ -234,14 +265,27 @@ class Person(djangomodels.Model):
 	phone = djangomodels.CharField(max_length=28, null=True)
 
 	class Meta:
-		verbose_name = 'person'
+		verbose_name = 'persoon'
+		verbose_name_plural = 'personen'
 		ordering = ['last_name', ]
 
 	def __str__(self):
 		return self.first_name + ' ' + self.last_name
 
 @register_snippet
-class AddressInformation(djangomodels.Model):
+class Address(djangomodels.Model):
 	'''
 	'''
-	pass
+	
+	city = djangomodels.CharField(max_length=40)
+
+	panels = [
+		FieldPanel('city'),
+	]
+
+	class Meta:
+		verbose_name = 'adres'
+		verbose_name_plural = 'adressen'
+
+	def __str__(self):
+		return self.city
