@@ -14,6 +14,7 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore import fields
 from wagtail.wagtailcore import models
 from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel, PageChooserPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
@@ -171,6 +172,7 @@ FestivalPage.content_panels = models.Page.content_panels + [
 			FieldPanel('descr'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
 			SnippetChooserPanel('location', 'home.Location'),
+			#ImageChooserPanel('images'),
 
 		],
 		heading='Festival gegevens'
@@ -256,6 +258,28 @@ Location.panels = [
 	FieldPanel('longitude'),
 	FieldPanel('address')
 ]
+
+
+@register_snippet
+class FestivalImage(djangomodels.Model):
+
+	image = djangomodels.ForeignKey(
+		'wagtailimages.Image',
+		null=True,
+		blank=True,
+		related_name='+'
+	)
+
+	festival = ParentalKey('home.FestivalPage', related_name='images')
+
+	def __str__(self):
+		return 'afbeelding van %s' % festival
+
+	panels = [
+		ImageChooserPanel('image'),
+		PageChooserPanel('festival')
+
+	]
 
 
 @register_snippet
