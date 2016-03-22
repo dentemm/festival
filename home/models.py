@@ -181,7 +181,8 @@ FestivalPage.content_panels = models.Page.content_panels + [
 	#FieldPanel('description'),
 	
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
-	InlinePanel('images', label='Festival afbeeldingen')
+	InlinePanel('images', label='Festival afbeeldingen'),
+	InlinePanel('locations', label='Festival locatie(s)')
 ]
 
 FestivalPage.promote_panels = models.Page.promote_panels + [
@@ -235,6 +236,17 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 FestivalPageRateableAttribute.panels = [
 		FieldPanel('name'),
 	]
+
+class FestivalLocation(djangomodels.Model):
+
+	location = djangomodels.ForeignKey('Location')
+	page = ParentalKey('home.FestivalPage', related_name='locations')
+
+	panels = [
+		FieldPanel('location'),
+	]
+
+
 
 @register_snippet
 class Location(djangomodels.Model):
