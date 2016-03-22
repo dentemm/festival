@@ -145,6 +145,8 @@ class FestivalPage(models.Page):
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
+	test = djangomodels.ForeignKey('wagtailimages.image', related_name='+', null=True)
+
 
 	upcoming = UpcomingFestivalManager()
 
@@ -173,6 +175,7 @@ FestivalPage.content_panels = models.Page.content_panels + [
 			SnippetChooserPanel('contact_person', 'home.Person'),
 			SnippetChooserPanel('location', 'home.Location'),
 			#ImageChooserPanel('images'),
+			ImageChooserPanel('test')
 
 		],
 		heading='Festival gegevens'
@@ -273,12 +276,11 @@ class FestivalImage(djangomodels.Model):
 	festival = ParentalKey('home.FestivalPage', related_name='images')
 
 	def __str__(self):
-		return 'afbeelding van %s' % festival
+		return 'afbeelding'
 
 	panels = [
 		ImageChooserPanel('image'),
-		PageChooserPanel('festival')
-
+		#PageChooserPanel('festival', 'home.FestivalPage')
 	]
 
 
