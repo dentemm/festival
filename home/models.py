@@ -352,7 +352,7 @@ class FestivalImage(djangomodels.Model):
 	'''
 
 	image = djangomodels.ForeignKey(
-		'wagtailimages.Image',
+		CustomImage,
 		null=True,
 		blank=True,
 		related_name='+'
