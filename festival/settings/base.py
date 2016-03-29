@@ -143,3 +143,5 @@ MEDIA_URL = '/media/'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "festival"
+
+WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'

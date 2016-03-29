@@ -317,10 +317,13 @@ class CustomImage(AbstractImage):
 	'''
 
 	is_primary = djangomodels.BooleanField(blank=True)
+	test = djangomodels.CharField(max_length=16, null=True)
 
 	admin_form_fields = Image.admin_form_fields + (
 		'is_primary',
+		'test',
 	)
+
 
 class CustomRendition(AbstractRendition):
 	'''
