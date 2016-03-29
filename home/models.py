@@ -34,6 +34,14 @@ from ratings.models import RatedModelMixin
 from .managers import UpcomingFestivalManager
 
 
+#
+#
+# Global classes
+#
+#
+
+
+
 # Global StreamField definitions
 
 # 1. Blocks used in StreamField
@@ -53,18 +61,6 @@ class HomePageStreamBlock(blocks.StreamBlock):
 
 
 
-class Rating(djangomodels.Model):
-
-	owner = djangomodels.ForeignKey(
-		settings.AUTH_USER_MODEL,
-		verbose_name='owner',
-		null=True,
-		blank=True,
-		editable=False,
-		on_delete=djangomodels.SET_NULL,
-		related_name='rated',
-		)
-
 
 class HomePage(models.Page):
 
@@ -77,6 +73,60 @@ HomePage.content_panels = models.Page.content_panels + [
 
 	StreamFieldPanel('body'),
 ]
+
+#
+#
+# SNIPPETS
+#
+#
+
+@register_snippet
+class Location(djangomodels.Model):
+	'''
+	Location object voor festival
+	'''
+
+	name = djangomodels.CharField(max_length=28)
+
+	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
+	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
+
+	address = djangomodels.ForeignKey('home.Address', related_name='festivals', null=True)
+
+	class Meta:
+		verbose_name = 'locatie'
+		verbose_name_plural = 'locaties'
+
+	def __str__(self):
+		return self.name
+
+	panels = [
+		FieldPanel('name'),
+		FieldPanel('latitude'),
+		FieldPanel('longitude'),
+		FieldPanel('address')
+	]
+
+@register_snippet
+class Address(djangomodels.Model):
+	'''
+	Een adres model voor location objecten
+	'''
+	
+	city = djangomodels.CharField(max_length=40)
+
+	panels = [
+		FieldPanel('city'),
+	]
+
+	class Meta:
+		verbose_name = 'adres'
+		verbose_name_plural = 'adressen'
+
+	def __str__(self):
+		return self.city
+
+
 #
 #
 # FESTIVAL INDEX PAGE
@@ -247,61 +297,15 @@ class FestivalLocation(djangomodels.Model):
 	Through model voor m2m relatie tussen Location en FestivalPage
 	'''
 
-	location = djangomodels.ForeignKey('Location')
+	location = djangomodels.ForeignKey('home.Location')
 	page = ParentalKey('home.FestivalPage', related_name='locations')
 
 	panels = [
 		FieldPanel('location'),
 	]
 
-@register_snippet
-class Location(djangomodels.Model):
-	'''
-	Location object voor festival
-	'''
 
-	name = djangomodels.CharField(max_length=28)
-
-	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
-	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
-
-	address = djangomodels.ForeignKey('home.Address', related_name='festivals', null=True)
-
-	class Meta:
-		verbose_name = 'locatie'
-		verbose_name_plural = 'locaties'
-
-	def __str__(self):
-		return self.name
-
-	panels = [
-		FieldPanel('name'),
-		FieldPanel('latitude'),
-		FieldPanel('longitude'),
-		FieldPanel('address')
-	]
-
-@register_snippet
-class Address(djangomodels.Model):
-	'''
-	Een adres model voor location objecten
-	'''
-	
-	city = djangomodels.CharField(max_length=40)
-
-	panels = [
-		FieldPanel('city'),
-	]
-
-	class Meta:
-		verbose_name = 'adres'
-		verbose_name_plural = 'adressen'
-
-	def __str__(self):
-		return self.city
-
-
-##
+#
 #
 # FESTIVAL PAGE 
 #
