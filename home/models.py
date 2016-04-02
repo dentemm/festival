@@ -83,7 +83,8 @@ HomePage.content_panels = models.Page.content_panels + [
 @register_snippet
 class Location(djangomodels.Model):
 	'''
-	Location object voor festival
+	Location object voor festival. Longitude en Latitude zijn beschikbaar om locatie
+	weer te geven op een kaart. Een locatie kan een naam hebben, vb Sportpaleis of Schorre
 	'''
 
 	name = djangomodels.CharField(max_length=28)
@@ -181,19 +182,19 @@ class FestivalPageTag(TaggedItemBase):
 	'''
 	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items')
 
+
 class FestivalPage(models.Page):
 	'''
 	Deze klasse beschrijft een festival. 
-	- Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
+		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
 	'''
 
 	name = djangomodels.CharField('Festival naam', max_length=40, default='')
-	description = djangomodels.TextField(max_length=500, default='')
 	descr = fields.RichTextField('Festival promo tekst', blank=True, default='')
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 
-	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True)
+	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True)
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
@@ -204,6 +205,10 @@ class FestivalPage(models.Page):
 	class Meta:
 		verbose_name = 'FestivalPagina'
 		ordering = ['-date', ]
+
+	def global_score(self):
+
+		pass
 
 
 
@@ -252,13 +257,22 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 
-	panels = [
-		FieldPanel('rateable_attribute'),
-	]
+
+	class Meta:
+		unique_together = (
+			('page', 'rateable_attribute', ),
+		)
+
+
 
 	def __str__(self):
 
 		return 'kenmerk'
+
+FestivalPageRatebleAttributeValue.panels = [
+	FieldPanel('rateable_attribute'),	
+]
+
 
 '''
 class FestivalPageRateableAttributeValueAdmin(admin.ModelAdmin):
@@ -268,6 +282,14 @@ class FestivalPageRateableAttributeValueAdmin(admin.ModelAdmin):
 class CustomAttributeAdminForm(forms.ModelForm):'''
 
 
+
+'''class DefaultRateableAttributeMixin(RatedModelMixin, djangomodels.Model):
+
+	bereikbaarheid = djangomodels.CharField(max_length=27)
+
+
+	class Meta:
+		abstract = True'''
 
 
 
@@ -283,6 +305,7 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 	class Meta:
 		verbose_name = 'Beoordeelbaar kenmerk'
 		verbose_name_plural = 'Beoordeelbare kenmerken'
+		ordering = ['name', ]
 
 	def __str__(self):
 		return self.name
@@ -316,12 +339,15 @@ class CustomImage(AbstractImage):
 	AbstractImage als AbstractRendition
 	'''
 
-	is_primary = djangomodels.BooleanField(blank=True)
-	test = djangomodels.CharField(max_length=16, null=True)
+	#is_primary = djangomodels.BooleanField(blank=True)
+	#test = djangomodels.CharField(max_length=16, null=True)
 
+	#def save(self, *args, **kwargs):
+
+	# register the extra Image field in wagtail admin
 	admin_form_fields = Image.admin_form_fields + (
-		'is_primary',
-		'test',
+		#'is_primary',
+		#'test',
 	)
 
 
@@ -364,14 +390,23 @@ class FestivalImage(djangomodels.Model):
 		blank=True,
 		related_name='+'
 	)
-
 	page = ParentalKey('home.FestivalPage', related_name='images', null=True)
+
+	is_primary = djangomodels.BooleanField(default=False)
 
 	def __str__(self):
 		return 'afbeelding'
 
+	def save(self, *args, **kwargs):
+
+		for index, image in enumerate(self.page.images.all()):
+			print('image %s' % index)
+
+		return super(FestivalImage, self).save(*args, **kwargs)
+
 	panels = [
 		ImageChooserPanel('image'),
+		FieldPanel('is_primary'),
 	]
 
 

@@ -125,6 +125,31 @@
 	</div>
 	<div class="container">
 		FESTIVAL PAGINA: {{ page.name }}
+
+		<br>
+		<br>
+		(( {{ page.rate.first }} )) ** {{ page.rate.last }}
+
+		!! {{ page.attributes }} !! <br>
+		<< {{ page.rateable_attributes }} >><br>
+		** {{ page.attribute }}  **<br>
+		°° {{ page.rateable_attribute }} °°<br>
+		{% for attribute in page.rateable_attributes.all %}
+			{{ attribute }}
+			{{ attribute.pk }}
+		{% endfor %}
+		<br>
+		<br>
+
+		{% if page.rate.all %}
+			{% if page.rate.all.2 %}
+			PK: PK: {{ page.rate.all.2.rateable_attribute.pk }} <br>
+			hierzo: {{ page.rate.all.2.rateable_attribute.rating_scores.first }} <br>
+			totaal: {% rating_count page.rateable_attributes.all.2.rateable_attribute %}
+			{% endif %}
+		{% endif %}
+
+
 			
 	</div>
 
