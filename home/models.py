@@ -32,6 +32,7 @@ from ratings.models import RatedModelMixin
 
 # Current app imports
 from .managers import UpcomingFestivalManager
+from .forms import FestivalPageForm
 
 
 #
@@ -89,10 +90,10 @@ class Location(djangomodels.Model):
 
 	name = djangomodels.CharField(max_length=28)
 
+	address = djangomodels.ForeignKey('home.Address', related_name='festivals', null=True)
+
 	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
 	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
-
-	address = djangomodels.ForeignKey('home.Address', related_name='festivals', null=True)
 
 	class Meta:
 		verbose_name = 'locatie'
@@ -190,7 +191,7 @@ class FestivalPage(models.Page):
 	'''
 
 	name = djangomodels.CharField('Festival naam', max_length=40, default='')
-	descr = fields.RichTextField('Festival promo tekst', blank=True, default='')
+	description = fields.RichTextField('Festival promo tekst', blank=True, default='')
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 
@@ -199,7 +200,9 @@ class FestivalPage(models.Page):
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
-	upcoming = UpcomingFestivalManager()
+	#upcoming = UpcomingFestivalManager()
+
+	#base_form_class = FestivalPageForm
 
 
 	class Meta:
@@ -217,7 +220,6 @@ FestivalPage.content_panels = models.Page.content_panels + [
 	MultiFieldPanel([
 			FieldRowPanel([
 					FieldPanel('name', classname='col6'),
-					#FieldPanel('location', classname='col6'),
 				]
 			),
 			
@@ -226,7 +228,7 @@ FestivalPage.content_panels = models.Page.content_panels + [
 				FieldPanel('duration', classname='col6'),
 				],
 			),
-			FieldPanel('descr'),
+			FieldPanel('description'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
 			SnippetChooserPanel('tags')
 			#SnippetChooserPanel('location', 'home.Location'),
@@ -236,8 +238,6 @@ FestivalPage.content_panels = models.Page.content_panels + [
 		],
 		heading='Festival gegevens'
 	),
-
-	#FieldPanel('description'),
 	
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
@@ -262,8 +262,6 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 		unique_together = (
 			('page', 'rateable_attribute', ),
 		)
-
-
 
 	def __str__(self):
 
