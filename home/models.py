@@ -165,6 +165,9 @@ Address.panels = [
 
 @register_snippet
 class Person(djangomodels.Model):
+	'''
+	Dit model wordt gebruikt om een persoon en zijn contactgegevens te beschrijven
+	'''
 
 	first_name = djangomodels.CharField('voornaam', max_length=28)
 	last_name = djangomodels.CharField('familienaam', max_length=64)
@@ -178,7 +181,6 @@ class Person(djangomodels.Model):
 
 	def __str__(self):
 		return self.first_name + ' ' + self.last_name
-
 
 Person.panels = [
 	MultiFieldPanel([
@@ -315,10 +317,10 @@ FestivalPage.content_panels = [
 		],
 		heading='Festival gegevens'
 	),
-	
-	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
-	InlinePanel('images', label='Festival afbeeldingen'),
-	InlinePanel('locations', label='Festival locatie(s)')
+	#
+	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	#InlinePanel('images', label='Festival afbeeldingen'),
+	#InlinePanel('locations', label='Festival locatie(s)')
 ]
 
 #FestivalPage.promote_panels = models.Page.promote_panels + [
@@ -369,7 +371,7 @@ class CustomAttributeAdminForm(forms.ModelForm):'''
 
 
 
-@register_snippet
+#@register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 	'''
 	Deze klasse beschrijft een te beoordelen kenmerk van een festival. Het erft van de RatedModelMixin klasse
@@ -454,7 +456,7 @@ def rendition_delete(sender, instance, **kwargs):
 
 
 
-@register_snippet
+#@register_snippet
 class FestivalImage(djangomodels.Model):
 	'''
 	Through model voor m2m relatie tussen FestivalPage en wagtailimages.Image
@@ -484,8 +486,4 @@ class FestivalImage(djangomodels.Model):
 		ImageChooserPanel('image'),
 		FieldPanel('is_primary'),
 	]
-
-
-
-
 
