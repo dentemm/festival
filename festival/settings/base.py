@@ -112,8 +112,8 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-#LANGUAGE_CODE = 'nl-be'
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'nl-be'
+#LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'CET'
 

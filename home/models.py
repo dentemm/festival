@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 from django.db import models as djangomodels
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
@@ -140,6 +141,41 @@ class Address(djangomodels.Model):
 	def __str__(self):
 		return self.city
 
+@register_snippet
+class Person(djangomodels.Model):
+
+	first_name = djangomodels.CharField('voornaam', max_length=28)
+	last_name = djangomodels.CharField('familienaam', max_length=64)
+	email = djangomodels.EmailField('email adres', null=True)
+	phone = djangomodels.CharField('telefoonnummer', max_length=28, null=True)
+
+	class Meta:
+		verbose_name = 'persoon'
+		verbose_name_plural = 'personen'
+		ordering = ['last_name', ]
+
+	def __str__(self):
+		return self.first_name + ' ' + self.last_name
+
+
+Person.panels = [
+	MultiFieldPanel([
+			FieldRowPanel([
+					FieldPanel('first_name', classname='col6'),
+					FieldPanel('last_name', classname='col6')
+				]
+			),
+			FieldRowPanel([
+					FieldPanel('email', classname='col6'),
+					FieldPanel('phone', classname='col6')
+				]
+			),
+		],
+		heading='Persoonsgegevens'
+	),
+	
+]
+
 #
 #
 # FESTIVAL INDEX PAGE
@@ -192,7 +228,7 @@ class FestivalPageTag(TaggedItemBase):
 	'''
 	Tags voor FestivalPage
 	'''
-	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items')
+	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items', null=True)
 
 
 class FestivalPage(models.Page):
@@ -201,7 +237,7 @@ class FestivalPage(models.Page):
 		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
 	'''
 
-	name = djangomodels.CharField('Festival naam', max_length=40, default='')
+	name = djangomodels.CharField('Festival naam', max_length=40, default='', unique=True)
 	description = fields.RichTextField('Festival promo tekst', blank=True, default='')
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
@@ -210,13 +246,24 @@ class FestivalPage(models.Page):
 	#test = RecurrenceField(null=True)
 
 	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
-	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True)
+	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True)
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
 	#upcoming = UpcomingFestivalManager()
 
 	#base_form_class = FestivalPageForm
+
+	def save(self, *args, **kwargs):
+		'''
+		Deze methode werd overschreven om de title en slug attributes van een Page model in te stellen
+		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
+		'''
+
+		self.title = self.name
+		self.slug = slugify(self.name)
+
+		super(FestivalPage, self).save(*args, **kwargs)
 
 
 	class Meta:
@@ -228,8 +275,7 @@ class FestivalPage(models.Page):
 		pass
 
 
-
-FestivalPage.content_panels = models.Page.content_panels + [
+FestivalPage.content_panels = [
 
 	MultiFieldPanel([
 			FieldRowPanel([
@@ -244,11 +290,6 @@ FestivalPage.content_panels = models.Page.content_panels + [
 			),
 			FieldPanel('description'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
-			SnippetChooserPanel('tags'),
-			FieldPanel('test'),
-			#SnippetChooserPanel('location', 'home.Location'),
-			#ImageChooserPanel('images'),
-			#ImageChooserPanel('test')
 
 		],
 		heading='Festival gegevens'
@@ -259,7 +300,8 @@ FestivalPage.content_panels = models.Page.content_panels + [
 	InlinePanel('locations', label='Festival locatie(s)')
 ]
 
-FestivalPage.promote_panels = models.Page.promote_panels + [
+#FestivalPage.promote_panels = models.Page.promote_panels + [
+FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
 
@@ -423,20 +465,6 @@ class FestivalImage(djangomodels.Model):
 	]
 
 
-@register_snippet
-class Person(djangomodels.Model):
 
-	first_name = djangomodels.CharField(max_length=28)
-	last_name = djangomodels.CharField(max_length=64)
-	email = djangomodels.EmailField(null=True)
-	phone = djangomodels.CharField(max_length=28, null=True)
-
-	class Meta:
-		verbose_name = 'persoon'
-		verbose_name_plural = 'personen'
-		ordering = ['last_name', ]
-
-	def __str__(self):
-		return self.first_name + ' ' + self.last_name
 
 
