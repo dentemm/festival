@@ -120,7 +120,7 @@ class Address(djangomodels.Model):
 	Address model beschrijft typische adres velden
 	'''
 	
-	city = djangomodels.CharField(verbose_name='stad/gemeente', max_length=40)
+	city = djangomodels.CharField(verbose_name='stad', max_length=40)
 	postal_code = djangomodels.CharField(verbose_name='postcode', max_length=8, null=True)
 	street = djangomodels.CharField(verbose_name='straat', max_length=40, null=True)
 	number = djangomodels.CharField(verbose_name='nummer', max_length=8, null=True)
@@ -139,7 +139,29 @@ class Address(djangomodels.Model):
 		verbose_name_plural = 'adressen'
 
 	def __str__(self):
-		return self.city
+		return '%s - %s' % (self.street, self.city)
+
+Address.panels = [
+	MultiFieldPanel([
+			FieldRowPanel([
+					FieldPanel('street', classname='col8'),
+					FieldPanel('number', classname='col4')
+				]
+			),
+			FieldRowPanel([
+					FieldPanel('city', classname='col8'),
+					FieldPanel('postal_code', classname='col4')
+				]
+			),
+			FieldRowPanel([
+					FieldPanel('country', classname='col6'),
+				]
+			),
+		],
+		heading='Persoonsgegevens'
+	),
+]
+
 
 @register_snippet
 class Person(djangomodels.Model):
@@ -173,7 +195,6 @@ Person.panels = [
 		],
 		heading='Persoonsgegevens'
 	),
-	
 ]
 
 #
