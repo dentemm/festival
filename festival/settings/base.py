@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party apps
+    'django_countries',
+
     # Custom non-wagtail apps
     'comments',
     'ratings',

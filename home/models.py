@@ -27,6 +27,9 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
+# Other third party dependancies
+from django_countries.fields import CountryField
+
 # Custom app imports
 from ratings.models import RatedModelMixin
 
@@ -84,13 +87,13 @@ HomePage.content_panels = models.Page.content_panels + [
 @register_snippet
 class Location(djangomodels.Model):
 	'''
-	Location object voor festival. Longitude en Latitude zijn beschikbaar om locatie
-	weer te geven op een kaart. Een locatie kan een naam hebben, vb Sportpaleis of Schorre
+	Location object voor festival. Een Location heeft een ForeignKey naar Address
+	Longitude en Latitude zijn beschikbaar om locatieweer te geven op een kaart. 
+	Een locatie kan een naam hebben, vb Sportpaleis of Schorre
 	'''
 
 	name = djangomodels.CharField(max_length=28)
-
-	address = djangomodels.ForeignKey('home.Address', related_name='festivals', null=True)
+	address = djangomodels.ForeignKey('home.Address', verbose_name='adres', related_name='location', null=True)
 
 	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
 	latitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
@@ -102,23 +105,31 @@ class Location(djangomodels.Model):
 	def __str__(self):
 		return self.name
 
-	panels = [
-		FieldPanel('name'),
-		FieldPanel('latitude'),
-		FieldPanel('longitude'),
-		FieldPanel('address')
-	]
+Location.panels = [
+	FieldPanel('name'),
+	FieldPanel('latitude'),
+	FieldPanel('longitude'),
+	FieldPanel('address')
+]
 
 @register_snippet
 class Address(djangomodels.Model):
 	'''
-	Een adres model voor location objecten
+	Address model beschrijft typische adres velden
 	'''
 	
-	city = djangomodels.CharField(max_length=40)
+	city = djangomodels.CharField(verbose_name='stad/gemeente', max_length=40)
+	postal_code = djangomodels.CharField(verbose_name='postcode', max_length=8, null=True)
+	street = djangomodels.CharField(verbose_name='straat', max_length=40, null=True)
+	number = djangomodels.CharField(verbose_name='nummer', max_length=8, null=True)
+	country = CountryField(verbose_name='land', null=True, default='BE')
 
 	panels = [
 		FieldPanel('city'),
+		FieldPanel('postal_code'),
+		FieldPanel('street'),
+		FieldPanel('number'),
+		FieldPanel('country')
 	]
 
 	class Meta:
@@ -127,7 +138,6 @@ class Address(djangomodels.Model):
 
 	def __str__(self):
 		return self.city
-
 
 #
 #
