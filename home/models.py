@@ -29,6 +29,7 @@ from taggit.models import TaggedItemBase
 
 # Other third party dependancies
 from django_countries.fields import CountryField
+#from recurrence.fields import RecurrenceField
 
 # Custom app imports
 from ratings.models import RatedModelMixin
@@ -205,6 +206,9 @@ class FestivalPage(models.Page):
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 
+
+	#test = RecurrenceField(null=True)
+
 	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True)
 
@@ -240,7 +244,8 @@ FestivalPage.content_panels = models.Page.content_panels + [
 			),
 			FieldPanel('description'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
-			SnippetChooserPanel('tags')
+			SnippetChooserPanel('tags'),
+			FieldPanel('test'),
 			#SnippetChooserPanel('location', 'home.Location'),
 			#ImageChooserPanel('images'),
 			#ImageChooserPanel('test')

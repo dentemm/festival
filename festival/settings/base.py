@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
     # third party apps
     'django_countries',
+    #'recurrence',
 
     # Custom non-wagtail apps
     'comments',
