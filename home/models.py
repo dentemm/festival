@@ -265,6 +265,7 @@ class FestivalPage(models.Page):
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 	website = djangomodels.URLField(max_length=120, null=True, blank=True)
+	main_image = djangomodels.ForeignKey(Image, null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
 
 
 	#test = RecurrenceField(null=True)
@@ -441,17 +442,17 @@ class FestivalImage(djangomodels.Model):
 
 	def save(self, *args, **kwargs):
 
-		print('saaaaaaaaaaaaaaaaaave')
+		#print('saaaaaaaaaaaaaaaaaave')
 
 		if len(self.page.images.all()) == 1:
 
-			print('slechts eentje, dus maak steeds primair')
+			#print('slechts eentje, dus maak steeds primair')
 			self.is_primary = True
 
 		else: 
 
-			print('lengte====== %s)' % len(self.page.images.all()))
-			print('imageimageimagiemagimegamgiae: %s' % self.image)
+			#print('lengte====== %s)' % len(self.page.images.all()))
+			#print('imageimageimagiemagimegamgiae: %s' % self.image)
 
 			primary_present = False
 
@@ -460,6 +461,8 @@ class FestivalImage(djangomodels.Model):
 				if image.is_primary == True and primary_present == False:
 					primary_present = True
 					print('primary image ingesteld')
+					self.page.main_image = self.image
+					print('pagina image test: %s' % self.page.main_image)
 
 				else:
 					image.is_primary = False
