@@ -18,7 +18,7 @@ from wagtail.wagtailcore import fields
 from wagtail.wagtailcore import models
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
+from wagtail.wagtailimages.models import Image
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel, PageChooserPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
@@ -320,7 +320,7 @@ FestivalPage.content_panels = [
 	),
 	#
 	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
-	#InlinePanel('images', label='Festival afbeeldingen'),
+	InlinePanel('images', label='Festival afbeeldingen'),
 	#InlinePanel('locations', label='Festival locatie(s)')
 ]
 
@@ -411,49 +411,6 @@ FestivalLocation.panels = [
 # FESTIVAL PAGE 
 #
 #
-class CustomImage(AbstractImage):
-	'''
-	Om een custom image model te voorzien dien je een subklasse aan te maken van zowel
-	AbstractImage als AbstractRendition
-	'''
-
-	#is_primary = djangomodels.BooleanField(blank=True)
-	#test = djangomodels.CharField(max_length=16, null=True)
-
-	#def save(self, *args, **kwargs):
-
-	# register the extra Image field in wagtail admin
-	admin_form_fields = Image.admin_form_fields + (
-		#'is_primary',
-		#'test',
-	)
-
-
-class CustomRendition(AbstractRendition):
-	'''
-	Om een custom image model te voorzien dien je een subklasse aan te maken van zowel
-	AbstractImage als AbstractRendition
-	'''
-
-	image = djangomodels.ForeignKey(CustomImage, related_name='renditions')
-
-	class Meta:
-		unique_together = (
-			('image', 'filter', 'focal_point_key'),
-		)
-
-# Delete the source image file when an image is deleted
-@receiver(pre_delete, sender=CustomImage)
-def image_delete(sender, instance, **kwargs):
-    instance.file.delete(False)
-
-
-# Delete the rendition image file when a rendition is deleted
-@receiver(pre_delete, sender=CustomRendition)
-def rendition_delete(sender, instance, **kwargs):
-    instance.file.delete(False)
-
-
 
 
 #@register_snippet
@@ -463,14 +420,14 @@ class FestivalImage(djangomodels.Model):
 	'''
 
 	image = djangomodels.ForeignKey(
-		CustomImage,
+		Image,
 		null=True,
 		blank=True,
 		related_name='+'
 	)
 	page = ParentalKey('home.FestivalPage', related_name='images', null=True)
 
-	is_primary = djangomodels.BooleanField(default=False)
+	is_primary = djangomodels.BooleanField('hoofdafbeelding', default=False)
 
 	def __str__(self):
 		return 'afbeelding'
@@ -482,8 +439,9 @@ class FestivalImage(djangomodels.Model):
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
-	panels = [
-		ImageChooserPanel('image'),
-		FieldPanel('is_primary'),
-	]
+
+FestivalImage.panels = [
+	ImageChooserPanel('image'),
+	FieldPanel('is_primary'),
+]
 

@@ -148,4 +148,4 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = "festival"
 
-WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
+#WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
