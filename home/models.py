@@ -199,6 +199,29 @@ Person.panels = [
 	),
 ]
 
+#@register_snippet
+class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
+	'''
+	Deze klasse beschrijft een te beoordelen kenmerk van een festival. Het erft van de RatedModelMixin klasse
+	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
+	'''
+
+	name = djangomodels.CharField(max_length=27)
+
+	base_form_class = MyModelForm
+
+	class Meta:
+		verbose_name = 'Beoordeelbaar kenmerk'
+		verbose_name_plural = 'Beoordeelbare kenmerken'
+		ordering = ['name', ]
+
+	def __str__(self):
+		return self.name
+
+	def save(self, *args, **kwargs):
+
+		return super(FestivalPageRateableAttribute, self).save(*args, **kwargs)
+
 #
 #
 # FESTIVAL INDEX PAGE
@@ -249,7 +272,7 @@ class FestivalIndexPage(models.Page):
 #
 class FestivalPageTag(TaggedItemBase):
 	'''
-	Tags voor FestivalPage
+	Tags voor FestivalPage, m2m relatie tussen Page en FestivalPageTag wordt voorzien via django-modelcluster
 	'''
 	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items', null=True)
 
@@ -266,12 +289,11 @@ class FestivalPage(models.Page):
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 	website = djangomodels.URLField(max_length=120, null=True, blank=True)
 	main_image = djangomodels.ForeignKey(Image, null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
-
-
 	#test = RecurrenceField(null=True)
 
-	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True)
+	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
+
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
@@ -319,14 +341,19 @@ FestivalPage.content_panels = [
 				FieldPanel('duration', classname='col6'),
 				],
 			),
+			FieldRowPanel([
+				FieldPanel('website', classname='col6'),
+				],
+			),
 			FieldPanel('description'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
+			SnippetChooserPanel('location', 'home.Location')
 
 		],
 		heading='Festival gegevens'
 	),
 	#
-	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	#InlinePanel('locations', label='Festival locatie(s)')
 ]
@@ -364,34 +391,6 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 
 		return super(FestivalPageRatebleAttributeValue, self).save(*args, **kwargs)
 
-
-
-
-
-@register_snippet
-class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
-	'''
-	Deze klasse beschrijft een te beoordelen kenmerk van een festival. Het erft van de RatedModelMixin klasse
-	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
-	'''
-
-	name = djangomodels.CharField(max_length=27)
-
-	base_form_class = MyModelForm
-
-	class Meta:
-		verbose_name = 'Beoordeelbaar kenmerk'
-		verbose_name_plural = 'Beoordeelbare kenmerken'
-		ordering = ['name', ]
-
-	def __str__(self):
-		return self.name
-
-	def save(self, *args, **kwargs):
-
-		print('sjgmqlzqmlntzeqmlg,sdfmds')
-
-		return super(FestivalPageRateableAttribute, self).save(*args, **kwargs)
 
 
 #FestivalPageRateableAttribute.panels = [
@@ -446,8 +445,6 @@ class FestivalImage(djangomodels.Model):
 		slecht 1 is_primary flag wordt aanvaard, en de main_image attribute van FestivalPage wordt ingesteld
 		'''
 
-		#print('saaaaaaaaaaaaaaaaaave')
-
 		main_image = None
 
 		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
@@ -456,6 +453,7 @@ class FestivalImage(djangomodels.Model):
 			self.is_primary = True
 			main_image = self.image
 
+		# Als er meer dan 1 afbeelding is, zorgen we ervoor dat er slechts 1 primair is
 		elif len(self.page.images.all()) > 1:
 
 			primary_present = False
@@ -464,14 +462,12 @@ class FestivalImage(djangomodels.Model):
 
 				if image.is_primary == True and primary_present == False:
 					primary_present = True
-					print('primary image ingesteld')
 					main_image = self.image
-					print('pagina image test: %s' % self.page.main_image)
 
 				else:
 					image.is_primary = False
-					print('al de rest uitgeschakeld')
 
+			# Als we uit for loop zijn en nog steeds geen primaire afbeelding, maak dan de eerste primair
 			if primary_present == False:
 
 				print('geen enkele!')
@@ -482,15 +478,15 @@ class FestivalImage(djangomodels.Model):
 					main_image = self.image
 					break
 
+		# Update het main_image attribuut van de bijhorende FestivalPage
 		self.page.main_image = main_image
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
-
 FestivalImage.panels = [
 	MultiFieldPanel([
 			ImageChooserPanel('image'),
-			FieldPanel('is_primary', classname='title')
+			FieldPanel('is_primary', classname='title'),
 		]
 	),
 ]
