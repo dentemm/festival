@@ -264,7 +264,7 @@ class FestivalPage(models.Page):
 	description = fields.RichTextField('Festival promo tekst', blank=True, default='')
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
-	website = djangomodels.URLField(max_length=120, null=True)
+	website = djangomodels.URLField(max_length=120, null=True, blank=True)
 
 
 	#test = RecurrenceField(null=True)
@@ -423,25 +423,44 @@ class FestivalImage(djangomodels.Model):
 		Image,
 		null=True,
 		blank=True,
-		related_name='+'
+		related_name='+',
+		verbose_name='afbeelding'
 	)
 	page = ParentalKey('home.FestivalPage', related_name='images', null=True)
-
 	is_primary = djangomodels.BooleanField('hoofdafbeelding', default=False)
 
 	def __str__(self):
 		return 'afbeelding'
 
+
 	def save(self, *args, **kwargs):
 
-		for index, image in enumerate(self.page.images.all()):
-			print('image %s' % index)
+		print('saaaaaaaaaaaaaaaaaave')
+
+		if len(self.page.images.all()) == 1:
+
+			print('slechts eentje, dus nu primair')
+			self.is_primary = True
+
+		else: 
+
+			print('lengte====== %s)' % len(self.page.images.all()))
+
+			for image in self.page.images.all():
+
+				print('imageimageimagiemagimegamgiae')
+
+			#print('tis nu wel primary')
+
+		#elif len(self.page.images.all() > 1):
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
 
 FestivalImage.panels = [
-	ImageChooserPanel('image'),
-	FieldPanel('is_primary'),
+	MultiFieldPanel([
+			ImageChooserPanel('image'),
+			FieldPanel('is_primary', classname='title')
+		]
+	),
 ]
-
