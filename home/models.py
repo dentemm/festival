@@ -287,6 +287,12 @@ class FestivalPage(models.Page):
 		self.title = self.name
 		self.slug = slugify(self.name)
 
+		print('save page -- aantal images: %s' % len(self.images.all()))
+
+		for image in self.images.all():
+
+			print('image naam: %s, primair? %s' % (image, image.is_primary))
+
 		super(FestivalPage, self).save(*args, **kwargs)
 
 
@@ -439,20 +445,25 @@ class FestivalImage(djangomodels.Model):
 
 		if len(self.page.images.all()) == 1:
 
-			print('slechts eentje, dus nu primair')
+			print('slechts eentje, dus maak steeds primair')
 			self.is_primary = True
 
 		else: 
 
 			print('lengte====== %s)' % len(self.page.images.all()))
+			print('imageimageimagiemagimegamgiae: %s' % self.image)
+
+			primary_present = False
 
 			for image in self.page.images.all():
 
-				print('imageimageimagiemagimegamgiae')
+				if image.is_primary == True and primary_present == False:
+					primary_present = True
+					print('primary image ingesteld')
 
-			#print('tis nu wel primary')
-
-		#elif len(self.page.images.all() > 1):
+				else:
+					image.is_primary = False
+					print('al de rest uitgeschakeld')
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
