@@ -441,18 +441,22 @@ class FestivalImage(djangomodels.Model):
 
 
 	def save(self, *args, **kwargs):
+		'''
+		Hier wordt nagekeken of er meerdere afbeeldingen zijn met een is_primary flag
+		slecht 1 is_primary flag wordt aanvaard, en de main_image attribute van FestivalPage wordt ingesteld
+		'''
 
 		#print('saaaaaaaaaaaaaaaaaave')
 
+		main_image = None
+
+		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
 		if len(self.page.images.all()) == 1:
 
-			#print('slechts eentje, dus maak steeds primair')
 			self.is_primary = True
+			main_image = self.image
 
-		else: 
-
-			#print('lengte====== %s)' % len(self.page.images.all()))
-			#print('imageimageimagiemagimegamgiae: %s' % self.image)
+		elif len(self.page.images.all()) > 1:
 
 			primary_present = False
 
@@ -461,12 +465,24 @@ class FestivalImage(djangomodels.Model):
 				if image.is_primary == True and primary_present == False:
 					primary_present = True
 					print('primary image ingesteld')
-					self.page.main_image = self.image
+					main_image = self.image
 					print('pagina image test: %s' % self.page.main_image)
 
 				else:
 					image.is_primary = False
 					print('al de rest uitgeschakeld')
+
+			if primary_present == False:
+
+				print('geen enkele!')
+
+				for image in self.page.images.all():
+
+					image.is_primary = True
+					main_image = self.image
+					break
+
+		self.page.main_image = main_image
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
