@@ -37,7 +37,7 @@ from ratings.models import RatedModelMixin
 
 # Current app imports
 from .managers import UpcomingFestivalManager
-from .forms import FestivalPageForm
+from .forms import FestivalPageForm, TestForm, MyModelForm
 
 
 #
@@ -264,6 +264,7 @@ class FestivalPage(models.Page):
 	description = fields.RichTextField('Festival promo tekst', blank=True, default='')
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
+	website = djangomodels.URLField(max_length=120, null=True)
 
 
 	#test = RecurrenceField(null=True)
@@ -275,7 +276,7 @@ class FestivalPage(models.Page):
 
 	#upcoming = UpcomingFestivalManager()
 
-	#base_form_class = FestivalPageForm
+	base_form_class = TestForm
 
 	def save(self, *args, **kwargs):
 		'''
@@ -318,7 +319,7 @@ FestivalPage.content_panels = [
 		heading='Festival gegevens'
 	),
 	#
-	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	#InlinePanel('images', label='Festival afbeeldingen'),
 	#InlinePanel('locations', label='Festival locatie(s)')
 ]
@@ -334,44 +335,33 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	Join model for FestivalPage en FestivalAttribute
 	'''
 
-	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
+	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+', unique=True)
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
+
+	base_form_class = MyModelForm
 
 
 	class Meta:
-		unique_together = (
-			('page', 'rateable_attribute', ),
-		)
+		pass	
+		#unique_together = (
+		#	('page', 'rateable_attribute', ),
+		#)
 
 	def __str__(self):
 
 		return 'kenmerk'
 
-FestivalPageRatebleAttributeValue.panels = [
-	FieldPanel('rateable_attribute'),	
-]
+	def save(self, *args, **kwargs):
 
+		print('SAaaaaaaaaaaava')
 
-'''
-class FestivalPageRateableAttributeValueAdmin(admin.ModelAdmin):
-
-	form = CustomAttributeAdminForm
-
-class CustomAttributeAdminForm(forms.ModelForm):'''
+		return super(FestivalPageRatebleAttributeValue, self).save(*args, **kwargs)
 
 
 
-'''class DefaultRateableAttributeMixin(RatedModelMixin, djangomodels.Model):
-
-	bereikbaarheid = djangomodels.CharField(max_length=27)
 
 
-	class Meta:
-		abstract = True'''
-
-
-
-#@register_snippet
+@register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 	'''
 	Deze klasse beschrijft een te beoordelen kenmerk van een festival. Het erft van de RatedModelMixin klasse
@@ -379,6 +369,8 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 	'''
 
 	name = djangomodels.CharField(max_length=27)
+
+	base_form_class = MyModelForm
 
 	class Meta:
 		verbose_name = 'Beoordeelbaar kenmerk'
@@ -388,9 +380,16 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 	def __str__(self):
 		return self.name
 
-FestivalPageRateableAttribute.panels = [
-		FieldPanel('name'),
-	]
+	def save(self, *args, **kwargs):
+
+		print('sjgmqlzqmlntzeqmlg,sdfmds')
+
+		return super(FestivalPageRateableAttribute, self).save(*args, **kwargs)
+
+
+#FestivalPageRateableAttribute.panels = [
+#		FieldPanel('name'),
+#]
 
 
 class FestivalLocation(djangomodels.Model):
@@ -401,9 +400,10 @@ class FestivalLocation(djangomodels.Model):
 	location = djangomodels.ForeignKey('home.Location')
 	page = ParentalKey('home.FestivalPage', related_name='locations')
 
-	panels = [
-		FieldPanel('location'),
-	]
+	
+FestivalLocation.panels = [
+	FieldPanel('location'),
+]
 
 
 #
