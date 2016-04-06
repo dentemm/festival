@@ -66,7 +66,7 @@ class HomePageStreamBlock(blocks.StreamBlock):
 	carousel = blocks.ListBlock(ImageWithCaptionBlock(), template='home/blocks/carousel.html', icon='image')
 
 
-'''class HomePage(models.Page):
+class HomePage(models.Page):
 
 	body = fields.StreamField(HomePageStreamBlock(), null=True)
 
@@ -76,7 +76,7 @@ class HomePageStreamBlock(blocks.StreamBlock):
 HomePage.content_panels = models.Page.content_panels + [
 
 	StreamFieldPanel('body'),
-]'''
+]
 
 #
 #
