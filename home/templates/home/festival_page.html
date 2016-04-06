@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
-{% load rating_tags static %}
+{% load rating_tags static compress %}
 
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
-    <!-- Owl Carousel -->
-    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.carousel.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.theme.css' %}">
-    <!-- custom css-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/advisor.css' %}">
+    	{% compress css %}
+	    <!-- Owl Carousel -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.carousel.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.theme.css' %}">
+	    <!-- custom css-->
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/advisor.css' %}">
+	    {% endcompress %}
 {% endblock %}
 
 {% block content %} 
@@ -132,8 +134,10 @@
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
-    <!-- Owl Carousel -->
-    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-    <!-- festad? -->
-    <script type="text/javascript" src="{% static 'js/festad.js' %}"></script>
+    	{% compress js %}
+	    <!-- Owl Carousel -->
+	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+	    <!-- festad? -->
+	    <script type="text/javascript" src="{% static 'js/festad.js' %}"></script>
+	    {% endcompress %}
 {% endblock extra_js %}

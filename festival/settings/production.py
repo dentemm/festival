@@ -23,8 +23,8 @@ ALLOWED_HOSTS = ['*']
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-'''
-Dit werd voorlopig uitgeschakeld omdat Wagtail niet langer compressor out of the box ondersteunt
+
+#Dit werd voorlopig uitgeschakeld omdat Wagtail niet langer compressor out of the box ondersteunt
 
 COMPRESS_ENABLED = True
 
@@ -34,4 +34,3 @@ COMPRESS_CSS_FILTERS = [
     'compressor.filters.cssmin.CSSMinFilter',
 ]
 COMPRESS_CSS_HASHING_METHOD = 'content'
-'''
