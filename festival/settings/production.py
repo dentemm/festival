@@ -22,7 +22,7 @@ ALLOWED_HOSTS = ['*']
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
-COMPRESS_ENABLED = True
+#COMPRESS_ENABLED = True
 
 COMPRESS_OFFLINE = True
 COMPRESS_CSS_FILTERS = [
