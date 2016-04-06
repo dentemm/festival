@@ -23,7 +23,6 @@ ALLOWED_HOSTS = ['*']
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-
 #Dit werd voorlopig uitgeschakeld omdat Wagtail niet langer compressor out of the box ondersteunt
 
 COMPRESS_ENABLED = True
