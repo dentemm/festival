@@ -7,3 +7,4 @@
 .env
 dev.py
 # settings/
+migrations/
