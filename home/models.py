@@ -66,9 +66,7 @@ class HomePageStreamBlock(blocks.StreamBlock):
 	carousel = blocks.ListBlock(ImageWithCaptionBlock(), template='home/blocks/carousel.html', icon='image')
 
 
-
-
-class HomePage(models.Page):
+'''class HomePage(models.Page):
 
 	body = fields.StreamField(HomePageStreamBlock(), null=True)
 
@@ -78,7 +76,7 @@ class HomePage(models.Page):
 HomePage.content_panels = models.Page.content_panels + [
 
 	StreamFieldPanel('body'),
-]
+]'''
 
 #
 #
@@ -310,24 +308,25 @@ class FestivalPage(models.Page):
 		self.title = self.name
 		self.slug = slugify(self.name)
 
-		print('save page -- aantal images: %s' % len(self.images.all()))
+		#print('save page -- aantal images: %s' % len(self.images.all()))
 
-		for image in self.images.all():
+		#for image in self.images.all():
 
-			print('image naam: %s, primair? %s' % (image, image.is_primary))
+			#print('image naam: %s, primair? %s' % (image, image.is_primary))
 
 		super(FestivalPage, self).save(*args, **kwargs)
 
 
 	class Meta:
-		verbose_name = 'FestivalPagina'
+		verbose_name = 'Festival'
 		ordering = ['-date', ]
 
-	def global_score(self):
 
-		pass
+# Festival page parent and sub page definition
+#FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
+#FestivalPage.subpage_types = []
 
-
+# Festival page panels
 FestivalPage.content_panels = [
 
 	MultiFieldPanel([
