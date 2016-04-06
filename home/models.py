@@ -326,7 +326,7 @@ class FestivalPage(models.Page):
 
 # Festival page parent and sub page definition
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-FestivalPage.subpage_types = []
+#FestivalPage.subpage_types = []
 
 # Festival page panels
 FestivalPage.content_panels = [
