@@ -291,7 +291,7 @@ class FestivalPage(models.Page):
 	main_image = djangomodels.ForeignKey(Image, null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
 	#test = RecurrenceField(null=True)
 
-	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True)
+	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
 	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
 
 
