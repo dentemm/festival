@@ -53,9 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # third party apps
     'django_countries',
+    'django_comments',
     'storages',
     #'recurrence',
 
@@ -63,6 +65,8 @@ INSTALLED_APPS = [
     'comments',
     'ratings',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
