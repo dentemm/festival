@@ -66,19 +66,23 @@ class HomePageStreamBlock(blocks.StreamBlock):
 	carousel = blocks.ListBlock(ImageWithCaptionBlock(), template='home/blocks/carousel.html', icon='image')
 
 
-'''class HomePage(models.Page):
+class HomePage(models.Page):
+
+	template = 'home/home.html'
 
 	body = fields.StreamField(HomePageStreamBlock(), null=True)
+	test = fields.RichTextField(blank=True, null=True)
+
 
 	class Meta:
-		verbose_name = _('Startpagina')'''
+		verbose_name = _('Startpagina')
 
-'''
+
 HomePage.content_panels = models.Page.content_panels + [
 
-	StreamFieldPanel('body'),
+	FieldPanel('test'),
 ]
-'''
+
 
 #
 #
