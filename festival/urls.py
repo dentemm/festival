@@ -15,6 +15,11 @@ urlpatterns = [
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
+    # python-social-auth
+    url('', include('social.apps.django_app.urls', namespace='social')),
+    #url(r'^home/$', 'festivaluser.views.login'),
+    url(r'^user/', include('festivaluser.urls')),
+
     url(r'^search/$', search_views.search, name='search'),
 
     # third party applications

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from .config import *
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -59,7 +60,7 @@ INSTALLED_APPS = [
     'django_countries',                 # automatisch invullen van landen bij adres model
     'django_comments',                  # comments toevoegen aan festivals 
     'storages',                         # wordt gebruikt om media files naar Amazon S3 te uploaden
-    'social.apps.django_app.default'    # laat toe om in te loggen via social media platforms
+    'social.apps.django_app.default',    # laat toe om in te loggen via social media platforms
     #'recurrence',
 
     # Custom non-wagtail apps
@@ -102,6 +103,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Context processor for python-social-auth
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -133,6 +138,12 @@ DATABASES = {
     }
 }   
 
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+
+    # ondersteunde python-social-auth authentication backends
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 
 # Internationalization
@@ -170,8 +181,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
+
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "festival"
-
-#WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'

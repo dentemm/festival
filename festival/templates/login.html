@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	{% if user and not user.is_anonymous %}
+		<a>Hello {{ user.get_full_name }}</a>
+		<br>
+	{% else %}
+		<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"> login with facebook</a>
+	{% endif %}
+
+{% endblock content %}
