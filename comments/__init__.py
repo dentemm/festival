@@ -6,4 +6,4 @@ def get_model():
 def get_form():
 
 	from .forms import CommentFormWithTitle
-	return CommentWithTitle
+	return CommentFormWithTitle

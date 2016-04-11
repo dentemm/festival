@@ -9,7 +9,7 @@ class CommentFormWithTitle(CommentForm):
 
 	def get_comment_create_data(self):
 		# add title field to data
-		data = super(CommentWithTitle, self).get_comment_create_data()
+		data = super(CommentFormWithTitle, self).get_comment_create_data()
 		data['title'] = self.cleaned_data['title']
 
 		return data
