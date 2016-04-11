@@ -10,4 +10,4 @@ dev.py
 #migrations/
 
 # python-social-auth
-config.py 
+_config.py 
