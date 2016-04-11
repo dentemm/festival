@@ -56,9 +56,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # third party apps
-    'django_countries',
-    'django_comments',
-    'storages',
+    'django_countries',                 # automatisch invullen van landen bij adres model
+    'django_comments',                  # comments toevoegen aan festivals 
+    'storages',                         # wordt gebruikt om media files naar Amazon S3 te uploaden
+    'social.apps.django_app.default'    # laat toe om in te loggen via social media platforms
     #'recurrence',
 
     # Custom non-wagtail apps
@@ -68,6 +69,7 @@ INSTALLED_APPS = [
 
 # CUSTOMIZING DJANGO CONTRIB COMMENTS
 COMMENTS_APP = 'comments'
+COMMENT_MAX_LENGTH = 700
 
 SITE_ID = 1
 

@@ -34,6 +34,8 @@ from django_countries.fields import CountryField
 
 # Custom app imports
 from ratings.models import RatedModelMixin
+from comments.models import CommentWithTitle
+
 
 # Current app imports
 from .managers import UpcomingFestivalManager
@@ -46,6 +48,14 @@ from .forms import FestivalPageForm, TestForm, MyModelForm
 #
 #
 
+
+#@register_snippet
+class CommentSnippet(CommentWithTitle):
+	'''
+	Deze klasse maakt het mogelijk om comments (afkomstig van third party app)
+	toe te voegen in de Wagtail admin
+	'''
+	pass 
 
 
 # Global StreamField definitions
@@ -352,7 +362,8 @@ FestivalPage.content_panels = [
 			),
 			FieldPanel('description'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
-			SnippetChooserPanel('location', 'home.Location')
+			SnippetChooserPanel('location', 'home.Location'),
+			#FieldPanel('comments'),
 
 		],
 		heading='Festival gegevens'
