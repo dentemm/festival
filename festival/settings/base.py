@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     # Custom non-wagtail apps
     'comments',
     'ratings',
+    'festivaluser',
 ]
 
 # CUSTOMIZING DJANGO CONTRIB COMMENTS
