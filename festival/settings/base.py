@@ -181,10 +181,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Compressor 
-
-COMPRESS_ENABLED = True
-
 
 # Wagtail settings
 

@@ -125,42 +125,7 @@
   			</div>
 		</div>
 	</div>
-	<div class="container">
-		FESTIVAL PAGINA: {{ page.name }} {{ page.id }}
 
-		{% get_comment_count for page as comment_count %}
-				<p>{{ comment_count }} comments have been posted.</p>
-
-		{% render_comment_list for page %}
-
-		{% get_comment_list for page as comment_list %}
-			{% for comment in comment_list %}
-				<p class="text-info">Posted by: {{ comment.user }} on {{ comment.submit_date }}</p>
-				<p class="text-danger">Comment: {{ comment.comment }}</p>
-			{% endfor %}
-
-		{% render_comment_form for page %}
-
-		{% if user.is_authenticated %}
-			<div class="container">
-			----------------------------
-    		{% get_comment_form for page as form %}
-			    <form action="{% comment_form_target %}" method="POST">
-				    {% csrf_token %}
-				    {{ form.comment }}
-				    {{ form.title }} <-
-				    {{ form.honeypot }}
-				    {{ form.content_type }}
-				    {{ form.object_pk }}
-				    {{ form.timestamp }}
-				    {{ form.security_hash }}
-				    <input type="submit" value="Add comment" id="id_submit" />
-			    </form>
-			</div>
-		{% else %}
-		    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
-		{% endif %}
-	</div>
 
 {% endblock content %}
 
