@@ -8,7 +8,7 @@ def login(request):
 
 @login_required(login_url='/')
 def account(request):
-	return render_to_response('home.html')
+	return render(request, 'user_profile.html')
 
 def logout(request):
 	auth_logout(request)

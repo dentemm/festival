@@ -1,12 +1,42 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-	{% if user and not user.is_anonymous %}
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="block text-center">
+					<h2 class="block-title">Inloggen</h2>
+					<h4 class="text-muted">Selecteer hieronder je login methode</h4>
+					<!--<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">-->
+					<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}?next={% url 'account' %}">
+						<span class="icon icon-facebook"> Inloggen via facebook</span>
+					</a>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="block block-inverse text-center">
+					<h2 class="block-title">Nieuwe gebruiker?</h2>
+					<h4 class="text-muted">Selecteer hier je gewenste aanmeld methode</h4>
+					<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">
+						<span class="icon icon-facebook"> Aanmelden via facebook</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+
+		{% if user and not user.is_anonymous %}
 		<a>Hello {{ user.get_full_name }}</a>
 		{{ user.email }}
 		<br>
 	{% else %}
 		<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"> login with facebook</a>
 	{% endif %}
+	</div>
+
+
 
 {% endblock content %}
