@@ -11,5 +11,9 @@ def get_image_path(instance, filename):
 
 class FestivalAdvisorUser(models.Model):
 
-	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='loser')
 	picture = models.ImageField(verbose_name='Profielafbeelding', upload_to=get_image_path, blank=True, null=True)
+
+	def __str__(self):
+
+		return self.user.get_full_name()

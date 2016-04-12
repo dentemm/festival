@@ -6,17 +6,19 @@
 	
 	<div class="container">
 		<div class="row">
+			<a>Welkom {{ user.get_full_name }}</a>
+				{{ user.email }} email
+				{{ user.picture }} picture
+				{{ user.loser }} loser
 
-
-		{% if user and not user.is_anonymous %}
-		<a>Welkom {{ user.get_full_name }}</a>
-			{{ user.email }}
-		<br>
-		{% else %}
-			<!--<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"> login with facebook</a>-->
-			<a href="{% url 'social:begin' 'facebook' %}?next={% url 'social:account' %}"> login with facebook</a>
-		{% endif %}
-
+				<br>
+				<br>
+				VISITOR
+				{% if visitor %}
+					VISITOR
+					{{ visitor.user.picture.image.url.test }}
+				{% endif %}
+			<br>
 		</div>
 	</div>
 
