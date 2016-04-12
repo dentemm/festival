@@ -108,7 +108,7 @@ class Location(djangomodels.Model):
 	Een locatie kan een naam hebben, vb Sportpaleis of Schorre
 	'''
 
-	name = djangomodels.CharField(max_length=28)
+	name = djangomodels.CharField('locatie naam', max_length=28)
 	address = djangomodels.ForeignKey('home.Address', verbose_name='adres', related_name='location', null=True)
 
 	longitude = djangomodels.DecimalField(max_digits=10, decimal_places=7, blank=True, null=True)
@@ -122,11 +122,22 @@ class Location(djangomodels.Model):
 		return self.name
 
 Location.panels = [
-	FieldPanel('name'),
-	FieldPanel('latitude'),
-	FieldPanel('longitude'),
-	FieldPanel('address')
+	MultiFieldPanel([
+			FieldRowPanel([
+					FieldPanel('name', classname='col6'),
+					FieldPanel('address', classname='col6')
+				]
+			),
+			FieldRowPanel([
+					FieldPanel('latitude', classname='col6'),
+					FieldPanel('longitude', classname='col6')
+				]
+			),
+		],
+		heading='Locatie gegevens'
+	)
 ]
+
 
 @register_snippet
 class Address(djangomodels.Model):
