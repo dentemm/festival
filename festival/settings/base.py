@@ -182,6 +182,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
-# Wagtail settings
+# WAGTAIL SETTINGS
 
+# Naam van website
 WAGTAIL_SITE_NAME = "festival"
+
+# Custom image model
+WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
+

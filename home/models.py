@@ -16,6 +16,7 @@ from django.dispatch import receiver
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore import fields
 from wagtail.wagtailcore import models
+from wagtail.wagtailimages.models import Image, AbstractImage, AbstractRendition
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailimages.models import Image
@@ -444,6 +445,40 @@ FestivalLocation.panels = [
 # FESTIVAL PAGE 
 #
 #
+
+class CustomImage(AbstractImage):
+	'''
+	Custom image model, om een auteur veld toe te voegen aan de wagtail Images
+	'''
+
+	author = djangomodels.CharField('auteur', max_length=56, null=True, blank=True)
+
+	admin_form_fields = Image.admin_form_fields + (
+
+		'author',
+	)
+
+class CustomRendition(AbstractRendition):
+	'''
+	Custom rendition model nodig wanneer je een custom image model toevoegt
+	'''
+
+	image = djangomodels.ForeignKey(CustomImage, related_name='renditions')
+
+	class Meta:
+		unique_together = (
+			('image', 'filter', 'focal_point_key'),
+		)
+
+# Delete the source image file when an image is deleted
+@receiver(pre_delete, sender=CustomImage)
+def image_delete(sender, instance, **kwargs):
+    instance.file.delete(False)
+
+# Delete the rendition image file when a rendition is deleted
+@receiver(pre_delete, sender=CustomRendition)
+def rendition_delete(sender, instance, **kwargs):
+    instance.file.delete(False)
 
 
 #@register_snippet
