@@ -194,10 +194,10 @@ class Person(djangomodels.Model):
 	Dit model wordt gebruikt om een persoon en zijn contactgegevens te beschrijven
 	'''
 
-	first_name = djangomodels.CharField('voornaam', max_length=28)
-	last_name = djangomodels.CharField('familienaam', max_length=64)
-	email = djangomodels.EmailField('email adres', null=True)
-	phone = djangomodels.CharField('telefoonnummer', max_length=28, null=True)
+	first_name = djangomodels.CharField('naam', max_length=28)
+	last_name = djangomodels.CharField('familienaam', max_length=64, blank=True)
+	email = djangomodels.EmailField('email adres', null=True, blank=True)
+	phone = djangomodels.CharField('telefoonnummer', max_length=28, null=True, blank=True)
 
 	class Meta:
 		verbose_name = 'persoon'
