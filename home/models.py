@@ -196,7 +196,7 @@ class Person(djangomodels.Model):
 	Dit model wordt gebruikt om een persoon en zijn contactgegevens te beschrijven
 	'''
 
-	first_name = djangomodels.CharField('naam', max_length=28)
+	first_name = djangomodels.CharField('naam', max_length=28, unique=True)
 	last_name = djangomodels.CharField('familienaam', max_length=64, blank=True)
 	email = djangomodels.EmailField('email adres', null=True, blank=True)
 	phone = djangomodels.CharField('telefoonnummer', max_length=28, null=True, blank=True)
@@ -337,14 +337,39 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
+		print('contact person: %s' % (self.contact_person))
+
+		print('save page!')
+
+		if self.persons:
+			print('persons aanwezig!')
+
+			current = self.persons.all()[0]
+
+			
+			"""try:
+				db_person = Person.objects.get(first_name=current.first_name)
+
+			except DoesNotExist:
+				print('tja')"""
+
+
+			print('en? %s' % (db_person))
+
+			print('persoon: %s' % new_person)
+
+			self.contact_person = new_person
+
+			self.contact_person.save()
+
+			print('aangepast? %s' % (self.contact_person))
+
+
+
+			#self.contact_person = self.persons[0]
+
 		self.title = self.name
 		self.slug = slugify(self.name)
-
-		#print('save page -- aantal images: %s' % len(self.images.all()))
-
-		#for image in self.images.all():
-
-			#print('image naam: %s, primair? %s' % (image, image.is_primary))
 
 		super(FestivalPage, self).save(*args, **kwargs)
 
@@ -387,11 +412,9 @@ FestivalPage.content_panels = [
 	#
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
-	InlinePanel('locaties', label='Orderable test'),
-	InlinePanel('adresorderable', label='orderable adres'),
-	InlinePanel('persons', label='orderable person')
-	#InlinePanel('locations', label='Festival locatie(s)')
-	#InlinePanel('location', label='locatie inline test')
+	InlinePanel('persons', label='orderable person', max_num=1),
+	#InlinePanel('contact_person', label='test'),
+
 ]
 
 #FestivalPage.promote_panels = models.Page.promote_panels + [
