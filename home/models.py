@@ -140,6 +140,7 @@ Location.panels = [
 ]
 
 
+
 @register_snippet
 class Address(djangomodels.Model):
 	'''
@@ -224,6 +225,9 @@ Person.panels = [
 		heading='Persoonsgegevens'
 	),
 ]
+
+class FestivalPagePerson(models.Orderable, Person):
+	page = ParentalKey('home.FestivalPage', related_name='persons')
 
 #@register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
@@ -383,13 +387,36 @@ FestivalPage.content_panels = [
 	#
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
+	InlinePanel('locaties', label='Orderable test'),
+	InlinePanel('adresorderable', label='orderable adres'),
+	InlinePanel('persons', label='orderable person')
 	#InlinePanel('locations', label='Festival locatie(s)')
+	#InlinePanel('location', label='locatie inline test')
 ]
 
 #FestivalPage.promote_panels = models.Page.promote_panels + [
 FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
+
+class AdresOrderable(models.Orderable, Address):
+
+	page = ParentalKey('home.FestivalPage', related_name='adresorderable')
+
+
+class OrderableTest(models.Orderable, Location):
+
+	page = ParentalKey('home.FestivalPage', related_name='locaties')
+	#name = djangomodels.CharField(max_length=8)
+	#test = djangomodels.ForeignKey(Location, null=True)
+
+'''OrderableTest.panels = [
+	FieldPanel('name'),
+	FieldPanel('test'),
+]'''
+
+
+
 
 
 class FestivalPageRatebleAttributeValue(djangomodels.Model):
