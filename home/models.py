@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 #from django import forms
 #from django.contrib import admin
 from django.db import models as djangomodels
+from django.db.models.signals import pre_delete
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
-from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
 
@@ -337,41 +337,45 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
+		print('save page!')
 		print('contact person: %s' % (self.contact_person))
 
-		print('save page!')
 
-		if self.persons:
+		# If editor has entered a new Person object in the editing interface
+		if len(self.persons.all()) > 0:
 			print('persons aanwezig!')
 
-			current = self.persons.all()[0]
+			db_person = None
+
+			new = self.persons.all()[0]
+
+			try:
+				db_person = Person.objects.get(first_name=new.first_name)
+
+			except Person.DoesNotExist:
+				
+				new.save()
+
+			print('wordt dit uitgevoerd???')
+			print('en? %s' % (new))
+
+			self.contact_person = new
+
+			print('contact person: %s' % (self.contact_person))
+
 
 			
-			"""try:
-				db_person = Person.objects.get(first_name=current.first_name)
-
-			except DoesNotExist:
-				print('tja')"""
-
-
-			print('en? %s' % (db_person))
-
-			print('persoon: %s' % new_person)
-
-			self.contact_person = new_person
-
-			self.contact_person.save()
-
-			print('aangepast? %s' % (self.contact_person))
-
-
+			#print('persoon: %s' % new_person)
+			#self.contact_person = new_person
+			#self.contact_person.save()
+			#print('aangepast? %s' % (self.contact_person))
 
 			#self.contact_person = self.persons[0]
 
 		self.title = self.name
 		self.slug = slugify(self.name)
 
-		super(FestivalPage, self).save(*args, **kwargs)
+		return super(FestivalPage, self).save(*args, **kwargs)
 
 
 	class Meta:
@@ -412,7 +416,7 @@ FestivalPage.content_panels = [
 	#
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
-	InlinePanel('persons', label='orderable person', max_num=1),
+	InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
 	#InlinePanel('contact_person', label='test'),
 
 ]
@@ -422,7 +426,7 @@ FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
 
-class AdresOrderable(models.Orderable, Address):
+class AddressOrderable(models.Orderable, Address):
 
 	page = ParentalKey('home.FestivalPage', related_name='adresorderable')
 

@@ -1,13 +1,13 @@
 from django.contrib import admin
 
-from .models import Address, Location, AdresOrderable, Person
+from .models import Address, Location, AddressOrderable, Person
 
 @admin.register(Address)
 class AdressAdmin(admin.ModelAdmin):
 	pass
 
-@admin.register(AdresOrderable)
-class AdresOrderableAdmin(admin.ModelAdmin):
+@admin.register(AddressOrderable)
+class AddressOrderableAdmin(admin.ModelAdmin):
 	pass
 
 @admin.register(Person)
