@@ -194,7 +194,7 @@ class Person(djangomodels.Model):
 	first_name = djangomodels.CharField('naam', max_length=28, unique=True)
 	last_name = djangomodels.CharField('familienaam', max_length=64, blank=True)
 	email = djangomodels.EmailField('email adres', null=True, blank=True)
-	phone = djangomodels.CharField('telefoonnummer', max_length=28, null=True, blank=True)
+	phone = djangomodels.CharField('telefoon nr', max_length=28, null=True, blank=True)
 
 	class Meta:
 		verbose_name = 'persoon'
@@ -203,6 +203,12 @@ class Person(djangomodels.Model):
 
 	def __str__(self):
 		return self.first_name + ' ' + self.last_name
+
+	def save(self, *args, **kwargs):
+
+		print('@@@@@ Person class save()')
+
+		return super(Person, self).save(*args, **kwargs)
 
 Person.panels = [
 	MultiFieldPanel([
@@ -223,6 +229,18 @@ Person.panels = [
 
 class FestivalPagePerson(models.Orderable, Person):
 	page = ParentalKey('home.FestivalPage', related_name='persons')
+
+	def save(self, *args, **kwargs):
+
+		print('******* festival page person save ')
+
+		print('name: %s' % self.first_name)
+
+		#person = Person.objects.get(first_name=self.first_name)
+
+		#print(person.first_name)
+
+		return super(FestivalPagePerson, self).save(*args, **kwargs)
 
 #@register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
