@@ -40,7 +40,7 @@ from comments.models import CommentWithTitle
 
 # Current app imports
 from .managers import UpcomingFestivalManager
-from .forms import FestivalPageForm, TestForm, MyModelForm
+from .forms import FestivalPageForm, AddressForm
 
 
 #
@@ -153,13 +153,8 @@ class Address(djangomodels.Model):
 	number = djangomodels.CharField(verbose_name='nummer', max_length=8, null=True)
 	country = CountryField(verbose_name='land', null=True, default='BE')
 
-	panels = [
-		FieldPanel('city'),
-		FieldPanel('postal_code'),
-		FieldPanel('street'),
-		FieldPanel('number'),
-		FieldPanel('country')
-	]
+	base_form_class = AddressForm
+
 
 	class Meta:
 		verbose_name = 'adres'
@@ -204,7 +199,7 @@ class Person(djangomodels.Model):
 	class Meta:
 		verbose_name = 'persoon'
 		verbose_name_plural = 'personen'
-		ordering = ['last_name', ]
+		ordering = ['first_name', ]
 
 	def __str__(self):
 		return self.first_name + ' ' + self.last_name
@@ -238,7 +233,7 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 	name = djangomodels.CharField(max_length=27)
 
-	base_form_class = MyModelForm
+	#base_form_class = MyModelForm
 
 	class Meta:
 		verbose_name = 'Beoordeelbaar kenmerk'
@@ -329,7 +324,7 @@ class FestivalPage(models.Page):
 
 	#upcoming = UpcomingFestivalManager()
 
-	base_form_class = TestForm
+	base_form_class = FestivalPageForm
 
 	def save(self, *args, **kwargs):
 		'''
@@ -337,8 +332,13 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
+		test = super(FestivalPage, self).save(*args, **kwargs)
+
+
 		print('save page!')
 		print('contact person: %s' % (self.contact_person))
+		print(args)
+		print(kwargs)
 
 
 		# If editor has entered a new Person object in the editing interface
@@ -359,7 +359,13 @@ class FestivalPage(models.Page):
 			print('wordt dit uitgevoerd???')
 			print('en? %s' % (new))
 
-			self.contact_person = new
+			#self.contact_person = new
+			#self.contact_person = new
+			#self.contact_person.save()
+
+			#test.contact_person = new
+			#test.save()
+
 
 			print('contact person: %s' % (self.contact_person))
 
@@ -375,7 +381,7 @@ class FestivalPage(models.Page):
 		self.title = self.name
 		self.slug = slugify(self.name)
 
-		return super(FestivalPage, self).save(*args, **kwargs)
+		#return super(FestivalPage, self).save(*args, **kwargs)
 
 
 	class Meta:
@@ -408,7 +414,7 @@ FestivalPage.content_panels = [
 			FieldPanel('description'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
 			SnippetChooserPanel('location', 'home.Location'),
-			#FieldPanel('comments'),
+			#FieldPanel('contact_person'),
 
 		],
 		heading='Festival gegevens'
@@ -454,7 +460,7 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+', unique=True)
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 
-	base_form_class = MyModelForm
+	#base_form_class = MyModelForm
 
 
 	class Meta:
