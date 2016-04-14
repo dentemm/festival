@@ -350,56 +350,33 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
-		test = super(FestivalPage, self).save(*args, **kwargs)
+		#test = super(FestivalPage, self).save(*args, **kwargs)
 
 
 		print('save page!')
 		print('contact person: %s' % (self.contact_person))
-		print(args)
-		print(kwargs)
 
 
 		# If editor has entered a new Person object in the editing interface
 		if len(self.persons.all()) > 0:
-			print('persons aanwezig!')
-
-			db_person = None
 
 			new = self.persons.all()[0]
 
-			try:
-				db_person = Person.objects.get(first_name=new.first_name)
-
-			except Person.DoesNotExist:
-				
-				new.save()
-
-			print('wordt dit uitgevoerd???')
-			print('en? %s' % (new))
-
-			#self.contact_person = new
-			#self.contact_person = new
-			#self.contact_person.save()
-
-			#test.contact_person = new
-			#test.save()
+			#person, created = Person.objects.get_or_create(first_name=new.first_name, last_name=new.last_name, email=new.email, phone=new.phone)
 
 
 			print('contact person: %s' % (self.contact_person))
-
-
 			
 			#print('persoon: %s' % new_person)
-			#self.contact_person = new_person
-			#self.contact_person.save()
-			#print('aangepast? %s' % (self.contact_person))
+			self.contact_person = new
+			self.contact_person.save()
 
-			#self.contact_person = self.persons[0]
+
 
 		self.title = self.name
 		self.slug = slugify(self.name)
 
-		#return super(FestivalPage, self).save(*args, **kwargs)
+		return super(FestivalPage, self).save(*args, **kwargs)
 
 
 	class Meta:
