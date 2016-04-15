@@ -23,9 +23,11 @@ from wagtail.wagtailimages.models import Image
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel, PageChooserPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.wagtailadmin.forms import WagtailAdminPageForm
 
 # Third party wagtail dependancies 
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
@@ -40,8 +42,46 @@ from comments.models import CommentWithTitle
 
 # Current app imports
 from .managers import UpcomingFestivalManager
-from .forms import FestivalPageForm, AddressForm
+from .forms import  AddressForm
 
+
+#
+#
+# FORMS
+#
+#
+
+class FestivalPageForm(WagtailAdminPageForm):
+    '''
+    Custom WagtailAdminPageForm subklasse. Deze wordt gebruikt om extra field validation te integreren
+    Staat hier omwille van circular import!
+    '''
+
+    def clean(self):
+
+        print('Festival Page Form clean() methode')
+
+        cleaned_data = super(FestivalPageForm, self).clean()
+
+        #cleaned_data['contact_person'] = None
+
+        '''page = self.instance
+        print('page: %s' % page)
+        print('page person before change: %s' % page.contact_person)
+
+        if len(page.new_person.all()) > 0:
+
+        	for grrr in page.new_person.all():
+        		print('grrr: %s' % grrr)
+
+        	new = page.new_person.all().last()
+        	#new.save()
+
+        	print('new: %s' % new)
+        	cleaned_data['contact_person'] = new
+        	new.save()'''
+
+        return cleaned_data
 
 #
 #
@@ -50,13 +90,6 @@ from .forms import FestivalPageForm, AddressForm
 #
 
 
-#@register_snippet
-class CommentSnippet(CommentWithTitle):
-	'''
-	Deze klasse maakt het mogelijk om comments (afkomstig van third party app)
-	toe te voegen in de Wagtail admin
-	'''
-	pass 
 
 
 # Global StreamField definitions
@@ -186,10 +219,12 @@ Address.panels = [
 
 
 @register_snippet
-class Person(djangomodels.Model):
+class Person(ClusterableModel):
 	'''
 	Dit model wordt gebruikt om een persoon en zijn contactgegevens te beschrijven
 	'''
+
+	page = ParentalKey('home.FestivalPage', related_name='new_person', null=True)
 
 	first_name = djangomodels.CharField('naam', max_length=28, unique=True)
 	last_name = djangomodels.CharField('familienaam', max_length=64, blank=True)
@@ -227,17 +262,14 @@ Person.panels = [
 	),
 ]
 
-'''class FestivalPagePerson(models.Orderable, Person):
-	page = ParentalKey('home.FestivalPage', related_name='persons')
+#@register_snippet
+class CommentSnippet(CommentWithTitle):
+	'''
+	Deze klasse maakt het mogelijk om comments (afkomstig van third party app)
+	toe te voegen in de Wagtail admin
+	'''
+	pass 
 
-	def save(self, *args, **kwargs):
-
-		print('******* festival page person save ')
-
-		print('name: %s' % self.first_name)
-
-
-		return super(FestivalPagePerson, self).save(*args, **kwargs)'''
 
 #@register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
@@ -329,7 +361,7 @@ class FestivalPage(models.Page):
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 	website = djangomodels.URLField(max_length=120, null=True, blank=True)
-	main_image = djangomodels.ForeignKey(Image, null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
+	main_image = djangomodels.ForeignKey('home.CustomImage', null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
 	#test = RecurrenceField(null=True)
 
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
@@ -348,32 +380,8 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
-		#test = super(FestivalPage, self).save(*args, **kwargs)
-
-
-		#print('save page!')
-		#print('contact person: %s' % (self.contact_person))
-
-
-		# If editor has entered a new Person object in the editing interface
-		'''if len(self.persons.all()) > 0:
-
-			new = self.persons.all()[0]
-
-			#person, created = Person.objects.get_or_create(first_name=new.first_name, last_name=new.last_name, email=new.email, phone=new.phone)
-
-
-			print('contact person: %s' % (self.contact_person))
-			
-			#print('persoon: %s' % new_person)
-			self.contact_person = new
-			self.contact_person.save()
-
-
-
 		self.title = self.name
-		self.slug = slugify(self.name)'''
-
+		self.slug = slugify(self.name)
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
@@ -417,7 +425,7 @@ FestivalPage.content_panels = [
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
-	#InlinePanel('contact_person', label='test'),
+	#InlinePanel('new_person', label='test', max_num=1),
 
 ]
 
@@ -425,10 +433,6 @@ FestivalPage.content_panels = [
 FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
-
-
-
-
 
 
 
