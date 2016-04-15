@@ -11,7 +11,9 @@ class Migration(migrations.Migration):
         ('home', '0002_auto_20160415_1515'),
     ]
 
-    operations = [
+    operations = []
+
+    '''operations = [
         migrations.RemoveField(
             model_name='addressorderable',
             name='address_ptr',
@@ -34,4 +36,4 @@ class Migration(migrations.Migration):
         migrations.DeleteModel(
             name='OrderableTest',
         ),
-    ]
+    ]'''

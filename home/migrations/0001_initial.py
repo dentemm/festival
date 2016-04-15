@@ -206,30 +206,30 @@ class Migration(migrations.Migration):
                 'ordering': ['first_name'],
             },
         ),
-        migrations.CreateModel(
-            name='AddressOrderable',
-            fields=[
-                ('address_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.Address')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-            ],
-            options={
-                'abstract': False,
-                'ordering': ['sort_order'],
-            },
-            bases=('home.address', models.Model),
-        ),
-        migrations.CreateModel(
-            name='OrderableTest',
-            fields=[
-                ('location_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.Location')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-            ],
-            options={
-                'abstract': False,
-                'ordering': ['sort_order'],
-            },
-            bases=('home.location', models.Model),
-        ),
+#        migrations.CreateModel(
+#            name='AddressOrderable',
+#            fields=[
+#                ('address_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.Address')),
+#                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
+#            ],
+#            options={
+#                'abstract': False,
+#                'ordering': ['sort_order'],
+#            },
+#            bases=('home.address', models.Model),
+#        ),
+#        migrations.CreateModel(
+#            name='OrderableTest',
+#            fields=[
+#                ('location_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='home.Location')),
+#                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
+#            ],
+#            options={
+#                'abstract': False,
+#                'ordering': ['sort_order'],
+#            },
+#            bases=('home.location', models.Model),
+#        ),
         migrations.AddField(
             model_name='location',
             name='address',
@@ -270,18 +270,18 @@ class Migration(migrations.Migration):
             name='page',
             field=modelcluster.fields.ParentalKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='images', to='home.FestivalPage'),
         ),
-        migrations.AddField(
-            model_name='orderabletest',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='locaties', to='home.FestivalPage'),
-        ),
+#        migrations.AddField(
+#            model_name='orderabletest',
+#            name='page',
+#            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='locaties', to='home.FestivalPage'),
+#        ),
         migrations.AlterUniqueTogether(
             name='customrendition',
             unique_together=set([('image', 'filter', 'focal_point_key')]),
         ),
-        migrations.AddField(
-            model_name='addressorderable',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='adresorderable', to='home.FestivalPage'),
-        ),
+#        migrations.AddField(
+#            model_name='addressorderable',
+#            name='page',
+#            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='adresorderable', to='home.FestivalPage'),
+#        ),
     ]
