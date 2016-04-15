@@ -28,17 +28,30 @@ def check_snippets(request, page):
 	'''
 
 	print('contact? %s' % page.contact_person)
+	#print(page.content_panels)
+	#print(page.content_panels[0])
 
-	if len(page.persons.all()) > 0:
+	#for field in page.content_panels[0].children:
+
+	#	print(field)
+
+	#print(page.content_panels[0].children[5])
+
+	'''if len(page.persons.all()) > 0:
 
 		print(' === nieuwe contact persoon')
 
-		print(page.content_panels)
+		#print(page.content_panels)
+		#print(page.content_panels[0])
 
 		new = page.persons.all()[0]
+
+		new.save()
 
 		page.contact_person = new
 
 		page.save()
+
+		print(page.contact_person)'''
 
 

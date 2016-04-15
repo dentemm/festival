@@ -227,7 +227,7 @@ Person.panels = [
 	),
 ]
 
-class FestivalPagePerson(models.Orderable, Person):
+'''class FestivalPagePerson(models.Orderable, Person):
 	page = ParentalKey('home.FestivalPage', related_name='persons')
 
 	def save(self, *args, **kwargs):
@@ -236,11 +236,8 @@ class FestivalPagePerson(models.Orderable, Person):
 
 		print('name: %s' % self.first_name)
 
-		#person = Person.objects.get(first_name=self.first_name)
 
-		#print(person.first_name)
-
-		return super(FestivalPagePerson, self).save(*args, **kwargs)
+		return super(FestivalPagePerson, self).save(*args, **kwargs)'''
 
 #@register_snippet
 class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
@@ -326,6 +323,7 @@ class FestivalPage(models.Page):
 		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
 	'''
 
+
 	name = djangomodels.CharField('Festival naam', max_length=40, default='', unique=True)
 	description = fields.RichTextField('Festival promo tekst', blank=True, default='')
 	date = djangomodels.DateField('Festival datum', null=True)
@@ -353,12 +351,12 @@ class FestivalPage(models.Page):
 		#test = super(FestivalPage, self).save(*args, **kwargs)
 
 
-		print('save page!')
-		print('contact person: %s' % (self.contact_person))
+		#print('save page!')
+		#print('contact person: %s' % (self.contact_person))
 
 
 		# If editor has entered a new Person object in the editing interface
-		if len(self.persons.all()) > 0:
+		'''if len(self.persons.all()) > 0:
 
 			new = self.persons.all()[0]
 
@@ -374,7 +372,8 @@ class FestivalPage(models.Page):
 
 
 		self.title = self.name
-		self.slug = slugify(self.name)
+		self.slug = slugify(self.name)'''
+
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
@@ -417,7 +416,7 @@ FestivalPage.content_panels = [
 	#
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
-	InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
+	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
 	#InlinePanel('contact_person', label='test'),
 
 ]
@@ -543,7 +542,7 @@ class FestivalImage(djangomodels.Model):
 	'''
 
 	image = djangomodels.ForeignKey(
-		Image,
+		CustomImage,
 		null=True,
 		blank=True,
 		related_name='+',

@@ -29,6 +29,6 @@ class FestivalPageForm(WagtailAdminPageForm):
 
         page = self.instance
 
-        print('page persons: %s' % page.persons)
+        #print('page persons: %s' % page.persons)
 
         return cleaned_data
