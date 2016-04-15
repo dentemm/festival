@@ -89,6 +89,45 @@ class FestivalPageForm(WagtailAdminPageForm):
 #
 #
 
+class LinkFields(djangomodels.Model):
+
+	link_external = djangomodels.URLField('Externe link', blank=True)
+	link_page = djangomodels.ForeignKey(
+		'wagtailcore.Page',
+		null=True,
+		blank=True,
+		related_name='+'
+	)
+
+	class Meta:
+		abstract = True
+
+	@property
+	def link(self):
+
+		if self.link_page:
+			return self.link_page.url
+
+		else:
+			return self.link_external
+
+LinkFields.panels = [
+	FieldPanel('link_external'),
+	#PageChooserPanel('link_page')
+]
+
+class RelatedLink(LinkFields):
+
+	title = djangomodels.CharField('titel', max_length=63, help_text='Naam van link')
+
+	class Meta:
+		abstract = True
+
+RelatedLink.panels = [
+	FieldPanel('title'),
+	MultiFieldPanel(LinkFields.panels, 'Link')
+]
+	
 
 
 
@@ -349,6 +388,11 @@ class FestivalPageTag(TaggedItemBase):
 	content_object = ParentalKey('home.FestivalPage', related_name='tagged_items', null=True)
 
 
+class FestivalPageRelatedLink(models.Orderable, RelatedLink):
+
+	page = ParentalKey('FestivalPage', related_name='related_links')
+
+
 class FestivalPage(models.Page):
 	'''
 	Deze klasse beschrijft een festival. 
@@ -424,6 +468,7 @@ FestivalPage.content_panels = [
 	#
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
+	InlinePanel('related_links', label="URL's voor het festival")
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
 	#InlinePanel('new_person', label='test', max_num=1),
 
