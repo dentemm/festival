@@ -426,21 +426,7 @@ FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
 
-class AddressOrderable(models.Orderable, Address):
 
-	page = ParentalKey('home.FestivalPage', related_name='adresorderable')
-
-
-class OrderableTest(models.Orderable, Location):
-
-	page = ParentalKey('home.FestivalPage', related_name='locaties')
-	#name = djangomodels.CharField(max_length=8)
-	#test = djangomodels.ForeignKey(Location, null=True)
-
-'''OrderableTest.panels = [
-	FieldPanel('name'),
-	FieldPanel('test'),
-]'''
 
 
 

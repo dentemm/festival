@@ -1,14 +1,14 @@
 from django.contrib import admin
 
-from .models import Address, Location, AddressOrderable, Person
+from .models import Address, Location, Person
 
 @admin.register(Address)
 class AdressAdmin(admin.ModelAdmin):
 	pass
 
-@admin.register(AddressOrderable)
+'''@admin.register(AddressOrderable)
 class AddressOrderableAdmin(admin.ModelAdmin):
-	pass
+	pass'''
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
