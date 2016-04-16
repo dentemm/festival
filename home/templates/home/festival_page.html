@@ -126,6 +126,23 @@
 		</div>
 	</div>
 	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				FESTIVAL PAGE RATING tests:
+			</div>
+			<div class="col-md-6">
+				Aantal votes: {% votes_count page as votes_count %}
+				{{ votes_count }}
+			</div>
+			<div class="col-md-6">
+				Score van deze user ({{ user }}): {% user_rating user page %}
+			</div>
+			<div class="col-md-6">
+				Overall rating: {% overall_rating page %}
+			</div>
+		</div>
+	</div>
+	<div class="container">
 		FESTIVAL PAGINA: {{ page.name }} {{ page.id }}  ((((((((((( {{ page.contact_person }} )))))))))))
 
 		{% get_comment_count for page as comment_count %}

@@ -19,7 +19,6 @@ uitbrengen op verschillende django modellen, dus hebben we generic relations nod
 Momenteel is de implementatie gebaseerd op: https://github.com/pinax/pinax-ratings/blob/master/pinax/ratings/models.py 
 '''
 
-
 class BaseContentTypesModel(models.Model):
 	'''
 	Abstracte klasse voor modellen die gebruik maken van het contenttypes framework
