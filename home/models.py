@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
 # Django imports
-#from django import forms
-#from django.contrib import admin
 from django.db import models as djangomodels
 from django.db.models.signals import pre_delete
 from django.conf import settings
@@ -33,7 +31,6 @@ from taggit.models import TaggedItemBase
 
 # Other third party dependancies
 from django_countries.fields import CountryField
-#from recurrence.fields import RecurrenceField
 
 # Custom app imports
 from ratings.models import RatedModelMixin
@@ -44,13 +41,11 @@ from comments.models import CommentWithTitle
 from .managers import UpcomingFestivalManager
 from .forms import  AddressForm
 
-
 #
 #
 # FORMS
 #
 #
-
 class FestivalPageForm(WagtailAdminPageForm):
     '''
     Custom WagtailAdminPageForm subklasse. Deze wordt gebruikt om extra field validation te integreren
@@ -389,6 +384,10 @@ class FestivalPageTag(TaggedItemBase):
 
 
 class FestivalPageRelatedLink(models.Orderable, RelatedLink):
+	'''
+	Deze klasse wordt gebruikt om interne en externe links aan een festival toe te kennen.
+	Dit kunnen links zijn naar gerelateerde festivals, of naar de Facebook account, ticket URL en dergelijk
+	'''
 
 	page = ParentalKey('FestivalPage', related_name='related_links')
 
@@ -399,22 +398,19 @@ class FestivalPage(models.Page):
 		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
 	'''
 
-
+	# Core attributen
 	name = djangomodels.CharField('Festival naam', max_length=40, default='', unique=True)
 	description = fields.RichTextField('Festival promo tekst', blank=True, default='')
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 	website = djangomodels.URLField(max_length=120, null=True, blank=True)
 	main_image = djangomodels.ForeignKey('home.CustomImage', null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
-	#test = RecurrenceField(null=True)
 
+	# Foreign key relaties
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
 	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
 
-
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
-
-	#upcoming = UpcomingFestivalManager()
 
 	base_form_class = FestivalPageForm
 
@@ -468,7 +464,8 @@ FestivalPage.content_panels = [
 	#
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
-	InlinePanel('related_links', label="URL's voor het festival")
+	InlinePanel('related_links', label="URL's voor het festival"),
+	InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
 	#InlinePanel('new_person', label='test', max_num=1),
 
@@ -478,7 +475,6 @@ FestivalPage.content_panels = [
 FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
-
 
 
 class FestivalPageRatebleAttributeValue(djangomodels.Model):
@@ -534,7 +530,6 @@ FestivalLocation.panels = [
 # FESTIVAL PAGE 
 #
 #
-
 class CustomImage(AbstractImage):
 	'''
 	Custom image model, om een auteur veld toe te voegen aan de wagtail Images
