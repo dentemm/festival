@@ -1,6 +1,7 @@
 #from datetime import datetime
 
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -40,10 +41,9 @@ class Vote(BaseContentTypesModel):
 
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='votes')
 	timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-	score = models.PositiveIntegerField(default=0) # Enkel positieve getallen worden ondersteund in deze app
-	#date_changed = models.DateTimeField(default=datetime.now(), editable=False)
+	score = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)]) # Enkel positieve getallen worden ondersteund in deze app
 
-	overall_rating = models.ForeignKey('Score', null=True, related_name='votes')	# foreignkey naar Score, een Score bestaat uit een aantal Votes
+	overall_rating = models.ForeignKey('Score', blank=True, null=True, related_name='votes',)	# foreignkey naar Score, een Score bestaat uit een aantal Votes
 
 
 	class Meta:
@@ -54,18 +54,30 @@ class Vote(BaseContentTypesModel):
 
 	# Huidige implementatie doets niets!
 	def save(self, *args, **kwargs):
-		#self.date_changed = datetime.now()
+
+		print(type(self))
+		print(self.content_object)
+		print(self.user)
+		print(self.score)
+
+		#self.vote(self.content_object, self.user, self.score)
+
 		super(Vote, self).save(*args, **kwargs)
 
 	@classmethod
-	def vote(cls, rating, user, score):
-		ct = ContentType.objects.get_for_model(rating)
+	def vote(cls, rating_object, user, score):
+		'''
+		De klasse methode vote() voegt een Vote instance toe aan de database, 
+		update de gegevens van de Score (of maakt een nieuwe Score instance aan)
+		en retourneeert de gegevens total_score en num_votes
+		'''
+		ct = ContentType.objects.get_for_model(rating_object)
 
 		new = cls.objects.create(
 			content_type=ct,
-			object_id=rating.pk,
+			object_id=rating_object.pk,
 			user=user,
-			rating=score
+			score=score
 		)
 
 		overall_score, is_created = Score.objects.get_or_create(
@@ -81,16 +93,14 @@ class Vote(BaseContentTypesModel):
 
 		return (total_score, num_votes) #retourneer totale score en aantal stemmen om UI te updaten
 
-
-
 class Score(BaseContentTypesModel):
 	'''
 	De score voor een object wordt bepaald door de uitgebrachte stemmen op dat object. 
 	Score.votes is een FK relatie vanuit het Vote model
 	'''
 
-	total_score = models.PositiveIntegerField(null=True) 
-	num_votes = models.PositiveIntegerField(default=0)
+	total_score = models.PositiveIntegerField(null=True) 	# Optelsom van alle individuele scores
+	num_votes = models.PositiveIntegerField(default=0)		# Aantal uitgebrachte stemmen 
 
 	objects = RatingManager()
 
@@ -102,6 +112,9 @@ class Score(BaseContentTypesModel):
 		return '%s heeft een score van %s, behaald door %s stemmen' % (self.content_object, self.score, self.votes)
 
 	def update(self, score):
+		'''
+		Deze update() methode wijzigt de total_score en num_votes attributen na uitbrengen van een vote
+		'''
 
 		num_votes = num_votes + 1
 		total_score = self.total_score + score
@@ -111,9 +124,7 @@ class Score(BaseContentTypesModel):
 
 	@property
 	def score(self):
-
 		score = float(self.total_score/self.num_votes)
-
 		return score
 
 class RatedModelMixin(models.Model):
