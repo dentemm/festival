@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Address, Location, Person
+from .models import Address, Location, Person, FestivalPageRateableAttribute
 
 @admin.register(Address)
 class AdressAdmin(admin.ModelAdmin):
@@ -17,3 +17,7 @@ class PersonAdmin(admin.ModelAdmin):
 '''@admin.register(FestivalPagePerson)
 class FestivalPagePersonAdmin(admin.ModelAdmin):
 	pass'''
+
+@admin.register(FestivalPageRateableAttribute)
+class FestivalPageRateableAttributeAdmin(admin.ModelAdmin):
+	pass

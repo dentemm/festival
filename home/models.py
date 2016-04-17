@@ -9,7 +9,6 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.dispatch import receiver
 
-
 # Wagtail imports
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore import fields
@@ -36,10 +35,11 @@ from django_countries.fields import CountryField
 from ratings.models import RatedModelMixin
 from comments.models import CommentWithTitle
 
-
 # Current app imports
 from .managers import UpcomingFestivalManager
 from .forms import  AddressForm
+
+
 
 #
 #
@@ -54,9 +54,43 @@ class FestivalPageForm(WagtailAdminPageForm):
 
     def clean(self):
 
-        print('Festival Page Form clean() methode')
-
         cleaned_data = super(FestivalPageForm, self).clean()
+
+        page = self.instance
+
+        # RATEABLE ATTRIBUTES FUNCTIONALITEIT
+
+        print('page id: %s' % page.id)
+        print('rateable_attributes: %s' % page.rateable_attributes.all())
+
+        # Een net aangemaakte pagina heeft geen id
+        if page.id == None:
+
+        	attributes = list(FestivalPageRateableAttribute.objects.all())
+
+        	print('nieuwe pagina')
+
+        	for attribute in attributes:
+        		print(attribute)
+
+        	print(cleaned_data)
+        	print('pre: %s' % page.rateable_attributes.all())
+
+        	#page.rateable_attributes = attributes
+
+        	print('post: %s' % page.rateable_attributes.all())
+
+
+
+
+
+
+
+        else:
+
+        	print('bestaande pagina')
+
+
 
         #cleaned_data['contact_person'] = None
 
@@ -83,7 +117,6 @@ class FestivalPageForm(WagtailAdminPageForm):
 # Global classes
 #
 #
-
 class LinkFields(djangomodels.Model):
 
 	link_external = djangomodels.URLField('Externe link', blank=True)
@@ -122,7 +155,6 @@ RelatedLink.panels = [
 	FieldPanel('title'),
 	MultiFieldPanel(LinkFields.panels, 'Link')
 ]
-	
 
 
 
@@ -167,7 +199,6 @@ HomePage.content_panels = models.Page.content_panels + [
 # SNIPPETS
 #
 #
-
 @register_snippet
 class Location(djangomodels.Model):
 	'''
@@ -312,9 +343,7 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
 	'''
 
-	name = djangomodels.CharField(max_length=27)
-
-	#base_form_class = MyModelForm
+	name = djangomodels.CharField(max_length=27, unique=True)
 
 	class Meta:
 		verbose_name = 'Beoordeelbaar kenmerk'
@@ -462,7 +491,7 @@ FestivalPage.content_panels = [
 		heading='Festival gegevens'
 	),
 	#
-	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	InlinePanel('related_links', label="URL's voor het festival"),
 	InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
@@ -496,7 +525,7 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 
 	def __str__(self):
 
-		return 'kenmerk'
+		return str(self.rateable_attribute)
 
 	def save(self, *args, **kwargs):
 
