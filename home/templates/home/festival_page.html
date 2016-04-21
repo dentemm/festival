@@ -179,13 +179,14 @@
 		    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
 		{% endif %}
 	</div>
-	<div class="container">
+	<div class="container m-y-lg">
 		<select id="example">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
+			<option value="" data-html=""></option>
+			<option value="1" data-html="klote">1</option>
+			<option value="2" data-html="">2</option>
+			<option value="3" data-html="">3</option>
+			<option value="4" data-html="">4</option>
+			<option value="5" data-html="">5</option>
 		</select>
 	</div>
 
@@ -204,7 +205,9 @@
 	    <script type="text/javascript">
 		   	$(function() {
 		      	$('#example').barrating({
-		      		'theme': 'bars-square'
+		      		'theme': 'bars-square',
+		      		'showSelectedRating': true,
+		      		'showValues': false
 		      	});
 		   	});
 		</script>

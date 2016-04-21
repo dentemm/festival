@@ -364,13 +364,16 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 #
 class FestivalIndexPage(models.Page):
 	'''
-	Deze klasse is een listview van alle opkomende festivals
+	Deze klasse is een listview van alle opkomende festivals. Dit is tevens de homepage
 	'''
 
 	parent_page_types = ['home.FestivalPage']
 
 	@property
 	def festivals(self):
+		'''
+		Verkrijg de lijst met festival pagina's die een descendant zijn van deze pagina
+		'''
 
 		festivals = FestivalPage.objects.live().descendant_of(self)
 		festivals = fesetivals.order_by('-date')
@@ -379,11 +382,12 @@ class FestivalIndexPage(models.Page):
 
 	def get_context(self, request):
 
+		# Maak gebruik van bovenstaande festivals() functie om alle objecten van FestivalPage queryset te verkrijgen
 		festivals = self.festivals
 
 		# pagination
 		page = request.GET.get('page')
-		paginator = Paginator(festivals, 16)
+		paginator = Paginator(festivals, 20)
 
 		try:
 			festivals = paginator.page(page)
@@ -394,10 +398,13 @@ class FestivalIndexPage(models.Page):
 		except EmptyPage:
 			festivals = paginator.page(paginator.num_pages)
 
+		# Update template context
 		context = super(FestivalIndexPage, self).get_context(request)
 		content['festivals'] = festivals
 
 		return context
+
+
 
 
 #
