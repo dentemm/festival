@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load rating_tags static compress comments %}
+
+
+{% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    	{% compress css %}
+
+	    {% endcompress %}
+{% endblock %}
+
+{% block content %} 
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				FESTIVAL PAGE RATING tests:
+			</div>
+			<div class="col-md-6">
+				Aantal votes: {% votes_count page as votes_count %}
+				{{ votes_count }}
+			</div>
+			<div class="col-md-6">
+				Score van deze user ({{ user }}): {% user_rating user page %}
+			</div>
+			<div class="col-md-6">
+			</div>
+		</div>
+	</div>
+
+
+{% endblock content %}
+
+{% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    	{% compress js %}
+
+	    {% endcompress %}
+{% endblock extra_js %}

@@ -367,7 +367,10 @@ class FestivalIndexPage(models.Page):
 	Deze klasse is een listview van alle opkomende festivals. Dit is tevens de homepage
 	'''
 
-	parent_page_types = ['home.FestivalPage']
+	#parent_page_types = ['home.FestivalPage']
+
+	subpage_types = ['home.FestivalPage', ]
+
 
 	@property
 	def festivals(self):
@@ -376,7 +379,7 @@ class FestivalIndexPage(models.Page):
 		'''
 
 		festivals = FestivalPage.objects.live().descendant_of(self)
-		festivals = fesetivals.order_by('-date')
+		festivals = festivals.order_by('-date')
 
 		return festivals
 
@@ -400,7 +403,7 @@ class FestivalIndexPage(models.Page):
 
 		# Update template context
 		context = super(FestivalIndexPage, self).get_context(request)
-		content['festivals'] = festivals
+		context['festivals'] = festivals
 
 		return context
 
