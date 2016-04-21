@@ -11,6 +11,7 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.theme.css' %}">
 	    <!-- custom css-->
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/advisor.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'ratings/css/ratings.css' %}">
 	    {% endcompress %}
 {% endblock %}
 
@@ -178,6 +179,16 @@
 		    <p>Please <a href="{% url 'auth_login' %}">log in</a> to leave a comment.</p>
 		{% endif %}
 	</div>
+	<div class="container">
+		<select id="example">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select>
+	</div>
+
 
 {% endblock content %}
 
@@ -188,5 +199,15 @@
 	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
 	    <!-- festad? -->
 	    <script type="text/javascript" src="{% static 'js/festad.js' %}"></script>
+	    <!-- jQuery Bar Rating -->
+	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
+	    <script type="text/javascript">
+		   	$(function() {
+		      	$('#example').barrating({
+		      		'theme': 'bars-square'
+		      	});
+		   	});
+		</script>
+
 	    {% endcompress %}
 {% endblock extra_js %}
