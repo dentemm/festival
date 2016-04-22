@@ -369,7 +369,7 @@ class FestivalIndexPage(models.Page):
 
 	#parent_page_types = ['home.FestivalPage']
 
-	subpage_types = ['home.FestivalPage', ]
+	#subpage_types = ['home.FestivalPage', ]
 
 
 	@property
@@ -459,8 +459,29 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
+		main_image = None
+
+		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
+		if len(self.images.all()) == 1:
+
+			main = self.images.all()[0]
+			main_image = main.image
+
+		# Als er meer dan 1 afbeelding is, zorgen we ervoor dat er slechts 1 primair is
+		elif len(self.images.all()) > 1:
+
+			main = self.images.all()[0]
+			main_image = main.image
+
+
+		# Update het main_image attribuut van de bijhorende FestivalPage
+		self.main_image = main_image
+
+
 		self.title = self.name
 		self.slug = slugify(self.name)
+
+		print('save page -- image: %s' % self.main_image)
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
@@ -472,7 +493,7 @@ class FestivalPage(models.Page):
 
 # Festival page parent and sub page definition
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-FestivalPage.subpage_types = []
+#FestivalPage.subpage_types = []
 
 # Festival page panels
 FestivalPage.content_panels = [
