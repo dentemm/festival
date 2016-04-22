@@ -47,7 +47,7 @@
 			{% for festival in festivals %}
 
 
-				{% image festival.main_image width-400 as tmp_photo %}
+				{% image festival.main_image fill-100x100 as tmp_photo %}
 				<img src="{{ tmp_photo.url }}" class="img-responsive img-rounded">
 				<p>{{ tmp_photo.url }} -- {{ festival }}</p>
 			{% endfor %}
@@ -81,7 +81,7 @@
 				<div data-grid="images">
 				{% for festival in festivals %}
 					{% if festival.main_image %}
-						{% image festival.main_image width-200 as tmp_photo %}
+						{% image festival.main_image fill-200x100 as tmp_photo %}
 							<img src="{{ tmp_photo.url }}" data-width="{{ tmp_photo.width }}" data-height="{{ tmp_photo.height }}">
 					{% endif %}
 				{% endfor %}
@@ -90,16 +90,20 @@
 		</div>
 	</div>
 
-
-
 {% endblock content %}
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
     	{% compress js %}
-    	<script type="text/javascript">
-    		$('.images').imageGrid();
-    	</script>
+    	<!--<script type="text/javascript">
+    		$(window).on('load', function() {
+
+    			console.log('ready')
+				$('.images2').imageGrid();
+				console.log('ready')
+
+    		});
+    	</script>-->
 
 	    {% endcompress %}
 {% endblock extra_js %}
