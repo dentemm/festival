@@ -180,7 +180,7 @@ class HomePage(models.Page):
 
 	template = 'home/home.html'
 
-	body = fields.StreamField(HomePageStreamBlock(), null=True)
+	#body = fields.StreamField(HomePageStreamBlock(), blank=True, null=True)
 	test = fields.RichTextField(blank=True, null=True)
 
 
@@ -501,10 +501,10 @@ FestivalPage.content_panels = [
 		heading='Festival gegevens'
 	),
 	#
-	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	InlinePanel('related_links', label="URL's voor het festival"),
-	InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
+	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
 	#InlinePanel('new_person', label='test', max_num=1),
 
@@ -627,7 +627,8 @@ class FestivalImage(djangomodels.Model):
 	def save(self, *args, **kwargs):
 		'''
 		Hier wordt nagekeken of er meerdere afbeeldingen zijn met een is_primary flag
-		slecht 1 is_primary flag wordt aanvaard, en de main_image attribute van FestivalPage wordt ingesteld
+		slechts 1 is_primary flag wordt aanvaard, en de main_image attribute van FestivalPage wordt ingesteld
+		Opmerking: de save() methode wordt pas opgeroepen tijdens het publiceren van de pagina
 		'''
 
 		main_image = None
@@ -665,6 +666,7 @@ class FestivalImage(djangomodels.Model):
 
 		# Update het main_image attribuut van de bijhorende FestivalPage
 		self.page.main_image = main_image
+		#self.page.save()
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
