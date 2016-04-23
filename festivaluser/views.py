@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, UpdateView
 
 from .models import FestivalAdvisorUser
 
@@ -17,6 +17,7 @@ def account(request):
 def logout(request):
 	auth_logout(request)
 	return redirect('/')
+
 
 
 class UserProfileView(TemplateView):

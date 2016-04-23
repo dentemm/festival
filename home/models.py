@@ -5,6 +5,7 @@ from django.db import models as djangomodels
 from django.db.models.signals import pre_delete
 from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.dispatch import receiver
@@ -444,6 +445,7 @@ class FestivalPage(models.Page):
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 	website = djangomodels.URLField(max_length=120, null=True, blank=True)
 	main_image = djangomodels.ForeignKey('home.CustomImage', null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
+	pricing = djangomodels.PositiveIntegerField('Prijs (range 0 - 5)', default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
 
 	# Foreign key relaties
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
@@ -508,6 +510,10 @@ FestivalPage.content_panels = [
 				FieldPanel('date', classname='col6'),
 				FieldPanel('duration', classname='col6'),
 				],
+			),
+			FieldRowPanel([
+				FieldPanel('pricing', classname='col6'),
+				]
 			),
 			FieldRowPanel([
 				FieldPanel('website', classname='col6'),
