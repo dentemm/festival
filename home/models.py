@@ -360,6 +360,52 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 #
 #
+# CALENDAR PAGE
+#
+#
+class CalendarPage(models.Page):
+	'''
+	Deze klasse is een listview van alle festivals, en wordt gebruikt om de kalender pagina
+	te renderen
+	'''
+
+	@property
+	def festivals(self):
+	    
+	    festivals = FestivalPage.objects.live()
+	    festival = festival.order_by('-date')
+
+	    return festivals
+
+	def get_context(self, request):
+
+		# Maak gebruik van bovenstaande festivals() functie om alle objecten van FestivalPage queryset te verkrijgen
+		festivals = self.festivals
+
+		# pagination
+		page = request.GET.get('page')
+		paginator = Paginator(festivals, 20)
+
+		try:
+			festivals = paginator.page(page)
+
+		except PageNotAnInteger:
+			festivals = paginator.page(1)
+
+		except EmptyPage:
+			festivals = paginator.page(paginator.num_pages)
+
+		# Update template context
+		context = super(FestivalIndexPage, self).get_context(request)
+		context['festivals'] = festivals
+
+		return context
+
+	
+
+
+#
+#
 # FESTIVAL INDEX PAGE
 #
 #
