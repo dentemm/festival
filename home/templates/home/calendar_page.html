@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load rating_tags static compress comments wagtailimages_tags %}
+
+
+{% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    	{% compress css %}
+
+	    {% endcompress %}
+
+
+{% endblock %}
+
+{% block content %} 
+
+	<div class="container">
+		<div class="row">
+			TEST
+		</div>
+	</div>
+
+
+
+{% endblock content %}
+
+{% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    	{% compress js %}
+    	<!--<script type="text/javascript">
+    		$(window).on('load', function() {
+
+    			console.log('ready')
+				$('.images2').imageGrid();
+				console.log('ready')
+
+    		});
+    	</script>-->
+
+	    {% endcompress %}
+{% endblock extra_js %}

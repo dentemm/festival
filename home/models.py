@@ -9,6 +9,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
 from django.utils.translation import ugettext as _
 from django.dispatch import receiver
+from django.template.response import TemplateResponse
 
 # Wagtail imports
 from wagtail.wagtailcore import blocks
@@ -22,6 +23,7 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, Inl
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 # Third party wagtail dependancies 
 from modelcluster.fields import ParentalKey
@@ -363,13 +365,15 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 # CALENDAR PAGE
 #
 #
-class CalendarPage(models.Page):
+class CalendarPage(RoutablePageMixin, models.Page):
 	'''
 	Deze klasse is een listview van alle festivals, en wordt gebruikt om de kalender pagina
 	te renderen
 	'''
 
-	@property
+	template = 'home/festival_index_page.html'
+
+	#@property
 	def festivals(self):
 	    
 	    festivals = FestivalPage.objects.live()
@@ -377,7 +381,7 @@ class CalendarPage(models.Page):
 
 	    return festivals
 
-	def get_context(self, request):
+	'''def get_context(self, request):
 
 		# Maak gebruik van bovenstaande festivals() functie om alle objecten van FestivalPage queryset te verkrijgen
 		festivals = self.festivals
@@ -399,8 +403,28 @@ class CalendarPage(models.Page):
 		context = super(FestivalIndexPage, self).get_context(request)
 		context['festivals'] = festivals
 
-		return context
+		return context'''
 
+	#def get_festivals_for_month(self, month):
+
+
+	@route(r'^$')
+	@route(r'^current/$')
+	@route(r'^month/(?P<month>[0-9]{4})/(?P<year>[0-9]{2})/$')
+	def events_for_month(self, request, month=10, year=2016):
+		'''
+		Dit is een view functie die alle festivals voor een bepaalde maand opvraagt
+		??? is het niet mogelijk om een CBV te schrijven met @route voor de as.view() methode daarvan???
+		'''
+
+		template = 'home/calendar_page.html'
+
+		context = {
+			'year' : 'year',
+			'month': 'month',
+		}
+
+		return TemplateResponse(request, template, context)
 	
 
 
@@ -436,8 +460,8 @@ class FestivalIndexPage(models.Page):
 		festivals = self.festivals
 
 		# pagination
-		page = request.GET.get('page')
-		paginator = Paginator(festivals, 20)
+		page = request.GET.get('page', 1)
+		paginator = Paginator(festivals, 3)
 
 		try:
 			festivals = paginator.page(page)
@@ -453,8 +477,6 @@ class FestivalIndexPage(models.Page):
 		context['festivals'] = festivals
 
 		return context
-
-
 
 
 #
