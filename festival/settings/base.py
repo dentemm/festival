@@ -150,7 +150,7 @@ AUTHENTICATION_BACKENDS = (
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'nl-be'
+LANGUAGE_CODE = 'nl-BE'
 #LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'CET'
@@ -181,6 +181,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+import locale
+locale.setlocale(locale.LC_ALL, 'nl_BE.UTF-8')
 
 # WAGTAIL SETTINGS
 

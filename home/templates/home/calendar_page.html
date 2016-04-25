@@ -29,6 +29,22 @@
 			</div>
 			{% endfor %}
 		</div>
+		<div class="row">
+			<div class="col-md-4">
+			{% if previous_month %}
+				<a href="/kalender/test/?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">
+					&larr; {{ previous_month|date:'M Y' }}
+				</a>
+			{% endif %}
+			</div>
+			<div class="col-md-4 col-md-offset-4">
+			{% if next_month %}
+				<a href="/kalender/test/?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">
+					&larr; {{ next_month|date:'M Y' }}
+				</a>
+			{% endif %}
+			</div>
+		</div>
 	</div>
 
 
