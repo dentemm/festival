@@ -609,7 +609,7 @@ class CalendarPage(RoutablePageMixin, models.Page):
 	#def get_festivals_for_month(self, month):
 
 	@route(r'^test/$', name='monthly')
-	def test(self, request):
+	def festivals_for_month(self, request):
 
 		return FestivalMonthArchiveView.as_view()(request)
 

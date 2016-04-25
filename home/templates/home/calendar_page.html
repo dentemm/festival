@@ -16,34 +16,36 @@
 
 	<div class="container">
 		<div class="row">
-			MAAND = {{ month }}
-			<br>
-		</div>
-
-		{{ festival_list }}
-
-		<div class="row">
-			{% for festival in festival_list %}
-			<div class="col-md-3">
-				{{ festival.name }}
-			</div>
-			{% endfor %}
-		</div>
-		<div class="row">
 			<div class="col-md-4">
 			{% if previous_month %}
-				<a href="/kalender/test/?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">
+				<a class="btn btn-default" href="/kalender/test/?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">
 					&larr; {{ previous_month|date:'M Y' }}
 				</a>
 			{% endif %}
 			</div>
 			<div class="col-md-4 col-md-offset-4">
 			{% if next_month %}
-				<a href="/kalender/test/?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">
-					&larr; {{ next_month|date:'M Y' }}
+				<a class="btn btn-default" href="/kalender/test/?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">
+					{{ next_month|date:'M Y' }} &rarr;
 				</a>
 			{% endif %}
 			</div>
+		</div>
+		<div class="row">
+			{% for festival in festival_list reversed %}
+			<div class="col-md-4">
+				<div class="panel panel-bold panel-info">
+					<div class="panel-heading">
+						{% image festival.main_image fill-200x100 as tmp_photo %}
+						<img src="{{ tmp_photo.url }}" class="img-responsive" style="height: 100px">
+					</div>
+					<div class="panel-body">
+						<h3>{{ festival.name }}</h3>
+						<h5>{{ festival.date }}</h5>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
 		</div>
 	</div>
 
