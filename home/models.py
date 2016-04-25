@@ -360,73 +360,6 @@ class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
 
 		return super(FestivalPageRateableAttribute, self).save(*args, **kwargs)
 
-#
-#
-# CALENDAR PAGE
-#
-#
-class CalendarPage(RoutablePageMixin, models.Page):
-	'''
-	Deze klasse is een listview van alle festivals, en wordt gebruikt om de kalender pagina
-	te renderen
-	'''
-
-	template = 'home/festival_index_page.html'
-
-	#@property
-	def festivals(self):
-	    
-	    festivals = FestivalPage.objects.live()
-	    festival = festival.order_by('-date')
-
-	    return festivals
-
-	'''def get_context(self, request):
-
-		# Maak gebruik van bovenstaande festivals() functie om alle objecten van FestivalPage queryset te verkrijgen
-		festivals = self.festivals
-
-		# pagination
-		page = request.GET.get('page')
-		paginator = Paginator(festivals, 20)
-
-		try:
-			festivals = paginator.page(page)
-
-		except PageNotAnInteger:
-			festivals = paginator.page(1)
-
-		except EmptyPage:
-			festivals = paginator.page(paginator.num_pages)
-
-		# Update template context
-		context = super(FestivalIndexPage, self).get_context(request)
-		context['festivals'] = festivals
-
-		return context'''
-
-	#def get_festivals_for_month(self, month):
-
-
-	@route(r'^$')
-	@route(r'^current/$')
-	@route(r'^month/(?P<month>[0-9]{4})/(?P<year>[0-9]{2})/$')
-	def events_for_month(self, request, month=10, year=2016):
-		'''
-		Dit is een view functie die alle festivals voor een bepaalde maand opvraagt
-		??? is het niet mogelijk om een CBV te schrijven met @route voor de as.view() methode daarvan???
-		'''
-
-		template = 'home/calendar_page.html'
-
-		context = {
-			'year' : 'year',
-			'month': 'month',
-		}
-
-		return TemplateResponse(request, template, context)
-	
-
 
 #
 #
@@ -609,6 +542,97 @@ FestivalPage.content_panels = [
 FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
+
+#
+#
+# CALENDAR PAGE
+#
+#
+from django.views.generic.dates import MonthArchiveView
+
+class FestivalMonthArchiveView(MonthArchiveView):
+	'''
+	Subklasse van MonthArchiveView om paginatie toe te laten volgens maand het festival plaats vindt
+	'''
+
+	model = FestivalPage
+	template_name = 'home/calendar_page.html'
+
+	paginate_by = 75
+	context_object_name = 'festival_list'
+	date_field = 'date'
+	allow_empty = True
+
+
+
+class CalendarPage(RoutablePageMixin, models.Page):
+	'''
+	Deze klasse is een listview van alle festivals, en wordt gebruikt om de kalender pagina
+	te renderen
+	'''
+
+	template = 'home/festival_index_page.html'
+
+	#@property
+	def festivals(self):
+	    
+	    festivals = FestivalPage.objects.live()
+	    festival = festival.order_by('-date')
+
+	    return festivals
+
+	'''def get_context(self, request):
+
+		# Maak gebruik van bovenstaande festivals() functie om alle objecten van FestivalPage queryset te verkrijgen
+		festivals = self.festivals
+
+		# pagination
+		page = request.GET.get('page')
+		paginator = Paginator(festivals, 20)
+
+		try:
+			festivals = paginator.page(page)
+
+		except PageNotAnInteger:
+			festivals = paginator.page(1)
+
+		except EmptyPage:
+			festivals = paginator.page(paginator.num_pages)
+
+		# Update template context
+		context = super(FestivalIndexPage, self).get_context(request)
+		context['festivals'] = festivals
+
+		return context'''
+
+	#def get_festivals_for_month(self, month):
+
+	@route(r'^test/$')
+	def test(self, request):
+
+		return FestivalMonthArchiveView.as_view()(request)
+
+
+	@route(r'^$')
+	@route(r'^current/$')
+	@route(r'^(?P<month>[0-9]{2})/(?P<year>[0-9]{4})/$')
+	def events_for_month(self, request, month=10, year=2016):
+		'''
+		Dit is een view functie die alle festivals voor een bepaalde maand opvraagt
+		??? is het niet mogelijk om een CBV te schrijven met @route voor de as.view() methode daarvan???
+		'''
+
+		template = 'home/calendar_page.html'
+
+		context = {
+			'year' : year,
+			'month': month,
+		}
+
+		return TemplateResponse(request, template, context)
+	
+
+
 
 
 class FestivalPageRatebleAttributeValue(djangomodels.Model):

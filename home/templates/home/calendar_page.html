@@ -16,7 +16,18 @@
 
 	<div class="container">
 		<div class="row">
-			TEST
+			MAAND = {{ month }}
+			<br>
+		</div>
+
+		{{ festival_list }}
+
+		<div class="row">
+			{% for festival in festival_list %}
+			<div class="col-md-3">
+				{{ festival.name }}
+			</div>
+			{% endfor %}
 		</div>
 	</div>
 
