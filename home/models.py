@@ -558,10 +558,11 @@ class FestivalMonthArchiveView(MonthArchiveView):
 	model = FestivalPage
 	template_name = 'home/calendar_page.html'
 
-	paginate_by = 75
+	paginate_by = 10
 	context_object_name = 'festival_list'
 	date_field = 'date'
 	allow_empty = True
+	allow_future = True
 
 
 
@@ -619,7 +620,6 @@ class CalendarPage(RoutablePageMixin, models.Page):
 	def events_for_month(self, request, month=10, year=2016):
 		'''
 		Dit is een view functie die alle festivals voor een bepaalde maand opvraagt
-		??? is het niet mogelijk om een CBV te schrijven met @route voor de as.view() methode daarvan???
 		'''
 
 		template = 'home/calendar_page.html'
