@@ -558,11 +558,21 @@ class FestivalMonthArchiveView(MonthArchiveView):
 	model = FestivalPage
 	template_name = 'home/calendar_page.html'
 
-	paginate_by = 10
+	paginate_by = 25
 	context_object_name = 'festival_list'
 	date_field = 'date'
 	allow_empty = True
 	allow_future = True
+
+	def get(self, request, *args, **kwargs):
+
+		print('jeejejjejjejejej--------')
+
+		print(request)
+		print(args)
+		print(kwargs)
+
+		return super(FestivalMonthArchiveView, self).get(request, *args, **kwargs)
 
 
 
