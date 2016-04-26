@@ -569,9 +569,7 @@ class FestivalMonthArchiveView(MonthArchiveView):
 		# if no date information available: set year and month manually to current year and month
 		if request.GET.get('year') == None:
 
-
 			from datetime import datetime
-
 			now = datetime.now()
 
 			self.year = str(now.year)
