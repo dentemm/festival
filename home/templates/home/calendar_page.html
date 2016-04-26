@@ -3,16 +3,6 @@
 {% load rating_tags static compress comments wagtailimages_tags %}
 
 
-{% block extra_css %}
-    {# Override this in templates to add extra stylesheets #}
-    	{{ block.super }}
-    	{% compress css %}
-
-	    {% endcompress %}
-
-
-{% endblock %}
-
 {% block content %} 
     <section class="main-header">
         <div id="owl-hero" class="owl-carousel owl-theme">
