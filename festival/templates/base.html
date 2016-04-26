@@ -18,7 +18,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-marketing-theme/css/toolkit-startup.css' %}">
         <!-- Font awesome via CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <!-- custom css -->
+        <!-- custom css: wagtail overrides -->
         <link rel="stylesheet" type="text/css" href="{% static  'css/custom.css' %}">
 
         {% block extra_css %}
@@ -28,6 +28,12 @@
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
+
+        <!-- Preloader -->
+        <div class="preloader"><i class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+
+        <!-- navigatie -->
+        {% include 'navbar.html' %}
 
         {% block content %}{% endblock %}
 
