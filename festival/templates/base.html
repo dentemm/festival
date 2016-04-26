@@ -1,4 +1,4 @@
-{% load static wagtailuserbar %}
+{% load staticfiles compress wagtailuserbar %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -13,13 +13,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <!-- Bootstrap -->
-        <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-        <!-- Font awesome via CDN-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <!-- custom css: wagtail overrides -->
-        <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+        {% compress css %}
+            <!-- Bootstrap -->
+            <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+            <!-- Font awesome via CDN-->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <!-- custom css: wagtail overrides -->
+            <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+        {% endcompress %}
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}

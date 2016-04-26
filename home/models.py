@@ -76,42 +76,11 @@ class FestivalPageForm(WagtailAdminPageForm):
         	for attribute in attributes:
         		print(attribute)
 
-        	print(cleaned_data)
-        	print('pre: %s' % page.rateable_attributes.all())
-
-        	#page.rateable_attributes = attributes
-
-        	print('post: %s' % page.rateable_attributes.all())
-
-
-
-
-
 
 
         else:
 
         	print('bestaande pagina')
-
-
-
-        #cleaned_data['contact_person'] = None
-
-        '''page = self.instance
-        print('page: %s' % page)
-        print('page person before change: %s' % page.contact_person)
-
-        if len(page.new_person.all()) > 0:
-
-        	for grrr in page.new_person.all():
-        		print('grrr: %s' % grrr)
-
-        	new = page.new_person.all().last()
-        	#new.save()
-
-        	print('new: %s' % new)
-        	cleaned_data['contact_person'] = new
-        	new.save()'''
 
         return cleaned_data
 
@@ -370,10 +339,7 @@ class FestivalIndexPage(models.Page):
 	'''
 	Deze klasse is een listview van alle opkomende festivals. Dit is tevens de homepage
 	'''
-
-	#parent_page_types = ['home.FestivalPage']
-
-	#subpage_types = ['home.FestivalPage', ]
+	template = 'home/home.html'
 
 
 	@property
