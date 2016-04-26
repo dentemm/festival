@@ -14,14 +14,12 @@
 
         {# Global stylesheets #}
 
-        {% compress css %}
             <!-- Bootstrap -->
             <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
             <!-- Font awesome via CDN-->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
             <!-- custom css: wagtail overrides -->
             <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-        {% endcompress %}
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
