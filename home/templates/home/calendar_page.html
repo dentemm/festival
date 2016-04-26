@@ -5,6 +5,7 @@
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
+    	{{ block.super }}
     	{% compress css %}
 
 	    {% endcompress %}
@@ -62,6 +63,7 @@
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
+    	{{ block.super }}
     	{% compress js %}
     	<!--<script type="text/javascript">
     		$(window).on('load', function() {

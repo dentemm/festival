@@ -14,11 +14,12 @@
 
         {# Global stylesheets #}
         <!-- Bootstrap -->
+        <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
         <!-- Font awesome via CDN-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- custom css: wagtail overrides -->
-        <link rel="stylesheet" type="text/css" href="{% static  'css/custom.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -28,22 +29,21 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        <!-- Preloader -->
+        <!-- PRELOADER -->
         <div class="preloader"><i class="fa fa-circle-o-notch fa-spin fa-2x"></i></div>
 
-        <!-- navigatie -->
+        <!-- NAVIGATIE -->
         {% include 'navbar.html' %}
 
         {% block content %}{% endblock %}
 
+        <!-- FOOTER--> 
+        {% include 'footer.html' %}
+
         {# Global javascript #}
-        <!-- Bootstrap marketing theme + jQuery (requirement) -->
-        <script src="{% static 'js/jquery.min.js' %}"></script>
-        <script type="text/javascript" src="{% static 'bootstrap-marketing-theme/js/toolkit.js' %}"></script>
-        <script type="text/javascript" src="{% static 'bootstrap-marketing-theme/js/application.js' %}"></script>
-
-        <script type="text/javascript" src="{% static 'js/festival.js' %}"></script>
-
+        <!-- BOOTSTRAP + JQUERY (requirement) -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}

@@ -4,9 +4,21 @@
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
-    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.carousel.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.theme.css' %}">
-    <link rel="stylesheet" type="text/css" href="{‰ static 'owl-carousel/owl.transitions.css' ‰}">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.theme.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.transitions.css' %}">
+    <!-- LIGHTBOX -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/lightbox/dist/css/lightbox.css' %}">
+    <!-- ICONS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/icons/et-line-font/style.css' %}">
+    <!-- ANIMATE.CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/animate.css/animate.css' %}">
+
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -130,7 +142,37 @@
 
 {% endblock %}
 
+    <script src="js/custom.js"></script>
+    <!-- JS PLUGINS -->
+    <script src="plugins/owl-carousel/owl.carousel.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="plugins/waypoints/jquery.waypoints.min.js"></script>
+    <script src="plugins/countto/jquery.countto.js"></script>
+    <script src="plugins/inview/jquery.inview.min.js"></script>
+    <script src="plugins/Lightbox/dist/js/lightbox.min.js"></script>
+    <script src="plugins/WOW/dist/wow.min.js"></script>
+    <!-- GOOGLE MAP -->
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
+    <!-- OWL CAROUSEL -->
     <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+    <!--JQUERY EASING -->
+    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- WAYPOINTS -->
+    <script type="text/javascript" src="{% static 'plugins/waypoints/jquery.waypoints.min.js' %}"></script>
+    <!-- COUNTTO -->
+    <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
+    <!-- INVIEW -->
+    <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
+    <!-- LIGHTBOX -->
+    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
+    <!-- WOW -->
+    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
+    <!-- GOOGLE MAPS -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+    <!-- CUSTOM CSS -->
+    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
 {% endblock %}
