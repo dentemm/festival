@@ -566,11 +566,16 @@ class FestivalMonthArchiveView(MonthArchiveView):
 
 	def get(self, request, *args, **kwargs):
 
-		print('jeejejjejjejejej--------')
+		# if no date information available: set year and month manually to current year and month
+		if request.GET.get('year') == None:
 
-		print(request)
-		print(args)
-		print(kwargs)
+
+			from datetime import datetime
+
+			now = datetime.now()
+
+			self.year = str(now.year)
+			self.month = now.strftime("%b")
 
 		return super(FestivalMonthArchiveView, self).get(request, *args, **kwargs)
 

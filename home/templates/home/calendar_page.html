@@ -14,7 +14,37 @@
 {% endblock %}
 
 {% block content %} 
+    <section class="main-header">
+        <div id="owl-hero" class="owl-carousel owl-theme">
+            <!--<div class="item" style="background-image: url(img/sliders/Slide.jpg)">-->
+            <div class="item" style="background-image: url({% static 'img/sliders/Slide.jpg' %})">
+                <div class="caption">
+                    <h6>House & Techno / 15-16 april / Lommel</h6>
+                    <h1>Day<span>Dream festival</span></h1>
+                    <a class="btn btn-transparent" href="#">Meer info</a><a class="btn btn-light" href="#">Koop tickets</a>
+                </div>
+            </div>
+            <div class="item" style="background-image: url({% static 'img/sliders/Slide2.jpg' %})">
+                <div class="caption">
+                    <h6>Divers / 5-6 augustus / Genk</h6>
+                    <h1>Absolutely <span>Free festival</span></h1>
+                    <a class="btn btn-transparent" href="#">Meer info</a><a class="btn btn-light" href="#">Koop tickets</a>
+                </div>
+            </div>
+            <div class="item hidden-xs">
+                <div class="caption">
+                    <h6>Tropical & Exotic / 8-9-10 juli / Bree</h6>
+                    <h1>Afro-<span>Latino festival</span></h1>
+                    <a class="btn btn-transparent" href="#">Meer info</a><a class="btn btn-light" href="#">Koop tickets</a>
+                </div>
+                <div class="flex-video widescreen" style="margin: 0 auto;text-align:center;">
+                    <iframe allowfullscreen="true" src="http://www.youtube.com/embed/xvgKYRH5X_U?autoplay=0" frameborder="0">
+                    </iframe>
+                </div>
+            </div>
 
+        </div>
+    </section>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
