@@ -50,39 +50,44 @@ from .forms import  AddressForm
 #
 #
 class FestivalPageForm(WagtailAdminPageForm):
-    '''
-    Custom WagtailAdminPageForm subklasse. Deze wordt gebruikt om extra field validation te integreren
-    Staat hier omwille van circular import!
-    '''
+	'''
+	Custom WagtailAdminPageForm subklasse. Deze wordt gebruikt om extra field validation te integreren
+	Staat hier omwille van circular import!
+	'''
 
-    def clean(self):
+	def clean(self):
 
-        cleaned_data = super(FestivalPageForm, self).clean()
+		print('clean() methode van FestivalPageForm')
 
-        page = self.instance
+		cleaned_data = super(FestivalPageForm, self).clean()
 
-        # RATEABLE ATTRIBUTES FUNCTIONALITEIT
+		print(cleaned_data)
 
-        print('page id: %s' % page.id)
-        print('rateable_attributes: %s' % page.rateable_attributes.all())
+		page = self.instance
 
-        # Een net aangemaakte pagina heeft geen id
-        if page.id == None:
+		# RATEABLE ATTRIBUTES FUNCTIONALITEIT
 
-        	attributes = list(FestivalPageRateableAttribute.objects.all())
+		print('page id: %s' % page.id)
+		print('rateable_attributes: %s' % page.rateable_attributes.all())
 
-        	print('nieuwe pagina')
+    	# -- TEST -- #
+		kenmerken = FestivalPageRateableAttribute.objects.all()
 
-        	for attribute in attributes:
-        		print(attribute)
+		for kenmerk in kenmerken:
 
+			new, created = FestivalPageRatebleAttributeValue.objects.get_or_create(page=page, rateable_attribute=kenmerk)
 
+			if created == False:
+				print('break hier!')
+				break
 
-        else:
+			else:
+				continue
 
-        	print('bestaande pagina')
+		if len(page.rateable_attributes.all()) == 0:
+			page.rateable_attributes = kenmerken
 
-        return cleaned_data
+		return cleaned_data
 
 #
 #
@@ -465,7 +470,7 @@ class FestivalPage(models.Page):
 
 		print('save page -- image: %s' % self.main_image)
 
-		# -- TEST -- #
+		'''# -- TEST -- #
 
 		kenmerken = list(FestivalPageRateableAttribute.objects.all())
 
@@ -478,7 +483,7 @@ class FestivalPage(models.Page):
 				break
 
 			else:
-				continue
+				continue'''
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
