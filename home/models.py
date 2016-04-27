@@ -436,6 +436,7 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
+		# -- MAIN IMAGE FUNCTIONALITY -- #
 		main_image = None
 
 		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
@@ -455,10 +456,24 @@ class FestivalPage(models.Page):
 		self.main_image = main_image
 
 
-		self.title = self.name
-		self.slug = slugify(self.name)
+		# -- PAGE TITLE AND PAGE SLUG FUNCTIONALITY -- #
+
+		if self.slug == "" and self.title == "":
+			self.title = self.name
+			self.slug = slugify(self.name)
+
 
 		print('save page -- image: %s' % self.main_image)
+
+		# -- TEST -- #
+
+		kenmerken = list(FestivalPageRateableAttribute.objects.all())
+
+		for kenmerk in kenmerken:
+
+			new = FestivalPageRatebleAttributeValue(page=self, rateable_attribute=kenmerk)
+
+			#new.save()
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
@@ -579,21 +594,21 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 	Join model for FestivalPage en FestivalAttribute
 	'''
 
-	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+', unique=True)
+	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 
 	#base_form_class = MyModelForm
 
 
 	class Meta:
-			
+		#pass	
 		unique_together = (
 			('page', 'rateable_attribute', ),
 		)
 
 	def __str__(self):
 
-		return str(self.rateable_attribute)
+		return str(self.rateable_attribute) + ' - ' + str(self.page)
 
 	def save(self, *args, **kwargs):
 
