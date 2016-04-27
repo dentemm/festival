@@ -377,6 +377,14 @@ class FestivalIndexPage(models.Page):
 
 		return context
 
+	@route(r'^$')
+	def base(self, request):
+
+		return TemplateResponse(request)
+
+#FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
+FestivalIndexPage.subpage_types = ['home.FestivalPage']
+
 
 #
 #
@@ -495,7 +503,7 @@ FestivalPage.content_panels = [
 		heading='Festival gegevens'
 	),
 	#
-	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	InlinePanel('related_links', label="URL's voor het festival"),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
@@ -519,6 +527,7 @@ from django.views.generic.dates import MonthArchiveView
 class FestivalMonthArchiveView(MonthArchiveView):
 	'''
 	Subklasse van MonthArchiveView om paginatie toe te laten volgens maand het festival plaats vindt
+	Dit view wordt gebruikt voor CalendarPage
 	'''
 
 	model = FestivalPage
@@ -543,8 +552,6 @@ class FestivalMonthArchiveView(MonthArchiveView):
 
 		return super(FestivalMonthArchiveView, self).get(request, *args, **kwargs)
 
-
-
 class CalendarPage(RoutablePageMixin, models.Page):
 	'''
 	Deze klasse is een listview van alle festivals, en wordt gebruikt om de kalender pagina
@@ -561,57 +568,10 @@ class CalendarPage(RoutablePageMixin, models.Page):
 
 	    return festivals
 
-	'''def get_context(self, request):
-
-		# Maak gebruik van bovenstaande festivals() functie om alle objecten van FestivalPage queryset te verkrijgen
-		festivals = self.festivals
-
-		# pagination
-		page = request.GET.get('page')
-		paginator = Paginator(festivals, 20)
-
-		try:
-			festivals = paginator.page(page)
-
-		except PageNotAnInteger:
-			festivals = paginator.page(1)
-
-		except EmptyPage:
-			festivals = paginator.page(paginator.num_pages)
-
-		# Update template context
-		context = super(FestivalIndexPage, self).get_context(request)
-		context['festivals'] = festivals
-
-		return context'''
-
-	#def get_festivals_for_month(self, month):
-
-	@route(r'^test/$', name='monthly')
+	@route(r'^overzicht/$', name='monthly')
 	def festivals_for_month(self, request):
 
 		return FestivalMonthArchiveView.as_view()(request)
-
-
-	@route(r'^$')
-	@route(r'^current/$')
-	@route(r'^(?P<month>[0-9]{2})/(?P<year>[0-9]{4})/$')
-	def events_for_month(self, request, month=10, year=2016):
-		'''
-		Dit is een view functie die alle festivals voor een bepaalde maand opvraagt
-		'''
-
-		template = 'home/calendar_page.html'
-
-		context = {
-			'year' : year,
-			'month': month,
-		}
-
-		return TemplateResponse(request, template, context)
-	
-
-
 
 
 class FestivalPageRatebleAttributeValue(djangomodels.Model):
@@ -626,10 +586,10 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 
 
 	class Meta:
-		pass	
-		#unique_together = (
-		#	('page', 'rateable_attribute', ),
-		#)
+			
+		unique_together = (
+			('page', 'rateable_attribute', ),
+		)
 
 	def __str__(self):
 
