@@ -471,9 +471,14 @@ class FestivalPage(models.Page):
 
 		for kenmerk in kenmerken:
 
-			new = FestivalPageRatebleAttributeValue(page=self, rateable_attribute=kenmerk)
+			new, created = FestivalPageRatebleAttributeValue.objects.get_or_create(page=self, rateable_attribute=kenmerk)
 
-			#new.save()
+			if created == False:
+				print('break hier!')
+				break
+
+			else:
+				continue
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
