@@ -315,7 +315,7 @@ class CommentSnippet(CommentWithTitle):
 
 
 #@register_snippet
-class FestivalPageRateableAttribute(RatedModelMixin, djangomodels.Model):
+class FestivalPageRateableAttribute(djangomodels.Model):
 	'''
 	Deze klasse beschrijft een te beoordelen kenmerk van een festival. Het erft van de RatedModelMixin klasse
 	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
@@ -500,13 +500,22 @@ class FestivalPage(models.Page):
 		num_attributes = len(self.rateable_attributes.all())
 
 		score = 0
+		votes = 0
 
 		for attribute in self.rateable_attributes.all():
 
-			rating = attribute.rateable_attribute.get_ratings()
+			rating = attribute.get_ratings()
 
 			print('rating score= %s' % rating)
+			print('rating %s' % rating.total_score)
 
+			score += rating.total_score
+			votes += rating.num_votes
+
+		totaal = score/votes
+
+		print('totale score: %s' % score)
+		print('gewogen :%s' % totaal)
 
 		return 1
 
@@ -622,9 +631,11 @@ class CalendarPage(RoutablePageMixin, models.Page):
 		return FestivalMonthArchiveView.as_view()(request)
 
 
-class FestivalPageRatebleAttributeValue(djangomodels.Model):
+class FestivalPageRatebleAttributeValue(RatedModelMixin, djangomodels.Model):
 	'''
 	Join model for FestivalPage en FestivalAttribute
+	Deze klasse beschrijft een te beoordelen kenmerk van een festival. Het erft van de RatedModelMixin klasse
+	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
 	'''
 
 	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
