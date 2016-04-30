@@ -59,6 +59,8 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 		print('clean() methode van FestivalPageForm')
 
+		#return super(FestivalPageForm, self).clean()
+
 		cleaned_data = super(FestivalPageForm, self).clean()
 
 		print(cleaned_data)
@@ -68,24 +70,33 @@ class FestivalPageForm(WagtailAdminPageForm):
 		# RATEABLE ATTRIBUTES FUNCTIONALITEIT
 
 		print('page id: %s' % page.id)
+		print('page instance: %s' % self.instance)
 		print('rateable_attributes: %s' % page.rateable_attributes.all())
 
     	# -- TEST -- #
 		kenmerken = FestivalPageRateableAttribute.objects.all()
 
-		for kenmerk in kenmerken:
+		if page.id:
 
-			new, created = FestivalPageRatebleAttributeValue.objects.get_or_create(page=page, rateable_attribute=kenmerk)
+			lijst = []
 
-			if created == False:
-				print('break hier!')
-				break
+			print('bestaande pagina!!!')
 
-			else:
-				continue
+			for kenmerk in kenmerken:
 
-		if len(page.rateable_attributes.all()) == 0:
-			page.rateable_attributes = kenmerken
+				print('kenmerk: %s' % kenmerk)
+
+				new, created = FestivalPageRatebleAttributeValue.objects.get_or_create(page=page, rateable_attribute=kenmerk)
+
+				if created == False:
+					print('break hier!')
+					break
+
+				else:
+					lijst.append(new)
+					continue
+
+			page.rateable_attributes = lijst
 
 		return cleaned_data
 
