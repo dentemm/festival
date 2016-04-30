@@ -9,7 +9,9 @@ def do_after_page_edit(request, page):
 	er nieuwe Snippet objecten werden aangemaakt
 	'''
 
-	check_snippets(request, page)
+	page.update_rating()
+
+	#check_snippets(request, page)
 
 
 
@@ -20,7 +22,7 @@ def do_after_page_create(request, page):
 	er nieuwe Snippet objecten werden aangemaakt
 	'''
 
-	check_snippets(request, page)
+	#check_snippets(request, page)
 
 def check_snippets(request, page):
 	'''

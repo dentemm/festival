@@ -139,4 +139,4 @@ class RatedModelMixin(models.Model):
 
 	def get_ratings(self):
 
-		return Rating.objects.get_for(self)
+		return Score.objects.get_for(self)

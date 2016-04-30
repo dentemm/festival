@@ -42,8 +42,6 @@ from comments.models import CommentWithTitle
 from .managers import UpcomingFestivalManager
 from .forms import  AddressForm
 
-
-
 #
 #
 # FORMS
@@ -57,34 +55,25 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 	def clean(self):
 
-		print('clean() methode van FestivalPageForm')
+		page = self.instance
 
-		#return super(FestivalPageForm, self).clean()
+		print('clean() methode van FestivalPageForm')
+		print('page id: %s' % page.id)
 
 		cleaned_data = super(FestivalPageForm, self).clean()
 
-		print(cleaned_data)
-
-		page = self.instance
-
-		# RATEABLE ATTRIBUTES FUNCTIONALITEIT
-
-		print('page id: %s' % page.id)
-		print('page instance: %s' % self.instance)
-		print('rateable_attributes: %s' % page.rateable_attributes.all())
-
-    	# -- TEST -- #
-		kenmerken = FestivalPageRateableAttribute.objects.all()
 
 		if page.id:
 
+			#page.content_panels += InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
+
+
+			# -- RATEABLE ATTRIBUTES FUNCTIONALITY -- #
+			kenmerken = FestivalPageRateableAttribute.objects.all()
+
 			lijst = []
 
-			print('bestaande pagina!!!')
-
 			for kenmerk in kenmerken:
-
-				print('kenmerk: %s' % kenmerk)
 
 				new, created = FestivalPageRatebleAttributeValue.objects.get_or_create(page=page, rateable_attribute=kenmerk)
 
@@ -96,7 +85,8 @@ class FestivalPageForm(WagtailAdminPageForm):
 					lijst.append(new)
 					continue
 
-			page.rateable_attributes = lijst
+		if(len(page.rateable_attributes.all()) == 0):
+			page.rateable_attributes = lijst 
 
 		return cleaned_data
 
@@ -444,6 +434,11 @@ class FestivalPage(models.Page):
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
 
+	# Rating functionality
+	general_rating = djangomodels.DecimalField(default=0, decimal_places=2, max_digits=4)
+	num_votes = djangomodels.PositiveIntegerField(default=0)
+
+
 	base_form_class = FestivalPageForm
 
 	def save(self, *args, **kwargs):
@@ -451,6 +446,8 @@ class FestivalPage(models.Page):
 		Deze methode werd overschreven om de title en slug attributes van een Page model in te stellen
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
+
+		print('save() methode van FestivalPage')
 
 		# -- MAIN IMAGE FUNCTIONALITY -- #
 		main_image = None
@@ -497,6 +494,21 @@ class FestivalPage(models.Page):
 				continue'''
 
 		return super(FestivalPage, self).save(*args, **kwargs)
+
+	def update_rating(self):
+
+		num_attributes = len(self.rateable_attributes.all())
+
+		score = 0
+
+		for attribute in self.rateable_attributes.all():
+
+			rating = attribute.rateable_attribute.get_ratings()
+
+			print('rating score= %s' % rating)
+
+
+		return 1
 
 
 	class Meta:
@@ -617,8 +629,6 @@ class FestivalPageRatebleAttributeValue(djangomodels.Model):
 
 	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
-
-	#base_form_class = MyModelForm
 
 
 	class Meta:
