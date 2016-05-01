@@ -41,6 +41,7 @@ from comments.models import CommentWithTitle
 # Current app imports
 from .managers import UpcomingFestivalManager
 from .forms import  AddressForm
+from .custom_panels import CustomInlinePanel
 
 #
 #
@@ -559,13 +560,12 @@ FestivalPage.content_panels = [
 		],
 		heading='Festival gegevens'
 	),
-	#
-	InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	#CustomInlinePanel('rateable_attributes', label='testje'),
+	##InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	InlinePanel('related_links', label="URL's voor het festival"),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
-	#InlinePanel('new_person', label='test', max_num=1),
 
 ]
 
@@ -640,6 +640,7 @@ class FestivalPageRatebleAttributeValue(RatedModelMixin, djangomodels.Model):
 
 	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
+	applicable = djangomodels.BooleanField('van toepassing?', default=True)
 
 
 	class Meta:
@@ -658,11 +659,6 @@ class FestivalPageRatebleAttributeValue(RatedModelMixin, djangomodels.Model):
 
 		return super(FestivalPageRatebleAttributeValue, self).save(*args, **kwargs)
 
-
-
-#FestivalPageRateableAttribute.panels = [
-#		FieldPanel('name'),
-#]
 
 
 class FestivalLocation(djangomodels.Model):
