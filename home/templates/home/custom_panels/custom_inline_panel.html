@@ -11,15 +11,20 @@
             {% endfor %}
         </li>
     {% endif %}
+
     {% for child in self.children %}
-        {% include "home/custom_panels/inline_panel_child.html" %}
-    {% endfor %}
-    {% for child in self.children %}
-        {% for c in child.children %}
-            {{ c.render_form_content }}
+        <li id="inline_child_{{ child.form.prefix }}">
+        {% for field in child.form %}
+            {{ field.value }} <br>
+            - {{ field.field.choices }} - <br>
+
+            {% for choice in field.field.choices %}
+             {{ choice }}
+            {% endfor %}
+
         {% endfor %}
+        </li>
     {% endfor %}
-    </ul>
 </ul>
 
 <script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
@@ -28,3 +33,14 @@
 {% endescapescript %}
 </script>
 
+
+            {% for field in child.children %}
+
+                {{ field.form }}
+            {% endfor %}
+                {% if forloop.last %}
+                    {{ field.render_as_object }} 
+                {% endif %}
+                {% if forloop.first %}
+                    {{ field.render_as_field }}
+                {% endif %}
