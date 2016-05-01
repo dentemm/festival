@@ -563,12 +563,13 @@ FestivalPage.content_panels = [
 		],
 		heading='Festival gegevens'
 	),
-	CustomInlinePanel('rateable_attributes', label='testje'),
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	InlinePanel('related_links', label="URL's voor het festival"),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
+	CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
+
 
 ]
 
@@ -641,13 +642,12 @@ class FestivalPageRatebleAttributeValue(RatedModelMixin, djangomodels.Model):
 	twee belangrijke attributen, namelijk get_votes en get_ratings. Daarnaast is er ook de methode get_ratings beschikbaar
 	'''
 
-	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', related_name='+')
+	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', verbose_name='eigenschap', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 	applicable = djangomodels.BooleanField('van toepassing?', default=True)
 
 
 	class Meta:
-		#pass	
 		unique_together = (
 			('page', 'rateable_attribute', ),
 		)

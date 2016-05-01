@@ -11,10 +11,15 @@
             {% endfor %}
         </li>
     {% endif %}
-
     {% for child in self.children %}
-        {% include "wagtailadmin/edit_handlers/inline_panel_child.html" %}
+        {% include "home/custom_panels/inline_panel_child.html" %}
     {% endfor %}
+    {% for child in self.children %}
+        {% for c in child.children %}
+            {{ c.render_form_content }}
+        {% endfor %}
+    {% endfor %}
+    </ul>
 </ul>
 
 <script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
