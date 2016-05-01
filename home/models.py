@@ -66,9 +66,6 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 		if page.id:
 
-			#page.content_panels += InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen')
-
-
 			# -- RATEABLE ATTRIBUTES FUNCTIONALITY -- #
 			kenmerken = FestivalPageRateableAttribute.objects.all()
 
@@ -86,8 +83,8 @@ class FestivalPageForm(WagtailAdminPageForm):
 					lijst.append(new)
 					continue
 
-		if(len(page.rateable_attributes.all()) == 0):
-			page.rateable_attributes = lijst 
+			if(len(page.rateable_attributes.all()) == 0):
+				page.rateable_attributes = lijst 
 
 		return cleaned_data
 
@@ -507,16 +504,22 @@ class FestivalPage(models.Page):
 
 			rating = attribute.get_ratings()
 
-			print('rating score= %s' % rating)
-			print('rating %s' % rating.total_score)
+			if rating:
 
-			score += rating.total_score
-			votes += rating.num_votes
+				print('rating score= %s' % rating)
+				print('rating %s' % rating.total_score)
 
-		totaal = score/votes
+				score += rating.total_score
+				votes += rating.num_votes
+
+		if votes != 0:
+			total = score/votes
+
+		else:
+			total = 0
 
 		print('totale score: %s' % score)
-		print('gewogen :%s' % totaal)
+		print('gewogen :%s' % total)
 
 		return 1
 
@@ -560,8 +563,8 @@ FestivalPage.content_panels = [
 		],
 		heading='Festival gegevens'
 	),
-	#CustomInlinePanel('rateable_attributes', label='testje'),
-	##InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
+	CustomInlinePanel('rateable_attributes', label='testje'),
+	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
 	InlinePanel('related_links', label="URL's voor het festival"),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
