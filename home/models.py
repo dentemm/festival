@@ -7,6 +7,7 @@ from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.dispatch import receiver
 from django.template.response import TemplateResponse
@@ -418,11 +419,19 @@ class FestivalPage(models.Page):
 	'''
 
 	# Core attributen
-	name = djangomodels.CharField('Festival naam', max_length=40, default='', unique=True)
-	description = fields.RichTextField('Festival promo tekst', blank=True, default='')
+	name = djangomodels.CharField('Festival naam', max_length=40, default='', unique=True, 
+													help_text='Dit moet een unieke naam zijn!'
+													)
+	description = fields.RichTextField('Festival promo tekst', 
+													help_text='Hier kan je een promo tekstje invullen, al dan niet voorzien van extra tekst styling',
+													blank=True, 
+													default=''
+													)
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
-	website = djangomodels.URLField(max_length=120, null=True, blank=True)
+	website = djangomodels.URLField(max_length=120, null=True, blank=True, 
+													help_text='De link naar de homepage van het festival'
+													)
 	main_image = djangomodels.ForeignKey('home.CustomImage', null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
 	pricing = djangomodels.PositiveIntegerField('Prijs (range 0 - 5)', 
 													default=0,
@@ -543,6 +552,7 @@ FestivalPage.content_panels = [
 	MultiFieldPanel([
 			FieldRowPanel([
 					FieldPanel('name', classname='col6'),
+					FieldPanel('website', classname='col6'),
 				]
 			),
 			
@@ -555,10 +565,6 @@ FestivalPage.content_panels = [
 				FieldPanel('pricing', classname='col6'),
 				]
 			),
-			FieldRowPanel([
-				FieldPanel('website', classname='col6'),
-				],
-			),
 			FieldPanel('description'),
 			SnippetChooserPanel('contact_person', 'home.Person'),
 			SnippetChooserPanel('location', 'home.Location'),
@@ -569,7 +575,10 @@ FestivalPage.content_panels = [
 	),
 	#InlinePanel('rateable_attributes', label='Te beroordelen eigenschappen'),
 	InlinePanel('images', label='Festival afbeeldingen'),
-	InlinePanel('related_links', label="URL's voor het festival"),
+	InlinePanel('related_links', 
+							label="URL's voor het festival",
+							help_text=mark_safe('Bijkomende links voor een festival. Hier kan je ticket links, social media links en andere ingeven. Gebruik best een <b><u>consistente naam</u></b> voor gelijkaardige links, dus niet Facebook voor het ene, en FB voor het andere festival.')
+							),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
 	#CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
