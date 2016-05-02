@@ -12,16 +12,50 @@
         </li>
     {% endif %}
 
+    <!-- self zijn alle panels -->
+
+    {{ self }} <hr>
+
     {% for child in self.children %}
+        {{ child }} {{ forloop.counter }} < Multifieldpanel <!-- self.children : een MultiFieldPanel-->
+
+        {% for panel in child.children %}
+            {{ panel }} {{ forloop.counter }} < panel counter voor elk panel van het multifieldpanel
+        {% endfor %}
+    {% endfor %}
+
+    <br><br><br>
+
+    {% for child in self.children %} <!-- self.children zijn alle fields van 1 kenmerken-->
         <li id="inline_child_{{ child.form.prefix }}">
+    
+            {% for field in child.children %}
+                {{ field.form }} {{ forloop.counter }} << counter
+            {% endfor %}
+
+        <br><br><br>
+
+            {% for field in child.children %}
+                {{ field.render_as_object }}
+            {% endfor %}
+
+        <br><br><br>
+
+
         {% for field in child.form %}
             {{ field.value }} <br>
             - {{ field.field.choices }} - <br>
 
             {% for choice in field.field.choices %}
-             {{ choice }}
+             {{ choice }} ))
             {% endfor %}
 
+        {% endfor %}
+        <br><br><br>
+        {% for field in child.form %}
+            {% for choice in field.field.choices %}
+                {{ choice }}
+            {% endfor %}
         {% endfor %}
         </li>
     {% endfor %}

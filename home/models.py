@@ -583,7 +583,7 @@ FestivalPage.content_panels = [
 							),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
-	#CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
+	CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
 
 
 ]
