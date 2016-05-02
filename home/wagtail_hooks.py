@@ -1,6 +1,6 @@
 from wagtail.wagtailcore import hooks
 
-from .models import FestivalPageRateableAttribute, FestivalPageRatebleAttributeValue
+from .models import FestivalPageRateableAttribute, FestivalPageRatebleAttributeValue, FestivalPage
 
 @hooks.register('after_edit_page')
 def do_after_page_edit(request, page):
@@ -9,7 +9,11 @@ def do_after_page_edit(request, page):
 	er nieuwe Snippet objecten werden aangemaakt
 	'''
 
-	#page.update_rating()
+	# Enkel festival pagina's hebben een update_rating() methode
+	if page.content_type.model_class() == FestivalPage:
+
+		print('tis een festival!!!')
+		page.update_rating()
 
 	#check_snippets(request, page)
 

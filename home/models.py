@@ -443,7 +443,9 @@ class FestivalPage(models.Page):
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
 	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
 
-	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True)
+	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True, 
+													help_text=mark_safe('Wordt gebruikt om festivals te filteren, dus het <b><u>genre</u></b> (of genres) zijn ideaal om hier in te geven.')
+													)
 
 	# Rating functionality
 	general_rating = djangomodels.DecimalField(default=0, decimal_places=2, max_digits=4)
