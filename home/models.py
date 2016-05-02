@@ -424,7 +424,11 @@ class FestivalPage(models.Page):
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
 	website = djangomodels.URLField(max_length=120, null=True, blank=True)
 	main_image = djangomodels.ForeignKey('home.CustomImage', null=True, blank=True, on_delete=djangomodels.SET_NULL, related_name='+')
-	pricing = djangomodels.PositiveIntegerField('Prijs (range 0 - 5)', default=0, validators=[MaxValueValidator(5), MinValueValidator(0)])
+	pricing = djangomodels.PositiveIntegerField('Prijs (range 0 - 5)', 
+													default=0,
+													help_text='0 = gratis, 1 = <20€, 2 = <50€, 3 = <100€, 4 = <200€ en 5= >200€', 
+													validators=[MaxValueValidator(5), MinValueValidator(0)]
+													)
 
 	# Foreign key relaties
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
@@ -568,7 +572,7 @@ FestivalPage.content_panels = [
 	InlinePanel('related_links', label="URL's voor het festival"),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
-	CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
+	#CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
 
 
 ]
