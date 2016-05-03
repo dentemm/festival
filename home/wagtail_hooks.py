@@ -10,10 +10,10 @@ def do_after_page_edit(request, page):
 	'''
 
 	# Enkel festival pagina's hebben een update_rating() methode
-	if page.content_type.model_class() == FestivalPage:
-
-		print('tis een festival!!!')
-		page.update_rating()
+#	if page.content_type.model_class() == FestivalPage:
+#
+#		print('tis een festival!!!')
+#		page.update_rating()
 
 	#check_snippets(request, page)
 

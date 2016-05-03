@@ -471,8 +471,26 @@ class FestivalPage(models.Page):
 
 	@property
 	def date_representation(self):
-	    return 1
-	
+
+		from datetime import datetime, timedelta
+
+		if self.duration == 0:
+			return ''
+
+		else:
+			if self.duration == 1:
+				return self.date.strftime('%d %b')
+
+			else: 
+				end_date = self.date + timedelta(self.duration)
+
+				if self.date.month == end_date.month:
+					return '%s - %s %s' % (self.date.strftime('%d'), end_date.strftime('%d'), self.date.strftime('%b'))
+
+				else:
+					return '%s - %s' % (self.date.strftime('%d %b'), end_date.strftime('%d %b'))
+
+		return ''
 
 	# METHODS
 
@@ -563,7 +581,7 @@ class FestivalPage(models.Page):
 
 	class Meta:
 		verbose_name = 'Festival'
-		ordering = ['-date', ]
+		ordering = ['date', ]
 
 
 # Festival page parent and sub page definition
