@@ -769,7 +769,8 @@ class FestivalImage(djangomodels.Model):
 		null=True,
 		blank=True,
 		related_name='+',
-		verbose_name='afbeelding'
+		verbose_name='afbeelding',
+		db_constraint=False
 	)
 	page = ParentalKey('home.FestivalPage', related_name='images', null=True)
 	is_primary = djangomodels.BooleanField('hoofdafbeelding', default=False)
