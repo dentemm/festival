@@ -740,7 +740,7 @@ class CustomRendition(AbstractRendition):
 	Custom rendition model nodig wanneer je een custom image model toevoegt
 	'''
 
-	image = djangomodels.ForeignKey(CustomImage, related_name='renditions')
+	image = djangomodels.ForeignKey(CustomImage, related_name='renditions', db_constraint=False)
 
 	class Meta:
 		unique_together = (
@@ -785,7 +785,7 @@ class FestivalImage(djangomodels.Model):
 		Opmerking: de save() methode wordt pas opgeroepen tijdens het publiceren van de pagina
 		'''
 
-		'''main_image = None
+		main_image = None
 
 		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
 		if len(self.page.images.all()) == 1:
@@ -820,7 +820,7 @@ class FestivalImage(djangomodels.Model):
 
 		# Update het main_image attribuut van de bijhorende FestivalPage
 		self.page.main_image = main_image
-		#self.page.save()'''
+		#self.page.save()
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
