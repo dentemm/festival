@@ -531,20 +531,6 @@ class FestivalPage(models.Page):
 
 		print('save page -- image: %s' % self.main_image)
 
-		'''# -- TEST -- #
-
-		kenmerken = list(FestivalPageRateableAttribute.objects.all())
-
-		for kenmerk in kenmerken:
-
-			new, created = FestivalPageRatebleAttributeValue.objects.get_or_create(page=self, rateable_attribute=kenmerk)
-
-			if created == False:
-				print('break hier!')
-				break
-
-			else:
-				continue'''
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
@@ -746,7 +732,6 @@ class CustomImage(AbstractImage):
 	author = djangomodels.CharField('auteur', max_length=56, null=True, blank=True)
 
 	admin_form_fields = Image.admin_form_fields + (
-
 		'author',
 	)
 
@@ -800,7 +785,7 @@ class FestivalImage(djangomodels.Model):
 		Opmerking: de save() methode wordt pas opgeroepen tijdens het publiceren van de pagina
 		'''
 
-		main_image = None
+		'''main_image = None
 
 		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
 		if len(self.page.images.all()) == 1:
@@ -835,7 +820,7 @@ class FestivalImage(djangomodels.Model):
 
 		# Update het main_image attribuut van de bijhorende FestivalPage
 		self.page.main_image = main_image
-		#self.page.save()
+		#self.page.save()'''
 
 		return super(FestivalImage, self).save(*args, **kwargs)
 
