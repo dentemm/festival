@@ -40,7 +40,7 @@ from ratings.models import RatedModelMixin
 from comments.models import CommentWithTitle
 
 # Current app imports
-from .managers import UpcomingFestivalManager
+from .managers import UpcomingFestivalManager, HomePageFeaturedManager
 from .forms import  AddressForm
 from .custom_panels import CustomInlinePanel
 
@@ -346,6 +346,13 @@ class FestivalIndexPage(models.Page):
 	'''
 	template = 'home/home.html'
 
+	@property
+	def featured(self):
+
+	    featured =  FestivalPage.featured.all()
+	    return featured
+	
+
 
 	@property
 	def festivals(self):
@@ -359,6 +366,9 @@ class FestivalIndexPage(models.Page):
 		return festivals
 
 	def get_context(self, request):
+
+		# Featured festivals in homepage
+		featured = self.featured
 
 		# Maak gebruik van bovenstaande festivals() functie om alle objecten van FestivalPage queryset te verkrijgen
 		festivals = self.festivals
@@ -379,6 +389,7 @@ class FestivalIndexPage(models.Page):
 		# Update template context
 		context = super(FestivalIndexPage, self).get_context(request)
 		context['festivals'] = festivals
+		context['featured'] = featured
 
 		return context
 
@@ -450,6 +461,9 @@ class FestivalPage(models.Page):
 	# Rating functionality
 	general_rating = djangomodels.DecimalField(default=0, decimal_places=2, max_digits=4)
 	num_votes = djangomodels.PositiveIntegerField(default=0)
+
+	# MODEL MANAGERS
+	featured = HomePageFeaturedManager()
 
 
 	base_form_class = FestivalPageForm

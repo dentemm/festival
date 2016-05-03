@@ -14,19 +14,25 @@
 
     <!-- self zijn alle panels -->
 
-    {{ self }} <hr>
+    {% for child in self.children %}
+        godverdomme!
+    {% endfor %}
+
+    {{ self.fields }} <hr>
 
     {% for child in self.children %}
-        {{ child }} {{ forloop.counter }} < Multifieldpanel <!-- self.children : een MultiFieldPanel-->
+        {{ child }} xxxx {{ forloop.counter }} xxxx < Multifieldpanel <br><!-- self.children : een MultiFieldPanel-->
 
         {% for panel in child.children %}
-            {{ panel }} {{ forloop.counter }} < panel counter voor elk panel van het multifieldpanel
+            {{ panel }} xxxx {{ forloop.counter }} xxxx < panel counter voor elk panel van het multifieldpanel <br>
         {% endfor %}
     {% endfor %}
 
     <br><br><br>
 
-    {% for child in self.children %} <!-- self.children zijn alle fields van 1 kenmerken-->
+    {% for child in self.children %}
+
+        {{ forloop.counter }} ---- children
         <li id="inline_child_{{ child.form.prefix }}">
     
             {% for field in child.children %}
