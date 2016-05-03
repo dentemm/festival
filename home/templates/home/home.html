@@ -30,24 +30,12 @@
     {% for item in featured %}
     	<div class="item" style="background-image: url(img/sliders/Slide.jpg)">
             <div class="caption">
-                <h6>House & Techno / 15-16 april / Lommel</h6>
+                <h6>{{ item.name }} / {{ item.location|title }}House & Techno / 15-16 april / Lommel</h6>
                 <h1>Day<span>Dream festival</span></h1>
                 <a class="btn btn-transparent" href="#">Meer info</a><a class="btn btn-light" href="#">Koop tickets</a>
             </div>
         </div>
     {% endfor %}
-        <div class="item hidden-xs">
-            <div class="caption">
-                <h6>Tropical & Exotic / 8-9-10 juli / Bree</h6>
-                <h1>Afro-<span>Latino festival</span></h1>
-                <a class="btn btn-transparent" href="#">Meer info</a><a class="btn btn-light" href="#">Koop tickets</a>
-            </div>
-            <div class="flex-video widescreen" style="margin: 0 auto;text-align:center;">
-                <iframe allowfullscreen="true" src="http://www.youtube.com/embed/xvgKYRH5X_U?autoplay=1" frameborder="0">
-                </iframe>
-            </div>
-        </div>
-
     </div>
 </section>
 

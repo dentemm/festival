@@ -349,10 +349,8 @@ class FestivalIndexPage(models.Page):
 	@property
 	def featured(self):
 
-	    featured =  FestivalPage.featured.all()
+	    featured =  FestivalPage.featured.all()[0:3]
 	    return featured
-	
-
 
 	@property
 	def festivals(self):
@@ -439,7 +437,7 @@ class FestivalPage(models.Page):
 													default=''
 													)
 	date = djangomodels.DateField('Festival datum', null=True)
-	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1)
+	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1, validators=[MaxValueValidator(21),])
 	website = djangomodels.URLField(max_length=120, null=True, blank=True, 
 													help_text='De link naar de homepage van het festival'
 													)
@@ -467,6 +465,16 @@ class FestivalPage(models.Page):
 
 
 	base_form_class = FestivalPageForm
+
+
+	# PROPERTIES
+
+	@property
+	def date_representation(self):
+	    return 1
+	
+
+	# METHODS
 
 	def save(self, *args, **kwargs):
 		'''
@@ -597,7 +605,7 @@ FestivalPage.content_panels = [
 							),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
-	CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
+	#CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
 
 
 ]
