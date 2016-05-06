@@ -357,7 +357,8 @@ class FestivalIndexPage(models.Page):
 		Verkrijg de lijst met festival pagina's die een descendant zijn van deze pagina
 		'''
 
-		festivals = FestivalPage.objects.live().descendant_of(self)
+		#festivals = FestivalPage.objects.live().descendant_of(self)
+		festivals = FestivalPage.objects.live()
 		festivals = festivals.order_by('-date')
 
 		return festivals
