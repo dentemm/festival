@@ -1,8 +1,11 @@
 from django.contrib import admin
 
 from .models import Address, Location, Person, FestivalPageRateableAttribute, FestivalPageRatebleAttributeValue, CustomImage,\
-	FestivalPageRelatedLink, RelatedLink
+	FestivalPageRelatedLink, RelatedLink, FestivalPage
 
+@admin.register(FestivalPage)
+class FestivalPageAdmin(admin.ModelAdmin):
+	pass
 
 @admin.register(Address)
 class AdressAdmin(admin.ModelAdmin):

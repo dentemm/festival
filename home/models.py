@@ -118,7 +118,6 @@ class LinkFields(djangomodels.Model):
 
 LinkFields.panels = [
 	FieldPanel('link_external'),
-	#PageChooserPanel('link_page')
 ]
 
 class RelatedLink(LinkFields):
@@ -421,6 +420,13 @@ class FestivalPageRelatedLink(models.Orderable, RelatedLink):
 	page = ParentalKey('FestivalPage', related_name='related_links')
 
 
+	def save(self, *args, **kwargs):
+
+		print('------ Related link class save()')
+
+		return super(FestivalPageRelatedLink, self).save(*args, **kwargs)
+
+
 class FestivalPage(models.Page):
 	'''
 	Deze klasse beschrijft een festival. 
@@ -461,6 +467,7 @@ class FestivalPage(models.Page):
 	num_votes = djangomodels.PositiveIntegerField(default=0)
 
 	# MODEL MANAGERS
+	objects = djangomodels.Manager()		# default manager
 	featured = HomePageFeaturedManager()
 
 
@@ -790,6 +797,8 @@ class FestivalImage(djangomodels.Model):
 
 		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
 		if len(self.page.images.all()) == 1:
+
+			print('main image')
 
 			self.is_primary = True
 			main_image = self.image
