@@ -50,7 +50,7 @@
                         <div class="portfolio-box-caption">
                             <div class="portfolio-box-caption-content">
                                 <div class="project-category text-faded">
-                                    {{ fest.name|title }} ({{ festivals|length }})
+                                    {{ fest.name|title }}
                                 </div>
                                 <div class="project-name">
                                     {{ fest.location|title }}
@@ -62,7 +62,12 @@
                 {% endfor %}
             </div>
             <div class="meer">
-                <a class="btn btn-transparent" href="#">Toon meer festivals</a>
+                <a class="btn btn-transparent" href="#">
+                	<i class="fa fa-plus-circle"></i> Toon meer
+                </a>
+                <a class="btn btn-transparent" href="#">
+                	<i class="fa fa-calendar"></i> Naar kalender 
+                </a>
             </div>
         </div>
     </section>
