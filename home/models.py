@@ -89,6 +89,8 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 		return cleaned_data
 
+
+
 #
 #
 # Global classes
@@ -373,7 +375,7 @@ class FestivalIndexPage(models.Page):
 
 		# pagination
 		page = request.GET.get('page', 1)
-		paginator = Paginator(festivals, 15)
+		paginator = Paginator(festivals, 3)
 
 		try:
 			festivals = paginator.page(page)
@@ -617,7 +619,7 @@ FestivalPage.content_panels = [
 							),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
-	#CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
+	CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
 
 
 ]

@@ -14,16 +14,46 @@
 
     <!-- self zijn alle panels -->
 
-    {% for child in self.children %}
-        godverdomme!
+    {% for child in self.children %} <!-- self.children zijn alle rateable attributen -->
+        {% for panel in child.children %} <!-- self.children.children zijn alle fields van 1 rateable attribuut (2 per kenmerk) -->
+            {% if forloop.first %}
+                {{ panel.render_as_object }}<br>
+                 kkkk {{ panel.bound_field.form }} kkkk <br>
+
+                <br>
+
+                {% for field in panel.bound_field.form.fields %}
+                    {{ field.default }} ORDEREDDICT
+                {% endfor %}
+
+                {% if panel.bound_field.field.widget.choices %}
+                    {{ panel.bound_field.field.widget.choices.default }} <<< DEFAULT 
+                    >>> {{ panel.bound_field.form }} <<< bound data
+                    === {{ panel.bound_field.field.widget.choices.data }} ===
+                    {% for choice in panel.bound_field.field.widget.choices %}
+                        {{ choice.default }} <<< DEFAULT A 
+                        
+                        {% if choice %}
+                            ++++ ++++
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {{ panel.bound_field.choices }} <!-- panel.bound_field is het django field dat het panel representeert-->
+                
+            {% else %}
+                °° panel.render_as_object °°
+            {% endif %}
+        {% endfor %}
     {% endfor %}
+
+    ^^^^^^^^^^^^^
 
     {{ self.fields }} <hr>
 
-    {% for child in self.children %}
+    {% for child in self.children %} <!-- self.children zijn alle rateable attributen-->
         {{ child }} xxxx {{ forloop.counter }} xxxx < Multifieldpanel <br><!-- self.children : een MultiFieldPanel-->
 
-        {% for panel in child.children %}
+        {% for panel in child.children %} <!-- self.children.children zijn alle fields van 1 rateable attribuut -->
             {{ panel }} xxxx {{ forloop.counter }} xxxx < panel counter voor elk panel van het multifieldpanel <br>
         {% endfor %}
     {% endfor %}
