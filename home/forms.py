@@ -16,7 +16,7 @@ class AddressForm(ModelForm):
 
 
 FestivalPageRatebleAttributeValueForm(WagtailAdminModelForm):
-	
+
 	def get_initial(self):
 		
 		try: 
