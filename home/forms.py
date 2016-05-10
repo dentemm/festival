@@ -23,4 +23,4 @@ FestivalPageRatebleAttributeValueForm(WagtailAdminModelForm):
 			return FestivalPageRateableAttributeValue.objects.get(id=self.initial['name']).name
 		
 		except:
-		    return None
+			return None
