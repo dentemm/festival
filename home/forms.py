@@ -8,11 +8,9 @@ from .models import FestivalPageRateableAttributeValue
 
 class AddressForm(ModelForm):
 
-    def clean(self):
-
-        print('---- Address Form clean() methode')
-        return super(AddressForm, self).clean()
-
+	def clean(self):
+		print('---- Address Form clean() methode')
+		return super(AddressForm, self).clean()
 
 
 FestivalPageRatebleAttributeValueForm(WagtailAdminModelForm):
