@@ -14,11 +14,31 @@
 
     {% for form in self.formset.forms %}
         {% for field in form %}
-            {{ field.value }}
+            {% if forloop.first %}
+                {% with item=field.value %}
+                    {{ item }}  <br>
+                    {% get_attribute item %} <br>
+                {% endwith %}
+            {% endif %}
         {% endfor %}
     {% endfor %}
 
-    {% get_attribute 2 %}
+    <hr>
+
+    {% for child in self.children %}
+        {% for panel in child.children %}
+            {% if forloop.first %}
+                {% for form in panel.bound_field %}
+                    {% with item=form.value %}
+                            {% get_attribute item %} ----<br>
+                    {% endwith %}
+                {% endfor %}
+            {% else %}
+                {{ panel.bound_field }}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
 
     <hr>
 
