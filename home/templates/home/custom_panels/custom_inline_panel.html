@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load wagtailadmin_tags  %}
+{% load wagtailadmin_tags home_tags  %}
 
 {{ self.formset.management_form }}
 
@@ -18,7 +18,7 @@
         {% endfor %}
     {% endfor %}
 
-    ---------- {{ self.test }} ----------
+    {% get_attribute 2 %}
 
     <hr>
 
