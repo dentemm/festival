@@ -428,7 +428,7 @@ class FestivalIndexPage(models.Page):
 		return TemplateResponse(request)
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-FestivalIndexPage.subpage_types = ['home.FestivalPage']
+FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage']
 
 
 #
