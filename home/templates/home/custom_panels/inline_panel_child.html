@@ -1,30 +1,14 @@
-{% load i18n %}
+{% load i18n home_tags %}
 <li id="inline_child_{{ child.form.prefix }}">
-    <ul class="controls">
-        <li><button type="button" class="button icon text-replace white icon-bin hover-no" id="{{ child.form.DELETE.id_for_label }}-button" title="{% trans 'Delete' %}">{% trans "Delete" %}</button></li>
-    </ul>
     {% for panel in child.children %}
-    	--- ({{ forloop.counter }})
-    	{% for form in panel.bound_field.form %}
-    		{{ form }} zzz ({{ forloop.counter }})<br>
-    	{% endfor %}
+        {% if forloop.first %}
+            {% for form in panel.bound_field %}
+                {% with item=form.value %}
+                    {% get_attribute item %} ----<br>
+                {% endwith %}
+            {% endfor %}
+        {% else %}
+            {{ panel.bound_field }} ---- <br>
+        {% endif %}
     {% endfor %}
-
-<hr>
-
-    {% for panel in child.children %}
-	 	{% for form in panel.bound_field %}
-	 		{{ form.value }}
-	 		{{ form.test }}
-	 	{% endfor %}
-    {% endfor %}
-
-<hr>
-
-    {% for field in child.children %}
-	 	{{ field.form.fields }}
-    {% endfor %}
-
-
-
 </li>

@@ -669,6 +669,7 @@ class FestivalMonthArchiveView(MonthArchiveView):
 	'''
 	Subklasse van MonthArchiveView om paginatie toe te laten volgens maand het festival plaats vindt
 	Dit view wordt gebruikt voor CalendarPage
+	De get() methode wordt overschreven om per default de huidige maand en het huidige jaar te gebruiken
 	'''
 
 	model = FestivalPage
@@ -679,6 +680,11 @@ class FestivalMonthArchiveView(MonthArchiveView):
 	date_field = 'date'
 	allow_empty = True
 	allow_future = True
+
+	def get_context_data(self, **kwargs):
+
+		return super(FestivalMonthArchiveView, self).get_context_data(**kwargs)
+
 
 	def get(self, request, *args, **kwargs):
 
@@ -709,7 +715,8 @@ class CalendarPage(RoutablePageMixin, models.Page):
 
 	    return festivals
 
-	@route(r'^overzicht/$', name='monthly')
+
+	@route(r'^overview/$', name='monthly')
 	def festivals_for_month(self, request):
 
 		return FestivalMonthArchiveView.as_view()(request)

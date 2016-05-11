@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load wagtailadmin_tags home_tags  %}
+{% load wagtailadmin_tags home_tags %}
 
 {{ self.formset.management_form }}
 
@@ -12,18 +12,22 @@
         </li>
     {% endif %}
 
-    {% for form in self.formset.forms %}
-        {% for field in form %}
-            {% if forloop.first %}
-                {% with item=field.value %}
-                    {{ item }}  <br>
-                    {% get_attribute item %} <br>
-                {% endwith %}
-            {% endif %}
-        {% endfor %}
-    {% endfor %}
-
-    <hr>
+    <ul class="fields">
+        <ul class="field-row">
+            <li class="field-col col6">
+                <div class="field">
+                    <label>Eerste </label>
+                    <div class="field-content">Eerste</div>
+                </div>
+            </li>
+            <li class="field-col col6">
+                <div class="field">
+                    <label>Eerste </label>
+                    <div class="field-content">Eerste</div>
+                </div>
+            </li>
+        </ul>
+    </ul>
 
     {% for child in self.children %}
         {% for panel in child.children %}
@@ -34,7 +38,7 @@
                     {% endwith %}
                 {% endfor %}
             {% else %}
-                {{ panel.bound_field }}
+                {{ panel.bound_field }} ---- <br>
             {% endif %}
         {% endfor %}
     {% endfor %}

@@ -1,6 +1,6 @@
 {% extends 'home/home.html' %}
 
-{% load rating_tags static compress comments wagtailimages_tags %}
+{% load rating_tags static compress comments wagtailimages_tags wagtailcore_tags %}
 
 
 {% block content %} 
@@ -39,14 +39,14 @@
 		<div class="row">
 			<div class="col-md-4">
 			{% if previous_month %}
-				<a class="btn btn-default" href="/kalender/test/?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">
+				<a class="btn btn-default" href="/kalender/overview/?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">
 					&larr; {{ previous_month|date:'M Y' }}
 				</a>
 			{% endif %}
 			</div>
 			<div class="col-md-4 col-md-offset-4">
 			{% if next_month %}
-				<a class="btn btn-default" href="/kalender/test/?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">
+				<a class="btn btn-default" href="/kalender/overview/?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">
 					{{ next_month|date:'M Y' }} &rarr;
 				</a>
 			{% endif %}
