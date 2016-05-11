@@ -23,7 +23,7 @@ from wagtail.wagtailimages.models import Image
 from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, FieldPanel, InlinePanel, PageChooserPanel, MultiFieldPanel, FieldRowPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.wagtailadmin.forms import WagtailAdminPageForm, WagtailAdminModelForm
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 # Third party wagtail dependancies 
@@ -54,6 +54,22 @@ class FestivalPageForm(WagtailAdminPageForm):
 	Custom WagtailAdminPageForm subklasse. Deze wordt gebruikt om extra field validation te integreren
 	Staat hier omwille van circular import!
 	'''
+
+	print('---------festival page form------------')
+
+	def test(self):
+
+		print('jjjjjjeeeeeeeeeeeeeeeeeeeeeeejjjjjjj')
+
+	def get_initial(self):
+
+		print('---------------- get initial!!!!!!!!')
+
+		try: 
+			return FestivalPageRateableAttributeValue.objects.get(rateable_attribute=self.initial['name'])
+
+		except:
+			return None
 
 	def clean(self):
 
@@ -89,6 +105,19 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 		return cleaned_data
 
+class FestivalPageRateableAttributeValueForm(WagtailAdminModelForm):
+
+	print('----- FestivalPageRateableAttributeValueForm -----')
+
+	def get_initial(self):
+
+		print('---------------- get initial!!!!!!!!')
+
+		try: 
+			return FestivalPageRateableAttributeValue.objects.get(rateable_attribute=self.initial['name'])
+
+		except:
+			return None
 
 
 #
@@ -696,6 +725,8 @@ class FestivalPageRatebleAttributeValue(RatedModelMixin, djangomodels.Model):
 	rateable_attribute = djangomodels.ForeignKey('FestivalPageRateableAttribute', verbose_name='eigenschap', related_name='+')
 	page = ParentalKey('home.FestivalPage', related_name='rateable_attributes')
 	applicable = djangomodels.BooleanField('van toepassing?', default=True)
+
+	base_form_class = FestivalPageRateableAttributeValueForm
 
 
 	class Meta:

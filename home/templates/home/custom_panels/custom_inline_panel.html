@@ -12,88 +12,18 @@
         </li>
     {% endif %}
 
-    <!-- self zijn alle panels -->
-
-    {% for child in self.children %} <!-- self.children zijn alle rateable attributen -->
-        {% for panel in child.children %} <!-- self.children.children zijn alle fields van 1 rateable attribuut (2 per kenmerk) -->
-            {% if forloop.first %}
-                {{ panel.render_as_object }}<br>
-                 kkkk {{ panel.bound_field.form }} kkkk <br>
-
-                <br>
-
-                {% for field in panel.bound_field.form.fields %}
-                    {{ field.default }} ORDEREDDICT
-                {% endfor %}
-
-                {% if panel.bound_field.field.widget.choices %}
-                    {{ panel.bound_field.field.widget.choices.default }} <<< DEFAULT 
-                    >>> {{ panel.bound_field.form }} <<< bound data
-                    === {{ panel.bound_field.field.widget.choices.data }} ===
-                    {% for choice in panel.bound_field.field.widget.choices %}
-                        {{ choice.default }} <<< DEFAULT A 
-                        
-                        {% if choice %}
-                            ++++ ++++
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                {{ panel.bound_field.choices }} <!-- panel.bound_field is het django field dat het panel representeert-->
-                
-            {% else %}
-                °° panel.render_as_object °°
-            {% endif %}
+    {% for form in self.formset.forms %}
+        {% for field in form %}
+            {{ field.value }}
         {% endfor %}
     {% endfor %}
 
-    ^^^^^^^^^^^^^
+    ---------- {{ self.test }} ----------
 
-    {{ self.fields }} <hr>
-
-    {% for child in self.children %} <!-- self.children zijn alle rateable attributen-->
-        {{ child }} xxxx {{ forloop.counter }} xxxx < Multifieldpanel <br><!-- self.children : een MultiFieldPanel-->
-
-        {% for panel in child.children %} <!-- self.children.children zijn alle fields van 1 rateable attribuut -->
-            {{ panel }} xxxx {{ forloop.counter }} xxxx < panel counter voor elk panel van het multifieldpanel <br>
-        {% endfor %}
-    {% endfor %}
-
-    <br><br><br>
+    <hr>
 
     {% for child in self.children %}
-
-        {{ forloop.counter }} ---- children
-        <li id="inline_child_{{ child.form.prefix }}">
-    
-            {% for field in child.children %}
-                {{ field.form }} {{ forloop.counter }} << counter
-            {% endfor %}
-
-        <br><br><br>
-
-            {% for field in child.children %}
-                {{ field.render_as_object }}
-            {% endfor %}
-
-        <br><br><br>
-
-
-        {% for field in child.form %}
-            {{ field.value }} <br>
-            - {{ field.field.choices }} - <br>
-
-            {% for choice in field.field.choices %}
-             {{ choice }} ))
-            {% endfor %}
-
-        {% endfor %}
-        <br><br><br>
-        {% for field in child.form %}
-            {% for choice in field.field.choices %}
-                {{ choice }}
-            {% endfor %}
-        {% endfor %}
-        </li>
+        {% include "home/custom_panels/inline_panel_child.html" %}
     {% endfor %}
 </ul>
 
@@ -103,14 +33,7 @@
 {% endescapescript %}
 </script>
 
-
-            {% for field in child.children %}
-
-                {{ field.form }}
-            {% endfor %}
-                {% if forloop.last %}
-                    {{ field.render_as_object }} 
-                {% endif %}
-                {% if forloop.first %}
-                    {{ field.render_as_field }}
-                {% endif %}
+<p class="add">
+    <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD" value="Add">
+        {% blocktrans with heading=self.heading|lower %}Add {{ heading }}{% endblocktrans %}</a>
+</p>

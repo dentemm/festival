@@ -126,31 +126,41 @@ class BaseCustomInlinePanel(EditHandler):
 
 class CustomInlinePanel(object):
 
-	def __init__(self, relation_name, panels=None, label='', help_text='', min_num=None, max_num=None):
+    def __init__(self, relation_name, panels=None, label='', help_text='', min_num=None, max_num=None):
 
-		self.relation_name = relation_name
-		self.panels = panels
-		self.label = label
-		self.help_text = help_text
-		self.min_num = min_num
-		self.max_num = max_num
+        self.relation_name = relation_name
+        self.panels = panels
+        self.label = label
+        self.help_text = help_text
+        self.min_num = min_num
+        self.max_num = max_num
 
-	def bind_to_model(self, model):
+    @property
+    def test(self):
 
-		if django.VERSION >= (1, 9):
-			related = getattr(model, self.relation_name).rel
+        print('jeeeeeeeeeeeeeeeeeeeeeeeeeeej')
 
-		else:
-			related = getattr(model, self.relation_name).related
+        return 'jeeeeeeeeeeeeeeeeeeeeeeeeeeej'
 
-		return type(str('_CustomInlinePanel'), (BaseCustomInlinePanel, ), {
-			'model': model,
-			'relation_name': self.relation_name,
-			'related': related,
-			'panels': self.panels,
-			'heading': self.label,
-			'help_text': self.help_text,
-			'min_num': self.min_num,
-			'max_num': self.max_num
-		})
+
+    def bind_to_model(self, model):
+
+        if django.VERSION >= (1, 9):
+            related = getattr(model, self.relation_name).rel
+
+        else:
+            related = getattr(model, self.relation_name).related
+
+        return type(str('_CustomInlinePanel'), (BaseCustomInlinePanel, ), {
+            'model': model,
+            'relation_name': self.relation_name,
+            'related': related,
+            'panels': self.panels,
+            'heading': self.label,
+            'help_text': self.help_text,
+            'min_num': self.min_num,
+            'max_num': self.max_num
+        })
+
+    
 

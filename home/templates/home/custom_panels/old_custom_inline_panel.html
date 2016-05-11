@@ -1,0 +1,123 @@
+{% load i18n %}
+{% load wagtailadmin_tags  %}
+
+{{ self.formset.management_form }}
+
+<ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
+    {% if self.formset.non_form_errors %}
+        <li class="error-message">
+            {% for error in self.formset.non_form_errors %}
+                <span>{{ error|escape }}</span>
+            {% endfor %}
+        </li>
+    {% endif %}
+
+    {% for child in self.children %}
+        <li id="inline_child_{{ child.form.prefix }}">
+            {{ child.form.get_initial }}
+        </li>
+
+    {% endfor %}
+
+    <!-- self zijn alle panels -->
+
+    {% for child in self.children %} <!-- self.children zijn alle rateable attributen -->
+        {% for panel in child.children %} <!-- self.children.children zijn alle fields van 1 rateable attribuut (2 per kenmerk) -->
+            {% if forloop.first %}
+                {{ panel.render_as_object }}<br>
+                 kkkk {{ panel.bound_field.form }} kkkk <br>
+
+                <br>
+
+                {% for field in panel.bound_field.form.fields %}
+                    {{ field.default }} ORDEREDDICT
+                {% endfor %}
+
+                {% if panel.bound_field.field.widget.choices %}
+                    {{ panel.bound_field.field.widget.choices.default }} <<< DEFAULT 
+                    >>> {{ panel.bound_field.form }} <<< bound data
+                    === {{ panel.bound_field.field.widget.choices.data }} ===
+                    {% for choice in panel.bound_field.field.widget.choices %}
+                        {{ choice.default }} <<< DEFAULT A 
+                        
+                        {% if choice %}
+                            ++++ ++++
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {{ panel.bound_field.choices }} <!-- panel.bound_field is het django field dat het panel representeert-->
+                
+            {% else %}
+                °° panel.render_as_object °°
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+    ^^^^^^^^^^^^^
+
+    {{ self.fields }} <hr>
+
+    {% for child in self.children %} <!-- self.children zijn alle rateable attributen-->
+        {{ child }} xxxx {{ forloop.counter }} xxxx < Multifieldpanel <br><!-- self.children : een MultiFieldPanel-->
+
+        {% for panel in child.children %} <!-- self.children.children zijn alle fields van 1 rateable attribuut -->
+            {{ panel }} xxxx {{ forloop.counter }} xxxx < panel counter voor elk panel van het multifieldpanel <br>
+        {% endfor %}
+    {% endfor %}
+
+    <br><br><br>
+
+    {% for child in self.children %}
+
+        {{ forloop.counter }} ---- children
+        <li id="inline_child_{{ child.form.prefix }}">
+    
+            {% for field in child.children %}
+                {{ field.form }} {{ forloop.counter }} << counter
+            {% endfor %}
+
+        <br><br><br>
+
+            {% for field in child.children %}
+                {{ field.render_as_object }}
+            {% endfor %}
+
+        <br><br><br>
+
+
+        {% for field in child.form %}
+            {{ field.value }} <br>
+            - {{ field.field.choices }} - <br>
+
+            {% for choice in field.field.choices %}
+             {{ choice }} ))
+            {% endfor %}
+
+        {% endfor %}
+        <br><br><br>
+        {% for field in child.form %}
+            {% for choice in field.field.choices %}
+                {{ choice }}
+            {% endfor %}
+        {% endfor %}
+        </li>
+    {% endfor %}
+</ul>
+
+<script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
+{% escapescript %}
+{% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+{% endescapescript %}
+</script>
+
+
+            {% for field in child.children %}
+
+                {{ field.form }}
+            {% endfor %}
+                {% if forloop.last %}
+                    {{ field.render_as_object }} 
+                {% endif %}
+                {% if forloop.first %}
+                    {{ field.render_as_field }}
+                {% endif %}
