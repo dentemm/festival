@@ -465,6 +465,8 @@ class FestivalPage(models.Page):
 		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
 	'''
 
+	test = djangomodels.BooleanField('test', default=True)
+
 	# Core attributen
 	name = djangomodels.CharField('Festival naam', max_length=40, default='', unique=True, 
 													help_text='Dit moet een unieke naam zijn!'
@@ -630,6 +632,7 @@ FestivalPage.content_panels = [
 			),
 			FieldRowPanel([
 				FieldPanel('pricing', classname='col6'),
+				FieldPanel('test', classname='col6'),
 				]
 			),
 			FieldPanel('description'),
@@ -648,7 +651,7 @@ FestivalPage.content_panels = [
 							),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
-	CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
+	#CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
 
 
 ]
