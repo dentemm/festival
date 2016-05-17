@@ -404,7 +404,7 @@ class FestivalIndexPage(models.Page):
 
 		# pagination
 		page = request.GET.get('page', 1)
-		paginator = Paginator(festivals, 3)
+		paginator = Paginator(festivals, 6)
 
 		try:
 			festivals = paginator.page(page)
