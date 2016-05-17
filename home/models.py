@@ -406,7 +406,7 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 
 		# pagination
 		page = request.GET.get('page', 1)
-		paginator = Paginator(festivals, 6)
+		paginator = Paginator(festivals, 9)
 
 		try:
 			festivals = paginator.page(page)

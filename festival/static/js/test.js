@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 		var count = $('div.festlist').size();
 
-		var page = count / 6;
+		var page = count / 9;
 
 
 		console.log('count');
