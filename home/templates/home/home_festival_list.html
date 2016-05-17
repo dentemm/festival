@@ -1,1 +1,23 @@
+{% load wagtailimages_tags %}
+
 HOME FESTIVAL LIST
+
+
+{% for fest in festivals %}
+<div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay=".3s">
+    <a href="img/portfolio/3.jpg" class="portfolio-box" data-lightbox="image-3" data-title="Your caption">
+    {% image fest.main_image fill-700x430 as img %}
+        <img src="{{ img.url }}" class="img-responsive" alt="3">
+        <div class="portfolio-box-caption">
+            <div class="portfolio-box-caption-content">
+                <div class="project-category text-faded">
+                    {{ fest.name|title }}
+                </div>
+                <div class="project-name">
+                    {{ fest.location|title }}
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+{% endfor %}

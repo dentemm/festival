@@ -427,13 +427,14 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 	@route(r'^$')
 	def base(self, request):
 
-		if request.is_ajax:
+		return TemplateResponse(request, template=self.template, context=self.get_context(request))
 
-			print('AJAX CALL!')
+	@route(r'^test/$')
+	def test(self, request):
 
-			self.template = 'home/home_festival_list.html'
+		template = 'home/home_festival_list.html'
 
-		return TemplateResponse(request, template=self.template)
+		return TemplateResponse(request, template=template, context=self.get_context(request))	
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
 FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage']
