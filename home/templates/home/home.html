@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static compress wagtailimages_tags pagemore %}
+{% load static compress wagtailimages_tags %}
 
 {% block extra_css %}
 	{% compress css %}
@@ -62,7 +62,7 @@
                 {% endfor %}
             </div>
             <div class="meer">
-                <a class="btn btn-transparent" href="#">
+                <a id="loadmore" class="btn btn-transparent" href="#">
                 	<i class="fa fa-plus-circle"></i> Toon meer
                 </a>
                 <a class="btn btn-transparent" href="#">
@@ -71,9 +71,6 @@
             </div>
         </div>
     </section>
-
-
-
 {% endblock %}
 
     <script src="js/custom.js"></script>
@@ -109,4 +106,13 @@
 
     <!-- CUSTOM CSS -->
     <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+
+    <!-- PAGEMORE -->
+    <!--<script type="text/javascript" src="{% static 'pagemore/js/pagemore.js' %}"></script>
+    <script type="text/javascript">
+        $(function() { $(".pagemore-paginator").pagemore(); });
+    </script>-->
+
+    <script type="text/javascript" src="{% static 'js/test.js' %}"></script>
+
 {% endblock %}

@@ -370,7 +370,7 @@ class FestivalPageRateableAttribute(djangomodels.Model):
 # FESTIVAL INDEX PAGE
 #
 #
-class FestivalIndexPage(models.Page):
+class FestivalIndexPage(RoutablePageMixin, models.Page):
 	'''
 	Deze klasse is een listview van alle opkomende festivals. Dit is tevens de homepage
 	'''
@@ -395,6 +395,8 @@ class FestivalIndexPage(models.Page):
 		return festivals
 
 	def get_context(self, request):
+
+		print('------ hier zijn we')
 
 		# Featured festivals in homepage
 		featured = self.featured
@@ -425,7 +427,13 @@ class FestivalIndexPage(models.Page):
 	@route(r'^$')
 	def base(self, request):
 
-		return TemplateResponse(request)
+		if request.is_ajax:
+
+			print('AJAX CALL!')
+
+			self.template = 'home/home_festival_list.html'
+
+		return TemplateResponse(request, template=self.template)
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
 FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage']
