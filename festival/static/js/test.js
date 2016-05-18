@@ -45,7 +45,15 @@ $(document).ready(function () {
 		console.log('success handler');
 		//console.log(data);
 
+		console.log($('#final').text())
+
 		$('#fest-list-items').append(data);
+
+				if($('#final').text() == "False") {
+			console.log('final page');
+			$('#loadmore').addClass('disabled');
+
+		}
 
 		$(window).scrollTop(tempScrollTop);
 

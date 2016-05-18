@@ -18,3 +18,7 @@
     </a>
 </div>
 {% endfor %}
+
+{% if festivals and not festivals.has_next %}
+	<div class="hidden" id="final">{{ festivals.has_next }}</div>
+{% endif %}
