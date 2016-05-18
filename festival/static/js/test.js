@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 		$.ajax({
 			//url:"/index/test/",  	// ---- development
-			url: '/test/'			// ---- production
+			url: '/test/',			// ---- production
 			type: "GET",
 			data: {
 				'page': page,
