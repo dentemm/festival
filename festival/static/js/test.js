@@ -4,25 +4,29 @@ $(document).ready(function () {
 	$('#loadmore').click(function() {
 
 		var count = $('div.festlist').size();
+		var page = Math.ceil(count / 9)
 
-		var page = count / 9;
-
-
-		console.log('count');
+		/*console.log('count');
 		console.log(count);
 		console.log('page');
-		console.log(page)
+		console.log(page);*/
+
+		var tempScrollTop = $(window).scrollTop();
 
 		ajax_call(page + 1);
 	});
 
+	var tempScrollTop;
+
 	function ajax_call(page) {
 
-		console.log('JEEEEEEEEEJ');
+		//console.log('JEEEEEEEEEJ');
+
+		tempScrollTop = $(window).scrollTop();
 
 		$.ajax({
-			//url:"/products/overview/products/",
-			url:"/index/test/",
+			//url:"/index/test/",  	// ---- development
+			url: '/test/'			// ---- production
 			type: "GET",
 			data: {
 				'page': page,
@@ -42,6 +46,8 @@ $(document).ready(function () {
 		//console.log(data);
 
 		$('#fest-list-items').append(data);
+
+		$(window).scrollTop(tempScrollTop);
 
 	};
 })

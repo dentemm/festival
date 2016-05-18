@@ -412,10 +412,14 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 			festivals = paginator.page(page)
 
 		except PageNotAnInteger:
+
+			page = request.GET.get('page', 1)
 			festivals = paginator.page(1)
 
 		except EmptyPage:
-			festivals = paginator.page(paginator.num_pages)
+			#festivals = paginator.page(paginator.num_pages)
+
+			festivals = []
 
 		# Update template context
 		context = super(FestivalIndexPage, self).get_context(request)
