@@ -60,7 +60,8 @@ INSTALLED_APPS = [
     'django_countries',                 # automatisch invullen van landen bij adres model
     'django_comments',                  # comments toevoegen aan festivals 
     'storages',                         # wordt gebruikt om media files naar Amazon S3 te uploaden
-    'social.apps.django_app.default',    # laat toe om in te loggen via social media platforms
+    'social.apps.django_app.default',   # laat toe om in te loggen via social media platforms
+    'geopy',                            # maakt het mogelijk om een adres te geocoderen (adres => lat + long)
     #'recurrence',
 
     # Custom non-wagtail apps
