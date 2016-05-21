@@ -234,11 +234,11 @@ Location.panels = [
 					FieldPanel('address', classname='col6')
 				]
 			),
-			FieldRowPanel([
-					FieldPanel('latitude', classname='col6'),
-					FieldPanel('longitude', classname='col6')
-				]
-			),
+#			FieldRowPanel([
+#					FieldPanel('latitude', classname='col6'),
+#					FieldPanel('longitude', classname='col6')
+#				]
+#			),
 		],
 		heading='Locatie gegevens'
 	)

@@ -16,9 +16,18 @@ class Command(BaseCommand):
 			address = location.address
 			geolocator = geopy.geocoders.Nominatim()
 
+			number = address.number 
+
 			address_string = address.street + ' ' + address.number + ' ' + address.postal_code + ' ' + address.city + ' ' + str(address.country.name)
 
 			loc = geolocator.geocode(address_string)
+
+			if not isinstance(loc, geopy.location.Location):
+
+				alternative = address.street + ' ' + address.postal_code + ' ' + address.city + ' ' + str(address.country.name)
+
+				loc = geolocator.geocode(alternative)
+
 
 			if isinstance(loc, geopy.location.Location):
 
