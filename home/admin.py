@@ -11,6 +11,10 @@ class FestivalPageAdmin(admin.ModelAdmin):
 class AdressAdmin(admin.ModelAdmin):
 	pass
 
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+	pass
+
 '''@admin.register(AddressOrderable)
 class AddressOrderableAdmin(admin.ModelAdmin):
 	pass'''
