@@ -569,6 +569,15 @@ class FestivalPage(models.Page):
 
 		return False
 
+	@property
+	def ongoing(self):
+
+		today = datetime.today().date()
+		margin = timedelta(days=self.duration)
+
+		return self.date <= today <= self.date + margin
+
+
 	# METHODS
 
 	def save(self, *args, **kwargs):

@@ -9,27 +9,29 @@
     	<div class="owl-carousel owl-theme">
     		{% for festival in festival_list reversed %}
     		{% image festival.main_image height-400 as tmp_photo %}
+    		{% with bezig=festival.ongoing %}
     		<div class="item" style="height:400px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
-					background-repeat: no-repeat; background-position: center center; opacity: 0.6;">
+					background-repeat: no-repeat; background-position: center center; {% if not bezig %}opacity: 0.3;{% endif %}">
     			<time datetime="{{ festival.date }}" class="icon">
     				{% if festival.duration == 1 %}
     					<em>{{ festival.date|date:'l' }}</em>
-		                <div class="fa_passive">{{ festival.date|date:'F' }}</div>
+		                <div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
 		                <span>{{ festival.date|date:'d' }}</span>
 	                {% else %}
 	                	{% if festival.check_month_span %}
 		                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-		                	<div class="fa_passive">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
+		                	<div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
 		                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
 	                	{% else %}
 		                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-		                	<div class="fa_passive">{{ festival.date|date:'F' }}</div>
+		                	<div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
 		                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
 	                	{% endif %}
 	                {% endif %}
                 </time>
                 <div class="fa_name">{{ festival.name }}</div>
     		</div>
+    		{% endwith %}
     		{% endfor %}
     	</div>
     	{% endif %}
