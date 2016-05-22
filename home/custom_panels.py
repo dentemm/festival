@@ -105,7 +105,9 @@ class BaseCustomInlinePanel(EditHandler):
 
         self.empty_child = child_edit_handler_class(instance=empty_form.instance, form=empty_form)
 
-    template = "home/custom_panels/custom_inline_panel.html"
+    #template = "home/custom_panels/custom_inline_panel.html"
+    #template = "home/custom_panels/inline_panel_experimental.html"
+    template = "home/custom_panels/less_old_custom_inline_panel.html"
 
     def render(self):
         formset = render_to_string(self.template, {

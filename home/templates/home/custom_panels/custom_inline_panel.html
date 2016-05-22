@@ -1,9 +1,9 @@
 {% load i18n %}
-{% load wagtailadmin_tags home_tags %}
+{% load wagtailadmin_tags  %}
 
 {{ self.formset.management_form }}
 
-<fieldset>
+<ul class="multiple" id="id_{{ self.formset.prefix }}-FORMS">
     {% if self.formset.non_form_errors %}
         <li class="error-message">
             {% for error in self.formset.non_form_errors %}
@@ -11,41 +11,19 @@
             {% endfor %}
         </li>
     {% endif %}
-    <ul class="fields">
+
     {% for child in self.children %}
-        {% if forloop.first or forloop.counter0|divisibleby:3 %}
-            <ul class="field-row">
-        {% endif %}
-            {% for panel in child.children %}
-                {% if forloop.first %}
-                    {% for form in panel.bound_field %}
-                    <li class="field-col col4 boolean_field">
-                        <div class="field">
-                        {% with item=form.value %}
-                            <label>{% get_attribute item %}:</label>
-                        {% endwith %}
-                    {% endfor %}
-                {% else %}
-                            <div class="field-content">
-                                <div class="input">
-                                    {{ panel.bound_field }}<span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        {% if forloop.counter|divisibleby:3 or forloop.last %}
-            </ul>
-        {% endif %}
+        {% include "home/custom_panels/inline_panel_child.html" %}
     {% endfor %}
-    </ul>
-</fieldset>
+</ul>
 
 <script type="text/django-form-template" id="id_{{ self.formset.prefix }}-EMPTY_FORM_TEMPLATE">
 {% escapescript %}
-{% include "wagtailadmin/edit_handlers/inline_panel_child.html" with child=self.empty_child %}
+{% include "home/custom_panels/inline_panel_child.html" with child=self.empty_child %}
 {% endescapescript %}
 </script>
 
-
+<p class="add">
+    <a class="button bicolor icon icon-plus" id="id_{{ self.formset.prefix }}-ADD" value="Add">
+        {% blocktrans with heading=self.heading|lower %}Add {{ heading }}{% endblocktrans %}</a>
+</p>

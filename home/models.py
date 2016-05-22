@@ -94,6 +94,7 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 				if created == False:
 					print('break hier!')
+					#lijst = FestivalPageRatebleAttributeValue.objects.all
 					break
 
 				else:
@@ -101,7 +102,10 @@ class FestivalPageForm(WagtailAdminPageForm):
 					continue
 
 			if(len(page.rateable_attributes.all()) == 0):
-				page.rateable_attributes = lijst 
+				page.rateable_attributes = lijst
+
+			cleaned_data['rateable_attributes'] = kenmerken
+
 
 		return cleaned_data
 
@@ -361,6 +365,8 @@ class FestivalPageRateableAttribute(djangomodels.Model):
 		return self.name
 
 	def save(self, *args, **kwargs):
+
+		print('))))))))))) save festivalpagerateableattribute')
 
 		return super(FestivalPageRateableAttribute, self).save(*args, **kwargs)
 
@@ -661,8 +667,9 @@ FestivalPage.content_panels = [
 							),
 	#InlinePanel('locations', label='festival locaties (hoeft niet ingevuld te worden als er maar 1 locatie is)')
 	#InlinePanel('persons', label='Maak nieuwe contactpersoon aan', max_num=1),
+	#InlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
 	#CustomInlinePanel('rateable_attributes', label='Te beoordelen eigenschappen'),
-
+	
 
 ]
 

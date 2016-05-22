@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load wagtailadmin_tags %}
+
+{{ self.formset.management_form }}
+
+<fieldset>
+    <ul id="id_{{ self.formset.prefix }}-FORMS">
+    {% if self.formset.non_form_errors %}
+        <li class="error-message">
+            {% for error in self.formset.non_form_errors %}
+                <span>{{ error|escape }}</span>
+            {% endfor %}
+        </li>
+    {% endif %}
+    <ul class="fields">
+    {% for child in self.children %}
+        {% include 'home/custom_panels/less_old_inline_panel_child.html' %}
+    {% endfor %}
+    </ul>
+</fieldset>
+
+
+
+
+

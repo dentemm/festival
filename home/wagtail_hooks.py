@@ -17,6 +17,8 @@ def do_after_page_edit(request, page):
 
 	#check_snippets(request, page)
 
+	pass
+
 
 
 @hooks.register('after_create_page')
@@ -27,6 +29,8 @@ def do_after_page_create(request, page):
 	'''
 
 	#check_snippets(request, page)
+
+	pass
 
 def check_snippets(request, page):
 	'''

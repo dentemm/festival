@@ -1,0 +1,27 @@
+{% load i18n home_tags %}
+
+{% if forloop.first or forloop.counter0|divisibleby:3 %}
+    <ul class="field-row">
+{% endif %}
+    {% for panel in child.children %}
+        {% if forloop.first %}
+            {% for form in panel.bound_field %}
+            <li class="field-col col4 boolean_field">
+                <div class="field">
+                {% with item=form.value %}
+                    <label>{% get_attribute item %}:</label>
+                {% endwith %}
+            {% endfor %}
+        {% else %}
+                    <div class="field-content">
+                        <div class="input">
+                            {{ panel.bound_field }}<span></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+{% if forloop.counter|divisibleby:3 or forloop.last %}
+    </ul>
+{% endif %}
