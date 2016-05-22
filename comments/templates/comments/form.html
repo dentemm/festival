@@ -1,0 +1,7 @@
+{% load comments %}
+
+{% if user.is_authenticated %}
+	{% get_comment_form for object as form %}
+{% else %}
+	<p>Je moet ingelogd zijn om commentaar te geven!</p>
+{% endif %}
