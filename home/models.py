@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 
+from datetime import datetime, timedelta
+
 # Django imports
 from django.db import models as djangomodels
 from django.db.models.signals import pre_delete
@@ -495,6 +497,9 @@ class FestivalPage(models.Page):
 													)
 	date = djangomodels.DateField('Festival datum', null=True)
 	duration = djangomodels.PositiveIntegerField('Duur (# dagen)', default=1, validators=[MaxValueValidator(21),])
+	end_date = djangomodels.DateField('Eind datum', null=True, blank=True)
+	#span_months = djangomodels.BooleanField('Meerdere maanden?', default=False)
+
 	website = djangomodels.URLField(max_length=120, null=True, blank=True, 
 													help_text='De link naar de homepage van het festival'
 													)
@@ -524,13 +529,10 @@ class FestivalPage(models.Page):
 
 	base_form_class = FestivalPageForm
 
-
 	# PROPERTIES
 
 	@property
 	def date_representation(self):
-
-		from datetime import datetime, timedelta
 
 		if self.duration == 0:
 			return ''
@@ -549,6 +551,23 @@ class FestivalPage(models.Page):
 					return '%s - %s' % (self.date.strftime('%d %b'), end_date.strftime('%d %b'))
 
 		return ''
+	
+	@property
+	def check_month_span(self):
+
+		if self.duration == 1:
+			return False
+
+		else:
+			end_date = self.date + timedelta(self.duration)
+
+			if self.date.month != end_date.month:
+				return True
+
+			else:
+				return False
+
+		return False
 
 	# METHODS
 
@@ -711,7 +730,6 @@ class FestivalMonthArchiveView(MonthArchiveView):
 		# if no date information available: set year and month manually to current year and month
 		if request.GET.get('year') == None:
 
-			from datetime import datetime
 			now = datetime.now()
 
 			self.year = str(now.year)
@@ -725,7 +743,7 @@ class CalendarPage(RoutablePageMixin, models.Page):
 	te renderen
 	'''
 
-	template = 'home/festival_index_page.html'
+	template = 'home/calendar_page.html'
 
 	#@property
 	def festivals(self):

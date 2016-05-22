@@ -1,11 +1,41 @@
-{% extends 'home/home.html' %}
+{% extends 'home/festival_page.html' %}
 
 {% load rating_tags static compress comments wagtailimages_tags wagtailcore_tags %}
 
 
 {% block content %} 
+	<section id="owlcalendar" style="margin-top:85px;">
+		{% if festival_list %}
+    	<div class="owl-carousel owl-theme">
+    		{% for festival in festival_list reversed %}
+    		{% image festival.main_image height-400 as tmp_photo %}
+    		<div class="item" style="height:400px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
+					background-repeat: no-repeat; background-position: center center; opacity: 0.6;">
+    			<time datetime="{{ festival.date }}" class="icon">
+    				{% if festival.duration == 1 %}
+    					<em>{{ festival.date|date:'l' }}</em>
+		                <div class="fa_passive">{{ festival.date|date:'F' }}</div>
+		                <span>{{ festival.date|date:'d' }}</span>
+	                {% else %}
+	                	{% if festival.check_month_span %}
+		                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
+		                	<div class="fa_passive">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
+		                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
+	                	{% else %}
+		                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
+		                	<div class="fa_passive">{{ festival.date|date:'F' }}</div>
+		                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
+	                	{% endif %}
+	                {% endif %}
+                </time>
+                <div class="fa_name">{{ festival.name }}</div>
+    		</div>
+    		{% endfor %}
+    	</div>
+    	{% endif %}
+    </section>
 
-	<div class="container" style="margin-top: 90px">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
 			{% if previous_month %}
