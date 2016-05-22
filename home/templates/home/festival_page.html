@@ -6,126 +6,182 @@
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
     	{% compress css %}
-	    <!-- Owl Carousel -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.carousel.css' %}">
-	    <link rel="stylesheet" type="text/css" href="{% static 'owl-carousel/owl.theme.css' %}">
-	    <!-- custom css-->
-	    <link rel="stylesheet" type="text/css" href="{% static 'css/advisor.css' %}">
-	    <link rel="stylesheet" type="text/css" href="{% static 'ratings/css/ratings.css' %}">
+	    <!-- OWL CAROUSEL -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.carousel.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.theme.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.transitions.css' %}">
+	    <!-- LIGHTBOX -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/lightbox/dist/css/lightbox.css' %}">
+	    <!-- ICONS -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/icons/et-line-font/style.css' %}">
+	   	<!-- ANIMATE.CSS -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/animate.css/animate.css' %}">
+
+	    
+	    <!-- CUSTOM CSS -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+	    <!-- ??? mijn eigen ratings mss ??? -->
+	    <!--<link rel="stylesheet" type="text/css" href="{% static 'ratings/css/ratings.css' %}">-->
+
 	    {% endcompress %}
+
 {% endblock %}
 
-{% block content %} 
-	<div class="stage-shelf stage-shelf-right hidden" id="sidebar">
-	  	<ul class="nav nav-bordered nav-stacked">
-	    	<li class="nav-header">Examples</li>
-	    	<li class="active">
-	      		<a href="index.html">Startup</a>
-	    	</li>
-	    	<li>
-	      		<a href="minimal/index.html">Minimal</a>
-	    	</li>
-	    	<li>
-	      		<a href="bold/index.html">Bold</a>
-	    	</li>
-	    	<li class="nav-divider"></li>
-	    	<li class="nav-header">Docs</li>
-	    	<li>
-	      		<a href="docs/index.html">Toolkit</a>
-	    	</li>
-	    	<li>
-	      		<a href="http://getbootstrap.com">Bootstrap</a>
-	    	</li>
-	  	</ul>
-	</div>
-	<div class="stage" id="stage">
-		<div class="block block-inverse block-fill-height app-header" style="background-image: url(assets/img/startup-1.jpg);">
-			<nav class="navbar navbar-transparent navbar-fixed-top navbar-padded app-navbar p-t-md">
-  				<div class="container">
-				    <div class="navbar-header">
-				      	<button type="button" class="navbar-toggle collapsed p-x-0" data-target="#stage" data-toggle="stage" data-distance="-250">
-					        <span class="sr-only">Toggle navigation</span>
-					        <span class="icon-bar"></span>
-					        <span class="icon-bar"></span>
-					        <span class="icon-bar"></span>
-				      	</button>
-      					<a class="navbar-brand" href="">
-					        <strong style="background: transparent; padding: 12px; border-radius: 4px; color: #77933C;">
-					          	<span style="color: #FFF;">festival</span>advisor.be
-					        </strong>
-      					</a>
-    				</div>
-    				<div class="navbar-collapse collapse text-uppercase">
-      					<ul class="nav navbar-nav navbar-right">
-					        <li >
-					          	<a href="">Muzieksstijl</a>
-					        </li>
-					        <li >
-					          	<a href="">Prijscategorie</a>
-					        </li>
-					        <li >
-					          	<a href="">Schrijf een beoordeling</a>
-					        </li>
-					    </ul>
-    				</div><!--/.nav-collapse -->
-  				</div>
-			</nav>
-  			<img class="app-graph" src="">
-  			<div class="block-xs-middle p-b-lg">
-    			<div class="container">
-      				<div class="row">
-        				<div class="col-md-4 fad-abs hidden-xs">
-          					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-					          	<!-- Wrapper for slides -->
-					          	<div class="carousel-inner" role="listbox">
-					            	<div class="item active">
-					               		<img class="img-circle" src="assets/img/minaj2.jpg">
-					              		<div class="carousel-caption text-center">
-					                		<div class="carousel-title">"Een unieke beleving.."</div>
-					                		Silvie Mol - Zottegem <br>
-					                		<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
-					              		</div>
-					            	</div>
-						            <div class="item">
-						               	<img class="img-circle" src="assets/img/cudi2.jpg">
-						              	<div class="carousel-caption text-center">
-						                	<div class="carousel-title">"Volgend jaar meer van dit!"</div>
-						                	Geert Pasmans - Eeklo <br>
-						                	<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <i class="fa fa-star fad-white"></i>
-						              	</div>
-						            </div>
-						        </div> <!-- end of slides-->
-        					</div>
-      					</div>
-				        <div class="col-sm-10 col-md-6">
-				          	<h1 class="block-title m-b-sm">Tomorrowland</h1>
-				          	<p class="lead m-b-md text-muted">23, 24, 25 juni</p>
-				          	<button class="btn btn-success m-b">Dance</button>
-				          	<br>
-				          	<div class="statcard p-a text-center" data-transition="entrance" style="transform: translateY(50px)">
-				            	<div class="col-md-6 fad-points" >
-				              		<h3 class="statcard-number">9</h3>
-				              		<span class="statcard-desc fad-points ">Line-up</span>
-				            	</div>
-					            <div class="col-md-6 fad-points">
-					              	<h3 class="statcard-number">8</h3>
-					              	<span class="statcard-desc fad-points">Food & Drinks</span>
-					            </div>
-					            <div class="col-md-6 fad-points">
-					              	<h3 class="statcard-number">7</h3>
-					              	<span class="statcard-desc fad-points">Netheid</span>
-					            </div>
-					            <div class="col-md-6 fad-points">
-					              	<h3 class="statcard-number">7</h3>
-					              	<span class="statcard-desc fad-points">Camping</span>
-					            </div>
-          					</div>
-        				</div>
-      				</div>
-    			</div>
-  			</div>
-		</div>
-	</div>
+{% block content %}	
+    <section id="owlcalendar" style="margin-top:85px;">
+
+        <div class="owl-carousel owl-theme">
+            <div class="item" style="height:400px; background: url(img/sliders/Slide.jpg); background-size: auto 100%;
+    background-repeat: no-repeat; background-position: center center; opacity: 0.6;">
+                <time datetime="2016-05-21" class="icon">
+                  <em>Zaterdag</em>
+                  <div class="fa_passive">mei</div>
+                  <span>21</span>
+                </time>
+                <div class="fa_name">Akkerpop</div>
+            </div>
+            <div class="item" style="height:400px; background: url(img/portfolio/2.jpg); background-size: auto 100%;
+    background-repeat: no-repeat; background-position: center center">
+                <time datetime="2016-06-30" class="icon">
+                  <em>Donderdag - Zondag</em>
+                  <div class="fa_active">juni-juli</div>
+                  <span>30 - 3</span>
+                </time>
+                 <div class="fa_name">Rock Werchter</div>
+            </div>
+            <div class="item" style="height:400px; background: url(img/portfolio/3.jpg); background-size: auto 100%;
+    background-repeat: no-repeat; background-position: center center; opacity: 0.6;">
+                <time datetime="2016-05-21" class="icon">
+                  <em>Zaterdag</em>
+                  <div class="fa_passive">juli</div>
+                  <span>21</span>
+                </time>
+                <div class="fa_name">Lokerse feesten</div>
+            </div>
+            <div class="item" style="height:400px; background: url(img/portfolio/4.jpg); background-size: auto 100%;
+    background-repeat: no-repeat; background-position: center center; opacity: 0.6;">
+                <time datetime="2016-05-21" class="icon">
+                  <em>Zaterdag</em>
+                  <div class="fa_passive">juli</div>
+                  <span>21</span>
+                </time>
+                <div class="fa_name">Pukkelpop</div>
+            </div>
+            <div class="item" style="height:400px; background: url(img/portfolio/5.jpg); background-size: auto 100%;
+    background-repeat: no-repeat; background-position: center center; opacity: 0.6;">
+                <time datetime="2016-05-21" class="icon">
+                  <em>Zaterdag</em>
+                  <div class="fa_passive">juli</div>
+                  <span>21</span>
+                </time>
+                <div class="fa_name">Pinkpop</div>
+            </div>
+            <div class="item" style="height:400px; background: url(img/portfolio/6.jpg); background-size: auto 100%;
+    background-repeat: no-repeat; background-position: center center; opacity: 0.6;">
+                <time datetime="2016-05-21" class="icon">
+                  <em>Zaterdag</em>
+                  <div class="fa_passive">juli</div>
+                  <span>21</span>
+                </time>
+                <div class="fa_name">Best Kept Secret</div>
+            </div>
+        </div> 
+    </section>
+
+    <section id="calendar_item">
+    <div class="container">
+        <div class="col-md-12 fa_heading">
+            <h1>ROCK WERCHTER</h1>
+            <div class="col-md-12">
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star fa-2x"></i>
+                <i class="fa fa-star-o fa-2x"></i>
+            </div>
+        </div>
+    <div class="fa_calendar_item">
+        <div class="col-md-4 fa_overlay">
+            <div id="fa_carousel" class="carousel slide" data-ride="carousel">
+
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                  <img src="img/portfolio/6.jpg" class="img-responsive">
+                  <div class="carousel-caption">
+                    &copy Joris Verhoeven - Werchter 2015
+                  </div>
+                </div>
+                <div class="item">
+                  <img src="img/portfolio/5.jpg" class="img-responsive">
+                  <div class="carousel-caption">
+                    &copy Alex Windels - Werchter 2004
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>   
+        <div class="col-md-4 fa_overlay">
+            <h3>De klassieker van de belgische festivalscene</h3>
+            <h4>Rock Werchter is een pop- en rockfestival dat elk jaar plaatsvindt in het dorpje Werchter, een deelgemeente van het Vlaams-Brabantse Rotselaar. Het Belgische muziekfestival vindt plaats in het laatste weekend van juni of het eerste van juli.</h4>
+        </div>
+        <div class="col-md-4 fa_overlay"><div id="map" style="height:250px"></div></div>        
+    </div>
+    <div class="fa_bground">
+        <div class="container">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active col-md-4"><a data-toggle="tab" role="tab" aria-controls="overzicht" href="#overzicht"><h3>Overzicht</h3></a></li>
+            <li role="presentation" class="col-md-4"><a data-toggle="tab" role="tab" aria-controls="beoordeling" href="#beoordeling"><h3>Beoordelingen</h3></a></li>
+            <li role="presentation" class="col-md-4"><a data-toggle="tab" role="tab" aria-controls="overzicht" href="#overzicht"><h3>Commentaren</h3></a></li>
+          </ul>
+
+           <div class="tab-content">
+    <div id="overzicht" class="tab-pane active" role="tabpanel">
+      <div class="container">
+        <div class="row app-align-center">
+          <div class="col-sm-5 col-sm-push-7 text-center">
+            <div class="grid">
+              <figure class="effect-apollo">
+                <figcaption>
+                  <h2>30-3 juni-juli<span> 2016</span></h2>
+                    <p>
+                      Het grootste rockfestival van Europa.
+                    </p>
+                </figcaption>     
+              </figure>
+            </div>
+            <button class="btn btn-default btn-lg btn-borderless">
+              Rock werchter website
+            </button>
+          </div>
+
+          <div class="col-sm-6 col-sm-pull-5">
+            <h1 class="block-title m-b-sm">Rock Werchter</h1>
+            <h3 class="text-muted text-uppercase block-xs-middle"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></h3>
+            <h4> Al 15.200 beoordelingen </h4>
+                <div class="col-md-12 text-festa">
+                  <span class="fa-stack fa-lg fad-center"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-headphones fa-stack-1x"> </i> </span> Dance
+                  <span class="fa-stack fa-lg fad-center"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-eur fa-stack-1x"> </i> </span> 100+
+                  <span class="fa-stack fa-lg fad-center"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-commenting-o fa-stack-1x"> </i> </span> 9/10
+                </div></br>
+            <p class="lead m-b-md text-muted">Line-up 2016: ....</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="beoordeling" class="tab-pane" role="tabpanel">
+        <div class="row app-align-center">
+        </div>
+    </div>
+        </div>
+    </div>
+ </div>
+
+</section>
+
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -193,13 +249,41 @@
 
 {% endblock content %}
 
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/custom.js"></script>
+    <script src="js/owlcalendar.js"></script>
+
+
+
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
     	{% compress js %}
-	    <!-- Owl Carousel -->
+	    <!-- OWL CAROUSEL -->
 	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-	    <!-- festad? -->
-	    <script type="text/javascript" src="{% static 'js/festad.js' %}"></script>
+	    <!--JQUERY EASING -->
+	    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
+	    <!-- WAYPOINTS -->
+	    <script type="text/javascript" src="{% static 'plugins/waypoints/jquery.waypoints.min.js' %}"></script>
+	    <!-- COUNTTO -->
+	    <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
+	    <!-- INVIEW -->
+	    <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
+	    <!-- LIGHTBOX -->
+	    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
+	    <!-- WOW -->
+	    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
+	    <!-- GOOGLE MAPS -->
+	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+	    <!-- CUSTOM SCRIPTS-->
+	   	<script type="text/javascript" src="{% static 'kevin/js/custom.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'kevin/js/owlcalendar.js' %}"></script>
+
+
+
 	    <!-- jQuery Bar Rating -->
 	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
 	    <script type="text/javascript">
