@@ -622,6 +622,20 @@ class FestivalPage(models.Page):
 		# Update het main_image attribuut van de bijhorende FestivalPage
 		self.main_image = main_image
 
+		# -- END DATE FUNCTIONALITY -- #
+
+		if not self.end_date:
+
+			if self.duration == 0:
+				pass
+
+			elif self.duration == 1:
+				pass
+
+			else:
+				end_date = self.date + timedelta(self.duration)
+				self.end_date = end_date
+
 
 		# -- PAGE TITLE AND PAGE SLUG FUNCTIONALITY -- #
 
