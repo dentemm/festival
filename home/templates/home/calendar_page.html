@@ -2,6 +2,9 @@
 
 {% load rating_tags static compress comments wagtailimages_tags wagtailcore_tags %}
 
+{% block navbar %}
+    {% include 'navbar_calendar.html' %}
+{% endblock %}
 
 {% block content %} 
 	<section id="owlcalendar" style="margin-top:85px;">
