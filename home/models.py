@@ -27,6 +27,7 @@ from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm, WagtailAdminModelForm
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+from wagtail.wagtailsearch import index
 
 # Third party wagtail dependancies 
 from modelcluster.fields import ParentalKey
@@ -213,7 +214,7 @@ HomePage.content_panels = models.Page.content_panels + [
 #
 #
 @register_snippet
-class Location(djangomodels.Model):
+class Location(djangomodels.Model, index.Indexed):
 	'''
 	Location object voor festival. Een Location heeft een ForeignKey naar Address
 	Longitude en Latitude zijn beschikbaar om locatieweer te geven op een kaart. 
@@ -251,10 +252,13 @@ Location.panels = [
 	)
 ]
 
+Location.search_fields = [
+	index.SearchField('name', partial_match=True),
+]
 
 
 @register_snippet
-class Address(djangomodels.Model):
+class Address(djangomodels.Model, index.Indexed):
 	'''
 	Address model beschrijft typische adres velden
 	'''
@@ -297,6 +301,10 @@ Address.panels = [
 	),
 ]
 
+Address.search_fields = [
+	index.SearchField('city', partial_match=True),
+	index.SearchField('street', partial_match=True),
+]
 
 @register_snippet
 class Person(ClusterableModel):
