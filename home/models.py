@@ -750,7 +750,7 @@ class FestivalMonthArchiveView(MonthArchiveView):
 		if self.selected is None:
 
 			all_items = context['object_list']
-			current = all_items.first()
+			current = all_items.last()
 
 			self.selected = current 
 
