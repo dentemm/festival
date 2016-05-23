@@ -1,7 +1,12 @@
 $(document).ready(function () {
     /***************** CALENDAR PAGE SELECTION ******************/
 
-    /*$('a.festivalitem').click(function(event){
+    $('a.festivalitem').click(function(event){
+
+        // 1. disable active classes:
+        $(this).find('div.temm').removeClass('fa_passive');
+        $(this).find('div.temm').addClass('fa_active');
+        $(this).children('div.item').css('opacity', '1.0');
 
         event.preventDefault();
         console.log('jeej');
@@ -20,8 +25,12 @@ $(document).ready(function () {
         });
         request.done(function(response, textStatus, jqXHR){
 
-            console.log('success!');
-            //console.log(response);
+            var selected = $('div#current_item').first().text();
+
+            $("a[href=" + selected + "]").find('div.temm').addClass('fa_passive');
+            $("a[href=" + selected + "]").find('div.temm').removeClass('fa_active');
+            $("a[href=" + selected + "]").children('div.item').css('opacity', '0.3');
+
 
             $('section#calendar_item').html(response);
 
@@ -29,5 +38,5 @@ $(document).ready(function () {
         request.fail(function(jqXHR, textStatus, errorThrown){
 
         });
-    });*/
+    });
 }); 

@@ -37,22 +37,23 @@
     		{% for festival in festival_list reversed %}
 	    		{% image festival.main_image height-400 as tmp_photo %}
 	    		{% with bezig=festival.ongoing %}
-	    		<a href="?selected={{ festival.pk }}" class="festivalitem">
+	    		<!--<a href="?selected={{ festival.pk }}" class="festivalitem">--><!-- non ajax alternative-->
+	    		<a href="{{ festival.pk }}" class="festivalitem">
 		    		<div class="item" style="height:400px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
 							background-repeat: no-repeat; background-position: center center; {% if selected.pk != festival.pk %}opacity: 0.3;{% endif %}">
 		    			<time datetime="{{ festival.date }}" class="icon">
 		    				{% if festival.duration == 1 %}
 		    					<em>{{ festival.date|date:'l' }}</em>
-				                <div class="{% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
+				                <div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
 				                <span>{{ festival.date|date:'d' }}</span>
 			                {% else %}
 			                	{% if festival.check_month_span %}
 				                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-				                	<div class="{% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
+				                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
 				                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
 			                	{% else %}
 				                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-				                	<div class="{% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
+				                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
 				                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
 			                	{% endif %}
 			                {% endif %}
@@ -69,7 +70,6 @@
 	<section id="calendar_item">
     {% if selected == None %}
     {% else %}
-
 		{% include 'home/festival_content.html' with festival=selected %}
     {% endif  %}
     </section>
