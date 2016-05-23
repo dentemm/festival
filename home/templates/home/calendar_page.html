@@ -1,6 +1,30 @@
-{% extends 'home/festival_page.html' %}
+{% extends 'base.html' %}
 
 {% load rating_tags static compress comments wagtailimages_tags wagtailcore_tags %}
+
+{% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    	{% compress css %}
+	    <!-- OWL CAROUSEL -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.carousel.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.theme.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.transitions.css' %}">
+	    <!-- LIGHTBOX -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/lightbox/dist/css/lightbox.css' %}">
+	    <!-- ICONS -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/icons/et-line-font/style.css' %}">
+	   	<!-- ANIMATE.CSS -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/animate.css/animate.css' %}">
+
+	    
+	    <!-- CUSTOM CSS -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+	    <!-- ??? mijn eigen ratings mss ??? -->
+	    <!--<link rel="stylesheet" type="text/css" href="{% static 'ratings/css/ratings.css' %}">-->
+	    {% endcompress %}
+{% endblock %}
 
 {% block navbar %}
     {% include 'navbar_calendar.html' %}
@@ -11,39 +35,54 @@
 		{% if festival_list %}
     	<div class="owl-carousel owl-theme">
     		{% for festival in festival_list reversed %}
-    		{% image festival.main_image height-400 as tmp_photo %}
-    		{% with bezig=festival.ongoing %}
-    		<div class="item" style="height:400px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
-					background-repeat: no-repeat; background-position: center center; {% if not bezig %}opacity: 0.3;{% endif %}">
-    			<time datetime="{{ festival.date }}" class="icon">
-    				{% if festival.duration == 1 %}
-    					<em>{{ festival.date|date:'l' }}</em>
-		                <div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
-		                <span>{{ festival.date|date:'d' }}</span>
-	                {% else %}
-	                	{% if festival.check_month_span %}
-		                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-		                	<div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
-		                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
-	                	{% else %}
-		                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-		                	<div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
-		                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
-	                	{% endif %}
-	                {% endif %}
-                </time>
-                <div class="fa_name">{{ festival.name }}</div>
-    		</div>
-    		{% endwith %}
+	    		{% image festival.main_image height-400 as tmp_photo %}
+	    		{% with bezig=festival.ongoing %}
+	    		<a href="{{ festival.pk }}" class="festivalitem">
+		    		<div class="item" style="height:400px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
+							background-repeat: no-repeat; background-position: center center; {% if not bezig %}opacity: 0.3;{% endif %}">
+		    			<time datetime="{{ festival.date }}" class="icon">
+		    				{% if festival.duration == 1 %}
+		    					<em>{{ festival.date|date:'l' }}</em>
+				                <div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
+				                <span>{{ festival.date|date:'d' }}</span>
+			                {% else %}
+			                	{% if festival.check_month_span %}
+				                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
+				                	<div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
+				                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
+			                	{% else %}
+				                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
+				                	<div class="{% if not bezig %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
+				                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
+			                	{% endif %}
+			                {% endif %}
+		                </time>
+		                <div class="fa_name">{{ festival.name }}</div>
+		    		</div>
+		    	</a>
+	    		{% endwith %}
     		{% endfor %}
     	</div>
     	{% endif %}
     </section>
 
+    {% if selected == None %}
+    	{% with current=festival_list.0 %}
+
+    	{% endwith %}
+    {% else %}
+    	{% with current=selected %}
+
+    	{% endwith %}
+    {% endif  %}
+
+
+    	
+
 	<section id="calendar_item">
 	    <div class="container">
 	        <div class="col-md-12 fa_heading">
-	            <h1>ROCK WERCHTER</h1>
+	            <h1>ROCK WERCHTER {{ selected.pk }}</h1>
 	            <div class="col-md-12">
 	                <i class="fa fa-star fa-2x"></i>
 	                <i class="fa fa-star fa-2x"></i>
@@ -207,22 +246,42 @@
 		{% endif %}
 		</div>
 	</div>-->
-
 {% endblock content %}
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
-    	{{ block.super }}
     	{% compress js %}
-    	<!--<script type="text/javascript">
-    		$(window).on('load', function() {
+	    <!-- OWL CAROUSEL -->
+	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+	    <!--JQUERY EASING -->
+	    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
+	    <!-- COUNTTO -->
+	    <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
+	    <!-- INVIEW -->
+	    <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
+	    <!-- LIGHTBOX -->
+	    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
+	    <!-- WOW -->
+	    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
+	    <!-- GOOGLE MAPS -->
+	    
 
-    			console.log('ready')
-				$('.images2').imageGrid();
-				console.log('ready')
+	    <!-- CUSTOM SCRIPTS-->
+	   	<script type="text/javascript" src="{% static 'kevin/js/custom.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'kevin/js/owlcalendar.js' %}"></script>
 
-    		});
-    	</script>-->
 
+	    <!-- jQuery Bar Rating -->
+	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
+	    <script type="text/javascript">
+		   	$(function() {
+		      	$('#example').barrating({
+		      		'theme': 'bars-square',
+		      		'showSelectedRating': true,
+		      		'showValues': false
+		      	});
+		   	});
+		</script>
 	    {% endcompress %}
+	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 {% endblock extra_js %}

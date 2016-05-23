@@ -2,3 +2,9 @@
 #wagtail-userbar { 
  	top: 72vh;
 }
+
+/* CALENDAR PAGE */
+a.festivalitem:hover {
+	text-decoration: none;
+	opacity: 0.6;
+}

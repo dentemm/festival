@@ -745,12 +745,35 @@ class FestivalMonthArchiveView(MonthArchiveView):
 
 	def get_context_data(self, **kwargs):
 
-		return super(FestivalMonthArchiveView, self).get_context_data(**kwargs)
+		context = super(FestivalMonthArchiveView, self).get_context_data(**kwargs)
+
+		if self.selected is None:
+
+			all_items = context['object_list']
+			current = all_items.first()
+
+			self.selected = current 
+
+		context['selected'] = self.selected
+
+		return context
+
+
+		#return super(FestivalMonthArchiveView, self).get_context_data(**kwargs)
 
 
 	def get(self, request, *args, **kwargs):
 
-		selected = request.GET.get('selected', 'geen')
+		selected = request.GET.get('selected', None)
+
+		try:
+			festival = FestivalPage.objects.get(pk=selected)
+			self.selected = festival
+
+		except FestivalPage.DoesNotExist:
+			print('!!!!!!!!!!!! bestaat niet')
+
+			self.selected = None
 
 		print('selected: %s' % selected)
 
