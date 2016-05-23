@@ -601,6 +601,7 @@ class FestivalPage(models.Page):
 		'''
 
 		print('save() methode van FestivalPage')
+		print('id: %s', self.pk)
 
 		# -- MAIN IMAGE FUNCTIONALITY -- #
 		main_image = None
