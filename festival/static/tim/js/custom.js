@@ -32,7 +32,7 @@ $(document).ready(function () {
             $("a[href=" + selected + "]").children('div.item').css('opacity', '0.3');
 
 
-            $('section#calendar_item').html(response);
+            $('section#selected_item').html(response);
 
         });
         request.fail(function(jqXHR, textStatus, errorThrown){
