@@ -229,6 +229,7 @@ class Location(djangomodels.Model):
 	class Meta:
 		verbose_name = 'locatie'
 		verbose_name_plural = 'locaties'
+		ordering = ['name', ]
 
 	def __str__(self):
 		return self.name
@@ -270,9 +271,10 @@ class Address(djangomodels.Model):
 	class Meta:
 		verbose_name = 'adres'
 		verbose_name_plural = 'adressen'
+		ordering = ['city', ]
 
 	def __str__(self):
-		return '%s - %s' % (self.street, self.city)
+		return '%s - %s' % (self.city, self.street)
 
 Address.panels = [
 	MultiFieldPanel([
@@ -735,6 +737,12 @@ class FestivalMonthArchiveView(MonthArchiveView):
 
 
 	def get(self, request, *args, **kwargs):
+
+		selected = request.GET.get('selected', 'geen')
+
+		print('selected: %s' % selected)
+
+		#kwargs['selected'] = selected
 
 		# if no date information available: set year and month manually to current year and month
 		if request.GET.get('year') == None:
