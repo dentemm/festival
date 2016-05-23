@@ -758,10 +758,6 @@ class FestivalMonthArchiveView(MonthArchiveView):
 
 		return context
 
-
-		#return super(FestivalMonthArchiveView, self).get_context_data(**kwargs)
-
-
 	def get(self, request, *args, **kwargs):
 
 		selected = request.GET.get('selected', None)
@@ -774,6 +770,20 @@ class FestivalMonthArchiveView(MonthArchiveView):
 			print('!!!!!!!!!!!! bestaat niet')
 
 			self.selected = None
+
+		if request.is_ajax():
+
+			print('AJAAAAAAAAAAX')
+
+			template = 'home/festival_content.html'
+			context = {}
+
+			if self.selected:
+				context['festival'] = self.selected
+
+			return TemplateResponse(request, template=template, context=context)
+
+
 
 		print('selected: %s' % selected)
 

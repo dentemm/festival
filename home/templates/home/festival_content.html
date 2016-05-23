@@ -1,4 +1,121 @@
-festival_content.html
+{% load rating_tags static comments wagtailuserbar wagtailimages_tags %}
 
-{{ selected.name }}
-
+<div class="container">
+    <div class="col-md-12 fa_heading">
+        <h1>{{ festival.name }}</h1>
+        <div class="col-md-12">
+            <i class="fa fa-star fa-2x"></i>
+            <i class="fa fa-star fa-2x"></i>
+            <i class="fa fa-star fa-2x"></i>
+            <i class="fa fa-star fa-2x"></i>
+            <i class="fa fa-star-o fa-2x"></i>
+        </div>
+    </div>
+<div class="fa_calendar_item">
+    <div class="col-md-4 fa_overlay">
+        <div id="fa_carousel" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+            	{% for im in festival.images.all %}
+            		{% image im.image height-400 as tmp_photo %}
+	                <div class="item {% if forloop.first %}active{% endif %}">
+	                  	<img src="{{ tmp_photo.url }}" class="img-responsive">
+	                  	<!--<div class="carousel-caption">
+	                    	&copy Joris Verhoeven - Werchter 2015
+	                  	</div>-->
+	                </div>
+                {% endfor %}
+          	</div>
+        </div>
+    </div>   
+    <div class="col-md-4 fa_overlay">
+        <h3>
+        	De klassieker van de belgische festivalscene
+        </h3>
+        <h4>
+        	Rock Werchter is een pop- en rockfestival dat elk jaar plaatsvindt in het dorpje Werchter, een deelgemeente van het Vlaams-Brabantse Rotselaar. Het Belgische muziekfestival vindt plaats in het laatste weekend van juni of het eerste van juli.
+        </h4>
+    </div>
+    <div class="col-md-4 fa_overlay">
+    	<div id="map" style="height:250px"></div>
+    </div>        
+</div>
+<div class="fa_bground">
+    <div class="container">
+      	<ul class="nav nav-tabs" role="tablist">
+        	<li role="presentation" class="active col-md-4">
+        		<a data-toggle="tab" role="tab" aria-controls="overzicht" href="#overzicht">
+        			<h3>Overzicht</h3>
+        		</a>
+        	</li>
+        	<li role="presentation" class="col-md-4">
+        		<a data-toggle="tab" role="tab" aria-controls="beoordeling" href="#beoordeling">
+        			<h3>Beoordelingen</h3>
+        		</a>
+        	</li>
+        	<li role="presentation" class="col-md-4">
+        		<a data-toggle="tab" role="tab" aria-controls="overzicht" href="#overzicht">
+        			<h3>Commentaren</h3>
+        		</a>
+        	</li>
+      	</ul>
+       	<div class="tab-content">
+			<div id="overzicht" class="tab-pane active" role="tabpanel">
+  				<div class="container">
+    				<div class="row app-align-center">
+      					<div class="col-sm-5 col-sm-push-7 text-center">
+        					<div class="grid">
+          						<figure class="effect-apollo">
+            						<figcaption>
+					                  	<h2>
+					                  		30-3 juni-juli<span> 2016</span>
+					                  	</h2>
+					                    <p>
+					                      	Het grootste rockfestival van Europa.
+					                    </p>
+					                </figcaption>     
+          						</figure>
+        					</div>
+				            <button class="btn btn-default btn-lg btn-borderless">
+				              Rock werchter website
+				            </button>
+      					</div>
+				        <div class="col-sm-6 col-sm-pull-5">
+				            <h1 class="block-title m-b-sm">
+				            	Rock Werchter
+				            </h1>
+				            <h3 class="text-muted text-uppercase block-xs-middle">
+				            	<i class="fa fa-star"></i>
+				            	<i class="fa fa-star"></i>
+				            	<i class="fa fa-star"></i>
+				            	<i class="fa fa-star"></i>
+				            	<i class="fa fa-star"></i>
+				            </h3>
+				            <h4> Al 15.200 beoordelingen </h4>
+			                <div class="col-md-12 text-festa">
+			                  	<span class="fa-stack fa-lg fad-center">
+			                  		<i class="fa fa-circle-o fa-stack-2x"></i>
+			                  		<i class="fa fa-headphones fa-stack-1x"> </i>
+			                  	</span> Dance
+			                  <span class="fa-stack fa-lg fad-center">
+			                  		<i class="fa fa-circle-o fa-stack-2x"></i>
+			                  		<i class="fa fa-eur fa-stack-1x"> </i>
+			                  	</span> 100+
+			                  	<span class="fa-stack fa-lg fad-center">
+			                  		<i class="fa fa-circle-o fa-stack-2x"></i>
+			                  		<i class="fa fa-commenting-o fa-stack-1x"></i>
+			                  	</span> 9/10
+			                </div>
+				            </br>
+				            <p class="lead m-b-md text-muted">Line-up 2016: ....</p>
+				        </div>
+				    </div>
+  				</div>
+			</div>
+		    <div id="beoordeling" class="tab-pane" role="tabpanel">
+		        <div class="row app-align-center">
+		        </div>
+		    </div>
+		</div>
+    </div>
+ </div>
