@@ -767,13 +767,10 @@ class FestivalMonthArchiveView(MonthArchiveView):
 			self.selected = festival
 
 		except FestivalPage.DoesNotExist:
-			print('!!!!!!!!!!!! bestaat niet')
-
+			#print('!!!!!!!!!!!! bestaat niet')
 			self.selected = None
 
 		if request.is_ajax():
-
-			print('AJAAAAAAAAAAX')
 
 			template = 'home/festival_content.html'
 			context = {}
@@ -783,11 +780,6 @@ class FestivalMonthArchiveView(MonthArchiveView):
 
 			return TemplateResponse(request, template=template, context=context)
 
-
-
-		print('selected: %s' % selected)
-
-		#kwargs['selected'] = selected
 
 		# if no date information available: set year and month manually to current year and month
 		if request.GET.get('year') == None:

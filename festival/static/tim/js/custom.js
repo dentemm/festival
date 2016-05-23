@@ -1,7 +1,7 @@
 $(document).ready(function () {
     /***************** CALENDAR PAGE SELECTION ******************/
 
-    $('a.festivalitem').click(function(event){
+    /*$('a.festivalitem').click(function(event){
 
         event.preventDefault();
         console.log('jeej');
@@ -29,5 +29,5 @@ $(document).ready(function () {
         request.fail(function(jqXHR, textStatus, errorThrown){
 
         });
-    });
+    });*/
 }); 

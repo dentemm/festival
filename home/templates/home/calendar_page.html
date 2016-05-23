@@ -37,7 +37,7 @@
     		{% for festival in festival_list reversed %}
 	    		{% image festival.main_image height-400 as tmp_photo %}
 	    		{% with bezig=festival.ongoing %}
-	    		<a href="{{ festival.pk }}" class="festivalitem">
+	    		<a href="?selected={{ festival.pk }}" class="festivalitem">
 		    		<div class="item" style="height:400px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
 							background-repeat: no-repeat; background-position: center center; {% if selected.pk != festival.pk %}opacity: 0.3;{% endif %}">
 		    			<time datetime="{{ festival.date }}" class="icon">
