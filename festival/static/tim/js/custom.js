@@ -25,7 +25,7 @@ $(document).ready(function () {
         });
         request.done(function(response, textStatus, jqXHR){
 
-            var selected = $('div#current_item').first().text();
+            var selected = $('div#current_item').text();
 
             $("a[href=" + selected + "]").find('div.temm').addClass('fa_passive');
             $("a[href=" + selected + "]").find('div.temm').removeClass('fa_active');

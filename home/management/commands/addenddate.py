@@ -12,17 +12,19 @@ class Command(BaseCommand):
 
 		for festival in FestivalPage.objects.all():
 
-			if festival.duration == 0:
-				pass
+			if not festival.end_date:
 
-			elif festival.duration == 1:
-				pass
+				if festival.duration == 0:
+					pass
 
-			else:
-				end_date = festival.date + timedelta(festival.duration)
-				festival.end_date = end_date
+				elif festival.duration == 1:
+					pass
 
-			festival.save()
+				else:
+					end_date = festival.date + timedelta(festival.duration)
+					festival.end_date = end_date
+
+				festival.save()
 
 		self.stdout.write(self.style.SUCCESS('Het is gefixt!'))
 
