@@ -307,7 +307,7 @@ Address.search_fields = [
 ]
 
 @register_snippet
-class Person(ClusterableModel):
+class Person(ClusterableModel, index.Indexed):
 	'''
 	Dit model wordt gebruikt om een persoon en zijn contactgegevens te beschrijven
 	'''
@@ -348,6 +348,10 @@ Person.panels = [
 		],
 		heading='Persoonsgegevens'
 	),
+]
+
+Person.search_fields = [
+	index.SearchField('first_name', partial_match=True),
 ]
 
 #@register_snippet
