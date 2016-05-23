@@ -88,7 +88,7 @@
 		            <div class="carousel-inner" role="listbox">
 		            	{% for im in selected.images.all %}
 		            		{% image im.image height-400 as tmp_photo %}
-			                <div class="item {% if forloop.first %}active{% endfor %}">
+			                <div class="item {% if forloop.first %}active{% endif %}">
 			                  	<img src="{{ tmp_photo.url }}" class="img-responsive">
 			                  	<!--<div class="carousel-caption">
 			                    	&copy Joris Verhoeven - Werchter 2015
