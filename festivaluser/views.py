@@ -12,23 +12,29 @@ def login(request):
 
 @login_required(login_url='/')
 def account(request):
-	return render(request, 'user_profile.html')
+	return render(request, 'festivaluser/user_profile.html')
 
 def logout(request):
 	auth_logout(request)
 	return redirect('/')
 
+class LoginView(TemplateView):
 
+	template_name = 'festivaluser/login.html'
+
+	
 
 class UserProfileView(TemplateView):
 
-	template_name = 'user_profile.html'
+	template_name = 'festivaluser/user_profile.html'
 
 	def get_context_data(self, **kwargs):
 
 		ctx = super(UserProfileView, self).get_context_data(**kwargs)
 
-		visitor = FestivalAdvisorUser(user=self.request.user)
+		visitor = FestivalAdvisorUser.objects.get(user=self.request.user)
+
+		print(visitor)
 
 
 		ctx['visitor'] = visitor

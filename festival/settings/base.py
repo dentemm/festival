@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'storages',                         # wordt gebruikt om media files naar Amazon S3 te uploaden
     'social.apps.django_app.default',   # laat toe om in te loggen via social media platforms
     'geopy',                            # maakt het mogelijk om een adres te geocoderen (adres => lat + long)
+    'widget_tweaks',                    # om forms te stylen
     #'recurrence',
 
     # Custom non-wagtail apps
@@ -193,4 +194,8 @@ WAGTAIL_SITE_NAME = "festival"
 
 # Custom image model
 WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
+
+# PYTHON SOCIAL AUTH settings
+#SOCIAL_AUTH_USER_MODEL = 'festivaluser.models.FestivalAdvisorUser'
+#SOCIAL_AUTH_USER_MODEL = 'django.contrib.auth.User'
 

@@ -1,0 +1,21 @@
+{% load comments %}
+
+----- comments ------
+
+{% if user.is_authenticated %}
+	{% get_comment_form for page as form %}
+	<form action="{% comment_form_target %}" method="POST">
+	    {% csrf_token %}
+	    {{ form.title }} TITEL <br>
+	    {{ form.comment }}	COMMENT <br>
+	    {{ form.honeypot }}
+	    {{ form.content_type }}
+	    {{ form.object_pk }}
+	    {{ form.timestamp }}
+	    {{ form.security_hash }}
+	    <input type="hidden" name="next" value="#" />
+	    <input type="submit" value="Add comment" id="id_submit" />
+    </form>
+{% else %}
+	<p>Je moet ingelogd zijn om commentaar te geven!</p>
+{% endif %}
