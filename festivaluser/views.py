@@ -16,13 +16,13 @@ def account(request):
 
 def logout(request):
 	auth_logout(request)
-	return redirect('/')
+	return redirect('/user/login/')
 
 class LoginView(TemplateView):
 
 	template_name = 'festivaluser/login.html'
 
-	
+
 
 class UserProfileView(TemplateView):
 
@@ -32,11 +32,10 @@ class UserProfileView(TemplateView):
 
 		ctx = super(UserProfileView, self).get_context_data(**kwargs)
 
-		visitor = FestivalAdvisorUser.objects.get(user=self.request.user)
+		if self.request.user.is_authenticated():
 
-		print(visitor)
-
-
-		ctx['visitor'] = visitor
+			visitor = FestivalAdvisorUser.objects.get(user=self.request.user)
+			#print(visitor)
+			ctx['visitor'] = visitor
 
 		return ctx
