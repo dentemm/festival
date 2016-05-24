@@ -6,7 +6,6 @@ class CommentFormWithTitle(CommentForm):
 
 	title = forms.CharField(max_length=60)
 
-
 	def get_comment_create_data(self):
 		# add title field to data
 		data = super(CommentFormWithTitle, self).get_comment_create_data()
