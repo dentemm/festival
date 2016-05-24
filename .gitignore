@@ -10,5 +10,5 @@ dev.py
 #migrations/
 
 # python-social-auth
-_config.py 
-config.py
+#_config.py 
+#config.py
