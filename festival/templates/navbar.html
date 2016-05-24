@@ -32,8 +32,63 @@
                             <i class="fa fa-calendar"></i>
                         </a>
                     </li>
+                    <li>
+                        <a href="e" id="login">
+                            <i class="fa fa-user"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </nav>
+
+<!-- POPOVER LOGGED IN -->
+<div id="loginform" class="hidden">
+    <form action="#" method="post">
+        {% if user.is_authenticated %}
+        <div style="width: 18rem;">
+            <div>Hallo <b>{{ user }}</b>,
+            <br><br>
+            Ga verder naar je profiel, of meldt je af.
+            </div>
+            <hr>
+            <a href="/user/" id="profilebutton" type="button" class="btn btn-primary">
+                Profiel               
+            </a>
+            <a href="" id="logoutbutton" type="button" class="btn btn-danger">
+                Logout               
+            </a>
+        </div>
+        {% else %}
+        <div style="width: 21rem;">
+            <div>Welkom op <b>FestivalAdvisor</b>!
+                <br><br>
+                Hier kan je inloggen. Heb je nog geen account? Maak er dan hier eentje aan!
+            </div>
+            <hr>
+            <a id="loginbutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#mymodal">
+                Login               
+            </a>
+            <a id="registerbutton" type="button" class="btn btn-danger">
+                Nieuwe gebruiker?
+            </a>
+        </div>
+        {% endif %}
+        </div>
+    </form>
+</div>
+
+<!-- MODAL REGISTER -->
+<div id="mymodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+
+             teest
+                
+            </div>
+        </div>
+    </div>
+</div>
+
