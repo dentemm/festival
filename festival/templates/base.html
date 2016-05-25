@@ -50,11 +50,6 @@
         <script type="text/javascript">
             $(function(){
 
-                $('a#registerbutton').click(function(event){
-                    console.log('we gaan door!');
-
-                });
-
                 $('#login').click(function(event){
                     event.preventDefault();
                 });
@@ -83,11 +78,20 @@
                                 console.log(data);
                                 $('#registermodal').html(data);
                             },
-
-
                         });
+                    }
+                    if( $(e.target).is('#loginbutton') ){
 
-                        '/user/register/'
+                        console.log('login button pressed');
+
+                        $.ajax({
+                            url: '/user/login/',
+                            type: 'get',
+                            success: function(data) {
+                                console.log(data);
+                                $('#loginmodal').html(data);
+                            },
+                        });
                     }
 
                     // onderstaande code werkt, mits een check dat de gebruiker niet op het icoontje

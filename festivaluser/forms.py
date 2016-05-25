@@ -11,6 +11,7 @@ class FestivalAdvisorUserForm(ModelForm):
 		model = FestivalAdvisorUser
 		fields = ['picture', 'favorite_festival']
 
+
 class CustomUserCreationForm(UserCreationForm):
 
 	email = forms.EmailField(required=True)

@@ -1,16 +1,24 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, UpdateView
 from django.core.context_processors import csrf
-from django.contrib.auth.forms import AuthenticationForm
+
 
 
 from .models import FestivalAdvisorUser
 from .forms import CustomUserCreationForm
 
+# Create your views here.
+
 def register_user(request):
+	'''
+	Dit view wordt gebruikt om het aanmeldingsformulier weer te geven, in een modal window
+	'''
 
 	if request.user.is_authenticated():
 
@@ -21,7 +29,29 @@ def register_user(request):
 			form = CustomUserCreationForm(request.POST)	
 
 			if form.is_valid():
-				form.save()
+				new = form.save()
+
+				#print('user %s' % new)
+
+				username = request.POST['username']
+				password = request.POST['password1']
+
+				print('hierzo')
+				print(username)
+				print(password)
+
+				user = authenticate(username=username, password=password)
+
+				print('user %s' % user)
+
+				if user is not None:
+					if user.is_active:
+						print('auth login')
+						auth_login(request, user)
+
+					else:
+						print('not active')
+
 				return HttpResponseRedirect('/user/')
 
 			else:
@@ -35,25 +65,28 @@ def register_user(request):
 		#return render(request, 'festivaluser/user_profile.html', context)
 		return render(request, 'festivaluser/register_modal.html', context)
 
-
-def ajax_registration(request):
-
-	form = AutenticationForm()
+def login_user(request):
 
 	if request.method == 'POST':
-
-		form = AutenticationForm(None, request.POST)
+		form = AuthenticationForm(None, request.POST)
 
 		if form.is_valid():
-			login(request, form.get_user())
-			return HttpResponseRedirect()
 
-	return render(request, 'festivaluser/user_profile.html', {'form': form})
+			auth_login(request, form.get_user())
+
+			return HttpResponseRedirect('/user/')
+
+		else:
+			print('invalid!!!')
+			print(form)
+
+	context = {}
+	context.update(csrf(request))
+	context['form'] = AuthenticationForm()
+
+	return render(request, 'festivaluser/login_modal.html', context)
 
 
-
-
-# Create your views here.
 def login(request):
 	return render(request, 'login.html')
 
@@ -63,7 +96,7 @@ def account(request):
 
 def logout(request):
 	auth_logout(request)
-	return redirect('/user/login/')
+	return redirect('/')
 
 class LoginView(TemplateView):
 

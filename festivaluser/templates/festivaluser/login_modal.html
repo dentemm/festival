@@ -1,0 +1,33 @@
+ {% load static widget_tweaks %}   
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div style="width:22em; margin: 0 auto;">
+                <a href="/login/facebook/">
+                    <img class="img-responsive center-block" src="{% static 'assets/fb_login_new.png' %}">    
+                </a>
+                <br>
+                <img class="img-responsive center-block" src="{% static 'assets/tw_login.png' %}"> 
+                twitter nog niet actief ... 
+                <br>
+                <br>
+            </div>
+            <h5 class="text-center">Of</h5>
+            <br>
+            {{ form.errors }}
+            <div style="width:22em; margin: 0 auto;">
+                <form action="/user/login/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {% render_field form.username class+="form-control" placeholder="Gebruikernaam" %}
+                    </div>
+                    <div class="form-group">
+                        {% render_field form.password class+="form-control" placeholder="Wachtwoord" %}
+                    </div>
+                    <input type="submit" class="btn btn-lg btn-primary" value="Inloggen">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
