@@ -1,0 +1,278 @@
+/* Toevoegen van text schaduwen */
+
+h1 {
+  text-shadow: 3px 3px 3px #333;
+}
+
+#owl-hero .item .caption h6 {
+  text-shadow: 3px 3px 3px #333;
+}
+
+/* Aanpassen van video settings */
+
+.flex-video {
+position: relative;
+padding-top: 25px;
+padding-bottom: 67.5%;
+height: 0;
+margin-bottom: 16px;
+overflow: hidden;
+}
+ 
+.flex-video.widescreen { padding-bottom: 57.25%; }
+.flex-video.vimeo { padding-top: 0; }
+ 
+.flex-video iframe,
+.flex-video object,
+.flex-video embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+@media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) {
+.flex-video { padding-top: 0; }
+}
+
+/* Aanpassen van padding festival line-up sectie */
+
+#portfolio {
+  padding: 0px;
+  margin-top: -10px;
+  border-top: 2px solid #FFF;
+}
+
+#portfolio .portfolio-box {
+  border: 1px solid #fff;
+}
+
+/* Aanpassen van padding festival line-up sectie */
+
+#testimonials {
+  text-align: center;
+  text-shadow: 4px 4px 4px #333;
+  border-top: 2px solid #FFF;
+  border-bottom: 2px solid #FFF;
+}
+
+/* Aanpassen van font size footer */
+
+
+footer h1 {
+  font-weight: 300;
+  text-shadow: 2px 2px 2px #7f7f7f;
+  text-transform: uppercase;
+}
+
+footer h1 span {
+  font-weight: bold;
+}
+
+
+/* Aanpassen van "meer festivals" onderdeel */
+
+.meer {
+	background-color: #333;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+/* Aanpassen van "map" onderdeel */
+
+#map {
+  height: 500px;
+  width: 100%;
+  border-top: 2px solid #FFF;
+  border-bottom: 2px solid #FFF;
+}
+
+/* Portfolio effect winston aanpassingen */
+
+.grid figure {
+  background: #3085a3 none repeat scroll 0 0;
+  cursor: pointer;
+  float: left;
+  height: auto;
+  margin: 0;
+  max-height: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  border: 1px solid #FFF;
+}
+
+
+figure.effect-winston a {
+  color: #FFF;
+  font-size: 170%;
+  margin: 0 10px;
+}
+
+.grid h2 {
+	color: #FFF;
+	text-shadow: 2px 2px 2px #333;
+}
+
+#owlcalendar {
+  margin-top: 85px;
+}
+
+#owlcalendar .owl-pagination {
+  display: none;
+}
+
+/* kalender pagina css */
+
+time.icon {
+  background-color: #fff;
+  box-shadow: 0 1px 0 #bdbdbd, 0 2px 0 #fff, 0 3px 0 #bdbdbd, 0 4px 0 #fff, 0 5px 0 #bdbdbd, 0 0 0 1px #bdbdbd;
+  display: block;
+  font-size: 1em;
+  height: 5.5em;
+  overflow: hidden;
+  position: relative;
+  width: auto;
+  margin-bottom: 7px;
+}
+
+time.icon *
+{
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: normal;
+  text-align: center;
+}
+
+time.icon .fa_passive {
+  background-color: #787878;
+  border-bottom: 1px dashed #FFF;
+  color: #fff;
+  padding: 0.4em 0;
+  position: absolute;
+  top: 0;
+}
+
+
+time.icon .fa_active {
+  background-color: #ffc541;
+  border-bottom: 1px dashed #FFF;
+  color: #fff;
+  padding: 0.4em 0;
+  position: absolute;
+  top: 0;
+}
+
+time.icon em
+{
+  position: absolute;
+  bottom: 0em;
+  color: #666;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+time.icon span {
+  color: #fff;
+  font-size: 1.8em;
+  letter-spacing: -0.05em;
+  padding-top: 1.1em;
+  text-shadow: 1px 2px 4px #333;
+}
+
+.owl-item {
+  margin-top: 10px;
+}
+
+.fa_name {
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  color: #FFF;
+  right: 0;
+  text-shadow: 1px 1px 1px #333;
+}
+
+.fa_mei {
+  background-color: #fd9f1b;
+  z-index: 100;
+}
+
+/* Calendar item */
+
+#calendar_item .fa-star, #calendar_item .fa-star-o  {
+  color: #ffc541;
+}
+
+#calendar_item .fa_overlay {
+  color: #FFF;
+  font-size: 30px;
+  height: 250px;
+}
+
+#calendar_item .fa_overlay img {
+  height: 250px;
+}
+
+#calendar_item .carousel-caption {
+  font-size: 16px;
+  text-shadow: 2px 1px 1px #333;
+  bottom:-20px;
+}
+
+#calendar_item .fa_heading {
+  margin-bottom: 25px;
+}
+
+#calendar_item .fa_calendar_item {
+  height: 250px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#calendar_item {
+  margin-bottom: 20px;
+}
+
+#calendar_item h4 {
+  font-size: 18px;
+  text-align: justify;
+}
+
+#calendar_item .fa_bground {
+  margin-bottom: 25px;
+}
+
+#calendar_item .tab-content {
+  background-color: #ffc541;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+  border-bottom: 2px solid #333;
+  border-top: 2px solid #333;
+}
+
+#calendar_item .nav-tabs > li.active > a, #calendar_item .nav-tabs > li.active > a:focus, #calendar_item .nav-tabs > li.active > a:hover {
+  background-color: #ffc541; 
+  border-top: 2px solid #333;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+  margin-top: 25px;
+  border-bottom: 2px solid #FFF;
+}
+
+#calendar_item .nav-tabs > li> a, #calendar_item .nav-tabs > li > a:focus, #calendar_item .nav-tabs > li > a:hover {
+  background-color: #FFF; 
+  border-top: 2px solid #333;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+  margin-top: 25px;
+  border-bottom: 2px solid #FFF;
+}
