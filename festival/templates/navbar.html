@@ -23,18 +23,13 @@
             <div class="social-media hidden-sm hidden-xs">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="{% if user.is_authenticated %}/user/{% else %}/user/login/{% endif %}">
+                        <a href="#" id="login">
                             <i class="fa fa-user"></i>
                         </a>
                     </li>
                     <li>
                         <a href="/kalender/overview/">
                             <i class="fa fa-calendar"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" id="login">
-                            <i class="fa fa-user"></i>
                         </a>
                     </li>
                 </ul>
