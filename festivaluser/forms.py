@@ -25,7 +25,7 @@ class CustomUserCreationForm(UserCreationForm):
 		user.email = self.cleaned_data['email']
 
 		# Maak een nieuwe FestivalAdvisorUser aan met de zonet aangemaakte User
-		new = FestivalAdvisorUser(user)
+		new = FestivalAdvisorUser(user=user)
 		new.save()
 
 		if commit:
