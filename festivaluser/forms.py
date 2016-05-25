@@ -24,11 +24,11 @@ class CustomUserCreationForm(UserCreationForm):
 		user = super(CustomUserCreationForm, self).save(commit=False)
 		user.email = self.cleaned_data['email']
 
+		if commit:
+			user.save()
+
 		# Maak een nieuwe FestivalAdvisorUser aan met de zonet aangemaakte User
 		new = FestivalAdvisorUser(user=user)
 		new.save()
-
-		if commit:
-			user.save()
 
 		return user
