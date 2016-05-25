@@ -200,3 +200,16 @@ WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
 #SOCIAL_AUTH_USER_MODEL = 'festivaluser.models.FestivalAdvisorUser'
 #SOCIAL_AUTH_USER_MODEL = 'django.contrib.auth.User'
 
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'festivaluser.pipeline.save_profile',  # <--- set the path to the function
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+)
+
