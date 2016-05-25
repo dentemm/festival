@@ -35,6 +35,42 @@
     </div>
 </nav>
 
+<!-- POPOVER LOGGED IN -->
+<div id="loginform" class="hidden">
+    <form action="#" method="post">
+        {% if user.is_authenticated %}
+        <div style="width: 16rem;">
+            <div>Hallo <b>{{ user }}</b>,
+            <br><br>
+            Ga verder naar je profiel, of meld je af.
+            </div>
+            <hr>
+            <a href="/user/" id="profilebutton" type="button" class="btn btn-primary">
+                Profiel               
+            </a>
+            <a href="/user/logout/" id="logoutbutton" type="button" class="btn btn-danger">
+                Logout               
+            </a>
+        </div>
+        {% else %}
+        <div style="width: 19rem;">
+            <div>Welkom op <b>FestivalAdvisor</b>!
+                <br><br>
+                Login in, of meld je aan als nieuwe gebruiker!
+            </div>
+            <hr>
+            <a id="loginbutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginmodal">
+                Inloggen               
+            </a>
+            <a id="registerbutton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#registermodal">
+                Aanmelden
+            </a>
+        </div>
+        {% endif %}
+        </div>
+    </form>
+</div>
+
 <!-- MODAL REGISTER -->
 <div id="registermodal" class="modal fade">
 </div>
