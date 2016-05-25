@@ -78,8 +78,9 @@
                     }
                 });
 
-                $('#mymodal').on('show.bs.modal', function(event) {
+                $('div.modal').on('show.bs.modal', function(event) {
                     $('#login').popover('hide');
+                    //console.log('show modal!')
                 });
 
                 $('body').on('hidden.bs.popover', function(event) {

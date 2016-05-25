@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="e" id="login">
+                        <a href="#" id="login">
                             <i class="fa fa-user"></i>
                         </a>
                     </li>
@@ -47,31 +47,31 @@
 <div id="loginform" class="hidden">
     <form action="#" method="post">
         {% if user.is_authenticated %}
-        <div style="width: 18rem;">
+        <div style="width: 16rem;">
             <div>Hallo <b>{{ user }}</b>,
             <br><br>
-            Ga verder naar je profiel, of meldt je af.
+            Ga verder naar je profiel, of meld je af.
             </div>
             <hr>
             <a href="/user/" id="profilebutton" type="button" class="btn btn-primary">
                 Profiel               
             </a>
-            <a href="" id="logoutbutton" type="button" class="btn btn-danger">
+            <a href="/user/logout/" id="logoutbutton" type="button" class="btn btn-danger">
                 Logout               
             </a>
         </div>
         {% else %}
-        <div style="width: 21rem;">
+        <div style="width: 19rem;">
             <div>Welkom op <b>FestivalAdvisor</b>!
                 <br><br>
-                Hier kan je inloggen. Heb je nog geen account? Maak er dan hier eentje aan!
+                Login in, of meld je aan als nieuwe gebruiker!
             </div>
             <hr>
-            <a id="loginbutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#mymodal">
-                Login               
+            <a id="loginbutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginmodal">
+                Inloggen               
             </a>
-            <a id="registerbutton" type="button" class="btn btn-danger">
-                Nieuwe gebruiker?
+            <a id="registerbutton" type="button" class="btn btn-danger" data-toggle="modal" data-target="#registermodal">
+                Aanmelden
             </a>
         </div>
         {% endif %}
@@ -79,13 +79,46 @@
     </form>
 </div>
 
+<!-- MODAL LOGIN -->
+<div id="loginmodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div style="width:22em; margin: 0 auto;">
+                    <a href="/login/facebook/">
+                        <img class="img-responsive center-block" src="{% static 'assets/fb_login_new.png' %}">    
+                    </a>
+                    <br>
+                    <img class="img-responsive center-block" src="{% static 'assets/tw_login.png' %}"> 
+                    twitter nog niet actief ... 
+                    <br>
+                    <br>
+                </div>
+                <h5 class="text-center">Of</h5>
+                <br>
+                <div style="width:22em; margin: 0 auto;">
+                    <form>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="email" id="email" placeholder="password">
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary">Inloggen</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- MODAL REGISTER -->
-<div id="mymodal" class="modal fade">
+<div id="registermodal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
 
-             teest
+             
                 
             </div>
         </div>
