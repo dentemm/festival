@@ -27,27 +27,8 @@
 {% endblock %}
 
 {% block content %}
-	
-	<div class="container" style="margin-top: 90px;">
-		<div>
-			{{ form }} ---
-		</div>
-		<div class="row">
-			{% if user and not user.is_anonymous %}
-			<a>Welkom {{ user.get_full_name }}</a>
-				{{ user.email }} email<br>
-
-				<br>
-				<br>
-				{% if visitor %}
-					VISITOR
-					{{ visitor }}<br>
-					{{ visitor.favorite_festival }}
-					{{ visitor.picture }}
-				{% endif %}
-			<br>
-			{% endif %}
-		</div>
-	</div>
+<section style="margin-top: 90px;">
+	hier is het	
+</section>
 
 {% endblock content %}

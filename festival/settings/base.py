@@ -143,9 +143,10 @@ DATABASES = {
 }   
 
 AUTHENTICATION_BACKENDS = (
+    # ondersteunde python-social-auth authentication backends
     'social.backends.facebook.FacebookOAuth2',
 
-    # ondersteunde python-social-auth authentication backends
+    # default django auth backend
     'django.contrib.auth.backends.ModelBackend',
 )
 

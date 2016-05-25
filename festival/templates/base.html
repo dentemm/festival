@@ -49,6 +49,12 @@
 
         <script type="text/javascript">
             $(function(){
+
+                $('a#registerbutton').click(function(event){
+                    console.log('we gaan door!');
+
+                });
+
                 $('#login').click(function(event){
                     event.preventDefault();
                 });
@@ -68,7 +74,21 @@
                 });
 
                 $('body').on('click', function(e) {
-                    console.log(e.target);
+                    if( $(e.target).is('#registerbutton') ){
+                        
+                        $.ajax({
+                            url: '/user/register/',
+                            type: 'get',
+                            success: function(data) {
+                                console.log(data);
+                                $('#registermodal').html(data);
+                            },
+
+
+                        });
+
+                        '/user/register/'
+                    }
 
                     // onderstaande code werkt, mits een check dat de gebruiker niet op het icoontje
                     if(!$(e.target).hasClass('fa-user') ) {
