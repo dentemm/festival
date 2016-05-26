@@ -15,6 +15,8 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/icons/et-line-font/style.css' %}">
 	   	<!-- ANIMATE.CSS -->
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/animate.css/animate.css' %}">
+	    <!-- JQCLOUD -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/jqcloud.css' %}">
 
 	    
 	    <!-- CUSTOM CSS -->
@@ -67,180 +69,13 @@
     	{% endif %}
     </section>
 
-	<section id="selected_item">
+	<section id="calendar_item">
     {% if selected == None %}
     {% else %}
 		{% include 'home/festival_content.html' with festival=selected %}
     {% endif  %}
     </section>
     	
-
-	<!--<section id="calendar_item">
-	    <div class="container">
-	        <div class="col-md-12 fa_heading">
-	            <h1>ROCK WERCHTER</h1>
-	            <div class="col-md-12">
-	                <i class="fa fa-star fa-2x"></i>
-	                <i class="fa fa-star fa-2x"></i>
-	                <i class="fa fa-star fa-2x"></i>
-	                <i class="fa fa-star fa-2x"></i>
-	                <i class="fa fa-star-o fa-2x"></i>
-	            </div>
-	        </div>
-	    <div class="fa_calendar_item">
-	        <div class="col-md-4 fa_overlay">
-	            <div id="fa_carousel" class="carousel slide" data-ride="carousel">
-		            <div class="carousel-inner" role="listbox">
-		                <div class="item active">
-		                  	<img src="img/portfolio/6.jpg" class="img-responsive">
-		                  	<div class="carousel-caption">
-		                    	&copy Joris Verhoeven - Werchter 2015
-		                  	</div>
-		                </div>
-		                <div class="item">
-		                  	<img src="img/portfolio/5.jpg" class="img-responsive">
-		                  	<div class="carousel-caption">
-		                    	&copy Alex Windels - Werchter 2004
-		                  	</div>
-		                </div>
-	              	</div>
-	            </div>
-	        </div>   
-	        <div class="col-md-4 fa_overlay">
-	            <h3>
-	            	De klassieker van de belgische festivalscene
-	            </h3>
-	            <h4>
-	            	Rock Werchter is een pop- en rockfestival dat elk jaar plaatsvindt in het dorpje Werchter, een deelgemeente van het Vlaams-Brabantse Rotselaar. Het Belgische muziekfestival vindt plaats in het laatste weekend van juni of het eerste van juli.
-	            </h4>
-	        </div>
-	        <div class="col-md-4 fa_overlay">
-	        	<div id="map" style="height:250px"></div>
-	        </div>        
-	    </div>
-	    <div class="fa_bground">
-	        <div class="container">
-	          	<ul class="nav nav-tabs" role="tablist">
-	            	<li role="presentation" class="active col-md-4">
-	            		<a data-toggle="tab" role="tab" aria-controls="overzicht" href="#overzicht">
-	            			<h3>Overzicht</h3>
-	            		</a>
-	            	</li>
-	            	<li role="presentation" class="col-md-4">
-	            		<a data-toggle="tab" role="tab" aria-controls="beoordeling" href="#beoordeling">
-	            			<h3>Beoordelingen</h3>
-	            		</a>
-	            	</li>
-	            	<li role="presentation" class="col-md-4">
-	            		<a data-toggle="tab" role="tab" aria-controls="overzicht" href="#overzicht">
-	            			<h3>Commentaren</h3>
-	            		</a>
-	            	</li>
-	          	</ul>
-	           	<div class="tab-content">
-	    			<div id="overzicht" class="tab-pane active" role="tabpanel">
-	      				<div class="container">
-	        				<div class="row app-align-center">
-	          					<div class="col-sm-5 col-sm-push-7 text-center">
-	            					<div class="grid">
-	              						<figure class="effect-apollo">
-	                						<figcaption>
-							                  	<h2>
-							                  		30-3 juni-juli<span> 2016</span>
-							                  	</h2>
-							                    <p>
-							                      	Het grootste rockfestival van Europa.
-							                    </p>
-							                </figcaption>     
-	              						</figure>
-	            					</div>
-						            <button class="btn btn-default btn-lg btn-borderless">
-						              Rock werchter website
-						            </button>
-	          					</div>
-						        <div class="col-sm-6 col-sm-pull-5">
-						            <h1 class="block-title m-b-sm">
-						            	Rock Werchter
-						            </h1>
-						            <h3 class="text-muted text-uppercase block-xs-middle">
-						            	<i class="fa fa-star"></i>
-						            	<i class="fa fa-star"></i>
-						            	<i class="fa fa-star"></i>
-						            	<i class="fa fa-star"></i>
-						            	<i class="fa fa-star"></i>
-						            </h3>
-						            <h4> Al 15.200 beoordelingen </h4>
-					                <div class="col-md-12 text-festa">
-					                  	<span class="fa-stack fa-lg fad-center">
-					                  		<i class="fa fa-circle-o fa-stack-2x"></i>
-					                  		<i class="fa fa-headphones fa-stack-1x"> </i>
-					                  	</span> Dance
-					                  <span class="fa-stack fa-lg fad-center">
-					                  		<i class="fa fa-circle-o fa-stack-2x"></i>
-					                  		<i class="fa fa-eur fa-stack-1x"> </i>
-					                  	</span> 100+
-					                  	<span class="fa-stack fa-lg fad-center">
-					                  		<i class="fa fa-circle-o fa-stack-2x"></i>
-					                  		<i class="fa fa-commenting-o fa-stack-1x"></i>
-					                  	</span> 9/10
-					                </div>
-						            </br>
-						            <p class="lead m-b-md text-muted">Line-up 2016: ....</p>
-						        </div>
-						    </div>
-	      				</div>
-	    			</div>
-				    <div id="beoordeling" class="tab-pane" role="tabpanel">
-				        <div class="row app-align-center">
-				        </div>
-				    </div>
-				</div>
-		    </div>
-		 </div>
-	</section>-->
-
-
-	<!--<div class="container">
-		<div class="row">
-			<div class="col-md-4">
-			{% if previous_month %}
-				<a class="btn btn-default" href="/festival-index/calendar/overview/?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">
-					&larr; {{ previous_month|date:'M Y' }}
-				</a>
-			{% endif %}
-			</div>
-			<div class="col-md-4 col-md-offset-4">
-			{% if next_month %}
-				<a class="btn btn-default" href="/festival-index/calendar/overview/?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">
-					{{ next_month|date:'M Y' }} &rarr;
-				</a>
-			{% endif %}
-			</div>
-		</div>
-		<div class="row">
-		{% if festival_list %}
-			{% for festival in festival_list reversed %}
-			<div class="col-md-4">
-				<div class="panel panel-bold panel-info">
-					<div class="panel-heading">
-						{% image festival.main_image fill-200x100 as tmp_photo %}
-						<img src="{{ tmp_photo.url }}" class="img-responsive" style="height: 100px">
-					</div>
-					<div class="panel-body">
-						<h3>{{ festival.name }}</h3>
-						<h5>{{ festival.date }}</h5>
-					</div>
-				</div>
-			</div>
-			{% endfor %}
-		{% else %}
-			<div class="col-md-4 col-md-offset-4">
-				<h5>Tis leeg!</h5>
-			</div>
-			
-		{% endif %}
-		</div>
-	</div>-->
 {% endblock content %}
 
 {% block extra_js %}
@@ -258,6 +93,10 @@
 	    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
 	    <!-- WOW -->
 	    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
+	   	<!-- JQCLOUD -->
+	   	<script type="text/javascript" src="{% static 'js/jqcloud.js' %}"></script>
+	   	<script type="text/javascript" src="{% static 'js/lineupcloud.js' %}"></script>
+	   	
 	    <!-- GOOGLE MAPS -->
 	    
 

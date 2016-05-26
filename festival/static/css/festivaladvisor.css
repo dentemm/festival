@@ -215,22 +215,32 @@ time.icon span {
 #calendar_item .fa_overlay {
   color: #FFF;
   font-size: 30px;
-  height: 250px;
+  height: auto;
 }
 
 #calendar_item .fa_overlay img {
-  height: 250px;
+  width: 100%;
 }
 
 #calendar_item .carousel-caption {
+  background-color: #ffc541;
+  border-radius: 60px;
   font-size: 16px;
-  text-shadow: 2px 1px 1px #333;
-  bottom:-20px;
+  height: 126px;
+  left: 20px;
+  padding: 18px 10px 10px;
+  text-align: center;
+  width: 125px;
 }
 
 #calendar_item .fa_heading {
   margin-bottom: 25px;
 }
+
+#calendar_item .fa_heading h1 {
+  font-size: 46px;
+}
+
 
 #calendar_item .fa_calendar_item {
   height: 250px;
@@ -240,6 +250,7 @@ time.icon span {
 
 #calendar_item {
   margin-bottom: 20px;
+  margin-top: 25px;
 }
 
 #calendar_item h4 {
@@ -275,4 +286,52 @@ time.icon span {
   border-right: 2px solid #333;
   margin-top: 25px;
   border-bottom: 2px solid #FFF;
+}
+
+.nav-tabs > li {
+  float: left;
+  padding: 0;
+}
+
+.nav-tabs > li > a {
+  border: 1px solid transparent;
+  border-radius: 0;
+  line-height: 1.42857;
+  margin-right: 0;
+}
+
+
+#calendar_item .fa_tickets {
+  min-height: 100px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+#calendar_item .fa_tickets button {
+  border-radius: 0;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+#calendar_item .fa_tickets .fa {
+   color: #666;
+}
+
+/*Tag cloud css */
+
+#demo {
+  height: 300px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  background-color: #ffc541;
+}
+
+#demo h1 {
+  font-size: 25px;
+  margin-top: 5px;
+}
+
+#calendar_item .fa_overlay .fa-location-arrow {
+  color: #333;
 }
