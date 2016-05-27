@@ -1,6 +1,9 @@
 from django import forms
 from django_comments.forms import CommentForm
+
 from .models import CommentWithTitle
+
+
 
 class CommentFormWithTitle(CommentForm):
 
@@ -12,3 +15,16 @@ class CommentFormWithTitle(CommentForm):
 		data['title'] = self.cleaned_data['title']
 
 		return data
+
+	def get_comment_object(self):
+
+		print('get comment object')
+
+		new = CommentWithTitle(**self.get_comment_create_data())
+
+
+		new = self.check_for_duplicate_comment(new)
+
+		return new
+
+

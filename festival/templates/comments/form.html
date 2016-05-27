@@ -2,7 +2,7 @@
 
 {% if user.is_authenticated %}
 	{% get_comment_form for page as form %}
-	<form action="{% comment_form_target %}" method="POST">
+	<form action="{% comment_form_target %}" method="POST" id="commentform">
 	    {% csrf_token %}
         <div class="form-group">
             {% render_field form.title class+='form-control' placeholder='Titel' %}
@@ -19,7 +19,7 @@
 	    {{ form.timestamp }}
 	    {{ form.security_hash }}
 	    <!--<input type="hidden" name="next" value="#" />-->
-	    <input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="id_submit">
+	    <input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="submitbutton">
     </form>
 {% else %}
 	<p>Je moet ingelogd zijn om commentaar te geven!</p>

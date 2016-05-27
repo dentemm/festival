@@ -23,7 +23,8 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
 
     # third party applications
-    url(r'^comments/', include('django_comments.urls')),
+   # url(r'^comments/', include('django_comments.urls')),
+    url(r'^comments/', include('comments.urls')),
 
     url(r'', include(wagtail_urls)),
 ]
