@@ -9,3 +9,7 @@ class CommentWithTitle(CommentAbstractModel):
 	'''
 
 	title = models.CharField(max_length=60)
+
+	class Meta:
+
+		unique_together = ('content_type', 'object_pk', 'user')
