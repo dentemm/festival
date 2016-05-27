@@ -37,6 +37,7 @@
 				</div>
 			</div>
 		</div>
+		{% get_rating_count for page as form %}
 		<div class="container" style="margin-top:80px;">
 			{% if user.is_authenticated %}
 				{% get_rating_form for page as form %}

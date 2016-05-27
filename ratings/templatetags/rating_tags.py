@@ -1,5 +1,7 @@
 from django import template
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
+from django.utils.encoding import smart_text
 
 from ..models import Score, Vote
 
@@ -48,10 +50,58 @@ class BaseRatingNode(template.Node):
 		context[self.as_varname] = self.get_context_value_from_queryset(context, qs)
 		return ''
 
+	def get_queryset(self, context):
+		ctype, object_id = self.get_target_ctype_pk(context)
+		if not object_id:
+		    return Vote.objects.none()
+
+		qs = Vote.objects.filter(
+		    content_type=ctype,
+		    object_id=smart_text(object_id),
+		)
+
+		# The is_public and is_removed fields are implementation details of the
+		# built-in comment model's spam filtering system, so they might not
+		# be present on a custom comment model subclass. If they exist, we
+		# should filter on them.
+		field_names = [f.name for f in Vote._meta.fields]
+		if 'is_public' in field_names:
+		    qs = qs.filter(is_public=True)
+		if getattr(settings, 'COMMENTS_HIDE_REMOVED', True) and 'is_removed' in field_names:
+		    qs = qs.filter(is_removed=False)
+		if 'user' in field_names:
+		    qs = qs.select_related('user')
+		return qs
+
+	def get_target_ctype_pk(self, context):
+		if self.object_expr:
+			try:
+				obj = self.object_expr.resolve(context)
+			except template.VariableDoesNotExist:
+				return None, None
+			return ContentType.objects.get_for_model(obj), obj.pk
+		else:
+			return self.ctype, self.object_pk_expr.resolve(context, ignore_failures=True)
+
+
 	def get_context_value_from_queryset(self, context, qs):
 		"""Subclasses should override this."""
 		raise NotImplementedError
 
+
+class RatingCountNode(BaseRatingNode):
+	"""
+	Insert a count of rating objects into the context.
+	"""
+
+	def get_context_value_from_queryset(self, context, qs):
+		return qs.count()
+
+
+@register.tag
+def get_rating_count(parser, token):
+
+	return RatingCountNode.handle_token(parser, token)
 
 @register.simple_tag
 def get_rating_form(parser, token):
