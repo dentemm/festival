@@ -10,50 +10,31 @@
 		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars.css' %}">
 	</head>
 	<body>
-		<div class="container">
-			<br>
-			<br>
-			<br>
-			<div class="star-rating"> 
-				<span class="fa fa-star-o" data-rating="1"></span>
-				<span class="fa fa-star-o" data-rating="2"></span>
-				<span class="fa fa-star-o" data-rating="3"></span>
-				<span class="fa fa-star-o" data-rating="4"></span>
-				<span class="fa fa-star-o" data-rating="5"></span>
-				<input type="hidden" name="whatever" class="rating-value" value="3">
+
+		<div class="container" style="margin-top:75px;">
+			<div class="row">
+				<div class="col-md-3">
+					<div id="barrating">
+						<form>
+							<select id="example">
+								<option value="1">slecht</option>
+								<option value="2">matig</option>
+								<option value="3">ok</option>
+								<option value="4">goed</option>
+								<option value="5">top</option>
+							</select>
+							<input class="btn btn-primary btn-xs" type="submit" value="Indienen">
+						</form>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div id="barrating">
+						<form>
+						{{ form }}
+						</form>
+					</div>
+				</div>
 			</div>
-			<br>
-			<br>
-			<div id="barrating">
-				<select id="example">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</select>
-			</div>
-			<br>
-			<br>
-			<div class="starrating">
-		      	<div class="starrating__wrap">
-			      	<form>
-				        <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
-				        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
-				        <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4">
-				        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 out of 5 stars"></label>
-				        <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3">
-				        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 out of 5 stars"></label>
-				        <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2">
-				        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 out of 5 stars"></label>
-				        <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1">
-				        <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"></label>
-				       	<br>
-				       	<br>
-				       	<button type="submit" class="btn btn-info">Indienen!</button>
-			        </form>
-		      	</div>
-	    	</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -61,7 +42,18 @@
 	<script type="text/javascript">
 	   $(function() {
 	      $('#example').barrating({
-	        theme: 'fontawesome-stars'
+	        theme: 'fontawesome-stars',
+	        initialRating: -1,
+	        showSelectedRating: true,
+
+	      });
+	   });
+	   $(function() {
+	      $('#id_score').barrating({
+	        theme: 'fontawesome-stars',
+	        initialRating: -1,
+	        showSelectedRating: true,
+
 	      });
 	   });
 	</script>

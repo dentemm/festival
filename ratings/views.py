@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 
 from .models import Vote
+from .forms import VoteForm
 
 # Create your views here.
 
@@ -13,11 +14,22 @@ class TestView(TemplateView):
 	template_name = 'ratings/rating.html'
 
 	def get(self, request, *args, **kwargs):
+
+		self.form = VoteForm()
+
 		return super(TestView, self).get(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
 
 		return super(TestView, self).post(request, *args, **kwargs)
+
+	def get_context_data(self, *args, **kwargs):
+
+		ctx = super(TestView, self).get_context_data(*args, **kwargs)
+
+		ctx['form'] = self.form
+
+		return ctx
 
 
 
