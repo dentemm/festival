@@ -114,9 +114,10 @@ def custom_submit(request, next=None, using=None):
 	    request=request
 	)
 
-
-
-	my_dict = {'foo': 'bar'}
+	my_dict = 	{	
+					'comment_title': 	comment.title,
+					'comment':			comment.comment
+				}
 
 	return JsonResponse(my_dict)
 

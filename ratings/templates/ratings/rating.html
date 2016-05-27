@@ -1,10 +1,13 @@
+{% load static %}
+
 <html>
 	<head>
 	    <meta charset="utf-8">
     	<title>star rating with CSS and font-awesome</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
-		<link rel="stylesheet" href="../static/ratings/css/ratings.css">
+		<link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
+		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars.css' %}">
 	</head>
 	<body>
 		<div class="container">
@@ -18,6 +21,17 @@
 				<span class="fa fa-star-o" data-rating="4"></span>
 				<span class="fa fa-star-o" data-rating="5"></span>
 				<input type="hidden" name="whatever" class="rating-value" value="3">
+			</div>
+			<br>
+			<br>
+			<div id="barrating">
+				<select id="example">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
 			</div>
 			<br>
 			<br>
@@ -42,4 +56,13 @@
 	    	</div>
 		</div>
 	</body>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
+	<script type="text/javascript">
+	   $(function() {
+	      $('#example').barrating({
+	        theme: 'fontawesome-stars'
+	      });
+	   });
+	</script>
 </html>

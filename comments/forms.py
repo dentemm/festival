@@ -18,11 +18,9 @@ class CommentFormWithTitle(CommentForm):
 
 	def get_comment_object(self):
 
-		print('get comment object')
+		#print('get comment object')
 
 		new = CommentWithTitle(**self.get_comment_create_data())
-
-
 		new = self.check_for_duplicate_comment(new)
 
 		return new
