@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load rating_tags static compress comments wagtailuserbar widget_tweaks %}
+{% load rating_tags static compress comments custom_comments wagtailuserbar widget_tweaks %}
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
@@ -29,7 +29,20 @@
 {% block content %}
 
 <div class="container" style="margin-top:94px;">
-	{% render_comment_form for page %}
+	
+	{% if user.is_authenticated %}
+		{% user_comment user page as has_commented %}
+
+			{{ has_commented }}
+
+		{% if has_commented == False %}
+			{% render_comment_form for page %}
+		{% else %}
+			Je hebt reeds een beoordeling achter gelaten, bedankt!
+		{% endif %}
+
+	{% endif %}
+
 </div>
 
 

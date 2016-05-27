@@ -74,7 +74,9 @@ def login_user(request):
 
 			auth_login(request, form.get_user())
 
-			return HttpResponseRedirect('/user/')
+			print("login gebruiker!")
+
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 		else:
 			print('invalid!!!')
