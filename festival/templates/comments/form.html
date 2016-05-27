@@ -1,6 +1,4 @@
-{% load comments %}
-
------ comments ------
+{% load comments widget_tweaks %}
 
 {% if user.is_authenticated %}
 	{% get_comment_form for page as form %}

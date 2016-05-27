@@ -53,8 +53,8 @@
 <div class="container">
     <div class="col-md-4 fa_overlay">
         <div id="map" style="height:250px"></div>
-        <h4>Festivalpark Werchter</h4>
-        <h4>Haachtsesteenweg, 3118 Werchter</h4>
+        <h4>{{ festival.location.name|title }}</h4>
+        <h4>{{ festival.location.address.city|title }}</h4>
     </div>
 </div>
 
