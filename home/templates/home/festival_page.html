@@ -33,9 +33,13 @@
 pppppp {% get_rating_count for page as dingske %} {{ dingske }}ppppp<br>
 
 
-<hr>
-{% get_vote_form for page as form %} {{ form }}
-<hr>	
+	<hr>
+	{% get_vote_form for page as form %}
+	<form action="/ratings/rate/">
+	 {{ form }}
+	 <input type="submit" value="Indienen">
+	</form>
+	<hr>	
 
 	{% if user.is_authenticated %}
 

@@ -15,11 +15,20 @@ class TestView(TemplateView):
 
 	def get(self, request, *args, **kwargs):
 
+		print(request)
+
 		self.form = VoteForm()
 
 		return super(TestView, self).get(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
+
+		data = request.POST.copy()
+
+		print(data)
+
+		ctype = data.get("content_type")
+		object_id = data.get("object_id")
 
 		return super(TestView, self).post(request, *args, **kwargs)
 

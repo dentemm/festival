@@ -30,6 +30,9 @@ class VoteForm(forms.Form):
 
 	def __init__(self, target_object=None, user=None, score=None, initial=None, **kwargs):
 	    self.target_object = target_object
+
+	    print('Vote Form target object = %s' % target_object)
+
 	    '''if initial is None:
 	        initial = {}
 	    initial.update(self.generate_meta_data())'''

@@ -107,6 +107,8 @@ class RatingFormNode(BaseRatingNode):
 	def get_form(self, context):
 		obj = self.get_object(context)
 
+		print('template tag get_form: obj= %s' % obj)
+
 		if obj:
 			return VoteForm(obj)
 
@@ -115,7 +117,12 @@ class RatingFormNode(BaseRatingNode):
 
 	def get_object(self, context):
 
+		print('template tag: %s ' % self)
+
 		if self.object_expr:
+
+			print(self.object_expr)
+
 			try:
 				return self.object_expr.resolve(context)
 
