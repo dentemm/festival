@@ -54,14 +54,7 @@ class Vote(BaseContentTypesModel):
 	# Huidige implementatie doets niets!
 	def save(self, *args, **kwargs):
 
-		print(type(self))
-		print(self.content_object)
-		print(self.user)
-		print(self.score)
-
-		#self.vote(self.content_object, self.user, self.score)
-
-		super(Vote, self).save(*args, **kwargs)
+		return super(Vote, self).save(*args, **kwargs)
 
 	@classmethod
 	def vote(cls, rating_object, user, score):
@@ -95,6 +88,11 @@ class Vote(BaseContentTypesModel):
 
 	@classmethod
 	def vote(cls, ct, object_id, user, score):
+		'''
+		De klasse methode vote() voegt een Vote instance toe aan de database, 
+		update de gegevens van de Score (of maakt een nieuwe Score instance aan)
+		en retourneeert de gegevens total_score en num_votes
+		'''
 
 		new = cls.objects.create(
 			content_type=ct,
@@ -113,8 +111,6 @@ class Vote(BaseContentTypesModel):
 
 		total_score = overall_score.total_score
 		num_votes = overall_score.num_votes
-
-		print('test nieuwe methode: %s' % new)
 
 		return (total_score, num_votes)
 
@@ -140,6 +136,8 @@ class Score(BaseContentTypesModel):
 		'''
 		Deze update() methode wijzigt de total_score en num_votes attributen na uitbrengen van een vote
 		'''
+
+		score = int(score)
 
 		if self.num_votes:
 			self.num_votes = self.num_votes + 1
