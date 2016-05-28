@@ -33,20 +33,39 @@ class VoteForm(forms.Form):
 
 	    print('Vote Form target object = %s' % target_object)
 
-	    '''if initial is None:
+	    if initial is None:
 	        initial = {}
-	    initial.update(self.generate_meta_data())'''
-	    super(VoteForm, self).__init__(**kwargs)
+	    initial.update(self.generate_meta_data())
+	    super(VoteForm, self).__init__(initial=initial, **kwargs)
+
+
+	def get_vote_object(self):
+
+		if not self.is_valid():
+			raise ValueError('get comment object can only be called on valid forms! -- Tim')
+
+		new = Vote(**self.get_vote_create_data())
+
+		return new
 
 	def generate_meta_data(self):
-		"""Generate some initial data"""
+		'''
+		Generate some initial data
+		'''
 
 		timestamp = int(time.time())
-		security_dict = {
+		meta_dict = {
 		    'content_type': str(self.target_object._meta),
 		    'object_id': str(self.target_object._get_pk_val()),
 		}
 		return meta_dict
+
+	def get_vote_create_data(self):
+
+		return dict(
+			content_type=ContentType.objects.get_for_model(self.target_object),
+			object_id=force_text(self.target_object._get_pk_val())
+			)
 
 
 

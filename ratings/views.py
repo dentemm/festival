@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 
+
 from .models import Vote
 from .forms import VoteForm
 
@@ -15,7 +16,9 @@ class TestView(TemplateView):
 
 	def get(self, request, *args, **kwargs):
 
-		print(request)
+		print('form get request %s' % request)
+
+		#print('post form data: %s' % data)
 
 		self.form = VoteForm()
 
@@ -25,10 +28,12 @@ class TestView(TemplateView):
 
 		data = request.POST.copy()
 
-		print(data)
+		print('post form data: %s' % data)
 
 		ctype = data.get("content_type")
 		object_id = data.get("object_id")
+
+		print('ct en id: %s -- %s' % (ctype, object_id))
 
 		return super(TestView, self).post(request, *args, **kwargs)
 
