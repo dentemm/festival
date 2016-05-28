@@ -3,6 +3,7 @@ import time
 from django import forms
 from django.utils.encoding import force_text
 from django.utils import timezone
+from django.contrib.contenttypes.models import ContentType
 
 from .models import Vote
 
@@ -28,7 +29,7 @@ class VoteForm(forms.Form):
 		fields = ('score', 'content_type', 'object_id' )
 		
 
-	def __init__(self, target_object=None, user=None, score=None, initial=None, **kwargs):
+	def __init__(self, target_object=None, data=None, user=None, score=None, initial=None, **kwargs):
 	    self.target_object = target_object
 
 	    print('Vote Form target object = %s' % target_object)
@@ -36,7 +37,7 @@ class VoteForm(forms.Form):
 	    if initial is None:
 	        initial = {}
 	    initial.update(self.generate_meta_data())
-	    super(VoteForm, self).__init__(initial=initial, **kwargs)
+	    super(VoteForm, self).__init__(data=data, initial=initial, **kwargs)
 
 
 	def get_vote_object(self):

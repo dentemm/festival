@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.views.generic import View, TemplateView
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -32,6 +33,31 @@ class TestView(TemplateView):
 
 		ctype = data.get("content_type")
 		object_id = data.get("object_id")
+
+		if ctype is None or object_id is None:
+			return CommentPostBadRequest("Missing content_type or object_pk field.")
+
+		try:
+			model = apps.get_model(*ctype.split(".", 1))
+			target = model._default_manager.using(None).get(pk=object_id)
+
+		except TypeError:
+			return Vote.ObjectDoesNotExist('foutmelding is onjuist, maar tis Tim hier!')
+
+		form = VoteForm(target, data=data)
+
+		if form.errors:
+			print('er zijn errors!')
+
+		else:
+			print('er zijn geen errors!')
+
+		vote = form.get_vote_object()
+		vote.user = request.user
+
+		vote.save()
+
+		print('form = %s' % form)
 
 		print('ct en id: %s -- %s' % (ctype, object_id))
 
