@@ -52,13 +52,24 @@ class TestView(TemplateView):
 		else:
 			print('er zijn geen errors!')
 
+		if form.is_valid():
+			score = form.cleaned_data['score']
+
+		print('form')
+		print(form.cleaned_data)
+
+
 		vote = form.get_vote_object()
 		vote.user = request.user
+		if score:
+			vote.score = score
 
-		vote.save()
+		#vote.save()
+
+		total_score, num_votes = Vote.vote(vote.content_type, object_id, request.user, vote.score)
 
 		print('form = %s' % form)
-
+		print('total score: %s -- # votes: %s' % (total_score, num_votes))
 		print('ct en id: %s -- %s' % (ctype, object_id))
 
 		return super(TestView, self).post(request, *args, **kwargs)
@@ -70,8 +81,6 @@ class TestView(TemplateView):
 		ctx['form'] = self.form
 
 		return ctx
-
-
 
 class RatingView(LoginRequiredMixin, View):
 

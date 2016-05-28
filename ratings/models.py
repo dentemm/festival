@@ -84,6 +84,7 @@ class Vote(BaseContentTypesModel):
 			content_type=ct,
 		)
 
+
 		new.overall_rating = overall_score.update(score) # returns updated score
 		new.save()	
 
@@ -91,6 +92,31 @@ class Vote(BaseContentTypesModel):
 		num_votes = overall_score.num_votes
 
 		return (total_score, num_votes) #retourneer totale score en aantal stemmen om UI te updaten
+
+	@classmethod
+	def vote(cls, ct, object_id, user, score):
+
+		new = cls.objects.create(
+			content_type=ct,
+			object_id=object_id,
+			user=user,
+			score=score
+		)
+
+		overall_score, is_created = Score.objects.get_or_create(
+			object_id=object_id,
+			content_type=ct,
+		)
+
+		new.overall_rating = overall_score.update(score) # returns updated score
+		new.save()	
+
+		total_score = overall_score.total_score
+		num_votes = overall_score.num_votes
+
+		print('test nieuwe methode: %s' % new)
+
+		return (total_score, num_votes)
 
 class Score(BaseContentTypesModel):
 	'''
@@ -108,18 +134,28 @@ class Score(BaseContentTypesModel):
 		unique_together = ('content_type', 'object_id', )
 
 	def __str__(self):
-		return '%s heeft een score van %s, behaald door %s stemmen' % (self.content_object, self.score, self.votes)
+		return '%s heeft een score van %s, behaald door %s stemmen' % (self.content_object, self.score, self.num_votes)
 
 	def update(self, score):
 		'''
 		Deze update() methode wijzigt de total_score en num_votes attributen na uitbrengen van een vote
 		'''
 
-		num_votes = num_votes + 1
-		total_score = self.total_score + score
+		if self.num_votes:
+			self.num_votes = self.num_votes + 1
+
+		else:
+			self.num_votes = 1
+
+		if self.total_score:
+			self.total_score = self.total_score + score
+
+		else:
+			self.total_score = score
+
 		self.save()
 
-		return self.score
+		return self
 
 	@property
 	def score(self):

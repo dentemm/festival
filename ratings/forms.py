@@ -22,7 +22,7 @@ class VoteForm(forms.Form):
 	content_type = forms.CharField(widget=forms.HiddenInput)
 	object_id = forms.CharField(widget=forms.HiddenInput)
 
-	score = forms.ChoiceField(widget=forms.Select, choices=SELECT_OPTIONS)
+	score = forms.ChoiceField(choices=SELECT_OPTIONS)
 
 	class Meta:
 		model = Vote

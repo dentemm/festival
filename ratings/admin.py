@@ -7,6 +7,7 @@ from .models import Vote, Score
 
 
 class VoteAdmin(admin.ModelAdmin):
+	#fields = ('score', 'user', 'timestamp')
 	pass
 
 class ScoreAdmin(admin.ModelAdmin):

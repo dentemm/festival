@@ -23,6 +23,8 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
 	    <!-- ??? mijn eigen ratings mss ??? -->
 	    <!--<link rel="stylesheet" type="text/css" href="{% static 'ratings/css/ratings.css' %}">-->
+	    <link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
+		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars.css' %}">
 	    {% endcompress %}
 {% endblock %}
 
@@ -37,7 +39,9 @@ pppppp {% get_rating_count for page as dingske %} {{ dingske }}ppppp<br>
 	{% get_vote_form for page as form %}
 		<form action="/ratings/rate/" method="post">
 		{% csrf_token %}
-		 {{ form }}
+		 {% render_field form.score id='example'  %}
+		 {{ form.object_id }}
+		 {{ form.content_type }}
 		 <input type="submit" value="Indienen">
 		</form>
 		<hr>	
@@ -146,13 +150,14 @@ TESTESTESTESTESTSTSETESTSETSETSETS
 	    <!-- jQuery Bar Rating -->
 	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
 	    <script type="text/javascript">
-		   	$(function() {
-		      	$('#example').barrating({
-		      		'theme': 'bars-square',
-		      		'showSelectedRating': true,
-		      		'showValues': false
-		      	});
-		   	});
+			   $(function() {
+			      $('#example').barrating({
+			        theme: 'fontawesome-stars',
+			        initialRating: -1,
+			        showSelectedRating: true,
+
+			      });
+			   });
 		</script>
 	    {% endcompress %}
 	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
