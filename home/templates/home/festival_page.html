@@ -31,7 +31,12 @@
 <div class="container" style="margin-top:94px;">
 
 pppppp {% get_rating_count for page as dingske %} {{ dingske }}ppppp<br>
-	
+
+
+<hr>
+{% get_vote_form for page as form %} {{ form }}
+<hr>	
+
 	{% if user.is_authenticated %}
 
 

@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import smart_text
 
 from ..models import Score, Vote
+from ..forms import VoteForm
 
 register = template.Library()
 
@@ -90,18 +91,65 @@ class BaseRatingNode(template.Node):
 
 
 class RatingCountNode(BaseRatingNode):
-	"""
+	'''
 	Insert a count of rating objects into the context.
-	"""
+	'''
 
 	def get_context_value_from_queryset(self, context, qs):
 		return qs.count()
+
+
+class RatingFormNode(BaseRatingNode):
+	'''
+	Deze template tag voegt het form toe aan de context
+	'''
+
+	def get_form(self, context):
+		obj = self.get_object(context)
+
+		if obj:
+			return VoteForm(obj)
+
+		else:
+			return None
+
+	def get_object(self, context):
+
+		if self.object_expr:
+			try:
+				return self.object_expr.resolve(context)
+
+			except template.VariableDoesNotExist:
+				return None
+
+		else:
+			object_id = self.object_expr.resolve(context, ignore_failures=True)
+
+			return self.ctype.get_object_for_this_type(pk=object_id)
+
+	def render(self, context):
+
+		context[self.as_varname] = self.get_form(context)
+		return ''
 
 
 @register.tag
 def get_rating_count(parser, token):
 
 	return RatingCountNode.handle_token(parser, token)
+
+
+@register.tag
+def get_vote_form(parser, token):
+    """
+    Get a (new) form object to post a new comment.
+    Syntax::
+        {% get_comment_form for [object] as [varname] %}
+        {% get_comment_form for [app].[model] [object_id] as [varname] %}
+    """
+    return RatingFormNode.handle_token(parser, token)
+
+
 
 @register.simple_tag
 def get_rating_form(parser, token):
