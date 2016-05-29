@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^user/', include('festivaluser.urls')),
 
     url(r'^search/$', search_views.search, name='search'),
+    url(r'^test/$', 'home.views.search', name='test'),
 
     # third party applications
    # url(r'^comments/', include('django_comments.urls')),

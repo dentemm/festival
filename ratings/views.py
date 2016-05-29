@@ -49,8 +49,6 @@ class TestView(TemplateView):
 		if form.errors:
 			print('er zijn errors!')
 
-		else:
-			print('er zijn geen errors!')
 
 		if form.is_valid():
 			score = form.cleaned_data['score']
@@ -66,13 +64,16 @@ class TestView(TemplateView):
 
 		#vote.save()
 
+		# save() methode wordt voorlopig niet gebruikt, omdat onderstaande klasse methode save() aanroept
 		total_score, num_votes = Vote.vote(vote.content_type, object_id, request.user, vote.score)
 
-		print('form = %s' % form)
-		print('total score: %s -- # votes: %s' % (total_score, num_votes))
-		print('ct en id: %s -- %s' % (ctype, object_id))
+		data = {
+			'user_rating': score,
+			'total_score': total_score,
+			'num_votes': num_votes, 
+		}
 
-		return super(TestView, self).post(request, *args, **kwargs)
+		return JsonResponse(data)
 
 	def get_context_data(self, *args, **kwargs):
 
