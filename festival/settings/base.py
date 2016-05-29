@@ -196,6 +196,11 @@ WAGTAIL_SITE_NAME = "festival"
 # Custom image model
 WAGTAILIMAGES_IMAGE_MODEL = 'home.CustomImage'
 
+# Wagtail Search settings
+WAGTAILSEARCH_RESULTS_TEMPLATE = '404.html'
+WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'home/templates/home/search/search_results.html'
+
+
 # PYTHON SOCIAL AUTH settings
 #SOCIAL_AUTH_USER_MODEL = 'festivaluser.models.FestivalAdvisorUser'
 #SOCIAL_AUTH_USER_MODEL = 'django.contrib.auth.User'

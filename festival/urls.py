@@ -20,7 +20,7 @@ urlpatterns = [
     #url(r'^home/$', 'festivaluser.views.login'),
     url(r'^user/', include('festivaluser.urls')),
 
-    url(r'^search/$', search_views.search, name='search'),
+    #url(r'^search/$', search_views.search, name='search'),
     url(r'^test/$', 'home.views.search', name='test'),
 
     # third party applications
