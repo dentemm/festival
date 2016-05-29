@@ -1,12 +1,22 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags %}
+{% load static wagtailcore_tags compress  %}
+
+{% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+        {% compress css %}
+
+        <!-- CUSTOM CSS -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+        {% endcompress %}
+{% endblock %}
 
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}Search{% endblock %}
 
 {% block content %}
-    <h1>Search</h1>
+    <h1>Search (wagtail)</h1>
 
     <form action="{% url 'search' %}" method="get">
         <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %}>
