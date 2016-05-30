@@ -1,9 +1,15 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
-<li>
-    <h4><a href="{% pageurl result %}">{{ item }}</a></h4>
-    {% if item.search_description %}
+
+<div class="col-md-9">
+	<div class="col-md-3">
+		{% image item.main_image fill-90x90 as img %}
+		<img src="{{ img.url }}">
+		{{ img }}
+	</div>
+	<h4><a href="{% pageurl result %}">{{ item }}</a></h4> --
+	{% if item.search_description %}
         {{ item.search_description|safe }}
         tim
     {% endif %}
-</li>
+</div>

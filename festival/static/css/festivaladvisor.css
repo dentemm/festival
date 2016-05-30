@@ -81,10 +81,15 @@ footer h1 span {
 /* Aanpassen van "map" onderdeel */
 
 #map {
+  border: 4px solid #fff;
+  box-shadow: 2px 2px 2px #999;
   height: 500px;
+  margin: 0;
   width: 100%;
-  border-top: 2px solid #FFF;
-  border-bottom: 2px solid #FFF;
+}
+
+#map h5 {
+  margin-top: -10px;
 }
 
 /* Portfolio effect winston aanpassingen */
@@ -190,15 +195,16 @@ time.icon span {
 }
 
 .fa_name {
-  font-size: 2rem;
+  color: #fff;
+  font-size: 30px;
   font-weight: 700;
-  text-transform: uppercase;
-  position: absolute;
-  bottom: 0;
   margin: 10px;
-  color: #FFF;
+  position: absolute;
   right: 0;
+  text-align: right;
   text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
+  bottom: 0px;
 }
 
 .fa_mei {
@@ -210,6 +216,7 @@ time.icon span {
 
 #calendar_item .fa-star, #calendar_item .fa-star-o  {
   color: #ffc541;
+  text-shadow: 3px 3px 3px #666;
 }
 
 #calendar_item .fa_overlay {
@@ -223,14 +230,11 @@ time.icon span {
 }
 
 #calendar_item .carousel-caption {
-  background-color: #ffc541;
-  border-radius: 60px;
-  font-size: 16px;
-  height: 126px;
-  left: 20px;
-  padding: 18px 10px 10px;
+  color: #fff;
+  text-shadow: 1px 1px 1px #333;   
   text-align: center;
-  width: 125px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 #calendar_item .fa_heading {
@@ -256,6 +260,11 @@ time.icon span {
 #calendar_item h4 {
   font-size: 18px;
   text-align: justify;
+}
+
+#calendar_item h5 {
+  font-size: 16px;
+  text-align: center;
 }
 
 #calendar_item .fa_bground {
@@ -312,6 +321,7 @@ time.icon span {
   margin-bottom: 10px;
   margin-top: 10px;
   width: 100%;
+  box-shadow: 1px 1px 1px #333;
 }
 
 #calendar_item .fa_tickets .fa {
@@ -321,10 +331,13 @@ time.icon span {
 /*Tag cloud css */
 
 #demo {
-  height: 300px;
+  min-height: 300px;
   margin-top: 20px;
   margin-bottom: 40px;
   background-color: #ffc541;
+  margin-left: 10px;
+  margin-right: 10px;
+  position: relative;
 }
 
 #demo h1 {
@@ -334,4 +347,78 @@ time.icon span {
 
 #calendar_item .fa_overlay .fa-location-arrow {
   color: #333;
+}
+
+/* Aanpassen van achtergrondskleur */
+
+body {
+  /*background-color: #EFEFEF;*/
+  font-family: Tahoma;
+}
+
+#calendar_item {
+  background-color: #EFEFEF;
+}
+
+#calendar_item .fa_overlay2 img {
+  width: 100%;
+}
+
+.fa_thumbs img {
+  margin-bottom: 10px;
+}
+
+#calendar_item .col-md-2 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+#calendar_item .fa_action {
+  text-align: center;
+}
+
+#calendar_item .fa_action button {
+  border-radius: 0;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 100%;
+  box-shadow: 1px 1px 1px #333;
+}
+
+.fa_action h5 {
+  margin-top: 20px;
+}
+
+.fa_action a {
+  color: #5cb85c;
+}
+
+.fa_action a:hover {
+  color: #449d44;
+  text-decoration: none;
+}
+
+#calendar_item .fa_tickets .fa:hover {
+   color: #449d44;
+}
+
+.fa_tickets a {
+  color: #666;
+}
+
+.fa_tickets a:hover {
+  color: #5cb85c;
+  text-decoration: none;
+}
+
+#line-up  {
+  min-height: 250px;
+}
+
+footer {
+  margin-top: 100px;
+}
+
+h3, h4, h5 {
+  color: #555;
 }

@@ -24,11 +24,13 @@
     </form>
 
     {% if search_results %}
-        <ul>
+    <div class="container">
+        <div class="row">
             {% for result in search_results %}
                 {% include 'search/search_item.html' with item=result %}
             {% endfor %}
-        </ul>
+        </div>
+    </div>
 
         {% if search_results.has_previous %}
             <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
