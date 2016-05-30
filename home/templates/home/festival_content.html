@@ -37,7 +37,7 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <div class="item active">
-                                {% image festival.main_image fill-400x230 as img %}
+                                {% image festival.main_image fill-600x345 as img %}
                                 <img src="{{ img.url }}" class="img-responsive img-thumbnail">
                                 <!--<div class="carousel-caption">
                                     &copy Joris Claes<br>Werchter 2015
@@ -50,7 +50,7 @@
                     <div class="col-md-12 fa_thumbs">
                         {% for image in festival.images.all|slice:':3' %}
                             {% if image %}
-                                {% image image.image fill-400x230 as img %}
+                                {% image image.image fill-600x345 as img %}
                                 <img src="{{ img.url }}" class="img-responsive img-thumbnail">
                             {% endif %}
                         {% endfor %}
