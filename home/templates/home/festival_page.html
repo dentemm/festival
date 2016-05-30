@@ -21,8 +21,8 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
-	    <!-- ??? mijn eigen ratings mss ??? -->
-	    <!--<link rel="stylesheet" type="text/css" href="{% static 'ratings/css/ratings.css' %}">-->
+
+	    <!-- RATING FUNCTIONALITY -->
 	    <link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
 		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars.css' %}">
 	    {% endcompress %}
@@ -75,43 +75,41 @@
 	<br>
 
 	<h2>RATING FUNCTIONALITEIT TEST</h2>
-	<div class="row">
-		<div class="col-md-5">
-			<h5>Huidige score</h5>
-		</div>
-	</div>
-
 	{% if user.is_authenticated %}
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-5">
+		{% for attribute in page.rateable_attributes.all %}
+			{% get_vote_form for attribute as form %}
+			<form action="/ratings/rate/" method="post">
+				{% csrf_token %}
+				{{ attribute.rateable_attribute }} | {% render_field form.score class='example' %}
+				{{ form.object_id }}
+				{{ form.content_type }}
+			</form>
+		{% endfor %}
 		</div>
 	</div>
 	{% else %}
 	<div class="row">
 		<div class="col-md-6">
-			<h4>Enkel ingelogde gebruikers kunnen een score geven!</h4>
+			<h4>Enkel ingelogde gebruikers kunnen beoordelingen ingeven!</h4>
 		</div>
 	</div>
 	{% endif %}
-
-	<hr>
-	{% get_vote_form for page as form %}
-		<form action="/ratings/rate/" method="post">
-		{% csrf_token %}
-		 {% render_field form.score id='example'  %}
-		 {{ form.object_id }}
-		 {{ form.content_type }}
-		 <input type="submit" value="Indienen">
-		</form>
-		<hr>	
-
 </div>
 
 
 
 <hr>
 
-
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
 
 TESTESTESTESTESTSTSETESTSETSETSETS
 
@@ -191,7 +189,7 @@ TESTESTESTESTESTSTSETESTSETSETSETS
 	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
 	    <script type="text/javascript">
 			   $(function() {
-			      $('#example').barrating({
+			      $('.example').barrating({
 			        theme: 'fontawesome-stars',
 			        initialRating: -1,
 			        showSelectedRating: true,
