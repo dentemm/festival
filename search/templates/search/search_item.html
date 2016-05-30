@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+
+<li>
+    <h4><a href="{% pageurl result %}">{{ item }}</a></h4>
+    {% if item.search_description %}
+        {{ item.search_description|safe }}
+        tim
+    {% endif %}
+</li>

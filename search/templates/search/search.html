@@ -26,12 +26,7 @@
     {% if search_results %}
         <ul>
             {% for result in search_results %}
-                <li>
-                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-                    {% if result.search_description %}
-                        {{ result.search_description|safe }}
-                    {% endif %}
-                </li>
+                {% include 'search/search_item.html' with item=result %}
             {% endfor %}
         </ul>
 
