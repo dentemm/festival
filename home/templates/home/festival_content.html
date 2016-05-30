@@ -1,10 +1,12 @@
-{% load rating_tags static comments wagtailuserbar wagtailimages_tags %}
+{% load rating_tags static comments wagtailuserbar wagtailcore_tags wagtailimages_tags %}
 
 <div id="current_item" style="display: none;">{{ festival.pk }}</div>
 <div class="container">
     <div class="row">
         <div class="col-md-12 fa_heading">
-            <h1>{{ festival.name }}</h1>
+            <a href="{% pageurl festival %}" style="text-decoration:none;">
+                <h1>{{ festival.name }}</h1>
+            </a>
             <div class="col-md-12">
                 <i class="fa fa-star fa-2x"></i>
                 <i class="fa fa-star fa-2x"></i>
@@ -19,7 +21,9 @@
             <h4>{{ festival.description|safe }}</h4>
         </div>
         <div class="col-md-4 col-md-offset-1 fa_tickets">
-            <button type="button" class="btn btn-success">Koop Tickets</button>
+            <a href="{{ festival.website }}">
+                <button type="button" class="btn btn-success">Koop Tickets</button>
+            </a>
             <a href="#"><i class="fa fa-internet-explorer" aria-hidden="true"></i> Website</a>  |
             <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook</a>  |
             <a href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i> Youtube</a><br>
@@ -33,11 +37,11 @@
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
                             <div class="item active">
-                                {% image festival.main_image fill-400x400 as img %}
+                                {% image festival.main_image fill-400x230 as img %}
                                 <img src="{{ img.url }}" class="img-responsive img-thumbnail">
-                                <div class="carousel-caption">
+                                <!--<div class="carousel-caption">
                                     &copy Joris Claes<br>Werchter 2015
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -46,7 +50,8 @@
                     <div class="col-md-12 fa_thumbs">
                         {% for image in festival.images.all|slice:':3' %}
                             {% if image %}
-                                <img src="{{ image.file.url }}" class="img-responsive img-thumbnail">
+                                {% image image.image fill-400x230 as img %}
+                                <img src="{{ img.url }}" class="img-responsive img-thumbnail">
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -63,9 +68,11 @@
             </div>
             <div class="row">      
                 <div class="col-md-4 fa_action">
+                    <a href="{% pageurl festival %}">
                     <button type="button" class="btn btn-success">
-                        Foto toevoegen
+                        Meer informatie
                     </button>
+                    </a>
                 </div>
                 <div class="col-md-4 fa_action text-center">
                     <h5>
@@ -77,32 +84,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-    <div class="fa_calendar_item">
-        <div class="col-md-12 fa_overlay">
-            <div id="fa_carousel" class="carousel slide" data-ride="carousel">
-	            <div class="carousel-inner" role="listbox">
-	            	{% for im in festival.images.all %}
-	            		{% image im.image original as tmp_photo %}
-		                <div class="item {% if forloop.first %}active{% endif %}">
-		                  	<img src="{{ tmp_photo.url }}" class="img-responsive">
-		                </div>
-	                {% endfor %}
-	          	</div>
-            </div>
-        </div>          
-    </div>
-</div>
-
-
-<div class="container">
-    <div class="col-md-4 fa_overlay">
-        <div id="map" style="height:250px"></div>
-        <h4>{{ festival.location.name|title }}</h4>
-        <h4>{{ festival.location.address.city|title }}</h4>
     </div>
 </div>
 
