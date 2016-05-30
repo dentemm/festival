@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.utils.html import escape
 from django.apps import apps
 from django.http import HttpResponse, JsonResponse
+from django.template.response import TemplateResponse
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
@@ -114,10 +115,15 @@ def custom_submit(request, next=None, using=None):
 	    request=request
 	)
 
-	my_dict = 	{	
+	'''my_dict = 	{	
 					'comment_title': 	comment.title,
 					'comment':			comment.comment
-				}
+				}'''
 
-	return JsonResponse(my_dict)
+	context = {}
+	context['comment'] = comment
+
+
+	#return JsonResponse(my_dict)
+	return TemplateResponse(request, 'comments/list_item.html', context)
 

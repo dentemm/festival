@@ -42,13 +42,11 @@
 	<br>
 
 	<h2>COMMENTAAR FUNCTIONALITEIT TEST</h2>
-	<div class="row" id="comment-list	">
-		<div class="col-md-6 col-md-offset-1">
-			<h4>Reeds geplaatste comments</h4>
-				{% render_comment_list for page %}
-				<hr>
-		</div>
-	</div>
+
+	{% render_comment_list for page %}
+
+	<hr>
+
 	<div class="row" id="comment-form">
 		<div class="col-md-6 col-md-offset-1">
 			<h4>Laat zelf een tekstje achter</h4>

@@ -24,12 +24,13 @@ $(document).ready(function () {
             url: '/comments/post/',
             type: 'POST',
             data: formData,
-            dataType: 'json',
+            dataType: 'html',
 
             success: function(data) {
                 console.log(data);
                 // Hide the comment form
                 $('#comment-form').addClass('hidden');
+                $('#comment-list ul').append(data);
                 // Add the new comment to the comment list
                 //$('#comment-list')
             },

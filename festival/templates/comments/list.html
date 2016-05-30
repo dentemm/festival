@@ -1,1 +1,24 @@
-Hier komt de comments list
+{% for comment in comment_list %}
+    <a name="c{{ comment.id }}"></a>
+        permalink for comment #{{ forloop.counter }}
+    </a>
+    ...
+{% endfor %}
+
+
+<div class="row" id="comment-list">
+	<div class="col-md-6 col-md-offset-1">
+		<h4>Reeds geplaatste comments</h4>
+		<ul id="comments">
+		{% for comment in comment_list %}
+			<li>
+				<div>
+					<h5>-- {{ comment.title }} --</h5>
+					<p>{{ comment.comment }}</p>
+				</div>
+			</li>
+			<hr>
+		{% endfor %}
+		</ol>
+	</div>
+</div>
