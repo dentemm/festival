@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
+from django.forms.formsets import formset_factory
 
 
 from .models import Vote
@@ -19,7 +20,8 @@ class TestView(TemplateView):
 
 		print('form get request %s' % request)
 
-		#print('post form data: %s' % data)
+		#VoteFormSet = formset_factory(VoteForm)
+		#self.formset = VoteFormSet
 
 		self.form = VoteForm()
 
@@ -80,6 +82,7 @@ class TestView(TemplateView):
 		ctx = super(TestView, self).get_context_data(*args, **kwargs)
 
 		ctx['form'] = self.form
+		#ctx['formset'] = self.form
 
 		return ctx
 

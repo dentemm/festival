@@ -28,6 +28,8 @@ class BaseRatingNode(template.Node):
 	@classmethod
 	def handle_token(cls, parser, token):
 
+		#print('tokentim: %s' % token)
+
 		tokens = token.split_contents()
 
 		if tokens[1] != 'for':
@@ -98,6 +100,23 @@ class RatingCountNode(BaseRatingNode):
 	def get_context_value_from_queryset(self, context, qs):
 		return qs.count()
 
+class RatingFormsetNode(BaseRatingNode):
+	'''
+	Deze template tag wordt gebruikt om een formset aan de context toe te voegen. De formset bestaat uit
+	alle beoordeelbare kenmerken van een festival
+	'''
+
+	def get_formset(self, context):
+
+		#kenmerken = self.get_object(context)
+
+		print('template tag get_formset: obj= %s' % context)
+
+	def render(self, context):
+
+		context[self.as_varname] = self.get_formset(context)
+
+		return ''
 
 class RatingFormNode(BaseRatingNode):
 	'''
@@ -151,11 +170,21 @@ def get_vote_form(parser, token):
     """
     Get a (new) form object to post a new comment.
     Syntax::
-        {% get_comment_form for [object] as [varname] %}
-        {% get_comment_form for [app].[model] [object_id] as [varname] %}
+        {% get_vote_form for [object] as [varname] %}
+        {% get_vote_form for [app].[model] [object_id] as [varname] %}
+    """
+    return RatingFormsetNode.handle_token(parser, token)
+
+
+@register.tag
+def get_vote_formset(parser, token):
+    """
+    Get a (new) formset object to post a new comment.
+    Syntax::
+        {% get_vote_formset for [object] as [varname] %}
+        {% get_vote_formset for [app].[model] [object_id] as [varname] %}
     """
     return RatingFormNode.handle_token(parser, token)
-
 
 
 @register.simple_tag
