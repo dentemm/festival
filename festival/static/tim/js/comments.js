@@ -28,6 +28,10 @@ $(document).ready(function () {
 
             success: function(data) {
                 console.log(data);
+                // Hide the comment form
+                $('#comment-form').addClass('hidden');
+                // Add the new comment to the comment list
+                //$('#comment-list')
             },
         });
 
