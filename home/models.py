@@ -411,8 +411,8 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		'''
 
 		#festivals = FestivalPage.objects.live().descendant_of(self)
-		#festivals = FestivalPage.objects.live()
-		festivals = FestivalPage.objects.all()
+		festivals = FestivalPage.objects.live()
+		#festivals = FestivalPage.objects.all()
 		festivals = festivals.order_by('-date')
 
 		return festivals
