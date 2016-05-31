@@ -78,12 +78,16 @@
 	{% if user.is_authenticated %}
 	<div class="row">
 		<div class="col-md-5">
-			{% get_vote_form for page as form %}
-			<form action="/ratings/rate/" method="post">
-				{% csrf_token %}
-				{{ attribute.rateable_attribute }} | {% render_field form.score class='example' %}
-				{{ form.object_id }}
-				{{ form.content_type }}
+		{% get_vote_formset for page as formset %}
+			<form action="/ratings/test/" method="post">
+			{{ formset.management_form }}
+				{% for form in formset %}
+					{% csrf_token %}
+					{% render_field form.score class='example' %}
+					{{ form.object_id }}
+					{{ form.content_type }}
+				{% endfor %}
+				<input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="submitbutton">
 			</form>
 		</div>
 	</div>
@@ -95,6 +99,15 @@
 	</div>
 	{% endif %}
 </div>
+
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
+<br><br><br>
 
 {% get_vote_formset for page as formset %}
 

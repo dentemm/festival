@@ -8,9 +8,78 @@ from django.forms.formsets import formset_factory
 
 
 from .models import Vote
-from .forms import VoteForm
+from .forms import VoteForm, BaseVoteFormSet
 
 # Create your views here.
+
+class FormSetView(TemplateView):
+
+	template_name = 'ratings/rating.html'
+
+	def post(self, request, *args, **kwargs):
+
+		data = request.POST.copy()
+
+		# 1. reconstruct page
+		object_id = data.get('form-0-object_id', 'niks')
+		ctype = data.get('form-0-content_type', 'leeg')
+
+		try:
+			model = apps.get_model(*ctype.split(".", 1))
+			target = model._default_manager.using(None).get(pk=object_id)
+
+		except TypeError:
+			return Vote.ObjectDoesNotExist('foutmelding is onjuist, maar tis Tim hier!')
+
+		festival = target.page
+
+		print('attribute %s' % target)
+		print('festival %s' % festival)
+		print('fest atributes %s' % festival.rateable_attributes.all())
+
+		VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet)
+
+		formset = VoteFormSet(request.POST, request.FILES, instances=festival.rateable_attributes)
+
+
+		
+		#print('data %s' % data)
+
+		
+
+		
+
+		#print('post formset: %s' % formset)
+
+		data = request.POST.copy()
+
+
+		#print('data %s' % data)
+
+		ctype = data.get("content_type")
+		object_id = data.get("object_id")
+
+		if ctype is None or object_id is None:
+			return CommentPostBadRequest("Missing content_type or object_pk field.")
+
+		try:
+			model = apps.get_model(*ctype.split(".", 1))
+			target = model._default_manager.using(None).get(pk=object_id)
+
+		except TypeError:
+			return Vote.ObjectDoesNotExist('foutmelding is onjuist, maar tis Tim hier!')
+
+
+
+		vote_form = VoteForm(target, data=data)
+		vote_formset = VoteFormSet(data)
+
+		if vote_form.is_valid() and vote_formset.is_valid():
+
+			print('tis hier veilig!!!!')
+
+
+
 
 class TestView(TemplateView):
 

@@ -72,6 +72,7 @@ class BaseVoteFormSet(forms.BaseFormSet):
 
 	def __init__(self, *args, **kwargs):
 
+		#if 'instances' in kwargs:
 		self.instances = kwargs.pop('instances')
 
 		super(BaseVoteFormSet, self).__init__(*args, **kwargs)
