@@ -47,6 +47,8 @@ class Vote(BaseContentTypesModel):
 
 	class Meta:
 		unique_together = ('content_type', 'object_id', 'user')
+		#unique_together = ('content_type', 'object_id', 'user', 'content_object')
+		#pass
 
 	def __str__(self):
 		return '%s gaf een score van %s op %s' % (self.user, self.score, self.content_object)

@@ -32,53 +32,39 @@ class FormSetView(TemplateView):
 			return Vote.ObjectDoesNotExist('foutmelding is onjuist, maar tis Tim hier!')
 
 		festival = target.page
+	
+		rateable_attributes = festival.rateable_attributes.all()
+		num_attributes = len(rateable_attributes)
 
-		print('attribute %s' % target)
-		print('festival %s' % festival)
-		print('fest atributes %s' % festival.rateable_attributes.all())
+		VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet, extra=num_attributes)
 
-		VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet)
-
-		formset = VoteFormSet(request.POST, request.FILES, instances=festival.rateable_attributes)
-
-
-		
-		#print('data %s' % data)
-
-		
-
-		
-
-		#print('post formset: %s' % formset)
-
-		data = request.POST.copy()
+		formset = VoteFormSet(request.POST, request.FILES, instances=rateable_attributes)
 
 
-		#print('data %s' % data)
+		if formset.is_valid():
 
-		ctype = data.get("content_type")
-		object_id = data.get("object_id")
-
-		if ctype is None or object_id is None:
-			return CommentPostBadRequest("Missing content_type or object_pk field.")
-
-		try:
-			model = apps.get_model(*ctype.split(".", 1))
-			target = model._default_manager.using(None).get(pk=object_id)
-
-		except TypeError:
-			return Vote.ObjectDoesNotExist('foutmelding is onjuist, maar tis Tim hier!')
+			for form in formset:
 
 
+				score = form.cleaned_data['score']
+				ct = form.cleaned_data['content_type']
+				obj_id = form.cleaned_data['object_id']
 
-		vote_form = VoteForm(target, data=data)
-		vote_formset = VoteFormSet(data)
+				model = apps.get_model(*ct.split(".", 1))
+				target = model._default_manager.using(None).get(pk=object_id)
 
-		if vote_form.is_valid() and vote_formset.is_valid():
+				vote = form.get_vote_object()
+				vote.user = request.user
 
-			print('tis hier veilig!!!!')
+				total_score, num_votes = Vote.vote(ContentType.objects.get_for_model(target), obj_id, request.user, score)
 
+			data = {
+				'user_rating': 'score',
+				'total_score': 'total_score',
+				'num_votes': 'num_votes', 
+			}
 
+		return JsonResponse(data)
 
 
 class TestView(TemplateView):
