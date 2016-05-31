@@ -2,9 +2,10 @@ from django import template
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import smart_text
+from django.forms import formset_factory
 
 from ..models import Score, Vote
-from ..forms import VoteForm
+from ..forms import VoteForm, BaseVoteFormSet
 
 register = template.Library()
 
@@ -150,6 +151,21 @@ class RatingFormsetNode(template.Node):
 		if festival: 
 
 			rateable_attributes = festival.rateable_attributes.all()
+			num_attributes = len(rateable_attributes)
+
+			VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet, extra=num_attributes)
+
+			print('formset klasse %s' % VoteFormSet)
+
+
+			formset = VoteFormSet()
+
+			for form in formset:
+
+				print('form: %s' % form)
+
+			#print('formset instance %s' % formset)
+			#print(formset.forms)
 
 			for attribute in rateable_attributes:
 

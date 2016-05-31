@@ -1,5 +1,3 @@
-import time
-
 from django import forms
 from django.utils.encoding import force_text
 from django.utils import timezone
@@ -15,7 +13,6 @@ SELECT_OPTIONS = (
 	('4', 'goed'),
 	('5', 'top')
 )
-
 
 class VoteForm(forms.Form):
 
@@ -54,11 +51,14 @@ class VoteForm(forms.Form):
 		Generate some initial data
 		'''
 
-		timestamp = int(time.time())
-		meta_dict = {
-		    'content_type': str(self.target_object._meta),
-		    'object_id': str(self.target_object._get_pk_val()),
-		}
+		meta_dict = {}
+
+		if self.target_object:
+
+			meta_dict = {
+			    'content_type': str(self.target_object._meta),
+			    'object_id': str(self.target_object._get_pk_val()),
+			}
 		return meta_dict
 
 	def get_vote_create_data(self):
@@ -68,5 +68,17 @@ class VoteForm(forms.Form):
 			object_id=force_text(self.target_object._get_pk_val())
 			)
 
+class BaseVoteFormSet(forms.BaseFormSet):
+
+	def get_form_kwargs(self, index):
+		'''
+		De get_form_kwargs() methode maakt het mogelijk om init data per form te voorzien
+		'''
+
+		print('get_form_kwargs called!')
+
+		kwargs = super(BaseVoteFormSet, self).get_form_kwargs(index)
+
+		return kwargs
 
 
