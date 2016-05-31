@@ -20,8 +20,6 @@ class HomePageFeaturedManager(PageManager):
 
 		filtered = super(HomePageFeaturedManager, self).get_queryset().filter(date__gte=datetime.date.today())
 
-		#print('home page featured filter: %s' % str(len(filtered)))
-
 		return filtered
 
 

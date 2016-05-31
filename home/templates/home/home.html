@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static compress wagtailimages_tags %}
+{% load static compress wagtailimages_tags wagtailcore_tags %}
 
 {% block extra_css %}
 	{% compress css %}
@@ -51,7 +51,7 @@
 			<div class="row" id="fest-list-items">
 				{% for fest in festivals %}
                 <div class="col-lg-4 col-sm-6 festlist" data-wow-delay=".3s">
-                    <a href="img/portfolio/3.jpg" class="portfolio-box">
+                    <a href="{% pageurl fest %}" class="portfolio-box">
                     {% if fest.main_image %}
                         {% image fest.main_image fill-700x430 as img %}
                         <img src="{{ img.url }}" class="img-responsive">
@@ -86,10 +86,10 @@
                 {% endfor %}
             </div>
             <div class="meer">
-                <a id="loadmore" class="btn btn-transparent" href="#">
+                <a id="<loadmore>" class="btn btn-transparent" disabled="disabled">
                 	<i class="fa fa-plus-circle"></i> Toon meer
                 </a>
-                <a class="btn btn-transparent" href="#">
+                <a class="btn btn-transparent" href="/kalender/overview/">
                 	<i class="fa fa-calendar"></i> Naar kalender 
                 </a>
             </div>
