@@ -78,15 +78,13 @@
 	{% if user.is_authenticated %}
 	<div class="row">
 		<div class="col-md-5">
-		{% for attribute in page.rateable_attributes.all %}
-			{% get_vote_form for attribute as form %}
+			{% get_vote_form for page as form %}
 			<form action="/ratings/rate/" method="post">
 				{% csrf_token %}
 				{{ attribute.rateable_attribute }} | {% render_field form.score class='example' %}
 				{{ form.object_id }}
 				{{ form.content_type }}
 			</form>
-		{% endfor %}
 		</div>
 	</div>
 	{% else %}
@@ -98,7 +96,7 @@
 	{% endif %}
 </div>
 
-{% get_vote_form for page.rateable_attributes.all as formset %}
+{% get_vote_formset for page as formset %}
 
 
 

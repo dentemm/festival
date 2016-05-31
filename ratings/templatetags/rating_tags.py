@@ -100,22 +100,84 @@ class RatingCountNode(BaseRatingNode):
 	def get_context_value_from_queryset(self, context, qs):
 		return qs.count()
 
-class RatingFormsetNode(BaseRatingNode):
+class RatingFormsetNode(template.Node):
 	'''
 	Deze template tag wordt gebruikt om een formset aan de context toe te voegen. De formset bestaat uit
 	alle beoordeelbare kenmerken van een festival
 	'''
 
+	def __init__(self, ctype=None, object_pk_expr=None, object_expr=None, as_varname=None, rating=None):
+		if ctype is None and object_expr is None:
+			raise template.TemplateSyntaxError(
+    			"Comment nodes must be given either a literal object or a ctype and object pk."
+    			)
+
+		self.as_varname = as_varname
+		self.ctype = ctype
+		self.object_pk_expr = object_pk_expr
+		self.object_expr = object_expr
+		self.rating = rating
+
+	@classmethod
+	def handle_token(cls, parser, token):
+
+		#print('tokentim: %s' % token)
+
+		tokens = token.split_contents()
+
+		if tokens[1] != 'for':
+			raise template.TemplateSyntaxError('Tweede argument in %r tag moet "for" zijn' % tokens[0])
+
+
+		if len(tokens) == 5:
+			if tokens[3] != 'as':
+				raise template.TemplateSyntaxError('Vierde argument in %r tag moet "as" zijn' % tokens[0])
+
+			return cls(
+				object_expr=parser.compile_filter(tokens[2]),
+				as_varname=tokens[4]
+				)
+
+		else:
+			raise template.TemplateSyntaxError('voorlopig aanvaard tim enkel deze setup, kan nog aangepast worden')
+
 	def get_formset(self, context):
 
-		#kenmerken = self.get_object(context)
+		festival = self.get_object(context)
 
-		print('template tag get_formset: obj= %s' % context)
+		print('festival: %s' % festival)
+
+		if festival: 
+
+			rateable_attributes = festival.rateable_attributes.all()
+
+			for attribute in rateable_attributes:
+
+				print('attribute: %s' % attribute)
+
+		
+
+
+	def get_object(self, context):
+
+		if self.object_expr:
+
+			print(self.object_expr)
+
+			try:
+				return self.object_expr.resolve(context)
+
+			except template.VariableDoesNotExist:
+				return None
+
+		else:
+			object_id = self.object_expr.resolve(context, ignore_failures=True)
+
+			return self.ctype.get_object_for_this_type(pk=object_id)
 
 	def render(self, context):
 
 		context[self.as_varname] = self.get_formset(context)
-
 		return ''
 
 class RatingFormNode(BaseRatingNode):
@@ -125,8 +187,6 @@ class RatingFormNode(BaseRatingNode):
 
 	def get_form(self, context):
 		obj = self.get_object(context)
-
-		print('template tag get_form: obj= %s' % obj)
 
 		if obj:
 			return VoteForm(obj)
@@ -173,7 +233,7 @@ def get_vote_form(parser, token):
         {% get_vote_form for [object] as [varname] %}
         {% get_vote_form for [app].[model] [object_id] as [varname] %}
     """
-    return RatingFormsetNode.handle_token(parser, token)
+    return RatingFormNode.handle_token(parser, token)
 
 
 @register.tag
@@ -184,7 +244,7 @@ def get_vote_formset(parser, token):
         {% get_vote_formset for [object] as [varname] %}
         {% get_vote_formset for [app].[model] [object_id] as [varname] %}
     """
-    return RatingFormNode.handle_token(parser, token)
+    return RatingFormsetNode.handle_token(parser, token)
 
 
 @register.simple_tag
