@@ -144,29 +144,28 @@
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
-        {% compress js %}
-        <!-- OWL CAROUSEL -->
-        <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-        <!--JQUERY EASING -->
-        <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
-        <!-- WAYPOINTS -->
-        <script type="text/javascript" src="{% static 'plugins/waypoints/jquery.waypoints.min.js' %}"></script>
-        <!-- COUNTTO -->
-        <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
-        <!-- INVIEW -->
-        <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
-        <!-- LIGHTBOX -->
-        <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
-        <!-- WOW -->
-        <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
-        <!-- GOOGLE MAPS -->
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    
+    <!-- OWL CAROUSEL -->
+    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+    <!--JQUERY EASING -->
+    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- COUNTTO -->
+    <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
+    <!-- INVIEW -->
+    <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
+    <!-- LIGHTBOX -->
+    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
+    <!-- WOW -->
+    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
+    <!-- GOOGLE MAPS -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
-        <!-- CUSTOM CSS -->
-        <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+    <!-- CUSTOM CSS -->
+    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
 
-        <script type="text/javascript" src="{% static 'js/test.js' %}"></script>
-    {% endcompress %}
+    <script type="text/javascript" src="{% static 'js/test.js' %}"></script>
+
+
     <script type="text/javascript">
         var map;
         var global_markers = [];
