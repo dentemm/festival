@@ -70,14 +70,24 @@ class VoteForm(forms.Form):
 
 class BaseVoteFormSet(forms.BaseFormSet):
 
+	def __init__(self, *args, **kwargs):
+
+		self.instances = kwargs.pop('instances')
+
+		super(BaseVoteFormSet, self).__init__(*args, **kwargs)
+
+
 	def get_form_kwargs(self, index):
 		'''
 		De get_form_kwargs() methode maakt het mogelijk om init data per form te voorzien
 		'''
 
-		print('get_form_kwargs called!')
-
 		kwargs = super(BaseVoteFormSet, self).get_form_kwargs(index)
+
+		#content_type = 
+
+		kwargs['target_object'] = self.instances[index]
+		#kwargs['object_id'] = self.instances[index]
 
 		return kwargs
 

@@ -158,20 +158,11 @@ class RatingFormsetNode(template.Node):
 			print('formset klasse %s' % VoteFormSet)
 
 
-			formset = VoteFormSet()
+			formset = VoteFormSet(instances=rateable_attributes)
 
-			for form in formset:
+			print('formset test: %s' % formset)
 
-				print('form: %s' % form)
-
-			#print('formset instance %s' % formset)
-			#print(formset.forms)
-
-			for attribute in rateable_attributes:
-
-				print('attribute: %s' % attribute)
-
-		
+			return formset		
 
 
 	def get_object(self, context):
