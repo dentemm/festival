@@ -47,6 +47,10 @@ height: 100%;
   border: 1px solid #fff;
 }
 
+#portfolio .fa-star, #portfolio .fa-star-o {
+  color: orange;
+}
+
 /* Aanpassen van padding festival line-up sectie */
 
 #testimonials {
@@ -73,9 +77,24 @@ footer h1 span {
 /* Aanpassen van "meer festivals" onderdeel */
 
 .meer {
-	background-color: #333;
-	padding-top: 20px;
-	padding-bottom: 20px;
+  background-color: #333;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.meer2 {
+  background: #5cb85c; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #5cb85c , orange); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #5cb85c, orange); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #5cb85c, orange); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #5cb85c , orange); /* Standard syntax */
+  border-top: 1px solid #333;
+  color: #fff;
+  font-family: Verdana;
+  font-size: 24px;
+  font-style: oblique;
+  padding: 20px;
+  text-shadow: 1px 1px 1px #333;
 }
 
 /* Aanpassen van "map" onderdeel */
@@ -90,6 +109,10 @@ footer h1 span {
 
 #map h5 {
   margin-top: -10px;
+}
+
+.fa-map-marker {
+  color: #5cb85c;
 }
 
 /* Portfolio effect winston aanpassingen */
@@ -118,8 +141,8 @@ figure.effect-winston a {
 }
 
 .grid h2 {
-	color: #FFF;
-	text-shadow: 2px 2px 2px #333;
+  color: #FFF;
+  text-shadow: 2px 2px 2px #333;
 }
 
 #owlcalendar {
@@ -214,7 +237,7 @@ time.icon span {
 
 /* Calendar item */
 
-#calendar_item .fa-star, #calendar_item .fa-star-o  {
+#calendar_item .fa-star, #calendar_item .fa-star-o {
   color: #ffc541;
   text-shadow: 3px 3px 3px #666;
 }

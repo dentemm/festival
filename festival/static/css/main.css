@@ -262,6 +262,7 @@ Sliders Style
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  margin-bottom: -85px;
 }
 #owl-hero .item .caption {
   position: absolute;
@@ -434,19 +435,17 @@ Portfolio Style
   max-width: 650px;
 }
 #portfolio .portfolio-box .portfolio-box-caption {
-  display: block;
-  position: absolute;
+  background: rgba(13, 13, 13, 0.6) none repeat scroll 0 0;
   bottom: 0;
-  width: 100%;
-  height: 100%;
-  text-align: center;
   color: #fff;
-  opacity: 0;
-  background: rgba(13, 13, 13, 0.6);
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  display: block;
+  height: 100%;
+  opacity: 0.85;
+  position: absolute;
+  text-align: center;
+  text-shadow: 1px 1px 1px #333;
+  transition: all 0.3s ease-in-out 0s;
+  width: 100%;
 }
 #portfolio .portfolio-box .portfolio-box-caption .portfolio-box-caption-content {
   position: absolute;
@@ -468,6 +467,22 @@ Portfolio Style
   font-size: 18px;
 }
 #portfolio .portfolio-box:hover .portfolio-box-caption {
+  opacity: 0.9-;
+  background: rgba(92, 184, 92, 1);
+  color: #FFF;
+  text-shadow: 1px 1px 1px #333;
+}
+
+#portfolio .project-rating {
+  margin-top: 45px;
+  opacity: 0;
+}
+
+#portfolio .project-rating-xs {
+  margin-top: 30px;
+}
+
+#portfolio .portfolio-box:hover .project-rating {
   opacity: 1;
 }
 
@@ -668,6 +683,7 @@ footer {
   background: #24242a;
   padding: 60px 0;
   text-align: center;
+  font-size: 60%;
 }
 footer h1 {
   text-transform: uppercase;
