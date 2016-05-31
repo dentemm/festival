@@ -86,30 +86,7 @@ $(document).ready(function () {
     });
     /***************** Google Map ******************/
 
-    function initialize() {
-        var mapCanvas = document.getElementById('map');
-        var style = [{
-            "stylers": [{
-                "hue": "#00aaff"
-            }, {
-                "saturation": -100
-            }, {
-                "gamma": 2.15
-            }, {
-                "lightness": 12
-            }]
-        }];
-        var mapOptions = {
-            center: new google.maps.LatLng(50.878457, 4.700278),
-            zoom: 12,
-            streetViewControl: true,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            styles: style
-        }
-        var map = new google.maps.Map(mapCanvas, mapOptions);
-    }
 
-    google.maps.event.addDomListener(window, 'load', initialize);
 
     /***************** Wow.js ******************/
     

@@ -144,26 +144,83 @@
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
-    <!-- OWL CAROUSEL -->
-    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-    <!--JQUERY EASING -->
-    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
-    <!-- WAYPOINTS -->
-    <script type="text/javascript" src="{% static 'plugins/waypoints/jquery.waypoints.min.js' %}"></script>
-    <!-- COUNTTO -->
-    <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
-    <!-- INVIEW -->
-    <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
-    <!-- LIGHTBOX -->
-    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
-    <!-- WOW -->
-    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
-    <!-- GOOGLE MAPS -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+        {% compress js %}
+        <!-- OWL CAROUSEL -->
+        <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+        <!--JQUERY EASING -->
+        <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
+        <!-- WAYPOINTS -->
+        <script type="text/javascript" src="{% static 'plugins/waypoints/jquery.waypoints.min.js' %}"></script>
+        <!-- COUNTTO -->
+        <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
+        <!-- INVIEW -->
+        <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
+        <!-- LIGHTBOX -->
+        <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
+        <!-- WOW -->
+        <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
+        <!-- GOOGLE MAPS -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 
-    <!-- CUSTOM CSS -->
-    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+        <!-- CUSTOM CSS -->
+        <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
 
-    <script type="text/javascript" src="{% static 'js/test.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/test.js' %}"></script>
+    {% endcompress %}
+    <script type="text/javascript">
+        var map;
+        var global_markers = [];
 
+        var markers = [{% for festival in festivals %}{% if festival.location.latitude %}[{{ festival.location.latitude|stringformat:'f' }},{{ festival.location.longitude|stringformat:'f' }}, '{{ festival.name }}'],{% endif %}
+                        {% endfor %}];
+
+
+        //var markers = [[37.09024, -95.712891, 'trialhead0'], [-14.235004, -51.92528, 'trialhead1'], [-38.416097, -63.616672, 'trialhead2']];
+
+        var infowindow = new google.maps.InfoWindow({});
+
+        function initialize() {
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(50.8333, 4.0000); 
+            var myOptions = {
+                zoom: 7,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map"), myOptions);
+            addMarker();
+        }
+
+        function addMarker() {
+            for (var i = 0; i < markers.length; i++) {
+                // obtain the attribues of each marker
+                var lat = parseFloat(markers[i][0]);
+                var lng = parseFloat(markers[i][1]);
+                var trailhead_name = markers[i][2];
+
+                var myLatlng = new google.maps.LatLng(lat, lng);
+
+                var contentString = "<html><body><div><p><h2>" + trailhead_name + "</h2></p></div></body></html>";
+
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: "Coordinates: " + lat + " , " + lng + " | Trailhead name: " + trailhead_name
+                });
+
+                marker['infowindow'] = contentString;
+
+                global_markers[i] = marker;
+
+                google.maps.event.addListener(global_markers[i], 'click', function() {
+                    infowindow.setContent(this['infowindow']);
+                    infowindow.open(map, this);
+                });
+            }
+        }
+
+        window.onload = initialize;
+
+
+    </script>
 {% endblock %}
