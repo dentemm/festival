@@ -1,6 +1,7 @@
 #from datetime import datetime
 
 from django.db import models
+from django.db import IntegrityError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -67,12 +68,18 @@ class Vote(BaseContentTypesModel):
 		'''
 		ct = ContentType.objects.get_for_model(rating_object)
 
-		new = cls.objects.create(
-			content_type=ct,
-			object_id=rating_object.pk,
-			user=user,
-			score=score
-		)
+		try: 
+			new = cls.objects.create(
+				content_type=ct,
+				object_id=rating_object.pk,
+				user=user,
+				score=score
+			)
+
+		except IntegrityError:
+			print(' - -- - - -- - - - -- tis goed')
+			return (0, 0)
+
 
 		overall_score, is_created = Score.objects.get_or_create(
 			object_id=new.pk,
@@ -96,12 +103,17 @@ class Vote(BaseContentTypesModel):
 		en retourneeert de gegevens total_score en num_votes
 		'''
 
-		new = cls.objects.create(
-			content_type=ct,
-			object_id=object_id,
-			user=user,
-			score=score
-		)
+		try:
+			new = cls.objects.create(
+				content_type=ct,
+				object_id=object_id,
+				user=user,
+				score=score
+			)
+			
+		except IntegrityError:
+			print(' - -- - - -- - - - -- tis goed')
+			return (0, 0)
 
 		overall_score, is_created = Score.objects.get_or_create(
 			object_id=object_id,

@@ -475,7 +475,7 @@ class FestivalPageRelatedLink(models.Orderable, RelatedLink):
 		return super(FestivalPageRelatedLink, self).save(*args, **kwargs)
 
 
-class FestivalPage(models.Page):
+class FestivalPage(RatedModelMixin, models.Page):
 	'''
 	Deze klasse beschrijft een festival. 
 		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden

@@ -45,7 +45,6 @@ class FormSetView(TemplateView):
 
 			for form in formset:
 
-
 				score = form.cleaned_data['score']
 				ct = form.cleaned_data['content_type']
 				obj_id = form.cleaned_data['object_id']
@@ -56,6 +55,7 @@ class FormSetView(TemplateView):
 				vote = form.get_vote_object()
 				vote.user = request.user
 
+				# onderstaande methode zal ook naar db saven
 				total_score, num_votes = Vote.vote(ContentType.objects.get_for_model(target), obj_id, request.user, score)
 
 			data = {
