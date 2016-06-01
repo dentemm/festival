@@ -90,12 +90,12 @@
 <script type="text/javascript">
     //window.onload = initialize;
 
-    var latitude = parseFloat({{ festival.location.latitude|stringformat:'f' }});
-    var longitude = parseFloat({{ festival.location.longitude|stringformat:'f' }});
+    var festlatitude = parseFloat({{ festival.location.latitude|stringformat:'f' }});
+    var festlongitude = parseFloat({{ festival.location.longitude|stringformat:'f' }});
     var festname = '{{ festival.name|title }}';
     var festurl = '{% pageurl festival %}';
 
-    google.maps.event.addDomListener(window, 'load', initialize(latitude, longitude, festname, festurl));
+    google.maps.event.addDomListener(window, 'load', initialize(festlatitude, festlongitude, festname, festurl));
 </script>
 
 

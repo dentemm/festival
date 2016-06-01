@@ -113,10 +113,10 @@
 	        map.mapTypes.set('map_style', styledMap);
 	        map.setMapTypeId('map_style');
 
-	        addMarker(longitude, latitude, festname, festurl);  
+	        addMarker(latitude, longitude, festname, festurl);  
 	    }
 
-	    function addMarker() {
+	    function addMarker(latitude, longitude, festname, festurl) {
 	        var lat = latitude;
 	        var lng = longitude;
 	        var name = festname;

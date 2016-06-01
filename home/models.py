@@ -507,7 +507,7 @@ class FestivalPage(models.Page):
 
 	# Foreign key relaties
 	contact_person = djangomodels.ForeignKey('Person', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
-	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True)
+	location = djangomodels.ForeignKey('Location', related_name='festivals', null=True, blank=True, on_delete=djangomodels.SET_NULL)
 
 	tags = ClusterTaggableManager(through=FestivalPageTag, blank=True, 
 													help_text=mark_safe('Wordt gebruikt om festivals te filteren, dus het <b><u>genre</u></b> (of genres) zijn ideaal om hier in te geven.')
@@ -727,7 +727,7 @@ class FestivalMonthArchiveView(MonthArchiveView):
 	model = FestivalPage
 	template_name = 'home/calendar_page.html'
 
-	paginate_by = 25
+	paginate_by = 75
 	context_object_name = 'festival_list'
 	date_field = 'date'
 	allow_empty = True
