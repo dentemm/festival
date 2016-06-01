@@ -45,7 +45,7 @@
 	<!-- FESTIVAL LIST -->
 	<section id="portfolio">
         <div class="meer2">
-            <em>FestivalAdvisor</em> Lees beoordelingen, vergelijk festivals en koop tickets!
+            <b>FestivalAdvisor</b>: Lees beoordelingen, vergelijk festivals en koop tickets!
         </div>
 		<div class="container-fluid">
 			<div class="row" id="fest-list-items">
@@ -158,7 +158,7 @@
     <!-- WOW -->
     <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
     <!-- GOOGLE MAPS -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3"></script>
 
     <!-- CUSTOM CSS -->
     <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
@@ -170,24 +170,55 @@
         var map;
         var global_markers = [];
 
-        var markers = [{% for festival in festivals %}{% if festival.location.latitude %}[{{ festival.location.latitude|stringformat:'f' }},{{ festival.location.longitude|stringformat:'f' }}, '{{ festival.name }}'],{% endif %}
+        var markers = [{% for festival in festivals %}{% if festival.location.latitude %}[{{ festival.location.latitude|stringformat:'f' }},{{ festival.location.longitude|stringformat:'f' }}, '{{ festival.name|title }}', '{% pageurl festival %}'],{% endif %}
                         {% endfor %}];
-
-
-        //var markers = [[37.09024, -95.712891, 'trialhead0'], [-14.235004, -51.92528, 'trialhead1'], [-38.416097, -63.616672, 'trialhead2']];
 
         var infowindow = new google.maps.InfoWindow({});
 
+
         function initialize() {
+
+            var styles = [{"featureType": "all","elementType": "all","stylers": [{"hue": "#ff5a00"},{"saturation": "22"},
+                {"lightness": "-1"},{"gamma": "1.00"}]},{"featureType": "road","elementType": "labels.icon","stylers": [
+                {"visibility": "off"}]},{"featureType": "road.highway","elementType": "all","stylers": [{"color": "#ff8b0b"}]},
+                {"featureType": "road.highway","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},
+                {"featureType": "road.arterial","elementType": "all","stylers": [{"color": "#ff8b0b"}]},{"featureType":     
+                "road.arterial","elementType": "geometry.stroke","stylers": [{"visibility": "off"}]},{
+                "featureType": "road.arterial","elementType": "labels.text.fill","stylers": [{"color": "#ffffff"}]},
+                {"featureType": "road.arterial","elementType": "labels.text.stroke","stylers": [{"color": "#ff8b0b"}, 
+                {"weight": "3.73"}]},{"featureType": "road.arterial","elementType": "labels.icon","stylers": [
+                {"saturation": "-100"},{"lightness": "6"},{"gamma": "2.44"},{"hue": "#ff0000"},{"weight": "3.34"},
+                {"visibility": "off"}]},{"featureType": "road.local","elementType": "geometry.fill","stylers": [
+                {"color": "#ddccc2"}]},{"featureType": "road.local","elementType": "geometry.stroke","stylers": [
+                {"color": "#f5f0eb"},{"lightness": "24"},{"saturation": "39"},{"weight": "0.74"}
+                ]},{"featureType": "road.local","elementType": "labels.text.stroke","stylers": [{"weight": "3.60"},
+                {"color": "#ffffff"}]},{"featureType": "water","elementType": "all","stylers": [{"color": "#39c1bf"}]},
+                {"featureType": "water","elementType": "labels.text.fill","stylers": [{"color": "#ffffff"}]},
+                {"featureType": "water","elementType": "labels.text.stroke","stylers": [{"color": "#39c1bf"}]}];
+
+            var styledMap = new google.maps.StyledMapType(styles, {name: 'FestivalMap'});
+
+
             geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(50.8333, 4.0000); 
             var myOptions = {
                 zoom: 7,
                 center: latlng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                scrollwheel: false,
+                mapTypeControlOptions: {
+                    mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                }
+
+                //mapTypeId: google.maps.MapTypeId.ROADMAP
             }
             map = new google.maps.Map(document.getElementById("map"), myOptions);
-            addMarker();
+             
+            map.mapTypes.set('map_style', styledMap);
+            map.setMapTypeId('map_style');
+
+            addMarker();  
+
+
         }
 
         function addMarker() {
@@ -195,16 +226,18 @@
                 // obtain the attribues of each marker
                 var lat = parseFloat(markers[i][0]);
                 var lng = parseFloat(markers[i][1]);
-                var trailhead_name = markers[i][2];
+                var name = markers[i][2];
+                var url = markers[i][3];
 
                 var myLatlng = new google.maps.LatLng(lat, lng);
 
-                var contentString = "<html><body><div><p><h2>" + trailhead_name + "</h2></p></div></body></html>";
+                var contentString = '<div><h6>' + name + '</h6><a href="' + url  + '">Meer details</a></div>'
 
                 var marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
-                    title: "Coordinates: " + lat + " , " + lng + " | Trailhead name: " + trailhead_name
+                    //title: "Coordinates: " + lat + " , " + lng + " | Trailhead name: " + trailhead_name
+                    title: name
                 });
 
                 marker['infowindow'] = contentString;
@@ -217,6 +250,7 @@
                 });
             }
         }
+
 
         window.onload = initialize;
 
