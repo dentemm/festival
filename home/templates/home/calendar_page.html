@@ -16,7 +16,7 @@
 	   	<!-- ANIMATE.CSS -->
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/animate.css/animate.css' %}">
 	    <!-- JQCLOUD -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'css/jqcloud.css' %}">
+	    <!--<link rel="stylesheet" type="text/css" href="{- static 'css/jqcloud.css' -}">-->
 
 	    
 	    <!-- CUSTOM CSS -->
@@ -69,6 +69,7 @@
 
 	<section id="calendar_item">
     {% if selected == None %}
+    	Oeps, er is mss iets mis gegaan ... Excuses! -- Tim C.
     {% else %}
 		{% include 'home/festival_content.html' with festival=selected %}
     {% endif  %}
@@ -92,8 +93,8 @@
 	    <!-- WOW -->
 	    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
 	   	<!-- JQCLOUD -->
-	   	<script type="text/javascript" src="{% static 'js/jqcloud.js' %}"></script>
-	   	<script type="text/javascript" src="{% static 'js/lineupcloud.js' %}"></script>
+	   	<!--<script type="text/javascript" src="{- static 'js/jqcloud.js' -}"></script>-->
+	   	<!--<script type="text/javascript" src="{- static 'js/lineupcloud.js' -}"></script>-->
 	   	
 	    <!-- GOOGLE MAPS -->
 	    
@@ -116,5 +117,6 @@
 		   	});
 		</script>
 	    {% endcompress %}
-	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+</script>
 {% endblock extra_js %}

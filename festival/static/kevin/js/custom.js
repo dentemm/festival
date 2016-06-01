@@ -86,7 +86,7 @@ $(document).ready(function () {
     });
     /***************** Google Map ******************/
 
-    function initialize() {
+    /*function initialize() {
         var mapCanvas = document.getElementById('map');
         var mapOptions = {
             center: new google.maps.LatLng(50.878457, 4.700278),
@@ -96,7 +96,7 @@ $(document).ready(function () {
         var map = new google.maps.Map(mapCanvas, mapOptions);
     }
 
-    google.maps.event.addDomListener(window, 'load', initialize);
+    google.maps.event.addDomListener(window, 'load', initialize);*/
 
     /***************** Wow.js ******************/
     
