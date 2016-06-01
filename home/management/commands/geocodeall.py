@@ -36,5 +36,12 @@ class Command(BaseCommand):
 
 				location.save()
 
+			else:
+
+				location.latitude = 50.8333;
+				location.longitude = 4.0000;
+
+				location.save()
+
 		self.stdout.write(self.style.SUCCESS('Het is gefixt!'))
 
