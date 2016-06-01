@@ -41,7 +41,7 @@ class Vote(BaseContentTypesModel):
 
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='votes')
 	timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-	score = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)]) # Enkel positieve getallen worden ondersteund in deze app
+	score = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(5)]) # Enkel positieve getallen worden ondersteund in deze app
 
 	overall_rating = models.ForeignKey('Score', blank=True, null=True, related_name='votes',)	# foreignkey naar Score, een Score bestaat uit een aantal Votes
 
@@ -110,7 +110,7 @@ class Vote(BaseContentTypesModel):
 				user=user,
 				score=score
 			)
-			
+
 		except IntegrityError:
 			print(' - -- - - -- - - - -- tis goed')
 			return (0, 0)

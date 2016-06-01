@@ -7,6 +7,7 @@ from .models import Vote
 
 
 SELECT_OPTIONS = (
+	('', 'leeg'),
 	('1', 'slecht'),
 	('2', 'matig'),
 	('3', 'ok'),
@@ -35,6 +36,15 @@ class VoteForm(forms.Form):
 	        initial = {}
 	    initial.update(self.generate_meta_data())
 	    super(VoteForm, self).__init__(data=data, initial=initial, **kwargs)
+
+	def clean(self):
+
+		cleaned_data = super(VoteForm, self).clean()
+
+		print('cleaned data: %s' % cleaned_data)
+
+
+		return super(VoteForm, self).clean()
 
 
 	def get_vote_object(self):
@@ -76,6 +86,27 @@ class BaseVoteFormSet(forms.BaseFormSet):
 		self.instances = kwargs.pop('instances')
 
 		super(BaseVoteFormSet, self).__init__(*args, **kwargs)
+
+	def clean(self):
+
+		if any(self.errors):
+			return
+
+		print(len(self.forms))
+
+		for form in self.forms:
+
+			try:
+				score = form.cleaned_data['score']
+
+			except KeyError:
+				print('temm eroor')
+				raise forms.ValidationError('temm')
+
+			print('ok')
+
+		return super(BaseVoteFormSet, self).clean()
+
 
 
 	def get_form_kwargs(self, index):

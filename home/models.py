@@ -637,17 +637,20 @@ class FestivalPage(RatedModelMixin, models.Page):
 
 			if rating:
 
-				print('rating score= %s' % rating)
-				print('rating %s' % rating.total_score)
+				#print('rating score= %s' % rating)
+				#print('rating %s' % rating.total_score)
 
 				score += rating.total_score
-				votes += rating.num_votes
+				votes = rating.num_votes
+
 
 		if votes != 0:
 			total = score/votes
 
 		else:
 			total = 0
+
+		#Vote = 
 
 		print('totale score: %s' % score)
 		print('gewogen :%s' % total)

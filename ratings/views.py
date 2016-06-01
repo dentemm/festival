@@ -20,6 +20,8 @@ class FormSetView(TemplateView):
 
 		data = request.POST.copy()
 
+		print(data)
+
 		# 1. reconstruct page
 		object_id = data.get('form-0-object_id', 'niks')
 		ctype = data.get('form-0-content_type', 'leeg')
@@ -43,9 +45,16 @@ class FormSetView(TemplateView):
 
 		if formset.is_valid():
 
+
+			print('----- formset is valid!!!!!! ????')
+			
+
 			for form in formset:
 
 				score = form.cleaned_data['score']
+
+				print('score: %s' % score)
+
 				ct = form.cleaned_data['content_type']
 				obj_id = form.cleaned_data['object_id']
 
@@ -57,6 +66,8 @@ class FormSetView(TemplateView):
 
 				# onderstaande methode zal ook naar db saven
 				total_score, num_votes = Vote.vote(ContentType.objects.get_for_model(target), obj_id, request.user, score)
+
+				# TO DO: UPDATE FESTIVAL SCORE
 
 			data = {
 				'user_rating': 'score',
