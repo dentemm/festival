@@ -58,15 +58,10 @@ class FestivalPageForm(WagtailAdminPageForm):
 	Staat hier omwille van circular import!
 	'''
 
-	print('---------festival page form------------')
-
 	def test(self):
-
-		print('jjjjjjeeeeeeeeeeeeeeeeeeeeeeejjjjjjj')
+		pass
 
 	def get_initial(self):
-
-		print('---------------- get initial!!!!!!!!')
 
 		try: 
 			return FestivalPageRateableAttributeValue.objects.get(rateable_attribute=self.initial['name'])
@@ -77,9 +72,6 @@ class FestivalPageForm(WagtailAdminPageForm):
 	def clean(self):
 
 		page = self.instance
-
-		print('clean() methode van FestivalPageForm')
-		print('page id: %s' % page.id)
 
 		cleaned_data = super(FestivalPageForm, self).clean()
 
@@ -114,11 +106,7 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 class FestivalPageRateableAttributeValueForm(WagtailAdminModelForm):
 
-	print('----- FestivalPageRateableAttributeValueForm -----')
-
 	def get_initial(self):
-
-		print('---------------- get initial!!!!!!!!')
 
 		try: 
 			return FestivalPageRateableAttributeValue.objects.get(rateable_attribute=self.initial['name'])
@@ -329,8 +317,6 @@ class Person(ClusterableModel, index.Indexed):
 
 	def save(self, *args, **kwargs):
 
-		print('@@@@@ Person class save()')
-
 		return super(Person, self).save(*args, **kwargs)
 
 Person.panels = [
@@ -382,8 +368,6 @@ class FestivalPageRateableAttribute(djangomodels.Model):
 
 	def save(self, *args, **kwargs):
 
-		print('))))))))))) save festivalpagerateableattribute')
-
 		return super(FestivalPageRateableAttribute, self).save(*args, **kwargs)
 
 
@@ -418,8 +402,6 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		return festivals
 
 	def get_context(self, request):
-
-		print('------ hier zijn we')
 
 		# Featured festivals in homepage
 		featured = self.featured
@@ -489,8 +471,6 @@ class FestivalPageRelatedLink(models.Orderable, RelatedLink):
 
 
 	def save(self, *args, **kwargs):
-
-		print('------ Related link class save()')
 
 		return super(FestivalPageRelatedLink, self).save(*args, **kwargs)
 
@@ -601,9 +581,6 @@ class FestivalPage(models.Page):
 		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
 		'''
 
-		print('save() methode van FestivalPage')
-		print('id: %s', self.pk)
-
 		# -- MAIN IMAGE FUNCTIONALITY -- #
 		main_image = None
 
@@ -643,9 +620,6 @@ class FestivalPage(models.Page):
 		if self.slug == "" and self.title == "":
 			self.title = self.name
 			self.slug = slugify(self.name)
-
-
-		print('save page -- image: %s' % self.main_image)
 
 
 		return super(FestivalPage, self).save(*args, **kwargs)
@@ -688,7 +662,7 @@ class FestivalPage(models.Page):
 
 # Festival page parent and sub page definition
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-#FestivalPage.subpage_types = []
+FestivalPage.subpage_types = []
 
 # Festival page panels
 FestivalPage.content_panels = [
@@ -783,7 +757,6 @@ class FestivalMonthArchiveView(MonthArchiveView):
 			self.selected = festival
 
 		except FestivalPage.DoesNotExist:
-			#print('!!!!!!!!!!!! bestaat niet')
 			self.selected = None
 
 		if request.is_ajax():
@@ -854,8 +827,6 @@ class FestivalPageRatebleAttributeValue(RatedModelMixin, djangomodels.Model):
 		return str(self.rateable_attribute) + ' - ' + str(self.page)
 
 	def save(self, *args, **kwargs):
-
-		print('SAaaaaaaaaaaava')
 
 		return super(FestivalPageRatebleAttributeValue, self).save(*args, **kwargs)
 
@@ -947,8 +918,6 @@ class FestivalImage(djangomodels.Model):
 		# Als er slechts 1 afbeelding is, dan zal deze steeds primair zijn
 		if len(self.page.images.all()) == 1:
 
-			print('main image')
-
 			self.is_primary = True
 			main_image = self.image
 
@@ -968,8 +937,6 @@ class FestivalImage(djangomodels.Model):
 
 			# Als we uit for loop zijn en nog steeds geen primaire afbeelding, maak dan de eerste primair
 			if primary_present == False:
-
-				print('geen enkele!')
 
 				for image in self.page.images.all():
 

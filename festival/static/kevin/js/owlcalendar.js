@@ -3,4 +3,5 @@ $('.owl-carousel').owlCarousel({
     loop:true,
     autoWidth:true,
     items:6,
+    autoPlay: true,
 })
