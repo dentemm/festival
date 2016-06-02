@@ -10,16 +10,13 @@
         <div class="form-group">
         	{% render_field form.comment class+='form-control' placeholder='Laat weten wat je van dit festival vindt!' %}
         </div>
-        	{% render_field form.honeypot class+='hidden' %}
-
-	    
-	    
+        {% render_field form.honeypot class+='hidden' %}
 	    {{ form.content_type }}
 	    {{ form.object_pk }}
 	    {{ form.timestamp }}
 	    {{ form.security_hash }}
 	    <!--<input type="hidden" name="next" value="#" />-->
-	    <input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="submitbutton">
+	    <input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="commentsubmi">
     </form>
 {% else %}
 	<p>Je moet ingelogd zijn om commentaar te geven!</p>

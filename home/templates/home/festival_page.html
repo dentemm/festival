@@ -74,21 +74,12 @@
 	<hr>
 	<br>
 
-	<h2>RATING FUNCTIONALITEIT TEST</h2>
+	<h2>RATING FUNCTIONALITEIT TEST -- OK!</h2>
 	{% if user.is_authenticated %}
-	<div class="row">
+	<div class="row" id="ratingarea">
 		<div class="col-md-5">
 		{% get_vote_formset for page as formset %}
-			<form action="/ratings/test/" method="post">
-			{{ formset.management_form }}
-				{% for form in formset %}
-					{% csrf_token %}
-					{% render_field form.score class='example' %}
-					{{ form.object_id }}
-					{{ form.content_type }}
-				{% endfor %}
-				<input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="submitbutton">
-			</form>
+			{% include 'ratings/ratingform.html' with formset=formset %}
 		</div>
 	</div>
 	{% else %}
@@ -99,64 +90,6 @@
 	</div>
 	{% endif %}
 </div>
-
-
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-<br><br><br>
-
-TESTESTESTESTESTSTSETESTSETSETSETS
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				FESTIVAL PAGE RATING tests:
-			</div>
-			<div class="col-md-6">
-				Aantal votes: {% votes_count page as votes_count %}
-				{{ votes_count }}
-			</div>
-			{% if user.is_authenticated %}
-			<div class="col-md-6">
-				Score van deze user ({{ user }}): {% user_rating user page %}
-			</div>
-			{% endif %}
-			<div class="col-md-6">
-				Overall rating: {- overall_rating page -}
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		FESTIVAL PAGINA: {{ page.name }} {{ page.id }}  ((((((((((( {{ page.contact_person }} )))))))))))
-
-		{% get_comment_count for page as comment_count %}
-				<p>{{ comment_count }} comments have been posted.</p>
-
-		{% render_comment_list for page %}
-
-		{% get_comment_list for page as comment_list %}
-			{% for comment in comment_list %}
-				<p class="text-info">Posted by: {{ comment.user }} on {{ comment.submit_date }}</p>
-				<p class="text-danger">Comment: {{ comment.comment }}</p>
-			{% endfor %}
-
-		
-	</div>
-	<div class="container m-y-lg">
-		<select id="example">
-			<option value="" data-html=""></option>
-			<option value="1" data-html="klote">1</option>
-			<option value="2" data-html="">2</option>
-			<option value="3" data-html="">3</option>
-			<option value="4" data-html="">4</option>
-			<option value="5" data-html="">5</option>
-		</select>
-	</div>
 
 {% endblock content %}
 
@@ -181,7 +114,7 @@ TESTESTESTESTESTSTSETESTSETSETSETS
 	    <!-- CUSTOM SCRIPTS-->
 	   	<script type="text/javascript" src="{% static 'kevin/js/custom.js' %}"></script>
 	    <script type="text/javascript" src="{% static 'kevin/js/owlcalendar.js' %}"></script>
-	    <script type="text/javascript" src="{% static 'tim/js/comments.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'tim/js/commentsandratings.js' %}"></script>
 
 
 	    <!-- jQuery Bar Rating -->
@@ -197,5 +130,4 @@ TESTESTESTESTESTSTSETESTSETSETSETS
 			   });
 		</script>
 	    {% endcompress %}
-	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
 {% endblock extra_js %}

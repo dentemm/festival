@@ -112,7 +112,7 @@ class Vote(BaseContentTypesModel):
 			)
 
 		except IntegrityError:
-			print(' - -- - - -- - - - -- tis goed')
+			print('models.py van ratings app')
 			return (0, 0)
 
 		overall_score, is_created = Score.objects.get_or_create(

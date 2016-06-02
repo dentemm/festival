@@ -1,6 +1,7 @@
 from django.apps import apps
-from django.views.generic import View, TemplateView
-from django.http import JsonResponse
+from django.views.generic import View, TemplateView, FormView
+from django.http import JsonResponse 
+from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
@@ -14,11 +15,16 @@ from .forms import VoteForm, BaseVoteFormSet
 
 class FormSetView(TemplateView):
 
-	template_name = 'ratings/rating.html'
+	template_name = 'ratings/ratingform.html'
+	
 
 	def post(self, request, *args, **kwargs):
 
+		context = {}
+
 		data = request.POST.copy()
+
+		print(data)
 
 		# 1. reconstruct page
 		object_id = data.get('form-0-object_id', 'niks')
@@ -68,10 +74,6 @@ class FormSetView(TemplateView):
 				# onderstaande methode zal ook naar db saven
 				total_score, num_votes = Vote.vote(ContentType.objects.get_for_model(target), obj_id, request.user, score)
 
-			
-			# UPDATE FESTIVAL SELF
-
-			#festival.updaterating(festival_score)
 
 			fest_ct = ContentType.objects.get_for_model(festival)
 			fest_obj_id = festival.pk
@@ -92,25 +94,13 @@ class FormSetView(TemplateView):
 
 
 
+		else: 
 
-		else:
+			context['errors'] = 'Gelieve alle kenmerken een beoordeling te geven!'
 
-			data = {
-				'error' : formset.errors
-			}
+		context['formset'] = formset
 
-			return JsonResponse(data)
-
-
-		data = {
-			'user_rating': 'score',
-			'total_score': 'total_score',
-			'num_votes': 'num_votes', 
-		}
-
-		print('errors: %s' % formset.errors)
-
-		return JsonResponse(data)
+		return TemplateResponse(request, self.template_name, context)
 
 
 class TestView(TemplateView):

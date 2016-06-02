@@ -7,12 +7,12 @@ from .models import Vote
 
 
 SELECT_OPTIONS = (
-	('', 'leeg'),
-	('1', 'slecht'),
-	('2', 'matig'),
-	('3', 'ok'),
-	('4', 'goed'),
-	('5', 'top')
+	('', '0'),
+	('1', '1'),
+	('2', '2'),
+	('3', '3'),
+	('4', '4'),
+	('5', '5')
 )
 
 class VoteForm(forms.Form):
