@@ -624,7 +624,7 @@ class FestivalPage(RatedModelMixin, models.Page):
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
-	def update_rating(self):
+	def update_rating(self, score):
 
 		num_attributes = len(self.rateable_attributes.all())
 
@@ -633,6 +633,8 @@ class FestivalPage(RatedModelMixin, models.Page):
 		for attribute in self.rateable_attributes.all():
 
 			rating = attribute.get_ratings()
+
+			attr_score = rating.score / rating.num_votes
 
 
 		return 1

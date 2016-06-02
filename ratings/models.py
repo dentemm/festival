@@ -41,7 +41,7 @@ class Vote(BaseContentTypesModel):
 
 	user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='votes')
 	timestamp = models.DateTimeField(auto_now_add=True, editable=False)
-	score = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(5)]) # Enkel positieve getallen worden ondersteund in deze app
+	score = models.DecimalField(default=0, decimal_places=2, max_digits=4, validators=[MinValueValidator(1), MaxValueValidator(5)]) # Enkel positieve getallen worden ondersteund in deze app
 
 	overall_rating = models.ForeignKey('Score', blank=True, null=True, related_name='votes',)	# foreignkey naar Score, een Score bestaat uit een aantal Votes
 
@@ -134,7 +134,7 @@ class Score(BaseContentTypesModel):
 	Score.votes is een FK relatie vanuit het Vote model
 	'''
 
-	total_score = models.PositiveIntegerField(null=True) 	# Optelsom van alle individuele scores
+	total_score = models.DecimalField(decimal_places=2, max_digits=4, null=True) 	# Optelsom van alle individuele scores
 	num_votes = models.PositiveIntegerField(default=0)		# Aantal uitgebrachte stemmen 
 
 	objects = RatingManager()
@@ -150,8 +150,6 @@ class Score(BaseContentTypesModel):
 		'''
 		Deze update() methode wijzigt de total_score en num_votes attributen na uitbrengen van een vote
 		'''
-
-		score = int(score)
 
 		if self.num_votes:
 			self.num_votes = self.num_votes + 1

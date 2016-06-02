@@ -68,13 +68,27 @@ class FormSetView(TemplateView):
 				# onderstaande methode zal ook naar db saven
 				total_score, num_votes = Vote.vote(ContentType.objects.get_for_model(target), obj_id, request.user, score)
 
-
+			
 			# UPDATE FESTIVAL SELF
+
+			#festival.updaterating(festival_score)
 
 			fest_ct = ContentType.objects.get_for_model(festival)
 			fest_obj_id = festival.pk
 
-			tja, tjatja = Vote.vote(ContentType.objects.get_for_model(festival), festival.pk, request.user, 29)
+			festival_score = 0
+
+			for attr in festival.rateable_attributes.all():
+
+				festival_score = festival_score + (attr.get_ratings().score / attr.get_ratings().num_votes)
+
+				print(festival_score)
+
+			festival_score = festival_score / num_attributes
+
+			print(festival_score)
+
+			tja, tjatja = Vote.vote(ContentType.objects.get_for_model(festival), festival.pk, request.user, festival_score)
 
 
 
