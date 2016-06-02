@@ -20,7 +20,7 @@ class VoteForm(forms.Form):
 	content_type = forms.CharField(widget=forms.HiddenInput)
 	object_id = forms.CharField(widget=forms.HiddenInput)
 
-	score = forms.ChoiceField(choices=SELECT_OPTIONS)
+	score = forms.ChoiceField(choices=SELECT_OPTIONS, error_messages={'required': 'Gelieve alle kenmerken te beoordelen'})
 
 	class Meta:
 		model = Vote
@@ -43,6 +43,9 @@ class VoteForm(forms.Form):
 
 		print('cleaned data: %s' % cleaned_data)
 
+		if cleaned_data == {}:
+			#raise forms.ValidationError('tis hier leeg verdomme!')
+			self.add_error(None, 'Gelieve alle kenmerken een beoordeling te geven')
 
 		return super(VoteForm, self).clean()
 
@@ -89,12 +92,13 @@ class BaseVoteFormSet(forms.BaseFormSet):
 
 	def clean(self):
 
-		if any(self.errors):
+		# Als er errors zijn hoeven we niet verder te gaan
+		'''if any(self.errors):
 			return
 
-		print(len(self.forms))
-
 		for form in self.forms:
+
+			print('hier zijn we')
 
 			try:
 				score = form.cleaned_data['score']
@@ -103,7 +107,7 @@ class BaseVoteFormSet(forms.BaseFormSet):
 				print('temm eroor')
 				raise forms.ValidationError('temm')
 
-			print('ok')
+			print('ok')'''
 
 		return super(BaseVoteFormSet, self).clean()
 
@@ -116,9 +120,8 @@ class BaseVoteFormSet(forms.BaseFormSet):
 
 		kwargs = super(BaseVoteFormSet, self).get_form_kwargs(index)
 
-		#content_type = 
-
-		kwargs['target_object'] = self.instances[index]
+		if self.instances:
+			kwargs['target_object'] = self.instances[index]
 		#kwargs['object_id'] = self.instances[index]
 
 		return kwargs

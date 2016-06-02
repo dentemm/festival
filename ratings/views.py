@@ -20,8 +20,6 @@ class FormSetView(TemplateView):
 
 		data = request.POST.copy()
 
-		print(data)
-
 		# 1. reconstruct page
 		object_id = data.get('form-0-object_id', 'niks')
 		ctype = data.get('form-0-content_type', 'leeg')
@@ -38,16 +36,19 @@ class FormSetView(TemplateView):
 		rateable_attributes = festival.rateable_attributes.all()
 		num_attributes = len(rateable_attributes)
 
-		VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet, extra=num_attributes)
+		VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet)
 
 		formset = VoteFormSet(request.POST, request.FILES, instances=rateable_attributes)
 
+		if formset.is_valid():
+
+			for form in formset:
+				form.clean()
 
 		if formset.is_valid():
 
+			print('tweede check')
 
-			print('----- formset is valid!!!!!! ????')
-			
 
 			for form in formset:
 
@@ -67,13 +68,33 @@ class FormSetView(TemplateView):
 				# onderstaande methode zal ook naar db saven
 				total_score, num_votes = Vote.vote(ContentType.objects.get_for_model(target), obj_id, request.user, score)
 
-				# TO DO: UPDATE FESTIVAL SCORE
+
+			# UPDATE FESTIVAL SELF
+
+			fest_ct = ContentType.objects.get_for_model(festival)
+			fest_obj_id = festival.pk
+
+			tja, tjatja = Vote.vote(ContentType.objects.get_for_model(festival), festival.pk, request.user, 29)
+
+
+
+
+		else:
 
 			data = {
-				'user_rating': 'score',
-				'total_score': 'total_score',
-				'num_votes': 'num_votes', 
+				'error' : formset.errors
 			}
+
+			return JsonResponse(data)
+
+
+		data = {
+			'user_rating': 'score',
+			'total_score': 'total_score',
+			'num_votes': 'num_votes', 
+		}
+
+		print('errors: %s' % formset.errors)
 
 		return JsonResponse(data)
 

@@ -514,8 +514,8 @@ class FestivalPage(RatedModelMixin, models.Page):
 													)
 
 	# Rating functionality
-	general_rating = djangomodels.DecimalField(default=0, decimal_places=2, max_digits=4)
-	num_votes = djangomodels.PositiveIntegerField(default=0)
+	#general_rating = djangomodels.DecimalField(default=0, decimal_places=2, max_digits=4)
+	#num_votes = djangomodels.PositiveIntegerField(default=0)
 
 	# MODEL MANAGERS
 	objects = djangomodels.Manager()		# default manager
@@ -629,31 +629,11 @@ class FestivalPage(RatedModelMixin, models.Page):
 		num_attributes = len(self.rateable_attributes.all())
 
 		score = 0
-		votes = 0
 
 		for attribute in self.rateable_attributes.all():
 
 			rating = attribute.get_ratings()
 
-			if rating:
-
-				#print('rating score= %s' % rating)
-				#print('rating %s' % rating.total_score)
-
-				score += rating.total_score
-				votes = rating.num_votes
-
-
-		if votes != 0:
-			total = score/votes
-
-		else:
-			total = 0
-
-		#Vote = 
-
-		print('totale score: %s' % score)
-		print('gewogen :%s' % total)
 
 		return 1
 
