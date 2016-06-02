@@ -155,12 +155,7 @@ class RatingFormsetNode(template.Node):
 
 			VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet, extra=num_attributes)
 
-			#print('formset klasse %s' % VoteFormSet)
-
-
 			formset = VoteFormSet(instances=rateable_attributes)
-
-			#print('formset test: %s' % formset)
 
 			return formset		
 

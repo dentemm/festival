@@ -8,19 +8,21 @@
 {% endif %}	
 
 {% user_rating user page as has_commented %}
-{% if has_commented == False %}
-<form action="/ratings/test/" method="post" onsubmit="event.preventDefault();">
-{{ formset.management_form }}
-	{% for form in formset %}
-		{% csrf_token %}
-		{% render_field form.score class='example' %}
-		{{ form.object_id }}
-		{{ form.content_type }}
-	{% endfor %}
-	<input type="submit" class="btn btn-lg btn-primary rating-form" value="Plaatsen" id="ratingsubmit">
-</form>
-{% else %}
-Je hebt reeds een beoordeling gegeven aan dit festival
-{% endif %}
+	{% if has_commented == False %}
+		{% get_vote_formset for page as formset %}
+		<form action="/ratings/test/" method="post" onsubmit="event.preventDefault();">
+		{{ formset.management_form }}
+			{% for form in formset %}
+				{% csrf_token %}
+				<p>{{form.target_object.rateable_attribute|title }}</p>
+				{% render_field form.score class='example' %}
+				{{ form.object_id }}
+				{{ form.content_type }}
+			{% endfor %}
+			<input type="submit" class="btn btn-lg btn-primary rating-form" value="Plaatsen" id="ratingsubmit">
+		</form>
+	{% else %}
+		Je hebt reeds een beoordeling gegeven aan dit festival
+	{% endif %}
 
 
