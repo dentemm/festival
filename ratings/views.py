@@ -24,7 +24,7 @@ class FormSetView(TemplateView):
 
 		data = request.POST.copy()
 
-		print(data)
+		#print(data)
 
 		# 1. reconstruct page
 		object_id = data.get('form-0-object_id', 'niks')
@@ -53,14 +53,11 @@ class FormSetView(TemplateView):
 
 		if formset.is_valid():
 
-			print('tweede check')
-
-
 			for form in formset:
 
 				score = form.cleaned_data['score']
 
-				print('score: %s' % score)
+				#print('score: %s' % score)
 
 				ct = form.cleaned_data['content_type']
 				obj_id = form.cleaned_data['object_id']
@@ -88,11 +85,8 @@ class FormSetView(TemplateView):
 
 			festival_score = festival_score / num_attributes
 
-			print(festival_score)
 
 			tja, tjatja = Vote.vote(ContentType.objects.get_for_model(festival), festival.pk, request.user, festival_score)
-
-
 
 		else: 
 
@@ -147,8 +141,8 @@ class TestView(TemplateView):
 		if form.is_valid():
 			score = form.cleaned_data['score']
 
-		print('form')
-		print(form.cleaned_data)
+		#print('form')
+		#print(form.cleaned_data)
 
 
 		vote = form.get_vote_object()

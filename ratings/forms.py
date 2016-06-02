@@ -30,7 +30,7 @@ class VoteForm(forms.Form):
 	def __init__(self, target_object=None, data=None, user=None, score=None, initial=None, **kwargs):
 	    self.target_object = target_object
 
-	    print('Vote Form target object = %s' % target_object)
+	    #print('Vote Form target object = %s' % target_object)
 
 	    if initial is None:
 	        initial = {}
@@ -41,7 +41,7 @@ class VoteForm(forms.Form):
 
 		cleaned_data = super(VoteForm, self).clean()
 
-		print('cleaned data: %s' % cleaned_data)
+		#print('cleaned data: %s' % cleaned_data)
 
 		if cleaned_data == {}:
 			#raise forms.ValidationError('tis hier leeg verdomme!')
@@ -91,23 +91,6 @@ class BaseVoteFormSet(forms.BaseFormSet):
 		super(BaseVoteFormSet, self).__init__(*args, **kwargs)
 
 	def clean(self):
-
-		# Als er errors zijn hoeven we niet verder te gaan
-		'''if any(self.errors):
-			return
-
-		for form in self.forms:
-
-			print('hier zijn we')
-
-			try:
-				score = form.cleaned_data['score']
-
-			except KeyError:
-				print('temm eroor')
-				raise forms.ValidationError('temm')
-
-			print('ok')'''
 
 		return super(BaseVoteFormSet, self).clean()
 

@@ -1,26 +1,26 @@
 {% load static widget_tweaks rating_tags %}
 
-<div class="row">
-{% if user.is_authenticated %}
-	{% get_vote_formset for page as formset %}
-	<div class="col-md-5">			
-		<form action="/ratings/test/" method="post">
-		{% if formset.errors %}
-			{{ formset.errors }}
-		{% endif %}
-		{{ formset.management_form }}
-			{% for form in formset %}
-				{% csrf_token %}
-				{% render_field form.score class='example' %}
-				{{ form.object_id }}
-				{{ form.content_type }}
-			{% endfor %}
-			<input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="ratingsubmit">
-		</form>
-	</div>
+{% if errors %}
+	{{ errors }}
+{% endif %}	
+{% if formset.errors %}
+	{{ formset.errors }}
+{% endif %}	
+
+{% user_rating user page as has_commented %}
+{% if has_commented == False %}
+<form action="/ratings/test/" method="post" onsubmit="event.preventDefault();">
+{{ formset.management_form }}
+	{% for form in formset %}
+		{% csrf_token %}
+		{% render_field form.score class='example' %}
+		{{ form.object_id }}
+		{{ form.content_type }}
+	{% endfor %}
+	<input type="submit" class="btn btn-lg btn-primary rating-form" value="Plaatsen" id="ratingsubmit">
+</form>
 {% else %}
-	<div class="col-md-5">
-		JE MOET INGELOGD ZIJN
-	</div>
+Je hebt reeds een beoordeling gegeven aan dit festival
 {% endif %}
-</div>
+
+

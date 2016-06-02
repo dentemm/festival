@@ -155,12 +155,12 @@ class RatingFormsetNode(template.Node):
 
 			VoteFormSet = formset_factory(VoteForm, formset=BaseVoteFormSet, extra=num_attributes)
 
-			print('formset klasse %s' % VoteFormSet)
+			#print('formset klasse %s' % VoteFormSet)
 
 
 			formset = VoteFormSet(instances=rateable_attributes)
 
-			print('formset test: %s' % formset)
+			#print('formset test: %s' % formset)
 
 			return formset		
 
@@ -321,3 +321,22 @@ def user_rating_value(user, obj):
 		score = 0
 
 	return score
+
+
+@register.simple_tag
+def user_rating(user, obj):
+	'''
+	Deze template tag retourneert de score die een gebruiker heeft uitgebracht op het object
+	Gebruik {% user_rating user obj %}
+	'''
+
+	ct = ContentType.objects.get_for_model(obj)
+
+	try:
+		Vote.objects.get(object_id=obj.pk, content_type=ct, user=user)
+
+	except Vote.DoesNotExist:
+
+		return False
+
+	return True

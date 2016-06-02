@@ -37,7 +37,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#ratingsubmit').on('click', function(event){
+    $('input.rating-form').on('click', function(event){
 
         event.preventDefault();
 
@@ -61,9 +61,7 @@ $(document).ready(function () {
             formData['form-' + i + '-score'] = $('#id_form-' + i + '-score option:selected').val();
         }
 
-
         console.log(formData)
-
 
          $.ajax({
             url: '/ratings/test/',
@@ -74,7 +72,15 @@ $(document).ready(function () {
             success: function(data) {
                 console.log(data);
                 // Hide the comment form
+                $('#rating-form').html(data);
 
+                $(function() {
+                    $('.example').barrating({
+                        theme: 'fontawesome-stars',
+                        initialRating: -7,
+                        showSelectedRating: true,
+                    });
+               });
             },
         });
     });
