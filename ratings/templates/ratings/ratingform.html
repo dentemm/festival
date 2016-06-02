@@ -1,15 +1,26 @@
 {% load static widget_tweaks rating_tags %}
 
-<form action="/ratings/test/" method="post">
-{% if formset.errors %}
-	{{ formset.errors }}
+<div class="row">
+{% if user.is_authenticated %}
+	{% get_vote_formset for page as formset %}
+	<div class="col-md-5">			
+		<form action="/ratings/test/" method="post">
+		{% if formset.errors %}
+			{{ formset.errors }}
+		{% endif %}
+		{{ formset.management_form }}
+			{% for form in formset %}
+				{% csrf_token %}
+				{% render_field form.score class='example' %}
+				{{ form.object_id }}
+				{{ form.content_type }}
+			{% endfor %}
+			<input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="ratingsubmit">
+		</form>
+	</div>
+{% else %}
+	<div class="col-md-5">
+		JE MOET INGELOGD ZIJN
+	</div>
 {% endif %}
-{{ formset.management_form }}
-	{% for form in formset %}
-		{% csrf_token %}
-		{% render_field form.score class='example' %}
-		{{ form.object_id }}
-		{{ form.content_type }}
-	{% endfor %}
-	<input type="submit" class="btn btn-lg btn-primary" value="Plaatsen" id="ratingsubmit">
-</form>
+</div>

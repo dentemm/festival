@@ -75,20 +75,10 @@
 	<br>
 
 	<h2>RATING FUNCTIONALITEIT TEST -- OK!</h2>
-	{% if user.is_authenticated %}
-	<div class="row" id="ratingarea">
-		<div class="col-md-5">
-		{% get_vote_formset for page as formset %}
-			{% include 'ratings/ratingform.html' with formset=formset %}
-		</div>
+
+	<div class="row" id="rating-form">
+		{% include 'ratings/ratingform.html' with page=page %}
 	</div>
-	{% else %}
-	<div class="row">
-		<div class="col-md-6">
-			<h4>Enkel ingelogde gebruikers kunnen beoordelingen ingeven!</h4>
-		</div>
-	</div>
-	{% endif %}
 </div>
 
 {% endblock content %}

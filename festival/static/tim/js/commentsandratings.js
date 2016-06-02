@@ -52,8 +52,6 @@ $(document).ready(function () {
         formData['form-MAX_NUM_FORMS'] = $('#id_form-MAX_NUM_FORMS').val();
         formData['form-TOTAL_FORMS'] = $('#id_form-TOTAL_FORMS').val();
         formData['form-INITIAL_FORMS'] = $('#id_form-INITIAL_FORMS').val();
-
-
         formData['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
 
         for (i = 0; i < formCount; i++) {
@@ -76,14 +74,8 @@ $(document).ready(function () {
             success: function(data) {
                 console.log(data);
                 // Hide the comment form
-                $('#comment-form').addClass('hidden');
-                $('#comment-list ul').append(data);
-                // Add the new comment to the comment list
-                //$('#comment-list')
+
             },
         });
     });
-
-
-
 }); 

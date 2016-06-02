@@ -99,6 +99,7 @@ class FormSetView(TemplateView):
 			context['errors'] = 'Gelieve alle kenmerken een beoordeling te geven!'
 
 		context['formset'] = formset
+		context['page'] = festival
 
 		return TemplateResponse(request, self.template_name, context)
 
