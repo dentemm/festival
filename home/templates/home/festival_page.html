@@ -76,12 +76,12 @@
 
 	<h2>RATING FUNCTIONALITEIT TEST -- OK!</h2>
 
-	<div class="row" id="rating-form">
+	<div class="row">
 		<div class="col-md-6 col-md-offset2">
 			<h4>Geef zelf een beoordeling</h4>
 			{% if user.is_authenticated %}
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6" id="rating-form">
 					{% include 'ratings/ratingform.html' with page=page %}
 				</div>
 			</div>

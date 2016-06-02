@@ -3,10 +3,6 @@
 {% if errors %}
 	{{ errors }}
 {% endif %}	
-{% if formset.errors %}
-	{{ formset.errors }}
-{% endif %}	
-
 {% user_rating user page as has_commented %}
 	{% if has_commented == False %}
 		{% get_vote_formset for page as formset %}
