@@ -739,7 +739,7 @@ class FestivalMonthArchiveView(MonthArchiveView):
 		selected = request.GET.get('selected', None)
 
 		try:
-			festival = FestivalPage.objects.get(pk=selected)
+			festival = FestivalPage.objects.select_related('location').get(pk=selected)
 			self.selected = festival
 
 		except FestivalPage.DoesNotExist:

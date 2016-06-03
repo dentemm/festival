@@ -24,9 +24,10 @@
             <a href="{{ festival.website }}" target="_blank">
                 <button type="button" class="btn btn-success">Koop Tickets</button>
             </a>
-            <a href="#"><i class="fa fa-internet-explorer" aria-hidden="true"></i> Website</a>  |
-            <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i> Facebook</a>  |
-            <a href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i> Youtube</a><br>
+            <a href="{{ festival.website }}"><i class="fa fa-internet-explorer" aria-hidden="true"></i> Website</a> 
+            {% for item in festival.related_links.all %}
+            | <a href="{{ item.link }}"><i class="fa fa-{% if item.title|lower == 'facebook' %}facebook-official{% elif item.title|lower == 'youtube' %}youtube-square{% elif item.title|lower == 'twitter' %}twitter{% else %}external-link{% endif %}"></i> {{ item.title|title }}</a>
+            {% endfor %}
         </div>
     </div>
     <div class="row">
@@ -62,7 +63,7 @@
                     </div>
                     <h5>
                         <i class="fa fa-map-marker" aria-hidden="true"></i> 
-                        Festivalpark Werchter | Haachtsesteenweg, 3118 Werchter
+                        {{ festival.location.name }} <br> {{ festival.location.address.city }} - {{ festival.location.address.country.name|upper }}
                     </h5>
                 </div>
             </div>
@@ -76,7 +77,7 @@
                 </div>
                 <div class="col-md-4 fa_action text-center">
                     <h5>
-                        Al <a href="#">35</a> beoordelingen van onze FestivalAdvisors
+                        Al <b>{% votes_count festival %}</b> beoordelingen van onze FestivalAdvisors
                     </h5>
                 </div>
                 <div class="col-md-4 fa_action">

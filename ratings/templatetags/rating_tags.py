@@ -318,6 +318,7 @@ def user_rating_value(user, obj):
 	return score
 
 
+
 @register.simple_tag
 def user_rating(user, obj):
 	'''
