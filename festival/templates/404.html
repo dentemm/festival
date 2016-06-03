@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static compress %}
+
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
     	{% compress css %}
@@ -11,6 +13,10 @@
 {% endblock %}
 
 {% block body_class %}template-404{% endblock %}
+
+{% block navbar %}
+    {% include 'navbar_calendar.html' %}
+{% endblock %}
 
 {% block content %}
 	<div class="container">
