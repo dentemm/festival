@@ -9,15 +9,6 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.carousel.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.theme.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.transitions.css' %}">
-	    <!-- LIGHTBOX -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/lightbox/dist/css/lightbox.css' %}">
-	    <!-- ICONS -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/icons/et-line-font/style.css' %}">
-	   	<!-- ANIMATE.CSS -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/animate.css/animate.css' %}">
-	    <!-- JQCLOUD -->
-	    <!--<link rel="stylesheet" type="text/css" href="{- static 'css/jqcloud.css' -}">-->
-
 	    
 	    <!-- CUSTOM CSS -->
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -34,48 +25,54 @@
 	<section id="owlcalendar" style="margin-top:85px;">
 		{% if festival_list %}
     	<div class="owl-carousel owl-theme">
-    		{% for festival in festival_list reversed %}
-	    		{% image festival.main_image height-300 as tmp_photo %}
-	    		{% with bezig=festival.ongoing %}
-	    		<!--<a href="?selected={{ festival.pk }}" class="festivalitem">--><!-- non ajax alternative-->
-	    		<a href="{{ festival.pk }}" class="festivalitem">
-		    		<div class="item" style="height:250px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
-							background-repeat: no-repeat; background-position: center center; {% if selected.pk != festival.pk %}opacity: 0.3;{% endif %}">
-		    			<time datetime="{{ festival.date }}" class="icon">
-		    				{% if festival.duration == 1 %}
-		    					<em>{{ festival.date|date:'l' }}</em>
-				                <div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
-				                <span>{{ festival.date|date:'d' }}</span>
-			                {% else %}
-			                	{% if festival.check_month_span %}
-				                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-				                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }} - {{ festival.end_date|date:'F' }}</div>
-				                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
-			                	{% else %}
-				                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-				                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
-				                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
-			                	{% endif %}
-			                {% endif %}
-		                </time>
-		                <div class="fa_name">{{ festival.name }}</div>
-		    		</div>
-		    	</a>
-	    		{% endwith %}
-    		{% endfor %}
-    	</div>
+		{% for festival in festival_list reversed %}
+    		{% image festival.main_image height-300 as tmp_photo %}
+    		{% with bezig=festival.ongoing %}
+    		<!--<a href="?selected={{ festival.pk }}" class="festivalitem">--><!-- non ajax alternative-->
+    		<a href="{{ festival.pk }}" class="festivalitem">
+	    		<div class="item" style="height:250px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
+						background-repeat: no-repeat; background-position: center center; {% if selected.pk != festival.pk %}opacity: 0.3;{% endif %}">
+	    			<time datetime="{{ festival.date }}" class="icon">
+	    				{% if festival.duration == 1 %}
+	    					<em>{{ festival.date|date:'l' }}</em>
+			                <div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
+			                <span>{{ festival.date|date:'d' }}</span>
+		                {% else %}
+		                	{% if festival.check_month_span %}
+			                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
+			                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'b' }} - {{ festival.end_date|date:'F' }}</div>
+			                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
+		                	{% else %}
+			                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
+			                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'F' }}</div>
+			                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
+		                	{% endif %}
+		                {% endif %}
+	                </time>
+	                <div class="fa_name">{{ festival.name }}</div>
+	    		</div>
+	    	</a>
+    		{% endwith %}
+		{% endfor %}
+    		<a>
+	    		<div class="item" style="height:250px; background: url(http://blog.davejohnsonaudio.com/wp-content/uploads/2012/09/end-of-the-line.jpg); background-size: auto 100%;
+						background-repeat: no-repeat; background-position: center center; {% if selected.pk != festival.pk %}opacity: 0.3;{% endif %}">
+	                <div class="fa_name">Einde van {{ month|date:'F' }} ... </div>
+	    		</div>
+	    	</a>
+	    </div>	
     	{% endif %}
     </section>
     <div class="container-fluid">
     	<div class="row">
     		<div class="col-xs-6">
     		{% if previous_month %}
-    			<a class="btn btn-default btn-lg" href="?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">&#10092; Naar {{ previous_month|date:"F" }}</a>
+    			<a class="btn btn-default btn-lg" href="?year={{ previous_month|date:'Y' }}&month={{ previous_month|date:'b' }}">&#10092; Naar {{ previous_month|date:'F' }}</a>
     		{% endif %}
     		</div>
        		<div class="col-xs-6">
        		{% if next_month %}
-       			<a class="btn btn-default btn-lg pull-right" href="?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">Naar {{ next_month|date:"F" }} &#10093;</a>
+       			<a class="btn btn-default btn-lg pull-right" href="?year={{ next_month|date:'Y' }}&month={{ next_month|date:'b' }}">Naar {{ next_month|date:'F' }} &#10093;</a>
        		{% endif %}
     		</div>
     	</div>
@@ -171,14 +168,6 @@
     	{% compress js %}
 	    <!-- OWL CAROUSEL -->
 	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-	    <!--JQUERY EASING -->
-	    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
-	    <!-- COUNTTO -->
-	    <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
-	    <!-- INVIEW -->
-	    <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
-	    <!-- LIGHTBOX -->
-	    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
 	    <!-- WOW -->
 	    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script> 
 	    <!-- CUSTOM SCRIPTS-->
