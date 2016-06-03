@@ -52,7 +52,7 @@
                         {% for image in festival.images.all|slice:':3' %}
                             {% if image %}
                                 {% image image.image fill-600x345 as img %}
-                                <img src="{{ img.url }}" class="img-responsive img-thumbnail">
+                                <img src="{{ img.url }}" class="img-responsive img-thumbnail" data-action="zoom">
                             {% endif %}
                         {% endfor %}
                     </div>

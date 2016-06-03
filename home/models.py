@@ -696,6 +696,10 @@ FestivalPage.promote_panels = [
 	FieldPanel('tags'),
 ]
 
+FestivalPage.search_fields = models.Page.search_fields + (
+	index.SearchField('main_image'),
+)
+
 #
 #
 # CALENDAR PAGE

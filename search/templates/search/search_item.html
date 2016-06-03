@@ -1,15 +1,17 @@
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags home_tags %}
 
 
-<div class="col-md-9">
+<div class="col-md-10">
+	{% get_festival item.pk item.content_type as festival %}
 	<div class="col-md-3">
-		{% image item.main_image fill-90x90 as img %}
-		<img src="{{ img.url }}">
-		{{ img }}
+		{% image festival.main_image fill-120x120 as img %}
+		<img src="{{ img.url }}" class="img-rounded">
 	</div>
-	<h4><a href="{% pageurl result %}">{{ item }}</a></h4> --
-	{% if item.search_description %}
-        {{ item.search_description|safe }}
-        tim
-    {% endif %}
+	<div class="col-md-9">
+		<h4>{{ item }}</h4>
+		<p>{{ festival.description|truncatewords:20 }}</p>
+		<a href="{% pageurl result %}" class="btn btn-info pull-right">Meer informatie</a><br>
+		<hr>
+	</div>
 </div>
+

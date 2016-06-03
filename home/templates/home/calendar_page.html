@@ -9,7 +9,6 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.carousel.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.theme.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.transitions.css' %}">
-	    
 	    <!-- CUSTOM CSS -->
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
@@ -56,7 +55,7 @@
 		{% endfor %}
     		<a>
 	    		<div class="item" style="height:250px; background: url(http://blog.davejohnsonaudio.com/wp-content/uploads/2012/09/end-of-the-line.jpg); background-size: auto 100%;
-						background-repeat: no-repeat; background-position: center center; {% if selected.pk != festival.pk %}opacity: 0.3;{% endif %}">
+						background-repeat: no-repeat; background-position: center center;">
 	                <div class="fa_name">Einde van {{ month|date:'F' }} ... </div>
 	    		</div>
 	    	</a>
@@ -174,6 +173,8 @@
 	   	<script type="text/javascript" src="{% static 'kevin/js/custom.js' %}"></script>
 	    <script type="text/javascript" src="{% static 'kevin/js/owlcalendar.js' %}"></script>
 	    <script type="text/javascript" src="{% static 'tim/js/custom.js' %}"></script>
+	    <!-- BOOTSTRAP MARKETING THEME ZOOM -->
+	    <script type="text/javascript" src="{% static 'plugins/zoom/zoom.js' %}"></script>
 
 	    <!-- jQuery Bar Rating -->
 	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
