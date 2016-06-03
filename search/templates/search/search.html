@@ -15,6 +15,10 @@
 
 {% block title %}Search{% endblock %}
 
+{% block navbar %}
+    {% include 'navbar_calendar.html' %}
+{% endblock %}
+
 {% block content %}
     <div class="container" style="margin-top:94px;">
         <div class="row">
@@ -41,13 +45,16 @@
                     {% endfor %}
                     </div>
                     {% if search_results.has_previous %}
-                        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+                        <a class="btn btn-info" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
                     {% endif %}
                     {% if search_results.has_next %}
-                        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+                        <a class="btn btn-info" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
                     {% endif %}
                 {% elif search_query %}
-                    Er werd geen enkel festival teruggevonden met deze zoekterm
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        Er werd geen enkel festival teruggevonden met deze zoekterm
+                    </div>
                 {% endif %}
             </div>
         </div>
