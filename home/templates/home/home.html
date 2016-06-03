@@ -84,11 +84,11 @@
                             </div>
                         </div>
                     </a>
-                {% if forloop.counter|divisibleby:"3" or forloop.last %}
                 </div>
-                {% endif %}
+            {% if forloop.counter|divisibleby:"3" or forloop.last %}
             </div>
-            {% endfor %}    
+            {% endif %}
+        {% endfor %}    
             <div class="meer">
                 <!--<a id="<loadmore>" class="btn btn-transparent" disabled="disabled">
                 	<i class="fa fa-plus-circle"></i> Toon meer
