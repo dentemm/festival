@@ -385,7 +385,7 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 	@property
 	def featured(self):
 
-	    featured =  FestivalPage.featured.all()[0:3]
+	    featured =  FestivalPage.featured.all()[0:5]
 	    return featured
 
 	@property

@@ -18,7 +18,7 @@ class HomePageFeaturedManager(PageManager):
 
 	def get_queryset(self):
 
-		filtered = super(HomePageFeaturedManager, self).get_queryset().filter(date__gte=datetime.date.today())
+		filtered = super(HomePageFeaturedManager, self).get_queryset().order_by('date').filter(date__gte=datetime.date.today())
 
 		return filtered
 
@@ -26,7 +26,7 @@ class HomePageFeaturedManager(PageManager):
 class UpcomingFestivalManager(PageManager):
 
 	def get_queryset(self):
-		return super(UpcomingFestivalManager, self).get_queryset().filter(date__gte=datetime.date.today())
+		return super(UpcomingFestivalManager, self).get_queryset().order_by('date').filter(date__gte=datetime.date.today())
 
 
 
