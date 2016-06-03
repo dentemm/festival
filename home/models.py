@@ -385,7 +385,7 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 	@property
 	def featured(self):
 
-	    featured =  FestivalPage.featured.all()[0:5]
+	    featured =  FestivalPage.upcoming.all()[0:5]
 	    return featured
 
 	@property
@@ -395,9 +395,9 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		'''
 
 		#festivals = FestivalPage.objects.live().descendant_of(self)
-		festivals = FestivalPage.objects.live()
+		festivals = FestivalPage.upcoming.all()[5:]
 		#festivals = FestivalPage.objects.all()
-		festivals = festivals.order_by('-date')
+		#festivals = festivals.order_by('-date')
 
 		return festivals
 
@@ -520,6 +520,7 @@ class FestivalPage(RatedModelMixin, models.Page):
 	# MODEL MANAGERS
 	objects = djangomodels.Manager()		# default manager
 	featured = HomePageFeaturedManager()
+	upcoming = UpcomingFestivalManager()
 
 
 	base_form_class = FestivalPageForm

@@ -5,6 +5,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, UpdateView
 from django.core.context_processors import csrf
 
@@ -115,7 +116,7 @@ class RegistrationView(TemplateView):
 
 		pass
 
-class UserProfileView(TemplateView):
+class UserProfileView(LoginRequiredMixin, TemplateView):
 
 	template_name = 'festivaluser/user_profile.html'
 
