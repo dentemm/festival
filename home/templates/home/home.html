@@ -49,7 +49,7 @@
         </div>
 		<div class="container-fluid" id="fest-list-items">
         {% for fest in festivals %}
-            {% if forloop.first or forloop.counter|divisibleby:"3" %}
+            {% if forloop.first or forloop.counter0|divisibleby:"3" %}
 			<div class="row">
             {% endif %}
                 <div class="col-lg-4 col-sm-4 festlist" data-wow-delay=".3s">
