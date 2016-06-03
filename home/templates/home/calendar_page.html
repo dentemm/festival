@@ -40,7 +40,7 @@
 		                {% else %}
 		                	{% if festival.check_month_span %}
 			                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
-			                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'b' }} - {{ festival.end_date|date:'F' }}</div>
+			                	<div class="temm {% if selected.pk != festival.pk %}fa_passive{% else %}fa_active{% endif %}">{{ festival.date|date:'b' }} - {{ festival.end_date|date:'b' }}</div>
 			                	<span>{{ festival.date|date:'d' }} - {{ festival.end_date|date:'d' }}</span>
 		                	{% else %}
 			                	<em>{{ festival.date|date:'D' }} - {{ festival.end_date|date:'D' }}</em>
