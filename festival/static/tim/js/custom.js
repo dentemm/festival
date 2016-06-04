@@ -9,8 +9,8 @@ $(document).ready(function () {
         $(this).children('div.item').css('opacity', '1.0');
 
         event.preventDefault();
-        console.log('jeej');
-        console.log($(this).attr('href'));
+        //console.log('jeej');
+        //console.log($(this).attr('href'));
 
         path = window.location.pathname;
         selected = $(this).attr('href');
@@ -21,7 +21,6 @@ $(document).ready(function () {
             type: 'GET',
             data: {selected: selected},
 
-
         });
         request.done(function(response, textStatus, jqXHR){
 
@@ -31,9 +30,13 @@ $(document).ready(function () {
             $("a[href=" + selected + "]").find('div.temm').removeClass('fa_active');
             $("a[href=" + selected + "]").children('div.item').css('opacity', '0.3');
 
-
             $('section#calendar_item').html(response);
-
+            $('#festrating').barrating({
+                theme: 'fontawesome-stars-o',
+                initialRating: $('#festrating').data('initial'),
+                showSelectedRating: false,
+                readonly: true,
+            }); 
         });
         request.fail(function(jqXHR, textStatus, errorThrown){
 
