@@ -4,19 +4,7 @@
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
-    	{% compress css %}
-	    <!-- OWL CAROUSEL -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.carousel.css' %}">
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.theme.css' %}">
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/owl-carousel/owl.transitions.css' %}">
-	    <!-- LIGHTBOX -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/lightbox/dist/css/lightbox.css' %}">
-	    <!-- ICONS -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/icons/et-line-font/style.css' %}">
-	   	<!-- ANIMATE.CSS -->
-	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/animate.css/animate.css' %}">
-
-	    
+    	{% compress css %}	    
 	    <!-- CUSTOM CSS -->
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
@@ -25,13 +13,14 @@
 	    <!-- RATING FUNCTIONALITY -->
 	    <link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
 		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o-lg.css' %}">
+		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o.css' %}">
 	    {% endcompress %}
 {% endblock %}
 
 {% block content %}
  	<!-- CAROUSEL -->	
 	<section class="main-header">
-	    <div id="owl-hero" class="owl-carousel----- owl-theme">
+	    <div id="owl-hero" class="owl-carousel----- owl-teme">
 	    	<div class="item" style="background-image: url({{ page.main_image.file.url }})">
 	            <div class="caption">
 	                <h6>{{ item.name }} / {{ item.location|title }} / {{ item.date_representation }}</h6>
@@ -378,23 +367,10 @@
     {# Override this in templates to add extra javascript #}
     	{% compress js %}
 	    <!-- OWL CAROUSEL -->
-	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-	    <!--JQUERY EASING -->
-	    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
-	    <!-- COUNTTO -->
-	    <script type="text/javascript" src="{% static 'plugins/countto/jquery.countto.js' %}"></script>
-	    <!-- INVIEW -->
-	    <script type="text/javascript" src="{% static 'plugins/inview/jquery.inview.min.js' %}"></script>
-	    <!-- LIGHTBOX -->
-	    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
-	    <!-- WOW -->
-	    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
-	    <!-- GOOGLE MAPS -->
-	    
+	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>	    
 
 	    <!-- CUSTOM SCRIPTS-->
 	   	<script type="text/javascript" src="{% static 'kevin/js/custom.js' %}"></script>
-	    <script type="text/javascript" src="{% static 'kevin/js/owlcalendar.js' %}"></script>
 	    <script type="text/javascript" src="{% static 'tim/js/commentsandratings.js' %}"></script>
 
 
