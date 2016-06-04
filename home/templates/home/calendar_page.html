@@ -13,6 +13,9 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+        <!-- RATING FUNCTIONALITY -->
+        <link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
+        <link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o-lg.css' %}">
 	    {% endcompress %}
 {% endblock %}
 
@@ -176,17 +179,19 @@
 	    <!-- BOOTSTRAP MARKETING THEME ZOOM -->
 	    <script type="text/javascript" src="{% static 'plugins/zoom/zoom.js' %}"></script>
 
-	    <!-- jQuery Bar Rating -->
-	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
-	    <script type="text/javascript">
-		   	$(function() {
-		      	$('#example').barrating({
-		      		'theme': 'bars-square',
-		      		'showSelectedRating': true,
-		      		'showValues': false
-		      	});
-		   	});
-		</script>
+        <!-- jQuery Bar Rating -->
+        <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
+        <script type="text/javascript">
+           $(function() {
+
+                $('#festrating').barrating({
+                theme: 'fontawesome-stars-o',
+                initialRating: $('#festrating').data('initial'),
+                showSelectedRating: false,
+                readonly: true,
+                });
+           });
+        </script>
 	    {% endcompress %}
 
 </script>

@@ -7,13 +7,13 @@
             <a href="{% pageurl festival %}" style="text-decoration:none;">
                 <h1>{{ festival.name }}</h1>
             </a>
-            <div class="col-md-12">
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star fa-2x"></i>
-                <i class="fa fa-star-o fa-2x"></i>
-            </div>
+            <select id="festrating" data-initial="{% overall_rating festival %}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select> 
         </div>
     </div>
     <div class="row">

@@ -3,11 +3,12 @@
   white-space: nowrap;
 }
 .br-theme-fontawesome-stars-o .br-widget a {
-  font: normal normal normal 1.3em FontAwesome;
+  font: normal normal normal 2.0em FontAwesome;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
   margin-right: 2px;
+  text-shadow: 3px 3px 3px #666;
 }
 
 .br-theme-fontawesome-stars-o .br-widget .larger a {
@@ -16,23 +17,25 @@
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
   margin-right: 2px;
+  text-shadow: 3px 3px 3px #666;
+
 }
 
 .br-theme-fontawesome-stars-o .br-widget a:after {
   content: '\f006';
-  color: orange;
+  color: #ffc541;
 }
 .br-theme-fontawesome-stars-o .br-widget a.br-active:after {
   content: '\f005';
-  color: orange;
+  color: #ffc541;
 }
 .br-theme-fontawesome-stars-o .br-widget a.br-selected:after {
   content: '\f005';
-  color: orange;
+  color: #ffc541;
 }
 .br-theme-fontawesome-stars-o .br-widget a.br-fractional:after {
   content: '\f123';
-  color: orange;
+  color: #ffc541;
 }
 .br-theme-fontawesome-stars-o .br-widget .br-current-rating {
   display: none;

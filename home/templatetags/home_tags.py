@@ -16,7 +16,6 @@ def get_festival(object_id, content_type):
 	return ''
 
 
-
 @register.simple_tag
 def get_attribute(obj):
 	'''

@@ -42,6 +42,13 @@
 	            <div class="caption">
 	                <h6>{{ item.name }} / {{ item.location|title }} / {{ item.date_representation }}</h6>
 	                <h1><span>{{ item.name }}</span></h1>
+                    <!--<div class="col-md-12">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>-->
 	                <a class="btn btn-transparent" href="{% pageurl item %}">Meer info</a><a class="btn btn-light" href="{% pageurl item %}">Koop tickets</a>
 	            </div>
 	        </div>
@@ -174,11 +181,9 @@
         <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
         <script type="text/javascript">
            $(function() {
-
             var numFestivals = $('#fest-list-items').data('count');
-
             for(index=0; index < numFestivals; index++) {
-                
+
                 $('#festrating-' + index).barrating({
                 theme: 'fontawesome-stars-o',
                 initialRating: $('#festrating-' + index).data('initial'),
@@ -189,7 +194,6 @@
 
            });
         </script>
-
     {% endcompress %}
      <!-- GOOGLE MAPS -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&language=nl&region=BE"></script>
