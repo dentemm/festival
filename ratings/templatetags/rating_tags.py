@@ -284,10 +284,12 @@ def overall_rating(obj):
 		score = Score.objects.get(
 			object_id=obj.pk,
 			content_type=ct,
-		).score or 0
+		).score or -1
 
-	except Vote.DoesNotExist:
-		score = 0
+	except Score.DoesNotExist:
+		score = -1
+
+	score = int(score)
 
 	return score
 

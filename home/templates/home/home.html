@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static compress wagtailimages_tags wagtailcore_tags %}
+{% load static compress wagtailimages_tags wagtailcore_tags rating_tags %}
 
 {% block extra_css %}
 	{% compress css %}
@@ -20,6 +20,12 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+
+        <!-- RATING FUNCTIONALITY -->
+        <link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
+        <link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o.css' %}">
+
+
 	{% endcompress %}
 {% endblock %}
 
@@ -68,13 +74,13 @@
                                 <div class="project-name">
                                     {{ fest.location|title }}
                                 </div>
-                                <div class="col-md-12">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
+                                <select id="festrating" data-initial="{% overall_rating fest %}">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select> 
                                 <div class="project-rating hidden-xs">
                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Schrijf een beoordeling | <i class="fa fa-info-circle" aria-hidden="true"></i> Meer informatie
                                 </div>
@@ -148,26 +154,38 @@
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
+
+    {% compress js %}
     
-    <!-- OWL CAROUSEL -->
-    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
-    <!--JQUERY EASING -->
-    <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
-    <!-- COUNTTO -->
-    <!--<script type="text/javascript" src="{- static 'plugins/countto/jquery.countto.js' -}"></script>-->
-    <!-- INVIEW -->
-    <!--<script type="text/javascript" src="{- static 'plugins/inview/jquery.inview.min.js' -}"></script>-->
-    <!-- LIGHTBOX -->
-    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
-    <!-- WOW -->
-    <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
-    <!-- GOOGLE MAPS -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&language=nl&region=BE"></script>
+        <!-- OWL CAROUSEL -->
+        <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>
+        <!--JQUERY EASING -->
+        <script type="text/javascript" src="{% static 'js/jquery.easing.min.js' %}"></script>
+        <!-- COUNTTO -->
+        <script type="text/javascript" src="{% static 'plugins/lightbox/dist/js/lightbox.min.js' %}"></script>
+        <!-- WOW -->
+        <script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script>
+        <!-- GOOGLE MAPS -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&language=nl&region=BE"></script>
 
-    <!-- CUSTOM CSS -->
-    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+        <!-- CUSTOM CSS -->
+        <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/test.js' %}"></script>
 
-    <script type="text/javascript" src="{% static 'js/test.js' %}"></script>
+        <!-- jQuery Bar Rating -->
+        <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
+        <script type="text/javascript">
+           $(function() {
+              $('#festrating').barrating({
+                theme: 'fontawesome-stars-o',
+                initialRating: $('#festrating').data('initial'),
+                showSelectedRating: false,
+                readonly: true,
+              });
+           });
+        </script>
+
+    {% endcompress %}
 
 
     <script type="text/javascript">

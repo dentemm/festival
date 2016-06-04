@@ -16,5 +16,5 @@ class Command(BaseCommand):
 
 			#page = festival.save_revision().publish()
 
-		self.stdout.write(self.style.SUCCESS('Het is gefixt!'))
+		self.stdout.write(self.style.SUCCESS('Alles gepubliceerd'))
 
