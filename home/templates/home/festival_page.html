@@ -13,7 +13,6 @@
 	    <!-- RATING FUNCTIONALITY -->
 	    <link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
 		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o-lg.css' %}">
-		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o.css' %}">
 	    {% endcompress %}
 {% endblock %}
 
@@ -25,7 +24,7 @@
 	            <div class="caption">
 	                <h6>{{ item.name }} / {{ item.location|title }} / {{ item.date_representation }}</h6>
 	                <h1><span>{{ item.name }}</span></h1>
- 
+
 	            </div>
 	        </div>
 	    </div>
@@ -270,6 +269,23 @@
                                     </div>
                                 </div>
                             </div>
+                            {% for attr in page.rateable_attributes.all %}
+                            <div class="col-md-6 fa_m-b">
+                                <div class="col-md-2">
+                                    <p>{{ attr.rateable_attribute.name }}</p>
+                                </div>
+                                <div class="col-md-10" id="fest-attrs" data-count="{{ page.rateable_attributes.all|length }}">            
+                                	<select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating attr %}">
+						                <option value="1">1</option>
+						                <option value="2">2</option>
+						                <option value="3">3</option>
+						                <option value="4">4</option>
+						                <option value="5">5</option>
+						            </select> 
+                                </div>                            
+							 
+							</div>
+							{% endfor %}
                         </div>
                     </div>
                 </div>
@@ -330,6 +346,15 @@
 	<hr>
 	<br>
 
+	sss {{ page.rating_scores }} sss 
+	<br>
+
+	{% for attr in page.rateable_attributes.all %}
+		{{ attr.rateable_attribute.name }}  -- {% votes_count attr %} <br>
+		>>>>>> {% overall_rating attr %} <<<<<<br>
+
+	{% endfor %}
+
 	<h2>RATING FUNCTIONALITEIT TEST -- OK!</h2>
 
 	<div class="row">
@@ -367,24 +392,45 @@
     {# Override this in templates to add extra javascript #}
     	{% compress js %}
 	    <!-- OWL CAROUSEL -->
-	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>	    
+	    <script type="text/javascript" src="{% static 'owl-carousel/owl.carousel.js' %}"></script>	   
+	   	<script type="text/javascript" src="{% static 'plugins/WOW/dist/wow.min.js' %}"></script> 
 
 	    <!-- CUSTOM SCRIPTS-->
 	   	<script type="text/javascript" src="{% static 'kevin/js/custom.js' %}"></script>
 	    <script type="text/javascript" src="{% static 'tim/js/commentsandratings.js' %}"></script>
-
 
 	    <!-- jQuery Bar Rating -->
 	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
 	    <script type="text/javascript">
            $(function() {
                 $('#festrating').barrating({
-                theme: 'fontawesome-stars-o',
-                initialRating: $('#festrating').data('initial'),
-                showSelectedRating: false,
-                readonly: true,
-                });
+	                theme: 'fontawesome-stars-o',
+	                initialRating: $('#festrating').data('initial'),
+	                showSelectedRating: false,
+	                readonly: true,
+	            });
            });
 		</script>
+        <script type="text/javascript">
+           	$(function() {
+
+            	var numAttrs = $('#fest-attrs').data('count');
+
+            	console.log(numAttrs);
+
+	            for(index=0; index < numAttrs; index++) {
+
+	            	console.log(index);
+
+	                $('#festrating-' + index).barrating({
+	                theme: 'fontawesome-stars-o',
+	                initialRating: $('#festrating-' + index).data('initial'),
+	                showSelectedRating: false,
+	                readonly: true,
+	                });
+	            }
+           });
+        </script>
+
 	    {% endcompress %}
 {% endblock extra_js %}

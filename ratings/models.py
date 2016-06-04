@@ -185,4 +185,8 @@ class RatedModelMixin(models.Model):
 
 	def get_ratings(self):
 
+		print('hmm? %s' % Score.objects.get_for(self))
+
 		return Score.objects.get_for(self)
+
+
