@@ -14,7 +14,8 @@ class Command(BaseCommand):
 
 				new, created = FestivalPageRatebleAttributeValue.objects.get_or_create(page=page, rateable_attribute=attribute)
 
-			page.save()
+			if created:
+				page.save()
 
 		self.stdout.write(self.style.SUCCESS('Het is gefixt!'))
 

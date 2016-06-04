@@ -363,7 +363,7 @@ def overall_rating(obj):
 	except Score.DoesNotExist:
 		score = -1
 
-	score = int(score)
+	score = int(round(score))
 
 	return score
 
