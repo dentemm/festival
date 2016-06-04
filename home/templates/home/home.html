@@ -53,7 +53,7 @@
         <div class="meer2">
             <b>FestivalAdvisor</b>: Lees beoordelingen, vergelijk festivals en koop tickets!
         </div>
-		<div class="container-fluid" id="fest-list-items">
+		<div class="container-fluid" id="fest-list-items" data-count="{{ festivals|length }}">
         {% for fest in festivals %}
             {% if forloop.first or forloop.counter0|divisibleby:"3" %}
 			<div class="row">
@@ -74,7 +74,7 @@
                                 <div class="project-name">
                                     {{ fest.location|title }}
                                 </div>
-                                <select id="festrating" data-initial="{% overall_rating fest %}">
+                                <select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating fest %}">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -174,12 +174,19 @@
         <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
         <script type="text/javascript">
            $(function() {
-              $('#festrating').barrating({
+
+            var numFestivals = $('#fest-list-items').data('count');
+
+            for(index=0; index < numFestivals; index++) {
+                
+                $('#festrating-' + index).barrating({
                 theme: 'fontawesome-stars-o',
-                initialRating: $('#festrating').data('initial'),
+                initialRating: $('#festrating-' + index).data('initial'),
                 showSelectedRating: false,
                 readonly: true,
-              });
+                });
+            }
+
            });
         </script>
 
