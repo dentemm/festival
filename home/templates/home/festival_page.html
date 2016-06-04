@@ -29,8 +29,20 @@
 {% endblock %}
 
 {% block content %}
-
-<section id="calendar_item" style="margin-top:94px;">
+ 	<!-- CAROUSEL -->	
+	<section class="main-header">
+	    <div id="owl-hero" class="owl-carousel----- owl-theme">
+	    	<div class="item" style="background-image: url({{ page.main_image.file.url }})">
+	            <div class="caption">
+	                <h6>{{ item.name }} / {{ item.location|title }} / {{ item.date_representation }}</h6>
+	                <h1><span>{{ item.name }}</span></h1>
+ 
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	
+<section id="calendar_item">
     <div class="container">
         <div class="col-md-12 fa_heading text-center">
             <h1>{{ page.name }}</h1>
@@ -47,7 +59,7 @@
 	            </select> 
 	        </div>
             <div class="col-md-4">
-                <h5><a href="{{ festival.website }}" target="_blank">Website</a> van dit festival</h5>
+                <h5><a href="{{ page.website }}" target="_blank">Website</a> van dit festival</h5>
             </div>
         </div>
 
