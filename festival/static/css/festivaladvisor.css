@@ -83,18 +83,15 @@ footer h1 span {
 }
 
 .meer2 {
-  background: #5cb85c; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, #5cb85c , orange); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, #5cb85c, orange); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, #5cb85c, orange); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, #5cb85c , orange); /* Standard syntax */
+  background: rgba(0, 0, 0, 0) linear-gradient(to right, #5cb85c, orange) repeat scroll 0 0;
   border-top: 1px solid #333;
   color: #fff;
-  font-family: Verdana;
-  font-size: 24px;
+  font-size: 22px;
   font-style: oblique;
+  font-weight: 700;
   padding: 20px;
   text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
 }
 
 /* Aanpassen van "map" onderdeel */
@@ -145,7 +142,7 @@ figure.effect-winston a {
   text-shadow: 2px 2px 2px #333;
 }
 
-#owlcalendar {
+#owlcalendar #owlbeoordeling {
   margin-top: 85px;
 }
 
@@ -230,6 +227,20 @@ time.icon span {
   bottom: 0px;
 }
 
+.fa_sterren {
+  color: #ffc541;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
+  bottom: 30px;
+  text-shadow: 1px 1px 1px #333;
+}
+
 .fa_mei {
   background-color: #fd9f1b;
   z-index: 100;
@@ -295,34 +306,15 @@ time.icon span {
 }
 
 #calendar_item .tab-content {
-  background-color: #ffc541;
-  border-left: 2px solid #333;
-  border-right: 2px solid #333;
-  border-bottom: 2px solid #333;
-  border-top: 2px solid #333;
+  background-color: none;
+  border: none;
 }
 
-#calendar_item .nav-tabs > li.active > a, #calendar_item .nav-tabs > li.active > a:focus, #calendar_item .nav-tabs > li.active > a:hover {
-  background-color: #ffc541; 
-  border-top: 2px solid #333;
-  border-left: 2px solid #333;
-  border-right: 2px solid #333;
-  margin-top: 25px;
-  border-bottom: 2px solid #FFF;
-}
-
-#calendar_item .nav-tabs > li> a, #calendar_item .nav-tabs > li > a:focus, #calendar_item .nav-tabs > li > a:hover {
-  background-color: #FFF; 
-  border-top: 2px solid #333;
-  border-left: 2px solid #333;
-  border-right: 2px solid #333;
-  margin-top: 25px;
-  border-bottom: 2px solid #FFF;
-}
 
 .nav-tabs > li {
   float: left;
   padding: 0;
+  border-left: 1px solid #CCC;
 }
 
 .nav-tabs > li > a {
@@ -330,8 +322,26 @@ time.icon span {
   border-radius: 0;
   line-height: 1.42857;
   margin-right: 0;
+  font-weight: bold;
+  color: #333;
 }
 
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border: none;
+  cursor: default;
+  background-color: #5cb85c;
+  color: #FFF;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+  background-color: #FEFEFE;
+  text-decoration: none;
+  color: #333;
+}
 
 #calendar_item .fa_tickets {
   min-height: 100px;
@@ -348,7 +358,7 @@ time.icon span {
 }
 
 #calendar_item .fa_tickets .fa {
-   color: #666;
+   color: #5cb85c;
 }
 
 /*Tag cloud css */
@@ -371,13 +381,8 @@ time.icon span {
 #calendar_item .fa_overlay .fa-location-arrow {
   color: #333;
 }
-
 /* Aanpassen van achtergrondskleur */
-
-body {
-  /*background-color: #EFEFEF;*/
-  font-family: Tahoma;
-}
+body {  font-family: Tahoma;}
 
 #calendar_item {
   background-color: #EFEFEF;
@@ -438,10 +443,172 @@ body {
   min-height: 250px;
 }
 
-footer {
-  margin-top: 100px;
-}
+
 
 h3, h4, h5 {
   color: #555;
+}
+
+#calender_item .fa-2x {
+  font-size: 1.4em;
+}
+
+#owlbeoordeling .fa_user {
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px;
+  position: absolute;
+  left: 0;
+  text-align: left;
+  text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
+  bottom: 0px;
+  text-shadow: 1px 1px 1px #333;
+}
+
+#owlbeoordeling .fa_comment {
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 2px #333;
+  top: 40%;
+}
+
+.fa_user .img-circle {
+  border: 4px solid #ffc541;
+  border-radius: 50%;
+  box-shadow: 2px 2px 2px #333;
+}
+
+.fa_user2 .img-circle {
+  border: 4px solid #5cb85c;
+  border-radius: 50%;
+  box-shadow: 2px 2px 2px #333;
+}
+.fa_m-t {
+  margin-top: 15px;
+}
+
+.fa_m-b {
+  margin-bottom: 10px;
+}
+
+#beoordeling, #commentaar, #informatie {
+  margin-top: 20px;
+}
+
+#calendar_item #beoordeling .tab-content {
+  background-color: #FFF;
+}
+
+.nav-tabs {
+  border-bottom: none;
+  margin-left: -15px;
+}
+
+.fa_box {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #CCC;
+}
+
+.fa_box2 {
+  padding: 20px;
+  border: 1px solid #CCC;
+  border-top: none;
+}
+
+.fa_box3 {
+  padding: 20px;
+  border: 3px solid #ffc541;
+  margin-top: 20px;
+}
+
+.fa_box3 h4 {
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+.fa_box4 h4 {
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  padding-top: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.fa_tabs {
+  border: 1px solid #CCC;
+}
+
+.fa_sterren2 {
+  color: #ffc541;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px;
+  margin-left: 0px;
+  text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
+}
+
+.progress-bar {
+  background-color: #5cb85c;
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+  color: #fff;
+  float: left;
+  font-size: 12px;
+  height: 100%;
+  line-height: 20px;
+  text-align: center;
+  transition: width 0.6s ease 0s;
+  width: 0;
+}
+
+.fa_box4 p {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  margin-left: -20px;
+}
+
+.fa_score {
+  font-size: 14px;
+  text-align: right;
+  margin-right: 2px;
+}
+
+#calendar_item .fa_sterren3 .fa-star, #calendar_item .fa_sterren3 .fa-star-o {
+  color: #5cb85c;
+  text-shadow: 1px 1px 1px #666;
+}
+
+#calendar_item .fa_sterren4 .fa-star, #calendar_item .fa_sterren4 .fa-star-o {
+  color: #5cb85c;
+  font-size: 24px;
+  text-shadow: 1px 1px 1px #666;
+}
+
+.fa_sterren3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 10px 10px 10px 0;
+  text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
+}
+
+.fa_sterren4 {
+  font-weight: 700;
+  margin: 0px;
+  text-shadow: 1px 1px 1px #333;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.fa_nopadding {
+  padding-left: 0px;
+  padding-right: 0px;
 }

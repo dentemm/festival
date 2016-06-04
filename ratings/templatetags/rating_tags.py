@@ -7,6 +7,8 @@ from django.forms import formset_factory
 from ..models import Score, Vote
 from ..forms import VoteForm, BaseVoteFormSet
 
+from home.models import FestivalPage
+
 register = template.Library()
 
 class BaseRatingNode(template.Node):
@@ -198,11 +200,7 @@ class RatingFormNode(BaseRatingNode):
 
 	def get_object(self, context):
 
-		print('template tag: %s ' % self)
-
 		if self.object_expr:
-
-			print(self.object_expr)
 
 			try:
 				return self.object_expr.resolve(context)
@@ -220,6 +218,71 @@ class RatingFormNode(BaseRatingNode):
 		context[self.as_varname] = self.get_form(context)
 		return ''
 
+class RatingOverviewNode(template.Node):
+	'''
+	Deze Node klasse wordt door de render_ratings template tag gebruikt om de details ratings
+	voor een festival te renderen. Hierbij worden alle kenmerken geretourneerd
+	'''
+
+	def __init__(self, ctype=None, object_pk_expr=None, object_expr=None):
+		if ctype is None and object_expr is None:
+			raise template.TemplateSyntaxError(
+				"Comment nodes must be given either a literal object or a ctype and object pk."
+				)
+
+		self.ctype = ctype
+		self.object_pk_expr = object_pk_expr
+		self.object_expr = object_expr
+
+	@classmethod
+	def handle_token(cls, parser, token):
+
+		tokens = token.split_contents()
+
+		if tokens[1] != 'for':
+			raise template.TemplateSyntaxError('Tweede argument in %r tag moet "for" zijn' % tokens[0])
+
+		if len(tokens) == 3:
+			return cls(object_expr=parser.compile_filter(tokens[2]))
+
+		else:
+			raise template.TemplateSyntaxError('voorlopig aanvaard tim enkel deze setup, kan nog aangepast worden')
+
+	def get_target_ctype_pk(self, context):
+		if self.object_expr:
+			try:
+				obj = self.object_expr.resolve(context)
+			except template.VariableDoesNotExist:
+				return None, None
+			return ContentType.objects.get_for_model(obj), obj.pk
+		else:
+			return self.ctype, self.object_pk_expr.resolve(context, ignore_failures=True)
+
+	def get_object(self, context):
+		if self.object_expr:
+			try:
+				return self.object_expr.resolve(context)
+			except template.VariableDoesNotExist:
+				return None
+
+	def render(self, context):
+		ctype, object_pk = self.get_target_ctype_pk(context)
+
+		if object_pk: 
+			template = 'ratings/rating_overview.html'
+
+		festival = self.get_object(context)
+
+		attributes = festival.rateable_attributes
+
+		print(attributes)
+
+		context_dict = context.flatten()
+
+
+		print('render is being called!')
+
+		return ''
 
 @register.tag
 def get_rating_count(parser, token):
@@ -248,6 +311,17 @@ def get_vote_formset(parser, token):
     """
     return RatingFormsetNode.handle_token(parser, token)
 
+
+@register.tag
+def render_ratings(parser, token):
+	'''
+	Deze template tag retourneert het de template die aangeeft wat de user ratings voor het
+	gegeven festival zijn. Enkel festivals worden aanvaard als parameter
+
+	Gebruik {% votes_count <obj> %}
+	'''
+
+	return RatingOverviewNode.handle_token(parser, token)
 
 @register.simple_tag
 def get_rating_form(parser, token):

@@ -26,7 +26,7 @@
             </a>
             <a href="{{ festival.website }}"><i class="fa fa-internet-explorer" aria-hidden="true"></i> Website</a> 
             {% for item in festival.related_links.all %}
-            | <a href="{{ item.link }}" target="_blank"><i class="fa fa-{% if item.title|lower == 'facebook' %}facebook-official{% elif item.title|lower == 'youtube' %}youtube-square{% elif item.title|lower == 'twitter' %}twitter{% elif item.title|lower == 'instagram' %}instagram{% elif item.title|lower == 'spotify' %}spotify{% elif item.title|lower == 'flickr' %}flickr{% else %}external-link{% endif %}"></i> {{ item.title|title }}</a>
+            | <a href="{{ item.link }}" target="_blank"><i class="fa fa-{% if item.title|lower == 'facebook' %}facebook-official{% elif item.title|lower == 'youtube' %}youtube-square{% elif item.title|lower == 'twitter' %}twitter{% elif item.title|lower == 'instagram' %}instagram{% elif item.title|lower == 'spotify' %}spotify{% elif item.title|lower == 'flickr' %}flickr{% elif item.title|lower == 'vimeo' %}vimeo{% else %}external-link{% endif %}"></i> {{ item.title|title }}</a>
             {% endfor %}
         </div>
     </div>
