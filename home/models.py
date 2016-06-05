@@ -467,6 +467,7 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 			related_festivals = related_festivals.filter(tags__name=tag)
 
 			context['related_festivals'] = related_festivals
+			context['tag'] = tag
 
 		return TemplateResponse(request, template=template, context=context)
 
