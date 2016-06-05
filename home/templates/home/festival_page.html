@@ -175,9 +175,9 @@
 	                </div>
 	                <div class="col-md-12 fa_box3">
 	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
-	                    <p style="padding:5px 15px;">
+	                    <p style="padding:0px 15px;">
 	                    {% for tag in page.tags.all %}
-    						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}">
+    						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}" style="margin:5px;">
     							<i class="fa fa-tags"></i> {{ tag }}
     						</a>
 						{% endfor %}
