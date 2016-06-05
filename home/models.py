@@ -401,6 +401,14 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 
 		return festivals
 
+	@property
+	def related_festivals(self):
+
+		related_festivals = FestivalPage.upcoming.all()
+
+		return related_festivals
+	
+
 	def get_context(self, request):
 
 		# Featured festivals in homepage
@@ -445,9 +453,25 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 
 		return TemplateResponse(request, template=template, context=self.get_context(request))	
 
+	@route(r'^related/$')
+	def related_festivals(self, request):
+
+		template = 'home/related_festivals.html'
+		tag = request.GET.get('tag')
+
+		context = {}
+
+		if tag:
+
+			related_festivals = FestivalPage.upcoming.all()
+			related_festivals = related_festivals.filter(tags__name=tag)
+
+			context['related_festivals'] = related_festivals
+
+		return TemplateResponse(request, template=template, context=context)
+
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
 FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage']
-
 
 #
 #
@@ -624,24 +648,6 @@ class FestivalPage(RatedModelMixin, models.Page):
 
 
 		return super(FestivalPage, self).save(*args, **kwargs)
-
-	'''def serve(self, request):
-		# Get blogs
-		blogs = self.blogs
-
-		# Filter by tag
-		tag = request.GET.get('tag')
-
-		print('tag: %s' % tag)
-
-		if tag:
-			blogs = blogs.filter(tags__name=tag)
-
-		return render(request, self.template, {
-			'page': self,
-			'blogs': blogs,
-		})'''
-
 
 	def update_rating(self, score):
 

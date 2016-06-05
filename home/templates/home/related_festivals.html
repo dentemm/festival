@@ -1,0 +1,5 @@
+{% for festival in related_festivals %}
+	<div class="col-md-2">
+		<img class="img-responsive" src="{{ festival.main_image.file.url }}">
+	</div>
+{% endfor %}

@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    /***************** CALENDAR PAGE SELECTION ******************/
 
+    /***************** CALENDAR PAGE SELECTION ******************/
     $('a.festivalitem').click(function(event){
 
         // 1. disable active classes:
@@ -42,4 +42,35 @@ $(document).ready(function () {
 
         });
     });
+
+   /***************** RELATED FESTIVALS FUNCTIONALITY ******************/
+    $('a.searchtag').click(function(event){
+
+        // 1. disable active classes:
+        event.preventDefault();
+
+        $('a.searchtag').removeClass('active');
+        $(this).addClass('active');
+
+        //console.log($(this).attr('href'));
+
+        path = $(this).attr('href')
+
+        request = $.ajax({
+
+            url: path,
+            type: 'GET',
+
+        });
+        request.done(function(response, textStatus, jqXHR){
+
+            //console.log(response)
+
+            $('#related-festivals').html(response)
+        });
+        request.fail(function(jqXHR, textStatus, errorThrown){
+
+        });
+    });
+
 }); 

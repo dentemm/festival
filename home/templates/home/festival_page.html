@@ -177,10 +177,12 @@
 	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
 	                    <p style="padding:0px 15px;">
 	                    {% for tag in page.tags.all %}
-    						<a class="btn btn-success searchtag" href="">
+    						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}">
     							<i class="fa fa-tags"></i> {{ tag }}
     						</a>
 						{% endfor %}
+						<div class="row" id="related-festivals" style="padding: 15px 30px;">
+						</div>
 						</p>
 	                </div>
             	</div>
@@ -272,6 +274,7 @@
 	    <!-- CUSTOM SCRIPTS-->
 	   	<script type="text/javascript" src="{% static 'kevin/js/custom.js' %}"></script>
 	    <script type="text/javascript" src="{% static 'tim/js/commentsandratings.js' %}"></script>
+	    <script type="text/javascript" src="{% static 'tim/js/custom.js' %}"></script>
 
 	    <!-- jQuery Bar Rating -->
 	    <script type="text/javascript" src="{% static 'ratings/js/ratings.js' %}"></script>
