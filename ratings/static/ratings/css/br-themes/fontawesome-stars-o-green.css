@@ -1,0 +1,67 @@
+.br-theme-fontawesome-stars-o-green .br-widget {
+  height: 28px;
+  white-space: nowrap;
+}
+.br-theme-fontawesome-stars-o-green .br-widget a {
+  font: normal normal normal 1.5em FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+  text-shadow: 1px 1px 1px #666;
+}
+
+.br-theme-fontawesome-stars-o-green .br-widget .larger a {
+  font: normal normal normal 1.5  em FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  text-decoration: none;
+  margin-right: 2px;
+  text-shadow: 1px 1px 1px #666;
+}
+
+.br-theme-fontawesome-stars-o-green .br-widget a:after {
+  content: '\f006';
+  color: #5cb85c;
+}
+.br-theme-fontawesome-stars-o-green .br-widget a.br-active:after {
+  content: '\f005';
+  color: #5cb85c;
+}
+.br-theme-fontawesome-stars-o-green .br-widget a.br-selected:after {
+  content: '\f005';
+  color: #5cb85c;
+}
+.br-theme-fontawesome-stars-o-green .br-widget a.br-fractional:after {
+  content: '\f123';
+  color: #5cb85c;
+}
+.br-theme-fontawesome-stars-o-green .br-widget .br-current-rating {
+  display: none;
+}
+.br-theme-fontawesome-stars-o-green .br-readonly a {
+  cursor: default;
+}
+.br-theme-fontawesome-stars-o-green .br-reverse a.br-fractional {
+  display: inline-block;
+  transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+@media print {
+  .br-theme-fontawesome-stars-o-green .br-widget a:after {
+    content: '\f006';
+    color: black;
+  }
+  .br-theme-fontawesome-stars-o-green .br-widget a.br-active:after,
+  .br-theme-fontawesome-stars-o-green .br-widget a.br-selected:after {
+    content: '\f005';
+    color: black;
+  }
+  .br-theme-fontawesome-stars-o-green .br-widget a.br-fractional:after {
+    content: '\f123';
+    color: black;
+  }
+}

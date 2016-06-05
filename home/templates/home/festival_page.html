@@ -11,8 +11,8 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
 
 	    <!-- RATING FUNCTIONALITY -->
-	    <link rel="stylesheet" href="{% static 'ratings/css/ratings.css' %}">
 		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o-lg.css' %}">
+		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o-green.css' %}">
 	    {% endcompress %}
 {% endblock %}
 
@@ -157,124 +157,13 @@
                         </div>
                         <div class="col-md-8 fa_nopadding">
                             <h4>Overzicht waarderingen</h4>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Aankleding</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Bereikbaarheid</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Prijs/kwaliteit</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Eten&drinken</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Line-up</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Netheid</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Locatie</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
-                                    <p>Camping</p>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="fa_sterren4">
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                        <i class="fa fa-star-o"></i>
-                                    </div>
-                                </div>
-                            </div>
+          
                             {% for attr in page.rateable_attributes.all %}
                             <div class="col-md-6 fa_m-b">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <p>{{ attr.rateable_attribute.name }}</p>
                                 </div>
-                                <div class="col-md-10" id="fest-attrs" data-count="{{ page.rateable_attributes.all|length }}">            
+                                <div class="col-md-8" id="fest-attrs" data-count="{{ page.rateable_attributes.all|length }}">            
                                 	<select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating attr %}">
 						                <option value="1">1</option>
 						                <option value="2">2</option>
@@ -423,7 +312,7 @@
 	            	console.log(index);
 
 	                $('#festrating-' + index).barrating({
-	                theme: 'fontawesome-stars-o',
+	                theme: 'fontawesome-stars-o-green',
 	                initialRating: $('#festrating-' + index).data('initial'),
 	                showSelectedRating: false,
 	                readonly: true,
