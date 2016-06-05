@@ -462,7 +462,7 @@ def bad_rating(obj):
 
 	except Score.DoesNotExist:
 
-		return 0
+		return '0%'
 
 	return score.bad_score
 
