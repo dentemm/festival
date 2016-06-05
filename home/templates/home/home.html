@@ -203,8 +203,13 @@
         var map;
         var global_markers = [];
 
-        var markers = [{% for festival in festivals %}{% if festival.location.latitude %}[{{ festival.location.latitude|stringformat:'f' }},{{ festival.location.longitude|stringformat:'f' }}, '{{ festival.name|title }}', '{% pageurl festival %}'],{% endif %}
+        var festMarkers = [{% for festival in festivals %}{% if festival.location.latitude %}[{{ festival.location.latitude|stringformat:'f' }},{{ festival.location.longitude|stringformat:'f' }}, '{{ festival.name|title }}', '{% pageurl festival %}'],{% endif %}
                         {% endfor %}];
+
+        var featureMarkers = [{% for festival in featured %}{% if festival.location.latitude %}[{{ festival.location.latitude|stringformat:'f' }},{{ festival.location.longitude|stringformat:'f' }}, '{{ festival.name|title }}', '{% pageurl festival %}'],{% endif %}
+                        {% endfor %}];
+
+        var markers = festMarkers + featureMarkers
 
         var infowindow = new google.maps.InfoWindow({});
 
