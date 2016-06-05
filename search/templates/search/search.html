@@ -31,7 +31,7 @@
                                     <div class="input-group input-group-lg">
                                         <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %} class="form-control" placeholder="Geef hier je zoekterm in">
                                         <span class="input-group-btn">
-                                            <input class="btn btn-info" type="submit" value="Zoeken" class="input-group-addon">
+                                            <input class="btn btn-success" type="submit" value="Zoeken" class="input-group-addon">
                                         </span>
                                     </div>
                                 </form>
@@ -45,10 +45,10 @@
                     {% endfor %}
                     </div>
                     {% if search_results.has_previous %}
-                        <a class="btn btn-info" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
+                        <a class="btn btn-success" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
                     {% endif %}
                     {% if search_results.has_next %}
-                        <a class="btn btn-info" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
+                        <a class="btn btn-success" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
                     {% endif %}
                 {% elif search_query %}
                     <div class="alert alert-danger" role="alert">

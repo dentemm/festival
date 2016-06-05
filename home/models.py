@@ -625,6 +625,24 @@ class FestivalPage(RatedModelMixin, models.Page):
 
 		return super(FestivalPage, self).save(*args, **kwargs)
 
+	'''def serve(self, request):
+		# Get blogs
+		blogs = self.blogs
+
+		# Filter by tag
+		tag = request.GET.get('tag')
+
+		print('tag: %s' % tag)
+
+		if tag:
+			blogs = blogs.filter(tags__name=tag)
+
+		return render(request, self.template, {
+			'page': self,
+			'blogs': blogs,
+		})'''
+
+
 	def update_rating(self, score):
 
 		num_attributes = len(self.rateable_attributes.all())

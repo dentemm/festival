@@ -57,152 +57,146 @@
 
         <div>
             <div class="col-md-12 fa_tabs">
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                
-                <li role="presentation" class="active"><a href="#beoordeling" aria-controls="home" role="tab" data-toggle="tab">Beoordelingen</a></li>
-                <li role="presentation"><a href="#commentaar" aria-controls="profile" role="tab" data-toggle="tab">Commentaren</a></li>
-                <li role="presentation"><a href="#informatie" aria-controls="profile" role="tab" data-toggle="tab">Meer informatie</a></li>
-                
-              </ul>
+	            <!-- Nav tabs -->
+	            <ul class="nav nav-tabs" role="tablist">    
+	                <li role="presentation" class="active"><a href="#beoordeling" role="tab" data-toggle="tab">Beoordelingen</a></li>
+	                <li role="presentation"><a href="#commentaar" role="tab" data-toggle="tab">Commentaren</a></li>
+	                <li role="presentation"><a href="#informatie" role="tab" data-toggle="tab">Meer informatie</a></li>
+              	</ul>
             </div>
-
-          <!-- Tab panes -->
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="beoordeling">
-                <div class="col-md-12 fa_box">
-                    <div class="col-md-8">
-                        <h4>Al {% votes_count page %} beoordelingen van onze FestivalAdvisors</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-success">Schrijf een beoordeling</button>
-                    </div>
-                </div>
-                <div class="col-md-12 fa_box2">
-                    <div class="col-md-1 fa_user2">
-                        <img class="img-circle" src="{% static 'img/users/edit_user.png' %}" width="75px" height="75px">
-                    </div>
-                    <div class="col-md-12">
-                    	{% if not user.is_authenticated %}
-                        <h4>Geef een algemene waardering en schrijf een beoordeling</h4>
-                        <div class="fa_sterren3">
-                            <i class="fa fa-star-o fa-2x"></i>
-                            <i class="fa fa-star-o fa-2x"></i>
-                            <i class="fa fa-star-o fa-2x"></i>
-                            <i class="fa fa-star-o fa-2x"></i>
-                            <i class="fa fa-star-o fa-2x"></i>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <hr>
-                    <div class="fa_box4">
-                        <div class="col-md-4">
-                            <h4>Algemene waardering</h4>
-                            <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <p>Uitstekend</p>
-                                </div>
-                                <div class="col-md-9">
-                                     <div class="progress">
-                                          <div class="progress-bar" role="progressbar" style="width:{% excellent_rating page %}">
-                                          </div>
-                                          <div class="fa_score">
-                                            {% excellent_rating page %}
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <p>Goed</p>
-                                </div>
-                                <div class="col-md-9">
-                                     <div class="progress">
-                                          <div class="progress-bar" role="progressbar" style="width:{% good_rating page %}">
-                                          </div>
-                                          <div class="fa_score">
-                                            {% good_rating page %}
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <p>Gemiddeld</p>
-                                </div>
-                                <div class="col-md-9">
-                                     <div class="progress">
-                                          <div class="progress-bar" role="progressbar" style="width:{% average_rating page %}">
-                                          </div>
-                                          <div class="fa_score">
-                                            {% average_rating page %}
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-3">
-                                    <p>Matig</p>
-                                </div>
-                                <div class="col-md-9">
-                                     <div class="progress">
-                                          <div class="progress-bar" role="progressbar" style="width:{% bad_rating page %}">
-                                          </div>
-                                          <div class="fa_score">
-                                            {% bad_rating page %}
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-8 fa_nopadding">
-                            <h4>Overzicht waarderingen</h4>
-          
-                            {% for attr in page.rateable_attributes.all %}
-                            <div class="col-md-6 fa_m-b">
-                                <div class="col-md-4">
-                                    <p>{{ attr.rateable_attribute.name }}</p>
-                                </div>
-                                <div class="col-md-8" id="fest-attrs" data-count="{{ page.rateable_attributes.all|length }}">            
-                                	<select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating attr %}">
-						                <option value="1">1</option>
-						                <option value="2">2</option>
-						                <option value="3">3</option>
-						                <option value="4">4</option>
-						                <option value="5">5</option>
-						            </select> 
-                                </div>                            
-							 
-							</div>
-							{% endfor %}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 fa_box3">
-                    <h4>Bekijk soortgelijke festivals</h4>
-
-                    <p> ...  <p>
-
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="commentaar">
-                trer
-            </div>
-            <div role="tabpanel" class="tab-pane" id="informatie">
-                erwe
-            </div>
-          </div>
-
+	        <!-- Tab panes -->
+	        <div class="tab-content">
+	            <div role="tabpanel" class="tab-pane active" id="beoordeling">
+	                <div class="col-md-12 fa_box">
+	                    <div class="col-md-8">
+	                        <h4>Al {% votes_count page %} beoordelingen van onze FestivalAdvisors</h4>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <button type="button" class="btn btn-success">Schrijf een beoordeling</button>
+	                    </div>
+	                </div>
+	                <div class="col-md-12 fa_box2">
+	                    <div class="col-md-1 fa_user2">
+	                        <img class="img-circle" src="{% static 'img/users/edit_user.png' %}" width="75px" height="75px">
+	                    </div>
+	                    <div class="col-md-12">
+	                    	{% if not user.is_authenticated %}
+	                        <h4>Geef een algemene waardering en schrijf een beoordeling</h4>
+	                        <div class="fa_sterren3">
+	                            <i class="fa fa-star-o fa-2x"></i>
+	                            <i class="fa fa-star-o fa-2x"></i>
+	                            <i class="fa fa-star-o fa-2x"></i>
+	                            <i class="fa fa-star-o fa-2x"></i>
+	                            <i class="fa fa-star-o fa-2x"></i>
+	                        </div>
+	                        {% endif %}
+	                    </div>
+	                    <hr>
+	                    <div class="fa_box4">
+	                        <div class="col-md-4">
+	                            <h4>Algemene waardering</h4>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Uitstekend</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% excellent_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% excellent_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Goed</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% good_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% good_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Gemiddeld</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% average_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% average_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Matig</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% bad_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% bad_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-8 fa_nopadding">
+	                            <h4>Overzicht waarderingen</h4>
+	                            {% for attr in page.rateable_attributes.all %}
+	                            <div class="col-md-6 fa_m-b">
+	                                <div class="col-md-4">
+	                                    <p>{{ attr.rateable_attribute.name }}</p>
+	                                </div>
+	                                <div class="col-md-8" id="fest-attrs" data-count="{{ page.rateable_attributes.all|length }}">            
+	                                	<select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating attr %}">
+							                <option value="1">1</option>
+							                <option value="2">2</option>
+							                <option value="3">3</option>
+							                <option value="4">4</option>
+							                <option value="5">5</option>
+							            </select> 
+	                                </div>                            
+								</div>
+								{% endfor %}
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-md-12 fa_box3">
+	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
+	                    <p style="padding:0px 15px;">
+	                    {% for tag in page.tags.all %}
+    						<a class="btn btn-success searchtag" href="">
+    							<i class="fa fa-tags"></i> {{ tag }}
+    						</a>
+						{% endfor %}
+						</p>
+	                </div>
+            	</div>
+	            <div role="tabpanel" class="tab-pane" id="commentaar">
+	                trer
+	            </div>
+	            <div role="tabpanel" class="tab-pane" id="informatie">
+	                erwe
+	            </div>
+	        </div>
         </div>
     </div>
-
 </section>
 
-<div class="container">
-
-
-	<h2>COMMENTAAR FUNCTIONALITEIT TEST -- OK!</h2>
+<!--<div class="container">
+	<h2>COMMENTAAR FUNCTIONALITEIT TEST - OK!</h2>
 
 	{% render_comment_list for page %}
 
@@ -216,7 +210,7 @@
 				<div class="col-md-6">
 				{% user_comment user page as has_commented %}
 					{% if has_commented == False %}
-						{% render_comment_form for page %}
+						{- render_comment_form for page -}
 					{% else %}
 						Je hebt reeds een beoordeling achter gelaten, bedankt!
 					{% endif %}
@@ -235,14 +229,14 @@
 	<hr>
 	<br>
 
-	<h2>RATING FUNCTIONALITEIT TEST -- OK!</h2>
+	<h2>RATING FUNCTIONALITEIT TEST - OK!</h2>
 
 	<div class="row">
 		<div class="col-md-6 col-md-offset2">
 			<h4>Wat vinden anderen van dit festival?</h4>
 			<div class="row">
 				<div class="col-md-6" id="rating-form">
-					{% render_ratings for page %}
+					{- render_ratings for page -}
 				</div>
 			</div>
 		</div>
@@ -252,7 +246,7 @@
 			{% if user.is_authenticated %}
 			<div class="row">
 				<div class="col-md-6" id="rating-form">
-					{% include 'ratings/ratingform.html' with page=page %}
+					{- include 'ratings/ratingform.html' with page=page -}
 				</div>
 			</div>
 			{% else %}
@@ -264,7 +258,7 @@
 			{% endif %}
 		</div>
 	</div>
-</div>
+</div>-->
 
 {% endblock content %}
 
@@ -296,7 +290,7 @@
 
             	var numAttrs = $('#fest-attrs').data('count');
 
-            	console.log(numAttrs);
+            	//console.log(numAttrs);
 
 	            for(index=0; index < numAttrs; index++) {
 
