@@ -209,7 +209,7 @@
         var featureMarkers = [{% for festival in featured %}{% if festival.location.latitude %}[{{ festival.location.latitude|stringformat:'f' }},{{ festival.location.longitude|stringformat:'f' }}, '{{ festival.name|title }}', '{% pageurl festival %}'],{% endif %}
                         {% endfor %}];
 
-        var markers = festMarkers + featureMarkers
+        var markers = festMarkers.concat(featureMarkers);
 
         var infowindow = new google.maps.InfoWindow({});
 
