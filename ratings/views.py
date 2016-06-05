@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.apps import apps
 from django.views.generic import View, TemplateView, FormView
 from django.http import JsonResponse 
@@ -51,11 +53,15 @@ class FormSetView(TemplateView):
 			for form in formset:
 				form.clean()
 
+		number_of_votes = 0
+		added_score = 0
+
 		if formset.is_valid():
 
 			for form in formset:
 
-				score = form.cleaned_data['score']
+				score = Decimal(form.cleaned_data['score'])
+			
 
 				#print('score: %s' % score)
 
@@ -72,18 +78,16 @@ class FormSetView(TemplateView):
 				# Deze vote() klasse methode zal automatisch ook een db save() operatie uitvoeren
 				total_score, num_votes = Vote.vote(ContentType.objects.get_for_model(target), obj_id, request.user, score)
 
+				number_of_votes = num_votes
+				added_score += score
+
 
 			# Nadat alle attributen zijn berekend, kunnen we ook het festival zelf updaten
 			fest_ct = ContentType.objects.get_for_model(festival)
 			fest_obj_id = festival.pk
 
-			festival_score = 0
+			festival_score = added_score / num_attributes
 
-			for attr in festival.rateable_attributes.all():
-
-				festival_score = festival_score + (attr.get_ratings().score / attr.get_ratings().num_votes)
-
-			festival_score = festival_score / num_attributes
 
 			festival_total, festival_votes = Vote.vote(ContentType.objects.get_for_model(festival), festival.pk, request.user, festival_score)
 

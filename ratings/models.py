@@ -1,4 +1,5 @@
 #from datetime import datetime
+from decimal import Decimal
 
 from django.db import models
 from django.db import IntegrityError
@@ -151,17 +152,24 @@ class Score(BaseContentTypesModel):
 	def __str__(self):
 		return '%s heeft een score van %s, behaald door %s stemmen' % (self.content_object, self.score, self.num_votes)
 
-	def update(self, score):
+	def update(self, new_score):
 		'''
 		Deze update() methode wijzigt de total_score en num_votes attributen na uitbrengen van een vote
 		'''
 
+		score = Decimal(new_score)
+
 		if self.content_type.name == 'Festival':
 
-			self.excellent = 0
-			self.good = 0
-			self.average = 0
-			self.bad = 0
+			if self.excellent == None:
+
+				print('tis none')
+
+				self.excellent = 0
+				self.good = 0
+				self.average = 0
+				self.bad = 0
+	
 
 			print('score= %s' % score)
 
@@ -179,7 +187,7 @@ class Score(BaseContentTypesModel):
 
 			else:
 				print('bad')
-				self.bad = 1
+				self.bad += 1
 
 
 		if self.num_votes:
