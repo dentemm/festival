@@ -51,7 +51,7 @@
 	            </select> 
 	        </div>
             <div class="col-md-4">
-                <h5><a href="{{ page.website }}" target="_blank">Website</a> van dit festival</h5>
+                <h5><a href="{{ page.website }}" target="_blank">Website</a> van {{ page.name }}</h5>
             </div>
         </div>
 
@@ -234,15 +234,6 @@
 	<br>
 	<hr>
 	<br>
-
-	sss {{ page.rating_scores }} sss 
-	<br>
-
-	{% for attr in page.rateable_attributes.all %}
-		{{ attr.rateable_attribute.name }}  -- {% votes_count attr %} <br>
-		>>>>>> {% overall_rating attr %} <<<<<<br>
-
-	{% endfor %}
 
 	<h2>RATING FUNCTIONALITEIT TEST -- OK!</h2>
 

@@ -287,8 +287,8 @@ time.icon span {
 }
 
 #calendar_item {
-  margin-bottom: 20px;
-  margin-top: 25px;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 #calendar_item h4 {
@@ -386,8 +386,8 @@ body {  font-family: Tahoma;}
 
 #calendar_item {
   background-color: #EFEFEF;
+  padding-bottom: 40px;
 }
-
 #calendar_item .fa_overlay2 img {
   width: 100%;
 }
@@ -611,4 +611,10 @@ h3, h4, h5 {
 .fa_nopadding {
   padding-left: 0px;
   padding-right: 0px;
+}
+
+#calendar-navigation {
+  background-color: #EFEFEF;
+  padding-top: 20px;
+  margin-top: -10px;
 }
