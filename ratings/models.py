@@ -137,6 +137,11 @@ class Score(BaseContentTypesModel):
 	total_score = models.DecimalField(decimal_places=2, max_digits=4, null=True) 	# Optelsom van alle individuele scores
 	num_votes = models.PositiveIntegerField(default=0)		# Aantal uitgebrachte stemmen 
 
+	excellent = models.PositiveIntegerField(null=True, blank=True)
+	good = models.PositiveIntegerField(null=True, blank=True)
+	average = models.PositiveIntegerField(null=True, blank=True)
+	bad = models.PositiveIntegerField(null=True, blank=True)
+
 	objects = RatingManager()
 
 
@@ -150,6 +155,32 @@ class Score(BaseContentTypesModel):
 		'''
 		Deze update() methode wijzigt de total_score en num_votes attributen na uitbrengen van een vote
 		'''
+
+		if self.content_type.name == 'Festival':
+
+			self.excellent = 0
+			self.good = 0
+			self.average = 0
+			self.bad = 0
+
+			print('score= %s' % score)
+
+			if score >= 4:
+				print('excellent')
+				self.excellent += 1
+
+			elif score >= 3:
+				print('good')
+				self.good += 1
+
+			elif score >= 2:
+				print('average')
+				self.average += 1
+
+			else:
+				print('bad')
+				self.bad = 1
+
 
 		if self.num_votes:
 			self.num_votes = self.num_votes + 1
@@ -172,6 +203,35 @@ class Score(BaseContentTypesModel):
 		score = float(self.total_score/self.num_votes)
 		return score
 
+	@property
+	def excellent_score(self):
+
+		percentage = str(int(round(100 * self.excellent/self.num_votes))) + '%'
+
+		return percentage
+
+	@property
+	def good_score(self):
+
+		percentage = str(int(round(100 * self.good/self.num_votes))) + '%'
+
+		return percentage
+
+	@property
+	def average_score(self):
+
+		percentage = str(int(round(100 * self.average/self.num_votes))) + '%'
+
+		return percentage
+
+	@property
+	def bad_score(self):
+
+		percentage = str(int(round(100 * self.bad/self.num_votes))) + '%'
+
+		return percentage
+	
+
 class RatedModelMixin(models.Model):
 	'''
 	Deze mixin klasse voegt de rating functionaliteit toe aan het model waarbij je de mixin implementeert
@@ -185,7 +245,7 @@ class RatedModelMixin(models.Model):
 
 	def get_ratings(self):
 
-		print('hmm? %s' % Score.objects.get_for(self))
+		#print('hmm? %s' % Score.objects.get_for(self))
 
 		return Score.objects.get_for(self)
 

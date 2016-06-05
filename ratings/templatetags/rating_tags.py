@@ -389,11 +389,82 @@ def user_rating_value(user, obj):
 
 	except Vote.DoesNotExist:
 
-		score = 0
+		return 0
 
 	return score
 
 
+@register.simple_tag
+def excellent_rating(obj):
+	'''
+	Deze template tag retourneert het percentage excellente scores voor een gegeven festival
+	Gebruik {% excellent_rating obj %}
+	'''
+
+	ct = ContentType.objects.get_for_model(obj)
+
+	try:
+		score = Score.objects.get(object_id=obj.pk, content_type=ct)
+
+	except Score.DoesNotExist:
+
+		return '0%'
+
+	return score.excellent_score
+
+@register.simple_tag
+def good_rating(obj):
+	'''
+	Deze template tag retourneert het percentage goede scores voor een gegeven festival
+	Gebruik {% good_rating obj %}
+	'''
+
+	ct = ContentType.objects.get_for_model(obj)
+
+	try:
+		score = Score.objects.get(object_id=obj.pk, content_type=ct)
+
+	except Score.DoesNotExist:
+
+		return '0%'
+
+	return score.good_score
+
+@register.simple_tag
+def average_rating(obj):
+	'''
+	Deze template tag retourneert het percentage gemiddelde scores voor een gegeven festival
+	Gebruik {% average_rating obj %}
+	'''
+
+	ct = ContentType.objects.get_for_model(obj)
+
+	try:
+		score = Score.objects.get(object_id=obj.pk, content_type=ct)
+
+	except Score.DoesNotExist:
+
+		return '0%'
+
+	return score.average_score
+
+@register.simple_tag
+def bad_rating(obj):
+	'''
+	Deze template tag retourneert het percentage slechte scores voor een gegeven festival
+	Gebruik {% bad_rating obj %}
+	'''
+
+	ct = ContentType.objects.get_for_model(obj)
+
+	try:
+		score = Score.objects.get(object_id=obj.pk, content_type=ct)
+
+	except Score.DoesNotExist:
+
+		return 0
+
+	return score.bad_score
 
 @register.simple_tag
 def user_rating(user, obj):

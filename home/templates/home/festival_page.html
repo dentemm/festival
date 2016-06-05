@@ -100,11 +100,10 @@
                                 </div>
                                 <div class="col-md-9">
                                      <div class="progress">
-                                          <div class="progress-bar" role="progressbar" aria-valuenow="50"
-                                          aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                          <div class="progress-bar" role="progressbar" style="width:{% excellent_rating page %}">
                                           </div>
                                           <div class="fa_score">
-                                            50%
+                                            {% excellent_rating page %}
                                           </div>
                                     </div>
                                 </div>
@@ -115,11 +114,10 @@
                                 </div>
                                 <div class="col-md-9">
                                      <div class="progress">
-                                          <div class="progress-bar" role="progressbar" aria-valuenow="25"
-                                          aria-valuemin="0" aria-valuemax="100" style="width:25%">
+                                          <div class="progress-bar" role="progressbar" style="width:{% good_rating page %}">
                                           </div>
                                           <div class="fa_score">
-                                            25%
+                                            {% good_rating page %}
                                           </div>
                                     </div>
                                 </div>
@@ -130,11 +128,10 @@
                                 </div>
                                 <div class="col-md-9">
                                      <div class="progress">
-                                          <div class="progress-bar" role="progressbar" aria-valuenow="15"
-                                          aria-valuemin="0" aria-valuemax="100" style="width:15%">
+                                          <div class="progress-bar" role="progressbar" style="width:{% average_rating page %}">
                                           </div>
                                           <div class="fa_score">
-                                            15%
+                                            {% average_rating page %}
                                           </div>
                                     </div>
                                 </div>
@@ -145,11 +142,10 @@
                                 </div>
                                 <div class="col-md-9">
                                      <div class="progress">
-                                          <div class="progress-bar" role="progressbar" aria-valuenow="10"
-                                          aria-valuemin="0" aria-valuemax="100" style="width:10%">
+                                          <div class="progress-bar" role="progressbar" style="width:{% bad_rating page %}">
                                           </div>
                                           <div class="fa_score">
-                                            10%
+                                            {% bad_rating page %}
                                           </div>
                                     </div>
                                 </div>
