@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load rating_tags static compress comments custom_comments wagtailuserbar widget_tweaks %}
+{% load rating_tags static compress comments custom_comments wagtailuserbar wagtailimages_tags widget_tweaks %}
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
@@ -175,7 +175,7 @@
 	                </div>
 	                <div class="col-md-12 fa_box3">
 	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
-	                    <p style="padding:0px 15px;">
+	                    <p style="padding:5px 15px;">
 	                    {% for tag in page.tags.all %}
     						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}">
     							<i class="fa fa-tags"></i> {{ tag }}
