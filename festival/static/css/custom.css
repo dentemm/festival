@@ -47,3 +47,7 @@ img.zoom-img {
 .zoom-overlay-transitioning {
   cursor: default;
 }
+
+.modal-content {
+  background-color: #EFEFEF;
+}

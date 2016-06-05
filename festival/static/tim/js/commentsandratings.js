@@ -71,8 +71,10 @@ $(document).ready(function () {
 
             success: function(data) {
                 console.log(data);
+                $('#ratemodal').modal('hide');
                 // Hide the comment form
                 $('#rating-form').html(data);
+                location.reload();
 
                 $(function() {
                     $('.example').barrating({

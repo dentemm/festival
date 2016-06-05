@@ -26,8 +26,8 @@
 	    <div id="owl-hero" class="owl-carousel----- owl-teme">
 	    	<div class="item" style="background-image: url({{ page.main_image.file.url }})">
 	            <div class="caption">
-	                <h6>{{ item.name }} / {{ item.location|title }} / {{ item.date_representation }}</h6>
-	                <h1><span>{{ item.name }}</span></h1>
+	                <h6>{{ page.location|title }} / {{ page.date_representation }}</h6>
+	                <h1><span>{{ page.name }}</span></h1>
 
 	            </div>
 	        </div>
@@ -72,7 +72,9 @@
 	                        <h4>Al {% votes_count page %} beoordelingen van onze FestivalAdvisors</h4>
 	                    </div>
 	                    <div class="col-md-4">
-	                        <button type="button" class="btn btn-success">Schrijf een beoordeling</button>
+	                    	{% if user.is_authenticated %}
+	                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ratemodal">Schrijf een beoordeling</button>
+	                    	{% endif %}
 	                    </div>
 	                </div>
 	                <div class="col-md-12 fa_box2">
@@ -262,6 +264,20 @@
 	</div>
 </div>-->
 
+<!-- MODAL LOGIN -->
+<div id="ratemodal" class="modal fade">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-body">
+				<h4>Geef zelf een beoordeling</h4>
+				<div class="row">
+					{% include 'ratings/ratingform.html' with page=page %}
+				</div>
+	        </div>
+	    </div>
+	</div>
+</div>
+
 {% endblock content %}
 
 {% block extra_js %}
@@ -297,13 +313,31 @@
 
 	            for(index=0; index < numAttrs; index++) {
 
-	            	console.log(index);
+	            	//console.log(index);
 
 	                $('#festrating-' + index).barrating({
 	                theme: 'fontawesome-stars-o-green',
 	                initialRating: $('#festrating-' + index).data('initial'),
 	                showSelectedRating: false,
 	                readonly: true,
+	                });
+	            }
+           });
+        </script>
+        <script type="text/javascript">
+           	$(function() {
+
+            	var numAttrs = $('#fest-attrs').data('count');
+
+	            for(index=0; index < numAttrs; index++) {
+
+	            	//console.log(index);
+
+	                $('.userrating').barrating({
+	                theme: 'fontawesome-stars-o-green',
+	                initialRating: $('#festrating-' + index).data('initial'),
+	                showSelectedRating: false,
+	                readonly: false,
 	                });
 	            }
            });
