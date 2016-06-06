@@ -228,6 +228,7 @@
 	                    {% if has_commented %}
 	                    <div class="col-md-6 col-md-offset-1">
 	                        <h4>Jouw review: </h4>
+	                        <hr style="margin-top: 6px 1px; border-top: 1px solid #ccc;">
 	                        {% user_review user page as review %}
 	                        <div>
 	                        	<b>{{ review.title }}</b><br>
@@ -238,6 +239,7 @@
 	                    {% else %}
 	                    <div class="col-md-6 col-md-offset-1"">
 	                        <h4>Jouw review: </h4>
+	                        <hr style="margin: 2px;">
                         	<p>Je hebt nog geen review geschreven over <b>{{ page.name }}</b></p>
                         </div>
 	                    <hr>
