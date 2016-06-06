@@ -55,3 +55,17 @@ img.zoom-img {
 small {
   font-size: 75%;
 }
+
+.detailpage {
+  color: #ddd;
+  text-shadow: 3px 3px 3px #333;
+}
+
+@font-face {
+  font-family: "toolkit-entypo";
+  src: url('../fonts/toolkit-entypo.eot');
+  src: url('../fonts/toolkit-entypo.eot?#iefix') format('eot'), url('../fonts/toolkit-entypo.woff2') format('woff2'), url('../fonts/toolkit-entypo.woff') format('woff'), url('../fonts/toolkit-entypo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+

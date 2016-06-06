@@ -25,11 +25,16 @@
 	<section class="main-header">
 	    <div id="owl-hero" class="owl-carousel----- owl-teme">
 	    	<div class="item" style="background-image: url({{ page.main_image.file.url }})">
-	            <div class="caption">
+	    		<div class="row caption detail">
+	    			<div class="col-md-2 col-md-offset-0 col-sm-3">
+	    				<h2 class="detailpage">{{ page.name }} fhzfz</h2>
+	    				<h4 class="detailpage">{{ page.date_representation }}</h4>
+	    			</div>
+	    		</div>
+	            <!--<div class="caption">
 	                <h6>{{ page.location|title }} / {{ page.date_representation }}</h6>
 	                <h1><span>{{ page.name }}</span></h1>
-
-	            </div>
+	            </div>-->
 	        </div>
 	    </div>
 	</section>
@@ -246,6 +251,11 @@
 	                    {% endif %}
 	                    {% endif %}
 	                    <div class="fa_box4">
+	                    	<div class="col-md-12 fa_nopadding">
+		                        <h4>Overzicht reviews</h4>
+		                        {% for attr in page.rateable_attributes.all %}
+								{% endfor %}
+		                    </div>
 	                    </div>
 	                </div>
 	                <div class="col-md-12 fa_box3">
@@ -270,11 +280,6 @@
 	                		</p>
 	                    </div>
 	                </div>
-                    <div class="col-md-12 fa_nopadding">
-                        <h4>Overzicht reviews</h4>
-                        {% for attr in page.rateable_attributes.all %}
-						{% endfor %}
-                    </div>
 	                <div class="col-md-12 fa_box3">
 	                    <h4>Selecteer 1 van onderstaande tags en vind gelijkaardige festivals</h4>
 	                    <p style="padding:0px 15px;">
@@ -293,41 +298,7 @@
     </div>
 </section>
 
-<!--<div class="container">
-	<h2>COMMENTAAR FUNCTIONALITEIT TEST - OK!</h2>
-
-	{- render_comment_list for page -}
-
-	<hr>
-
-	<div class="row" id="comment-form">
-		<div class="col-md-6 col-md-offset-1">
-			<h4>Laat zelf een tekstje achter</h4>
-			{% if user.is_authenticated %}
-			<div class="row">
-				<div class="col-md-6">
-				{- user_comment user page as has_commented -}
-					{% if has_commented == False %}
-						{- render_comment_form for page -}
-					{% else %}
-						Je hebt reeds een beoordeling achter gelaten, bedankt!
-					{% endif %}
-				</div>
-			</div>
-			{% else %}
-			<div class="row">
-				<div class="col-md-6">
-					<h4>Opgelet! Enkel ingelogde gebruikers kunnen een beoordeling schrijven!</h4>
-				</div>
-			</div>
-			{% endif %}
-		</div>
-	</div>
-	<br>
-	<hr>
-	<br>-->
-
-
+<!--{% top_scores page %}-->
 
 
 <!-- COMMENT MODAL -->

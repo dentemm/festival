@@ -469,6 +469,34 @@ def bad_rating(obj):
 	return score.bad_score
 
 @register.simple_tag
+def top_scores(obj):
+	'''
+	Deze template tag retourneert enkel de scores van vier best beoordeelde kenmerken van gegeven een festival
+	'''
+
+	all_scores = []
+
+	for attr in obj.rateable_attributes.all():
+
+		ct = ContentType.objects.get_for_model(attr)
+
+		try:
+			score = Score.objects.get(object_id=attr.pk, content_type=ct)
+
+		except: 
+			return ''
+
+		all_scores.append(score)
+
+	# sorteer all_scores volgens hun score
+	all_scores.sort(key=lambda x: x.score, reverse=True)
+	# behoud enkel de eerste vier items, deze hebben dus de beste score 
+	all_scores = all_scores[0:4]
+
+	return all_scores
+
+
+@register.simple_tag
 def user_rating(user, obj):
 	'''
 	Deze template tag retourneert geeft aan of een gebruiker een rating heeft uitgebracht op een gegeven festival
