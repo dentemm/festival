@@ -619,7 +619,7 @@ h3, h4, h5 {
   margin-top: -37px;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
     .owl-pagination {
       display: none;
     }
