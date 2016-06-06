@@ -393,7 +393,7 @@ def user_rating_value(user, obj):
 
 		return 0
 
-	return int(score)
+	return int(round(score))
 
 
 @register.simple_tag
