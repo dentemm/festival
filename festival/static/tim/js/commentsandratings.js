@@ -28,6 +28,7 @@ $(document).ready(function () {
 
             success: function(data) {
                 console.log(data);
+                $('#commentmodal').modal('hide');
                 // Hide the comment form
                 $('#comment-form').addClass('hidden');
                 $('#comment-list ul').append(data);

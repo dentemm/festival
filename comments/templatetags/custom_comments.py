@@ -7,11 +7,30 @@ register = template.Library()
 
 
 @register.simple_tag
+def user_review(user, obj):
+	'''
+	Deze template retourneert de user review voor een gegeven festival
+	Gebruik {% user_review user obj %}
+	'''
+
+	ct = ContentType.objects.get_for_model(obj)
+
+	try:
+		comment = CommentWithTitle.objects.get(object_pk=obj.pk, content_type=ct, user=user)
+
+	except CommentWithTitle.DoesNotExist:
+
+		return False
+
+	return comment
+
+
+@register.simple_tag
 def user_comment(user, obj):
 	'''
-	Deze template tag retourneert de score die een gebruiker heeft uitgebracht op het object
+	Deze template tag geeft aan of de gebruiker een comment heeft geplaatst voor een gegeven festival
 
-	Gebruik {% user-comment user obj %}
+	Gebruik {% user_comment user obj %}
 	'''
 
 	ct = ContentType.objects.get_for_model(obj)

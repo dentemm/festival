@@ -471,7 +471,7 @@ def bad_rating(obj):
 @register.simple_tag
 def user_rating(user, obj):
 	'''
-	Deze template tag retourneert de score die een gebruiker heeft uitgebracht op het object
+	Deze template tag retourneert geeft aan of een gebruiker een rating heeft uitgebracht op een gegeven festival
 	Gebruik {% user_rating user obj %}
 	'''
 

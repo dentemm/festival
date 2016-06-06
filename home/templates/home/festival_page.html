@@ -224,23 +224,21 @@
 	                    <div class="col-md-1 fa_user2">
 	                        <img class="img-circle" src="{% static 'img/users/edit_user.png' %}" width="75px" height="75px">
 	                    </div>
-	                    {% user_rating user page as has_rated %}
-	                    {% if has_rated %}
-	                    <div class="col-md-12">
-	                        <h4>Jouw beoordeling: </h4>
-                        	<select id="presentuserrating" data-initial="{% user_rating_value user page %}">
-				                <option value="1">1</option>
-				                <option value="2">2</option>
-				                <option value="3">3</option>
-				                <option value="4">4</option>
-				                <option value="5">5</option>
-				            </select> 
+	                    {% user_comment user page as has_commented %}
+	                    {% if has_commented %}
+	                    <div class="col-md-6 col-md-offset-1">
+	                        <h4>Jouw review: </h4>
+	                        {% user_review user page as review %}
+	                        <div>
+	                        	<b>{{ review.title }}</b><br>
+	                        	<p>{{ review.comment }}</p>
+	                        </div>
 	                    </div>
 	                    <hr>
 	                    {% else %}
-	                    <div class="col-md-12">
-	                        <h4>Jouw beoordeling: </h4>
-                        	<p>Je hebt <b>{{ page.name }}</b> nog geen beoordeling gegeven</p>
+	                    <div class="col-md-6 col-md-offset-1"">
+	                        <h4>Jouw review: </h4>
+                        	<p>Je hebt nog geen review geschreven over <b>{{ page.name }}</b></p>
                         </div>
 	                    <hr>
 	                    {% endif %}
@@ -337,7 +335,9 @@
 					{% if has_commented == False %}
 						{% render_comment_form for page %}
 					{% else %}
-						Je hebt reeds een beoordeling achter gelaten, bedankt!
+						<div class="col-md-10 col-md-offset-1">
+							Je hebt reeds een beoordeling achter gelaten, bedankt! 
+						</div>
 					{% endif %}
 				</div>
 	        </div>
