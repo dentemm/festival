@@ -26,8 +26,6 @@ class FormSetView(TemplateView):
 
 		data = request.POST.copy()
 
-		#print(data)
-
 		# 1. reconstruct page
 		object_id = data.get('form-0-object_id', 'niks')
 		ctype = data.get('form-0-content_type', 'leeg')
@@ -56,14 +54,14 @@ class FormSetView(TemplateView):
 		number_of_votes = 0
 		added_score = 0
 
+		print('formset errors: %s' % formset.errors)
+
 		if formset.is_valid():
 
 			for form in formset:
 
 				score = Decimal(form.cleaned_data['score'])
 			
-
-				#print('score: %s' % score)
 
 				ct = form.cleaned_data['content_type']
 				obj_id = form.cleaned_data['object_id']
@@ -88,8 +86,9 @@ class FormSetView(TemplateView):
 
 			festival_score = added_score / num_attributes
 
-
 			festival_total, festival_votes = Vote.vote(ContentType.objects.get_for_model(festival), festival.pk, request.user, festival_score)
+
+			context['message'] = 'Bedankt voor je beoordeling!'
 
 		else: 
 

@@ -17,7 +17,9 @@
 				{{ form.content_type }}
 			</div>
 			{% endfor %}
-			<input type="submit" class="btn btn-lg btn-success rating-form" value="Plaatsen" id="ratingsubmit" style="margin-top:20px;">
+			<br>
+			<p style="margin:20px 0px 0px 15px;" id="errormessage" class="text-danger"></p>
+			<input type="submit" class="btn btn-lg btn-success rating-form" value="Plaatsen" id="ratingsubmit" style="margin:20px 15px;">
 		</form>
 	{% else %}
 		<p style="padding:25px;">Je hebt reeds een beoordeling gegeven aan dit festival! Je kan elk festival slechts 1 keer beoordelen</p>

@@ -56,36 +56,51 @@ $(document).ready(function () {
         formData['form-INITIAL_FORMS'] = $('#id_form-INITIAL_FORMS').val();
         formData['csrfmiddlewaretoken'] = $('input[name=csrfmiddlewaretoken]').val();
 
+        var valid = true;
+
         for (i = 0; i < formCount; i++) {
+
+            if ($('#id_form-' + i + '-score option:selected').val() == "") {
+                console.log('shit!');
+                valid = false;
+                break;
+            }
 
             formData['form-' + i + '-object_id'] = $('#id_form-' + i + '-object_id').val();
             formData['form-' + i + '-content_type'] = $('#id_form-' + i + '-content_type').val();
             formData['form-' + i + '-score'] = $('#id_form-' + i + '-score option:selected').val();
         }
 
-        console.log(formData)
+        if (valid == false) {
+            var message = "<i>Gelieve alle eigenschappen een beoordeling te geven!</i>";
+            $('#errormessage').html(message);
+        }
 
-         $.ajax({
-            url: '/ratings/test/',
-            type: 'POST',
-            data: formData,
-            dataType: 'html',
 
-            success: function(data) {
-                console.log(data);
-                $('#ratemodal').modal('hide');
-                // Hide the comment form
-                $('#rating-form').html(data);
-                location.reload();
+        else {
 
-                $(function() {
-                    $('.example').barrating({
-                        theme: 'fontawesome-stars',
-                        initialRating: -7,
-                        showSelectedRating: true,
-                    });
-               });
-            },
-        });
+            $.ajax({
+                url: '/ratings/test/',
+                type: 'POST',
+                data: formData,
+                dataType: 'html',
+
+                success: function(data) {
+                    console.log(data);
+                    $('#ratemodal').modal('hide');
+                    // Hide the comment form
+                    $('#rating-form').html(data);
+                    location.reload();
+
+                    $(function() {
+                        $('.example').barrating({
+                            theme: 'fontawesome-stars',
+                            initialRating: -7,
+                            showSelectedRating: true,
+                        });
+                   });
+                },
+            });
+        }
     });
 }); 

@@ -146,9 +146,9 @@ figure.effect-winston a {
   margin-top: 85px;
 }
 
-#owlcalendar .owl-pagination {
+/*#owlcalendar .owl-pagination {
   display: none;
-}
+}*/
 
 /* kalender pagina css */
 
@@ -616,5 +616,5 @@ h3, h4, h5 {
 #calendar-navigation {
   background-color: #EFEFEF;
   padding-top: 20px;
-  margin-top: -10px;
+  margin-top: -37px;
 }
