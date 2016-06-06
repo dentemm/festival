@@ -66,7 +66,7 @@ $(document).ready(function () {
 
             //console.log(response)
 
-            $('#related-festival').html(response)
+            $('#related-festivals').html(response)
         });
         request.fail(function(jqXHR, textStatus, errorThrown){
 

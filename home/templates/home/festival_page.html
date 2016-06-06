@@ -104,6 +104,7 @@
 	                    <div class="col-md-12">
 	                        <h4>Jouw beoordeling: </h4>
                         	<p>Je hebt <b>{{ page.name }}</b> nog geen beoordeling gegeven</p>
+                        </div>
 	                    <hr>
 	                    {% endif %}
 	                    {% endif %}
@@ -202,10 +203,146 @@
 	                </div>
             	</div>
 	            <div role="tabpanel" class="tab-pane" id="commentaar">
-	                trer
+	                <div class="col-md-12 fa_box">
+	                    <div class="col-md-9">
+	                    	{% get_comment_count for page as comment_count %}
+	                        <h4 style="margin-bottom:3px;">Al {{ comment_count }} FestivalAdvisors gaven hun mening over dit festival</h4>
+	                        {% if not user.is_authenticated %}
+			                <small><i>Log in om zelf ook een review te schrijven!</i></small>
+			                {% endif %}
+	                    </div>
+	                    <div class="col-md-3">
+	                    	{% if user.is_authenticated %}
+	                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#commentmodal">Schrijf zelf een review</button>
+	                        {% else %}
+	                        <button id="loginbutton" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Inloggen</button>
+	                    	{% endif %}
+	                    </div>
+	                </div>
+	                <div class="col-md-12 fa_box2">
+	                	{% if user.is_authenticated %}
+	                    <div class="col-md-1 fa_user2">
+	                        <img class="img-circle" src="{% static 'img/users/edit_user.png' %}" width="75px" height="75px">
+	                    </div>
+	                    {% user_rating user page as has_rated %}
+	                    {% if has_rated %}
+	                    <div class="col-md-12">
+	                        <h4>Jouw beoordeling: </h4>
+                        	<select id="presentuserrating" data-initial="{% user_rating_value user page %}">
+				                <option value="1">1</option>
+				                <option value="2">2</option>
+				                <option value="3">3</option>
+				                <option value="4">4</option>
+				                <option value="5">5</option>
+				            </select> 
+	                    </div>
+	                    <hr>
+	                    {% else %}
+	                    <div class="col-md-12">
+	                        <h4>Jouw beoordeling: </h4>
+                        	<p>Je hebt <b>{{ page.name }}</b> nog geen beoordeling gegeven</p>
+                        </div>
+	                    <hr>
+	                    {% endif %}
+	                    {% endif %}
+	                    <div class="fa_box4">
+	                        <div class="col-md-4">
+	                            <h4>Algemene waardering</h4>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Uitstekend</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% excellent_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% excellent_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Goed</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% good_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% good_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Gemiddeld</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% average_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% average_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="col-md-12">
+	                                <div class="col-md-3">
+	                                    <p>Matig</p>
+	                                </div>
+	                                <div class="col-md-9">
+	                                     <div class="progress">
+	                                          <div class="progress-bar" role="progressbar" style="width:{% bad_rating page %}">
+	                                          </div>
+	                                          <div class="fa_score">
+	                                            {% bad_rating page %}
+	                                          </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-8 fa_nopadding">
+	                            <h4>Overzicht waarderingen</h4>
+	                            {% for attr in page.rateable_attributes.all %}
+	                            <div class="col-md-6 fa_m-b">
+	                                <div class="col-md-4">
+	                                    <p>{{ attr.rateable_attribute.name }}</p>
+	                                </div>
+	                                <div class="col-md-8" id="fest-attrs" data-count="{{ page.rateable_attributes.all|length }}">            
+	                                	<select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating attr %}">
+							                <option value="1">1</option>
+							                <option value="2">2</option>
+							                <option value="3">3</option>
+							                <option value="4">4</option>
+							                <option value="5">5</option>
+							            </select> 
+	                                </div>                            
+								</div>
+								{% endfor %}
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="col-md-12 fa_box3">
+	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
+	                    <p style="padding:0px 15px;">
+	                    {% for tag in page.tags.all %}
+    						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}" style="margin:5px;">
+    							<i class="fa fa-tags"></i> {{ tag }}
+    						</a>
+						{% endfor %}
+						<div class="row" id="related-festivals" style="padding: 15px 30px;">
+						</div>
+						</p>
+	                </div>
 	            </div>
 	            <div role="tabpanel" class="tab-pane" id="informatie">
-	                erwe
+	                <p>
+	                	{{ page.description|safe }}
+	                </p>
 	            </div>
 	        </div>
         </div>
@@ -215,7 +352,7 @@
 <!--<div class="container">
 	<h2>COMMENTAAR FUNCTIONALITEIT TEST - OK!</h2>
 
-	{% render_comment_list for page %}
+	{- render_comment_list for page -}
 
 	<hr>
 
@@ -225,7 +362,7 @@
 			{% if user.is_authenticated %}
 			<div class="row">
 				<div class="col-md-6">
-				{% user_comment user page as has_commented %}
+				{- user_comment user page as has_commented -}
 					{% if has_commented == False %}
 						{- render_comment_form for page -}
 					{% else %}
@@ -244,46 +381,39 @@
 	</div>
 	<br>
 	<hr>
-	<br>
+	<br>-->
 
-	<h2>RATING FUNCTIONALITEIT TEST - OK!</h2>
 
-	<div class="row">
-		<div class="col-md-6 col-md-offset2">
-			<h4>Wat vinden anderen van dit festival?</h4>
-			<div class="row">
-				<div class="col-md-6" id="rating-form">
-					{- render_ratings for page -}
-				</div>
-			</div>
-		</div>
 
-		<div class="col-md-6 col-md-offset2">
-			<h4>Geef zelf een beoordeling</h4>
-			{% if user.is_authenticated %}
-			<div class="row">
-				<div class="col-md-6" id="rating-form">
-					{- include 'ratings/ratingform.html' with page=page -}
+
+<!-- COMMENT MODAL -->
+<div id="commentmodal" class="modal fade">
+	<div class="modal-dialog">
+	    <div class="modal-content">
+	    	{% if user.is_authenticated %}
+	        <div class="modal-body">
+				<h4 style="margin:10px 20px;">Schrijf zelf een review</h4>
+				<div class="row">
+				{% user_comment user page as has_commented %}
+					{% if has_commented == False %}
+						{% render_comment_form for page %}
+					{% else %}
+						Je hebt reeds een beoordeling achter gelaten, bedankt!
+					{% endif %}
 				</div>
-			</div>
-			{% else %}
-			<div class="row">
-				<div class="col-md-6">
-					<h4>Opgelet! Enkel ingelogde gebruikers kunnen een beoordeling schrijven!</h4>
-				</div>
-			</div>
-			{% endif %}
-		</div>
+	        </div>
+	        {% endif %}
+	    </div>
 	</div>
-</div>-->
+</div>
 
-<!-- MODAL LOGIN -->
+<!-- RATINGS MODAL -->
 <div id="ratemodal" class="modal fade">
 	<div class="modal-dialog">
 	    <div class="modal-content">
 	    	{% if user.is_authenticated %}
 	        <div class="modal-body">
-				<h4>Geef zelf een beoordeling</h4>
+				<h4 style="margin:10px 20px;">Geef zelf een beoordeling</h4>
 				<div class="row">
 					{% include 'ratings/ratingform.html' with page=page %}
 				</div>
