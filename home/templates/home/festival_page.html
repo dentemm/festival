@@ -246,84 +246,6 @@
 	                    {% endif %}
 	                    {% endif %}
 	                    <div class="fa_box4">
-	                        <div class="col-md-4">
-	                            <h4>Algemene waardering</h4>
-	                            <div class="col-md-12">
-	                                <div class="col-md-3">
-	                                    <p>Uitstekend</p>
-	                                </div>
-	                                <div class="col-md-9">
-	                                     <div class="progress">
-	                                          <div class="progress-bar" role="progressbar" style="width:{% excellent_rating page %}">
-	                                          </div>
-	                                          <div class="fa_score">
-	                                            {% excellent_rating page %}
-	                                          </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="col-md-12">
-	                                <div class="col-md-3">
-	                                    <p>Goed</p>
-	                                </div>
-	                                <div class="col-md-9">
-	                                     <div class="progress">
-	                                          <div class="progress-bar" role="progressbar" style="width:{% good_rating page %}">
-	                                          </div>
-	                                          <div class="fa_score">
-	                                            {% good_rating page %}
-	                                          </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="col-md-12">
-	                                <div class="col-md-3">
-	                                    <p>Gemiddeld</p>
-	                                </div>
-	                                <div class="col-md-9">
-	                                     <div class="progress">
-	                                          <div class="progress-bar" role="progressbar" style="width:{% average_rating page %}">
-	                                          </div>
-	                                          <div class="fa_score">
-	                                            {% average_rating page %}
-	                                          </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                            <div class="col-md-12">
-	                                <div class="col-md-3">
-	                                    <p>Matig</p>
-	                                </div>
-	                                <div class="col-md-9">
-	                                     <div class="progress">
-	                                          <div class="progress-bar" role="progressbar" style="width:{% bad_rating page %}">
-	                                          </div>
-	                                          <div class="fa_score">
-	                                            {% bad_rating page %}
-	                                          </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        <div class="col-md-8 fa_nopadding">
-	                            <h4>Overzicht waarderingen</h4>
-	                            {% for attr in page.rateable_attributes.all %}
-	                            <div class="col-md-6 fa_m-b">
-	                                <div class="col-md-4">
-	                                    <p>{{ attr.rateable_attribute.name }}</p>
-	                                </div>
-	                                <div class="col-md-8" id="fest-attrs" data-count="{{ page.rateable_attributes.all|length }}">            
-	                                	<select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating attr %}">
-							                <option value="1">1</option>
-							                <option value="2">2</option>
-							                <option value="3">3</option>
-							                <option value="4">4</option>
-							                <option value="5">5</option>
-							            </select> 
-	                                </div>                            
-								</div>
-								{% endfor %}
-	                        </div>
 	                    </div>
 	                </div>
 	                <div class="col-md-12 fa_box3">
@@ -340,9 +262,26 @@
 	                </div>
 	            </div>
 	            <div role="tabpanel" class="tab-pane" id="informatie">
-	                <p>
-	                	{{ page.description|safe }}
-	                </p>
+	                <div class="col-md-12 fa_box">
+	                    <div class="col-md-6">
+	                        <h4>{{ page.name }}</h4>
+                	       	<p>
+	                			{{ page.description|safe }}
+	                		</p>
+	                    </div>
+	                </div>
+	                <div class="col-md-12 fa_box3">
+	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
+	                    <p style="padding:0px 15px;">
+	                    {% for tag in page.tags.all %}
+    						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}" style="margin:5px;">
+    							<i class="fa fa-tags"></i> {{ tag }}
+    						</a>
+						{% endfor %}
+						<div class="row" id="related-festivals" style="padding: 15px 30px;">
+						</div>
+						</p>
+	                </div>
 	            </div>
 	        </div>
         </div>
