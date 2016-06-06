@@ -190,7 +190,7 @@
 	                    </div>
 	                </div>
 	                <div class="col-md-12 fa_box3">
-	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
+	                    <h4>Selecteer 1 van onderstaande tags en vind gelijkaardige festivals</h4>
 	                    <p style="padding:0px 15px;">
 	                    {% for tag in page.tags.all %}
     						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}" style="margin:5px;">
@@ -249,7 +249,7 @@
 	                    </div>
 	                </div>
 	                <div class="col-md-12 fa_box3">
-	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
+	                    <h4>Selecteer 1 van onderstaande tags en vind gelijkaardige festivals</h4>
 	                    <p style="padding:0px 15px;">
 	                    {% for tag in page.tags.all %}
     						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}" style="margin:5px;">
@@ -270,8 +270,13 @@
 	                		</p>
 	                    </div>
 	                </div>
+                    <div class="col-md-12 fa_nopadding">
+                        <h4>Overzicht reviews</h4>
+                        {% for attr in page.rateable_attributes.all %}
+						{% endfor %}
+                    </div>
 	                <div class="col-md-12 fa_box3">
-	                    <h4>Selecteer 1 van onderstaande tags en vindt gelijkaardige festivals</h4>
+	                    <h4>Selecteer 1 van onderstaande tags en vind gelijkaardige festivals</h4>
 	                    <p style="padding:0px 15px;">
 	                    {% for tag in page.tags.all %}
     						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}" style="margin:5px;">
