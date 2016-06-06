@@ -368,12 +368,14 @@ def overall_rating(obj):
 	return score
 
 @register.simple_tag
-def user_rating(user, obj):
+def user_rating_value(user, obj):
 	'''
 	Deze template tag retourneert de score die een gebruiker heeft uitgebracht op het object
 
-	Gebruik {% user-rating user obj %}
+	Gebruik {% user_rating_value user obj %}
 	'''
+
+	print('user rating')
 
 	return user_rating_value(user, obj)
 
@@ -391,7 +393,7 @@ def user_rating_value(user, obj):
 
 		return 0
 
-	return score
+	return int(score)
 
 
 @register.simple_tag

@@ -68,32 +68,45 @@
 	        <div class="tab-content">
 	            <div role="tabpanel" class="tab-pane active" id="beoordeling">
 	                <div class="col-md-12 fa_box">
-	                    <div class="col-md-8">
-	                        <h4>Al {% votes_count page %} beoordelingen van onze FestivalAdvisors</h4>
+	                    <div class="col-md-9">
+	                        <h4 style="margin-bottom:3px;">Al {% votes_count page %} beoordelingen van onze FestivalAdvisors</h4>
+	                        {% if not user.is_authenticated %}
+			                <small><i>Log in om zelf ook een beoordeling te geven!</i></small>
+			                {% endif %}
 	                    </div>
-	                    <div class="col-md-4">
+	                    <div class="col-md-3">
 	                    	{% if user.is_authenticated %}
-	                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ratemodal">Schrijf een beoordeling</button>
+	                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ratemodal">Geef zelf een score</button>
+	                        {% else %}
+	                        <button id="loginbutton" class="btn btn-success" data-toggle="modal" data-target="#loginmodal">Inloggen</button>
 	                    	{% endif %}
 	                    </div>
 	                </div>
 	                <div class="col-md-12 fa_box2">
+	                	{% if user.is_authenticated %}
 	                    <div class="col-md-1 fa_user2">
 	                        <img class="img-circle" src="{% static 'img/users/edit_user.png' %}" width="75px" height="75px">
 	                    </div>
+	                    {% user_rating user page as has_rated %}
+	                    {% if has_rated %}
 	                    <div class="col-md-12">
-	                    	{% if not user.is_authenticated %}
-	                        <h4>Geef een algemene waardering en schrijf een beoordeling</h4>
-	                        <div class="fa_sterren3">
-	                            <i class="fa fa-star-o fa-2x"></i>
-	                            <i class="fa fa-star-o fa-2x"></i>
-	                            <i class="fa fa-star-o fa-2x"></i>
-	                            <i class="fa fa-star-o fa-2x"></i>
-	                            <i class="fa fa-star-o fa-2x"></i>
-	                        </div>
-	                        {% endif %}
+	                        <h4>Jouw beoordeling: </h4>
+                        	<select id="presentuserrating" data-initial="{% user_rating_value user page %}">
+				                <option value="1">1</option>
+				                <option value="2">2</option>
+				                <option value="3">3</option>
+				                <option value="4">4</option>
+				                <option value="5">5</option>
+				            </select> 
 	                    </div>
 	                    <hr>
+	                    {% else %}
+	                    <div class="col-md-12">
+	                        <h4>Jouw beoordeling: </h4>
+                        	<p>Je hebt <b>{{ page.name }}</b> nog geen beoordeling gegeven</p>
+	                    <hr>
+	                    {% endif %}
+	                    {% endif %}
 	                    <div class="fa_box4">
 	                        <div class="col-md-4">
 	                            <h4>Algemene waardering</h4>
@@ -268,12 +281,14 @@
 <div id="ratemodal" class="modal fade">
 	<div class="modal-dialog">
 	    <div class="modal-content">
+	    	{% if user.is_authenticated %}
 	        <div class="modal-body">
 				<h4>Geef zelf een beoordeling</h4>
 				<div class="row">
 					{% include 'ratings/ratingform.html' with page=page %}
 				</div>
 	        </div>
+	        {% endif %}
 	    </div>
 	</div>
 </div>
@@ -299,6 +314,12 @@
                 $('#festrating').barrating({
 	                theme: 'fontawesome-stars-o',
 	                initialRating: $('#festrating').data('initial'),
+	                showSelectedRating: false,
+	                readonly: true,
+	            });
+	            $('#presentuserrating').barrating({
+	                theme: 'fontawesome-stars-o-green',
+	                initialRating: $('#presentuserrating').data('initial'),
 	                showSelectedRating: false,
 	                readonly: true,
 	            });
@@ -330,8 +351,6 @@
             	var numAttrs = $('#fest-attrs').data('count');
 
 	            for(index=0; index < numAttrs; index++) {
-
-	            	//console.log(index);
 
 	                $('.userrating').barrating({
 	                theme: 'fontawesome-stars-o-green',
