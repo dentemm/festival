@@ -30,7 +30,6 @@
 		{% for festival in festival_list reversed %}
     		{% image festival.main_image height-300 as tmp_photo %}
     		{% with bezig=festival.ongoing %}
-    		<!--<a href="?selected={{ festival.pk }}" class="festivalitem">--><!-- non ajax alternative-->
     		<a href="{{ festival.pk }}" class="festivalitem">
 	    		<div class="item" style="height:250px; background: url({{ tmp_photo.url }}); background-size: auto 100%;
 						background-repeat: no-repeat; background-position: center center; {% if selected.pk != festival.pk %}opacity: 0.3;{% endif %}">
@@ -65,6 +64,10 @@
 	    </div>	
     	{% endif %}
     </section>
+  	<!--<div class="container">
+  		<button class="btn btn-default" onclick="var owl = $('.owl-carousel').data('owlCarousel'); owl.next()">vorige</button>
+  		<button class="btn btn-default">volgende</button>
+  	</div>-->
     <div class="container-fluid" id="calendar-navigation">
     	<div class="row">
     		<div class="col-xs-6">
@@ -79,7 +82,7 @@
     		</div>
     	</div>
     </div>
-
+	
  	<!-- GOOGLE MAPS -->
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&language=nl&region=BE"></script>
 	<script type="text/javascript">
@@ -154,15 +157,14 @@
 	        });
 	    }
 	</script>
-
 	<section id="calendar_item">
     {% if selected == None %}
     	Oeps, er is mss iets mis gegaan ... Excuses! -- Tim C.
     {% else %}
 		{% include 'home/festival_content.html' with festival=selected %}
     {% endif  %}
-    </section>
-    	
+    </section> 
+
 {% endblock content %}
 
 {% block extra_js %}
