@@ -25,16 +25,16 @@
 	<section class="main-header">
 	    <div id="owl-hero" class="owl-carousel----- owl-teme">
 	    	<div class="item" style="background-image: url({{ page.main_image.file.url }})">
-	    		<div class="row caption detail">
+	    		<!--<div class="row caption detail">
 	    			<div class="col-md-2 col-md-offset-0 col-sm-3">
 	    				<h2 class="detailpage">{{ page.name }} fhzfz</h2>
 	    				<h4 class="detailpage">{{ page.date_representation }}</h4>
 	    			</div>
-	    		</div>
-	            <!--<div class="caption">
+	    		</div>-->
+	            <div class="caption">
 	                <h6>{{ page.location|title }} / {{ page.date_representation }}</h6>
 	                <h1><span>{{ page.name }}</span></h1>
-	            </div>-->
+	            </div>
 	        </div>
 	    </div>
 	</section>
@@ -251,10 +251,18 @@
 	                    {% endif %}
 	                    {% endif %}
 	                    <div class="fa_box4">
-	                    	<div class="col-md-12 fa_nopadding">
+	                    	<div class="col-md-12">
 		                        <h4>Overzicht reviews</h4>
-		                        {% for attr in page.rateable_attributes.all %}
-								{% endfor %}
+		                        {% get_comment_list for page as comments %}
+			                        {% for comment in comments %}
+			                        <div class="row">
+				                        <div class="col-md-5">
+				                        	<b>{{ comment.title }}</b> <small>( {{ comment.user }} )</small>
+				                        	<p style="padding-left:20px;">{{ comment.comment }}</p>
+				                        </div>
+				                    </div>
+		                        	{% endfor %}
+		                        </div>
 		                    </div>
 	                    </div>
 	                </div>
