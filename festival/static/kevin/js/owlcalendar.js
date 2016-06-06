@@ -3,7 +3,7 @@ $('.owl-carousel').owlCarousel({
     loop:true,
     autoWidth:true,
     items:6,
-    autoPlay: 2500,
+    autoPlay: 3200,
     //autoPlay: false,
     slideSpeed: 1000,
     rewindSpeed: 850,

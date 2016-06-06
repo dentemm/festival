@@ -618,3 +618,14 @@ h3, h4, h5 {
   padding-top: 20px;
   margin-top: -37px;
 }
+
+@media (max-width: 560px) {
+    .owl-pagination {
+      display: none;
+    }
+    #calendar-navigation {
+      background-color: #EFEFEF;
+      padding-top: 20px;
+      margin-top: -10px;
+    }
+}
