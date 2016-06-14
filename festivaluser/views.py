@@ -1,3 +1,5 @@
+import csv
+
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth import logout as auth_logout
@@ -6,10 +8,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, View
 from django.core.context_processors import csrf
-
-
 
 from .models import FestivalAdvisorUser
 from .forms import CustomUserCreationForm
@@ -131,3 +131,22 @@ class UserProfileView(LoginRequiredMixin, TemplateView):
 			ctx['visitor'] = visitor
 
 		return ctx
+
+def csvView(request):
+
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="allefestivaladvisorusers.csv"'
+
+	writer = csv.writer(response)
+
+	all_users = FestivalAdvisorUser.objects.all()
+
+	print(all_users)
+
+	for user in all_users:
+
+		writer.writerow([user.user.username, user.user.email, user.user.first_name, user.user.last_name])
+		print('user: %s' % user.user.username)
+
+	return response
+
