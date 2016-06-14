@@ -14,7 +14,13 @@ def csvView(request):
 
 	for fest in FestivalPage.objects.all():
 
-		writer.writerow([fest.name, fest.location.address.city, fest.contact_person.first_name, fest.contact_person.last_name, fest.contact_person.email, fest.contact_person.phone])
+		if fest.location and fest.contact_person:
+
+			writer.writerow([fest.name, fest.location.address.city, fest.contact_person.first_name, fest.contact_person.last_name, fest.contact_person.email, fest.contact_person.phone])
+
+		elif fest.contact_person and not fest.location:
+
+			writer.writerow([fest.name, '', fest.contact_person.first_name, fest.contact_person.last_name, fest.contact_person.email, fest.contact_person.phone])
 
 	return response
 
