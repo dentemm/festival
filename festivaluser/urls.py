@@ -16,6 +16,7 @@ urlpatterns = [
 	url(r'test/$', views.UserProfileView.as_view(), name='test'),
 	url(r'register/$', views.register_user, name='register'),
 
-	# CSV file 
-	url(r'allegebruikers/$', views.csvView, name='csv')
+	# CSV file -- alle gebruikers
+	url(r'allegebruikers/$', views.csvView, name='csv'),
+
 ]

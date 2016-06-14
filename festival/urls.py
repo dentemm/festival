@@ -7,6 +7,7 @@ from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
 from search import views as search_views
+from home import views as home_views
 
 
 urlpatterns = [
@@ -26,6 +27,9 @@ urlpatterns = [
    # url(r'^comments/', include('django_comments.urls')),
     url(r'^comments/', include('comments.urls')),
     url(r'^ratings/', include('ratings.urls')),
+
+    # CSV file -- festivals en contact personen
+    url(r'contactpersonen/$', home_views.csvView, name='csv'),
 
     url(r'', include(wagtail_urls)),
 ]
