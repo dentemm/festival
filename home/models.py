@@ -28,6 +28,9 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm, WagtailAdminModelForm
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailsearch import index
+from wagtail.wagtailcore import blocks
+from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtailembeds.blocks import EmbedBlock
 
 # Third party wagtail dependancies 
 from modelcluster.fields import ParentalKey
@@ -114,10 +117,41 @@ class FestivalPageRateableAttributeValueForm(WagtailAdminModelForm):
 		except:
 			return None
 
+#
+#
+# BLOCK DEFINITIONS
+#
+#
+
+class GoogleMapBlock(blocks.StructBlock):
+
+	class Meta:
+		template = 'home/blocks/google_map.html'
+		icon = 'cogs'
+		label = 'Google Map'
+
+class PullQuoteBlock(blocks.StructBlock):
+
+	quote = blocks.CharBlock(required=True, max_length=150, help_text='Geef hier een citaat in')
+	person = blocks.CharBlock(required=True, max_length=28, help_text='Van wie is dit citaat?')
+
+	class Meta:
+		template = 'home/blocks/pullquote.html'
+		icon = 'openquote'
+
+class ImageWithCaptionBlock(blocks.StructBlock):
+
+	image = ImageChooserBlock()
+	text = blocks.CharBlock(required=True, max_length=180, help_text='Geef de afbeelding een korte beschrijving')
+
+	class Meta:
+		template = 'home/blocks/image_with_caption.html'
+		icon = 'picture'
+		label = 'Afbeelding'
 
 #
 #
-# Global classes
+# GLOBAL CLASSES
 #
 #
 class LinkFields(djangomodels.Model):
@@ -164,14 +198,6 @@ RelatedLink.panels = [
 
 # 1. Blocks used in StreamField
 
-class ImageWithCaptionBlock(blocks.StructBlock):
-	'''
-	Dit is een afbeelding met een caption text, kan ook als onderdeel gelden van een carousel
-	'''
-
-	image = ImageChooserBlock()
-	caption = blocks.TextBlock(required=False)
-
 
 class HomePageStreamBlock(blocks.StreamBlock):
 
@@ -181,8 +207,6 @@ class HomePageStreamBlock(blocks.StreamBlock):
 class HomePage(models.Page):
 
 	template = 'home/home.html'
-
-	#body = fields.StreamField(HomePageStreamBlock(), blank=True, null=True)
 	test = fields.RichTextField(blank=True, null=True)
 
 
@@ -230,11 +254,6 @@ Location.panels = [
 					FieldPanel('address', classname='col6')
 				]
 			),
-#			FieldRowPanel([
-#					FieldPanel('latitude', classname='col6'),
-#					FieldPanel('longitude', classname='col6')
-#				]
-#			),
 		],
 		heading='Locatie gegevens'
 	)
@@ -473,6 +492,31 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
 FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage']
+
+#
+#
+# BLOG PAGE
+#
+#
+
+class BlogPage(models.Orderable, models.Page):
+
+	template = 'home/blog_page.html'
+
+	blog_content = fields.StreamField([
+		('heading', blocks.CharBlock(classname="full title")),
+		('paragraph', blocks.RichTextBlock()),
+		('image', ImageWithCaptionBlock()),
+		('quote', PullQuoteBlock())
+	])
+
+
+
+BlogPage.content_panels = models.Page.content_panels + [
+	StreamFieldPanel('blog_content'),
+]
+
+
 
 #
 #

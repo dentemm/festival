@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load rating_tags static compress comments wagtailimages_tags wagtailcore_tags %}
+
+{% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    	{% compress css %}
+	    <!-- CUSTOM CSS -->
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+	    {% endcompress %}
+{% endblock %}
+
+
+{% block navbar %}
+    {% include 'navbar_calendar.html' %}
+{% endblock %}
+
+{% block content %} 
+
+<div class="container" style="margin-top: 95px;">
+	<div class="row">
+		<div class="col-md-9">
+			{{ page.blog_content }}
+		</div>
+	</div>
+</div>
+
+
+{% endblock content %}
