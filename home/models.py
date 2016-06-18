@@ -507,7 +507,8 @@ class BlogPage(models.Orderable, models.Page):
 		('heading', blocks.CharBlock(classname="full title")),
 		('paragraph', blocks.RichTextBlock()),
 		('image', ImageWithCaptionBlock()),
-		('quote', PullQuoteBlock())
+		('quote', PullQuoteBlock()),
+		('vid', EmbedBlock()),
 	])
 
 
