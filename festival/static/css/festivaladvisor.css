@@ -73,6 +73,18 @@ footer h1 span {
   font-weight: bold;
 }
 
+footer h3 {
+  font-weight: 300;
+  text-shadow: 2px 2px 2px #7f7f7f;
+  text-transform: uppercase;
+  color: #FFF;
+}
+
+footer h3 span {
+  font-weight: bold;
+  color: #FFF;
+}
+
 
 /* Aanpassen van "meer festivals" onderdeel */
 

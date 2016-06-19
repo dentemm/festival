@@ -130,6 +130,20 @@ class GoogleMapBlock(blocks.StructBlock):
 		icon = 'cogs'
 		label = 'Google Map'
 
+class Heading1Block(blocks.CharBlock):
+
+	class Meta:
+		template = 'home/blocks/heading1.html'
+		icon = 'title'
+		label = 'Blog titel'
+
+class Heading2Block(blocks.CharBlock):
+
+	class Meta:
+		template = 'home/blocks/heading2.html'
+		icon = 'bold'
+		label = 'subtitel'
+
 class PullQuoteBlock(blocks.StructBlock):
 
 	quote = blocks.CharBlock(required=True, max_length=150, help_text='Geef hier een citaat in')
@@ -504,7 +518,8 @@ class BlogPage(models.Orderable, models.Page):
 	template = 'home/blog_page.html'
 
 	blog_content = fields.StreamField([
-		('heading', blocks.CharBlock(classname="full title")),
+		('title', Heading1Block()),
+		('subtitle', Heading2Block()),	
 		('paragraph', blocks.RichTextBlock()),
 		('image', ImageWithCaptionBlock()),
 		('quote', PullQuoteBlock()),

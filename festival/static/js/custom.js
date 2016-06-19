@@ -21,6 +21,12 @@ $(document).ready(function () {
         });
     });
 
+    /***************** Close menu on click ******************/
+
+      $(".navbar-nav li a").click(function(event) {
+        $(".navbar-collapse").collapse('hide');
+      });
+
     /***************** Scroll Spy ******************/
 
     $('body').scrollspy({
