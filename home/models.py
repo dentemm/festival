@@ -565,6 +565,7 @@ class FestivalPage(RatedModelMixin, models.Page):
 	Deze klasse beschrijft een festival. 
 		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
 	'''
+	template = 'home/festival_page.html'
 
 	# Core attributen
 	name = djangomodels.CharField('Festival naam', max_length=40, default='', unique=True, 

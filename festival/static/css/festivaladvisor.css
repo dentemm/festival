@@ -641,3 +641,26 @@ h3, h4, h5 {
       margin-top: -10px;
     }
 }
+
+.fa_singlerating {
+  color: #FFF;
+  font-size: 20px;
+  text-align: center;
+  margin-left: 20px;
+}
+
+.fa_singlerating {
+  margin-bottom: 50px;
+  text-shadow: 3px 3px 3px #333;
+}
+
+.fa_singlerating h2 {
+  color: #FFF;
+  margin: 0px;
+  text-shadow: 3px 3px 3px #333;
+}
+
+.fa_rated {
+  text-decoration: underline;
+  font-size: 24px;
+}

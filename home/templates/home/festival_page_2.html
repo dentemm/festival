@@ -8,7 +8,9 @@
 	    <!-- CUSTOM CSS -->
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'plugins/bootstrap-marketing/css/toolkit-minimal.min.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+	    
 
 	    <!-- RATING FUNCTIONALITY -->
 		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o-lg.css' %}">
@@ -21,33 +23,11 @@
 {% endblock %}
 
 {% block content %}
- 	<!-- CAROUSEL -->	
-	<section class="main-header">
-	    <div id="owl-hero" class="owl-carousel----- owl-teme">
-	    	<div class="item" style="background-image: url({{ page.main_image.file.url }})">
-	            <div class="caption">
-	                <h6>{{ page.location|title }} / {{ page.date_representation }}</h6>
-	                <h1><span>{{ page.name }}</span></h1>
-                    <div class="fa_singlerating">
-                        <div class="col-md-4 col-xs-12">
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Line-up</div>
-                              <h2>9</h2>
-                            </div>
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Food & Drinks</div>
-                              <h2>7</h2>
-                            </div>
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Netheid</div>
-                              <h2>9</h2>
-                            </div>
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Camping</div>
-                              <h2>6</h2>
-                            </div>
-                        </div>
-                    </div>
-	            </div>
-	        </div>
-	    </div>
-	</section>
+<div class="block block-fill-height" style="background-image: url({{ page.main_image.file.url }})">
+	<div class="item">
+	</div>
+</div>
+
 	
 <section id="calendar_item">
     <div class="container">
