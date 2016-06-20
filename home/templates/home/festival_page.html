@@ -28,22 +28,16 @@
 	            <div class="caption">
 	                <h6>{{ page.location|title }} / {{ page.date_representation }}</h6>
 	                <h1><span>{{ page.name }}</span></h1>
-                    <div class="fa_singlerating">
-                        <div class="col-md-4 col-xs-12">
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Line-up</div>
-                              <h2>9</h2>
+	                <div class="fa_singlerating">
+	                	<div class="col-md-4 col-xs-12">
+		                {% top_scores page as top_scores %}
+		                {% for score in top_scores %}
+		                	<div class="col-md-6 col-xs-6"><div class="fa_rated">{{ score.attribute }}</div>
+                             	<h2>{{ score.score }}</h2><br>
                             </div>
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Food & Drinks</div>
-                              <h2>7</h2>
-                            </div>
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Netheid</div>
-                              <h2>9</h2>
-                            </div>
-                            <div class="col-md-6 col-xs-6"><div class="fa_rated">Camping</div>
-                              <h2>6</h2>
-                            </div>
-                        </div>
-                    </div>
+		                {% endfor %}
+	                	</div>
+	                </div>
 	            </div>
 	        </div>
 	    </div>

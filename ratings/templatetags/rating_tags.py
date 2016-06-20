@@ -1,3 +1,5 @@
+import operator
+
 from django import template
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -476,6 +478,7 @@ def top_scores(obj):
 
 	all_scores = []
 
+
 	for attr in obj.rateable_attributes.all():
 
 		ct = ContentType.objects.get_for_model(attr)
@@ -486,12 +489,14 @@ def top_scores(obj):
 		except: 
 			return ''
 
-		all_scores.append(score)
+		all_scores.append({'attribute': attr.rateable_attribute.name, 'score': int(round(score.score * 2))})
 
 	# sorteer all_scores volgens hun score
-	all_scores.sort(key=lambda x: x.score, reverse=True)
+	all_scores.sort(key=operator.itemgetter('score'), reverse=True)
 	# behoud enkel de eerste vier items, deze hebben dus de beste score 
 	all_scores = all_scores[0:4]
+
+	print('test %s' % all_scores)
 
 	return all_scores
 
