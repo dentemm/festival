@@ -2,12 +2,14 @@
 
 {% if related_festivals %}
 	{% for festival in related_festivals %}
+		{% image festival.main_image fill-300x300 as img %}
 		<div class="col-md-2">
-			{% image festival.main_image fill-300x300 as img %}
-			<a href="{% pageurl festival %}">
-					<img class="img-responsive" src="{{ img.file.url }}">
-				</div>
-			</a>
+			<figure class="effect-bubba">
+				<img class="img-responsive" src="{{ img.file.url }}">
+				<figcaption class="effect-1">
+					<p>{{ festival.name }}</p>
+				</figcaption>
+			</figure>
 		</div>
 	{% endfor %}
 {% else %}

@@ -9,6 +9,7 @@
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/hovereffects.css' %}">
 	    <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
+	    <link rel="stylesheet" type="text/css" href="{% static 'tim/css/imagehover.css' %}">
 
 	    <!-- RATING FUNCTIONALITY -->
 		<link rel="stylesheet" href="{% static 'ratings/css/br-themes/fontawesome-stars-o-lg.css' %}">
@@ -203,7 +204,7 @@
 	                    <h4>Selecteer 1 van onderstaande tags en vind gelijkaardige festivals</h4>
 	                    <p style="padding:0px 15px;">
 	                    {% for tag in page.tags.all %}
-    						<a class="btn btn-success searchtag" href="/related/?tag={{ tag }}" style="margin:5px;">
+    						<a class="btn btn-success searchtag" href="/index/related/?tag={{ tag }}" style="margin:5px;">
     							<i class="fa fa-tags"></i> {{ tag }}
     						</a>
 						{% endfor %}
