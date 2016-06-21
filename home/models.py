@@ -621,7 +621,7 @@ class FestivalPage(RatedModelMixin, models.Page):
 
 		else:
 			if self.duration == 1:
-				return self.date.strftime('%d %b')
+				return self.date.strftime('%d %B')
 
 			else: 
 				end_date = self.date + timedelta(self.duration)

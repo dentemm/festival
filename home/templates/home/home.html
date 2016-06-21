@@ -70,9 +70,6 @@
                         <figcaption>
                             <div class="moveme">
                                 <h2 class="effect">{{ fest.name|title }}</h2>
-                                <div class="project-name">
-                                    {{ fest.location|title }}
-                                </div>
                                 <select id="festrating-{{ forloop.counter0 }}" data-initial="{% overall_rating fest %}">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -82,7 +79,8 @@
                                 </select>
                             </div>
                             <p>
-                                Klik om naar de detailpagina van {{ fest.name|title }} te gaan!
+                                <b>{{ fest.date_representation }}</b><br>
+                                <span class="icon icon-location"></span>&nbsp;{{ fest.location|title }}
                             </p>
                             <a class="effect" href="{% pageurl fest %}" class="portfolio-box">Ga naar festival!</a>
                         </figcaption>                        
