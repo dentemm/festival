@@ -56,7 +56,7 @@
         </div>
 		<div class="container-fluid" id="fest-list-items" data-count="{{ festivals|length }}">
         {% for fest in festivals %}
-            {% if forloop.first or forloop.counter0|divisibleby:"3" %}
+            {% if forloop.first or forloop.counter0|divisibleby:"6" %}
 			<div class="row">
             {% endif %}
                 <div class="col-lg-4 col-sm-6 festlist">
@@ -80,24 +80,24 @@
                             </div>
                             <p>
                                 <b>{{ fest.date_representation }}</b><br>
-                                <span class="icon icon-location"></span>&nbsp;{{ fest.location|title }}
+                                &nbsp;{{ fest.location|title }}
                             </p>
                             <a class="effect" href="{% pageurl fest %}" class="portfolio-box">Ga naar festival!</a>
                         </figcaption>                        
                     </figure>
                 </div>
-            {% if forloop.last or forloop.counter|divisibleby:"3" %}
+            {% if forloop.last or forloop.counter|divisibleby:"6" %}
             </div>
             {% endif %}
-        {% endfor %}    
-            <div class="meer">
-                <!--<a id="<loadmore>" class="btn btn-transparent" disabled="disabled">
-                	<i class="fa fa-plus-circle"></i> Toon meer
-                </a>-->
-                <a class="btn btn-transparent" href="/kalender/overview/">
-                	<i class="fa fa-calendar"></i> Naar volledige kalender 
-                </a>
-            </div>
+        {% endfor %}
+        </div>    
+        <div class="meer">
+            <!--<a id="<loadmore>" class="btn btn-transparent" disabled="disabled">
+            	<i class="fa fa-plus-circle"></i> Toon meer
+            </a>-->
+            <a class="btn btn-transparent" href="/kalender/overview/">
+            	<i class="fa fa-calendar"></i> Naar volledige kalender 
+            </a>
         </div>
     </section>
     <!-- Google Map
