@@ -33,7 +33,8 @@
 	                	<div class="col-md-4 col-xs-12">
 		                {% top_scores page as top_scores %}
 		                {% for score in top_scores %}
-		                	<div class="col-md-6 col-xs-6"><div class="fa_rated">{{ score.attribute }}</div>
+		                	<div class="col-md-6 col-xs-6">
+		                		<div class="fa_rated">{{ score.attribute }}</div>
                              	<h2>{{ score.score }}</h2><br>
                             </div>
 		                {% endfor %}
@@ -310,8 +311,6 @@
         </div>
     </div>
 </section>
-
-<!--{% top_scores page %}-->
 
 
 <!-- COMMENT MODAL -->
