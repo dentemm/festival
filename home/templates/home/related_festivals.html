@@ -3,7 +3,7 @@
 {% if related_festivals %}
 	{% for festival in related_festivals %}
 		{% image festival.main_image fill-300x300 as img %}
-		<div class="col-md-2">
+		<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
 			<figure class="effect-bubba">
 				<img class="img-responsive" src="{{ img.file.url }}">
 				<figcaption class="effect-1">
