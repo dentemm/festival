@@ -99,11 +99,9 @@ footer h3 span {
   border-top: 1px solid #333;
   color: #fff;
   font-size: 22px;
-  font-style: oblique;
-  font-weight: 500;
+  font-weight: 300;
   padding: 20px;
   text-shadow: 1px 1px 1px #333;
-  text-transform: uppercase;
 }
 
 /* Aanpassen van "map" onderdeel */
