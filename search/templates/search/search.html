@@ -5,12 +5,14 @@
     {# Override this in templates to add extra stylesheets #}
         {% compress css %}
 
+        <!-- BOOTSTRAP MARKETING THEME-->
+        <link rel="stylesheet" type="text/css" href="{% static 'plugins/bs-marketing/css/toolkit-minimal.css' %}">
+
         <!-- CUSTOM CSS -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/festivaladvisor.css' %}">
 
         <!-- BOOTSTRAP MARKETING THEME-->
-        <link rel="stylesheet" type="text/css" href="{% static 'plugins/bs-marketing/css/toolkit-minimal.css' %}">
         {% endcompress %}
 {% endblock %}
 
@@ -23,7 +25,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container" style="margin-top:94px;">
+    <div class="container" style="margin-top:94px; ">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <h2>Doorzoek FestivalAdvisor</h2>

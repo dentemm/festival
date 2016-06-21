@@ -761,21 +761,7 @@ pre code {
   padding-left: 10px;
   padding-right: 10px;
 }
-@media (min-width: 768px) {
-  .container {
-    width: 740px;
-  }
-}
-@media (min-width: 992px) {
-  .container {
-    width: 880px;
-  }
-}
-@media (min-width: 1200px) {
-  .container {
-    width: 1020px;
-  }
-}
+
 .container-fluid {
   margin-right: auto;
   margin-left: auto;
