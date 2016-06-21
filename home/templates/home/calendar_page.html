@@ -139,13 +139,10 @@
 
 	        var contentString = '<div><h6>' + name + '</h6><a href="' + url  + '">Meer details</a></div>'
 
-	        var image = "{% static 'img/google/marker.png' %}";
-
 	        var marker = new google.maps.Marker({
 	            position: myLatlng,
 	            map: map,
 	            title: name,
-	            icon: image,
 	        });
 
 	        marker['infowindow'] = contentString;
