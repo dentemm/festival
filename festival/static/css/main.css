@@ -87,7 +87,7 @@ Buttons Styles
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -113,7 +113,7 @@ Buttons Styles
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -138,7 +138,7 @@ Buttons Styles
   -o-transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   border: 3px solid #24242a;
@@ -207,7 +207,7 @@ Navigation Style
 .navbar-default .nav > li > a {
   font-size: 14px;
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   padding: 35px 15px;
   -moz-transition: all 0.3s ease-in-out;
@@ -279,7 +279,7 @@ Sliders Style
   text-transform: uppercase;
 }
 #owl-hero .item .caption h1 span {
-  font-weight: 600;
+  font-weight: 500;
 }
 #owl-hero .item .caption h6 {
   color: #fff;
@@ -354,7 +354,7 @@ Welcome Style
   text-transform: uppercase;
 }
 #welcome h2 span {
-  font-weight: 600;
+  font-weight: 500;
 }
 #welcome img {
   margin-top: 40px;
@@ -461,7 +461,7 @@ Portfolio Style
 #portfolio .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-category {
   text-transform: uppercase;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 500;
 }
 #portfolio .portfolio-box .portfolio-box-caption .portfolio-box-caption-content .project-name {
   font-size: 18px;
@@ -534,7 +534,7 @@ Fun Facts Style
 }
 #fun-facts .number {
   color: #fff;
-  font-weight: 600;
+  font-weight: 500;
   padding: 10px 0;
   margin: 0;
 }
@@ -561,7 +561,7 @@ Our Team Style
 #team .team h4 {
   margin-top: 20px;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
 }
 #team .team p {
   color: #a3a3a3;
@@ -622,7 +622,7 @@ Testimonials Style
   line-height: 36px;
 }
 #testimonials .item h5 span {
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
 }
 #testimonials .owl-pagination .owl-page.active span {
@@ -687,7 +687,7 @@ footer {
 }
 footer h1 {
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
 }
 footer .social {
   margin: 40px 0;

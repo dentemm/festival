@@ -394,7 +394,7 @@ time.icon span {
   color: #333;
 }
 /* Aanpassen van achtergrondskleur */
-body {  font-family: Tahoma;}
+body {  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
 #calendar_item {
   background-color: #EFEFEF;
