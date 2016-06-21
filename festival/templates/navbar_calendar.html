@@ -20,12 +20,17 @@
                 </ul>
             </div>
             <div class="social-media hidden-sm hidden-xs">
+                <form class="navbar-form navbar-right" name="query" value="{{ search_query }}" action="{% url 'search' %}" method="get">
+                    <div class="input-group" style="margin-top:20px;">
+                        <input id="nav" type="text" name="query" class="form-control" placeholder="Zoeken...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="/search/">
-                            <i class="fa fa-search"></i>
-                        </a>
-                    </li>
                     <li>
                         <a href="#" id="login">
                             <i class="fa fa-user"></i>
