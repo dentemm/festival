@@ -691,3 +691,8 @@ span.input-group-btn button i.fa {
   text-decoration: underline;
   font-size: 24px;
 }
+
+div.related {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
