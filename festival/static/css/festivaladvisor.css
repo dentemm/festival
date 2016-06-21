@@ -631,6 +631,19 @@ h3, h4, h5 {
   margin-top: -37px;
 }
 
+/* Search sectie */
+
+#search {
+  height: 100px;
+}
+
+/* Aanpassen grootte navbar voor toevoegen van search veld */
+
+.navbar-default .navbar-header {
+  padding-right: 15px;
+  width: auto;
+}
+
 @media (max-width: 640px) {
     .owl-pagination {
       display: none;
@@ -640,6 +653,22 @@ h3, h4, h5 {
       padding-top: 20px;
       margin-top: -10px;
     }
+}
+
+/* Toevoegen van search bar margin */
+
+#nav.form-control  {
+  background-color: transparent;
+  color: #FFF;
+}
+
+.form-control::-moz-placeholder {
+  color: #DDD;
+  opacity: 1;
+}
+
+span.input-group-btn button i.fa {
+  font-size: 18px;
 }
 
 .fa_singlerating {
