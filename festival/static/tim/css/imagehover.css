@@ -1,5 +1,9 @@
 /* GEMEENSCHAPPELIJK */
 
+a.effect {
+	position: absolute;
+}
+
 figure.effect {
 	position: relative;
 	background: #3085a3;
@@ -47,7 +51,6 @@ figure p {
 	font-size: 68.5%;
 	color: #fff;
 }
-
 
 
 /*---------------*/
@@ -118,4 +121,94 @@ figure.effect-bubba:hover p {
 	transform: translate3d(0,0,0);
 }
 
+/*---------------*/
+/***** Oscar *****/
+/*---------------*/
+
+div.festlist {
+	padding: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+h2.effect {
+	color: white;
+}
+
+figure.effect-oscar {
+	background: -webkit-linear-gradient(45deg, #22682a 0%, #9b4a1b 40%, #3a342a 100%);
+	background: linear-gradient(45deg, #22682a 0%,#9b4a1b 40%,#3a342a 100%);
+	position: relative;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+/*div.extra-margin {
+	margin: 3px;
+}*/
+
+figure.effect-oscar img {
+	opacity: 0.9;
+	-webkit-transition: opacity 0.35s;
+	transition: opacity 0.35s;
+
+}
+
+figure.effect-oscar figcaption {
+	padding: 2em;
+	background: rgba(13, 13, 13, 0.4);
+	background-clip: inherit;
+	-webkit-transition: border-color 0.35s;
+	transition: background-color 0.35s;
+	text-transform: none;
+}
+
+figure.effect-oscar figcaption::before {
+	position: absolute;
+	top: 30px;
+	right: 30px;
+	bottom: 30px;
+	left: 30px;
+	border: 1px solid #fff;
+	content: '';
+}
+
+figure.effect-oscar .moveme {
+	margin: 0% 0 10px 0;
+	-webkit-transition: -webkit-transform 0.35s;
+	transition: transform 0.35s;
+	-webkit-transform: translate3d(0,60%,0);
+	transform: translate3d(0,80%,0);
+}
+
+figure.effect-oscar figcaption::before,
+figure.effect-oscar p {
+	opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(0);
+	transform: scale(0);
+}
+
+figure.effect-oscar:hover .moveme {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+figure.effect-oscar:hover figcaption::before,
+figure.effect-oscar:hover p {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
+}
+
+figure.effect-oscar:hover figcaption {
+	background-color: rgba(58,52,42,0);
+
+}
+
+figure.effect-oscar:hover img {
+	opacity: 0.4;
+}
 
