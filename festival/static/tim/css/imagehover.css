@@ -125,10 +125,7 @@ figure.effect-bubba:hover p {
 /***** Oscar *****/
 /*---------------*/
 
-div.festlist {
-	padding: 0px;
-	margin: 2px;
-}
+
 
 h2.effect {
 	color: white;
@@ -143,9 +140,9 @@ figure.effect-oscar {
 }
 
 
-/*div.extra-margin {
-	margin: 3px;
-}*/
+div.festlist {
+	border: 2px solid white;
+}
 
 figure.effect-oscar img {
 	opacity: 0.9;
