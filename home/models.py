@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 # Django imports
 from django.db import models as djangomodels
@@ -123,6 +123,44 @@ class FestivalPageRateableAttributeValueForm(WagtailAdminModelForm):
 #
 #
 
+class TitleBlock(blocks.StructBlock):
+
+	image = ImageChooserBlock()
+	title = blocks.CharBlock()
+	auteur = blocks.CharBlock()
+
+	class Meta:
+		template = 'home/blocks/title_block.html'
+		label = 'Blog titel'
+		icon = 'title'
+
+class IntroTextBlock(blocks.StructBlock):
+
+	intro = blocks.TextBlock(label='Inleiding van het artikel', required=True)
+
+	class Meta:
+		template = 'home/blocks/intro.html'
+		label = 'Blog intro'
+		icon = 'success'
+
+class SubTitleBlock(blocks.CharBlock):
+
+	class Meta:
+		template = 'home/blocks/heading2.html'
+		icon = 'bold'
+		label = 'Ondertitel'
+
+class VideoBlock(blocks.StructBlock):
+
+	link = EmbedBlock(label='URL van video', required=True, classname='block-background')
+	titel = blocks.CharBlock(label='Titel', required=True)
+	desc = blocks.CharBlock(label='Beschrijving van video, optioneel', required=False)
+
+	class Meta:
+		template = 'home/blocks/video.html'
+		icon = 'media'
+		label = 'Video'
+
 class GoogleMapBlock(blocks.StructBlock):
 
 	class Meta:
@@ -142,12 +180,12 @@ class Heading2Block(blocks.CharBlock):
 	class Meta:
 		template = 'home/blocks/heading2.html'
 		icon = 'bold'
-		label = 'subtitel'
+		label = 'Ondertitel'
 
 class PullQuoteBlock(blocks.StructBlock):
 
-	quote = blocks.CharBlock(required=True, max_length=150, help_text='Geef hier een citaat in')
-	person = blocks.CharBlock(required=True, max_length=28, help_text='Van wie is dit citaat?')
+	quote = blocks.CharBlock(label='Citaat', required=True, max_length=150, help_text='Geef hier een citaat in')
+	person = blocks.CharBlock(label='Auteur', required=True, max_length=28, help_text='Van wie is dit citaat?')
 
 	class Meta:
 		template = 'home/blocks/pullquote.html'
@@ -516,20 +554,76 @@ FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage']
 class BlogPage(models.Orderable, models.Page):
 
 	template = 'home/blog_page.html'
+	date_posted = djangomodels.DateField('Publicatie datum', default=date.today)
+	author = djangomodels.CharField('Auteur', max_length=40, null=True)
 
 	blog_content = fields.StreamField([
-		('title', Heading1Block()),
+		('blog_title', TitleBlock(help_text='Dit is de titel van het artikel, voorzien van een afbeelding')),
+		('blogintro', IntroTextBlock(help_text='Hiermee kan je optioneel een korte inleiding voorzien')),
 		('subtitle', Heading2Block()),	
+		#('video', VideoBlock()),
 		('paragraph', blocks.RichTextBlock()),
 		('image', ImageWithCaptionBlock()),
 		('quote', PullQuoteBlock()),
-		('vid', EmbedBlock()),
-	])
+		#('vid', EmbedBlock()),
+	], verbose_name='Blog inhoud')
 
+BlogPage.parent_page_types = ['home.BlogIndexPage', ]
 
-
-BlogPage.content_panels = models.Page.content_panels + [
+BlogPage.content_panels = [
+	MultiFieldPanel([
+		FieldRowPanel([
+				FieldPanel('author', classname='col6'),
+				FieldPanel('date_posted', classname='col6'),
+			]),
+		], heading='Blog informatie'
+	),
 	StreamFieldPanel('blog_content'),
+]
+
+class BlogIndexPage(models.Page):
+
+	template = 'home/blog_index_page.html'
+
+	@property
+	def blogs(self):
+		# Get list of live blog pages that are descendants of this page
+		#blogs = BlogPage.objects.live().descendant_of(self)
+		blogs = BlogPage.objects.all()
+
+		# Order by most recent date first
+		#blogs = blogs.order_by('-date')
+
+		return blogs
+
+	def get_context(self, request):
+		# Get blogs
+		blogs = self.blogs
+
+		# Filter by tag
+		tag = request.GET.get('tag')
+		if tag:
+			blogs = blogs.filter(tags__name=tag)
+
+		# Pagination
+		page = request.GET.get('page')
+		paginator = Paginator(blogs, 10)  # Show 10 blogs per page
+		try:
+			blogs = paginator.page(page)
+		except PageNotAnInteger:
+			blogs = paginator.page(1)
+		except EmptyPage:
+			blogs = paginator.page(paginator.num_pages)
+
+		# Update template context
+		context = super(BlogIndexPage, self).get_context(request)
+		context['blogs'] = blogs
+		return context
+
+BlogIndexPage.subpage_types = ['home.BlogPage', ]
+
+BlogIndexPage.content_panels = [
+    FieldPanel('title', classname="full title"),
 ]
 
 

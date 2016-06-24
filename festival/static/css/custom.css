@@ -3,6 +3,21 @@
  	top: 72vh;
 }
 
+/* voor wagtail embeds */
+.responsive-object {
+    position: relative;
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+.responsive-object iframe,
+.responsive-object object {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 /* CALENDAR PAGE */
 a.festivalitem:hover {
 	text-decoration: none;
@@ -67,5 +82,102 @@ small {
   src: url('../fonts/toolkit-entypo.eot?#iefix') format('eot'), url('../fonts/toolkit-entypo.woff2') format('woff2'), url('../fonts/toolkit-entypo.woff') format('woff'), url('../fonts/toolkit-entypo.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+/* Bootstrap dashboard theme additions: extra margins and padding classes */
+
+.m-a-sm {
+  margin: 10px !important;
+}
+.m-t-sm {
+  margin-top: 10px !important;
+}
+.m-r-sm {
+  margin-right: 10px !important;
+}
+.m-b-sm {
+  margin-bottom: 10px !important;
+}
+.m-l-sm {
+  margin-left: 10px !important;
+}
+.m-x-sm {
+  margin-right: 10px !important;
+  margin-left: 10px !important;
+}
+.m-y-sm { 
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+.m-a-xs {
+  margin: 5px !important;
+}
+.m-t-xs {
+  margin-top: 5px !important;
+}
+.m-r-xs {
+  margin-right: 5px !important;
+}
+.m-b-xs {
+  margin-bottom: 5px !important;
+}
+.m-l-xs {
+  margin-left: 5px !important;
+}
+.m-x-xs {
+  margin-right: 5px !important;
+  margin-left: 5px !important;
+}
+.m-y-xs { 
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.p-a-sm {
+  padding: 10px !important; 
+}
+.p-t-sm { 
+  padding-top: 10px !important;
+}
+.p-r-sm { 
+  padding-right: 10px !important;
+}
+.p-b-sm {
+  padding-bottom: 10px !important;
+}
+.p-l-sm {
+  padding-left: 10px !important;
+}
+.p-x-sm {
+  padding-right: 10px !important;
+  padding-left:  10px !important;
+}
+.p-y-sm { 
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.p-a-xs { 
+  padding: 5px !important;
+}
+.p-t-xs {
+  padding-top: 5px !important;
+}
+.p-r-xs {
+  padding-right:  5px !important;
+}
+.p-b-xs {
+  padding-bottom: 5px !important;
+}
+.p-l-xs {
+  padding-left: 5px !important;
+}
+.p-x-xs { 
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+.p-y-xs { 
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
 }
 

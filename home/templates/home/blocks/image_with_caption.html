@@ -1,6 +1,7 @@
 {% load wagtailimages_tags %}
-
-<div class="person">
-    {% image value.image width-400 %}
-    {{ value.text }}
+<div class="m-y-md">
+    <figure>
+    	{% image value.image width-400 class="effect-3" %}
+    	<!--<figcaption>{{ value.text }}</figcaption>-->
+    </figure>
 </div>

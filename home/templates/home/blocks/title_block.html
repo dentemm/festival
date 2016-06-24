@@ -1,0 +1,12 @@
+{% load wagtailimages_tags %}
+
+<div class="block block-inverse p-a-md m-y-md" style="height:200px;">
+	<div class="block-foreground">
+	    <h2 class="block-title">{{ value.title }}</h2>
+	    <hp class="pull-right">Door {{ value.auteur }}</p>
+	</div>
+	{% image value.image fill-1000x440 as img %}
+	<div class="block-background" style="overflow:hidden;">
+	    <img class="img-responsive" src="{{ img.file.url }}" style="opacity:0.5; overflow:hidden;">
+	</div>
+</div>
