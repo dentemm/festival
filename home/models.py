@@ -541,7 +541,7 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		return TemplateResponse(request, template=template, context=context)
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'home.BlogIndexPage', ]
+#FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'home.BlogIndexPage', ]
 
 #
 #
@@ -549,22 +549,20 @@ FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'ho
 #
 #
 
+'''
 class BlogPage(models.Orderable, models.Page):
 
 	template = 'home/blog_page.html'
 	date_posted = djangomodels.DateField('Publicatie datum', default=date.today)
 	author = djangomodels.CharField('Auteur', max_length=40, null=True)
-	#url_title = djangomodels.CharField('URL titel', max_length=40)
 
 	blog_content = fields.StreamField([
 		('blog_title', TitleBlock(help_text='Dit is de titel van het artikel, voorzien van een afbeelding')),
 		('blogintro', IntroTextBlock(help_text='Hiermee kan je optioneel een korte inleiding voorzien')),
 		('subtitle', Heading2Block()),	
-		#('video', VideoBlock()),
 		('paragraph', blocks.RichTextBlock()),
 		('image', ImageWithCaptionBlock()),
 		('quote', PullQuoteBlock()),
-		#('vid', EmbedBlock()),
 	], verbose_name='Blog inhoud')
 
 
@@ -628,7 +626,7 @@ BlogIndexPage.parent_page_types = ['home.FestivalIndexPage', ]
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
 ]
-
+'''
 
 
 #
