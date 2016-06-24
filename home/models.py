@@ -543,14 +543,14 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		return TemplateResponse(request, template=template, context=context)
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', ]
+FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'home.BlogIndexPage', ]
 
 #
 #
 # BLOG PAGE
 #
 #
-'''
+
 class BlogPage(models.Orderable, models.Page):
 
 	template = 'home/blog_page.html'
@@ -571,6 +571,10 @@ class BlogPage(models.Orderable, models.Page):
 
 
 	def save(self, *args, **kwargs):
+		'''
+		Deze methode werd overschreven om de title en slug attributes van een Page model in te stellen
+		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
+		'''
 
 		# -- PAGE TITLE AND PAGE SLUG FUNCTIONALITY -- #
 
@@ -643,7 +647,7 @@ BlogIndexPage.parent_page_types = ['home.FestivalIndexPage', ]
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
 ]
-'''
+
 
 
 #
