@@ -80,7 +80,6 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 
 		if page.id:
-
 			# -- RATEABLE ATTRIBUTES FUNCTIONALITY -- #
 			kenmerken = FestivalPageRateableAttribute.objects.all()
 
@@ -104,7 +103,6 @@ class FestivalPageForm(WagtailAdminPageForm):
 
 			cleaned_data['rateable_attributes'] = kenmerken
 
-
 		return cleaned_data
 
 class FestivalPageRateableAttributeValueForm(WagtailAdminModelForm):
@@ -125,9 +123,9 @@ class FestivalPageRateableAttributeValueForm(WagtailAdminModelForm):
 
 class TitleBlock(blocks.StructBlock):
 
-	image = ImageChooserBlock()
-	title = blocks.CharBlock()
-	auteur = blocks.CharBlock()
+	image = ImageChooserBlock(label='afbeelding', required=True)
+	title = blocks.CharBlock(label='Titel', required=True)
+	auteur = blocks.CharBlock(label='Auteur', required=True)
 
 	class Meta:
 		template = 'home/blocks/title_block.html'
@@ -556,7 +554,7 @@ class BlogPage(models.Orderable, models.Page):
 	template = 'home/blog_page.html'
 	date_posted = djangomodels.DateField('Publicatie datum', default=date.today)
 	author = djangomodels.CharField('Auteur', max_length=40, null=True)
-	url_title = djangomodels.CharField('URL titel', max_length=40)
+	#url_title = djangomodels.CharField('URL titel', max_length=40)
 
 	blog_content = fields.StreamField([
 		('blog_title', TitleBlock(help_text='Dit is de titel van het artikel, voorzien van een afbeelding')),
@@ -570,30 +568,13 @@ class BlogPage(models.Orderable, models.Page):
 	], verbose_name='Blog inhoud')
 
 
-	def save(self, *args, **kwargs):
-		'''
-		Deze methode werd overschreven om de title en slug attributes van een Page model in te stellen
-		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
-		'''
-
-		# -- PAGE TITLE AND PAGE SLUG FUNCTIONALITY -- #
-
-		if self.slug == "" and self.title == "":
-			self.title = self.url_title
-			self.slug = slugify(self.url_title)
-
-
-		return super(BlogPage, self).save(*args, **kwargs)
-
-
-
 BlogPage.parent_page_types = ['home.BlogIndexPage', ]
 BlogPage.subpage_types = []
 
 BlogPage.content_panels = [
 	MultiFieldPanel([
 		FieldRowPanel([
-				FieldPanel('url_title', classname='col12',),
+				FieldPanel('title', classname='col12'),
 				FieldPanel('author', classname='col6'),
 				FieldPanel('date_posted', classname='col6'),
 			]),
