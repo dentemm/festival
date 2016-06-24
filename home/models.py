@@ -541,7 +541,7 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		return TemplateResponse(request, template=template, context=context)
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-#FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'home.BlogIndexPage', ]
+FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'home.BlogIndexPage', ]
 
 #
 #
@@ -549,7 +549,6 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 #
 #
 
-'''
 class BlogPage(models.Orderable, models.Page):
 
 	template = 'home/blog_page.html'
@@ -626,7 +625,7 @@ BlogIndexPage.parent_page_types = ['home.FestivalIndexPage', ]
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
 ]
-'''
+
 
 
 #

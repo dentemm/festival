@@ -6,14 +6,14 @@ from .models import Address, Location, Person, FestivalPageRateableAttribute, Fe
 @admin.register(FestivalPage)
 class FestivalPageAdmin(admin.ModelAdmin):
 	pass
-'''
+
 @admin.register(BlogPage)
 class BlogPageAdmin(admin.ModelAdmin):
 	pass
 
 @admin.register(BlogIndexPage)
 class BlogIndexPageAdmin(admin.ModelAdmin):
-	pass'''
+	pass
 
 @admin.register(Address)
 class AdressAdmin(admin.ModelAdmin):
