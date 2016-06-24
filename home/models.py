@@ -543,7 +543,7 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		return TemplateResponse(request, template=template, context=context)
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage']
+FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'home.BlogIndexPage', ]
 
 #
 #
@@ -569,6 +569,7 @@ class BlogPage(models.Orderable, models.Page):
 	], verbose_name='Blog inhoud')
 
 BlogPage.parent_page_types = ['home.BlogIndexPage', ]
+BlogPage.subpage_types = []
 
 BlogPage.content_panels = [
 	MultiFieldPanel([
@@ -621,6 +622,7 @@ class BlogIndexPage(models.Page):
 		return context
 
 BlogIndexPage.subpage_types = ['home.BlogPage', ]
+BlogIndexPage.parent_page_types = ['home.FestivalIndexPage', ]
 
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
