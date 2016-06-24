@@ -556,6 +556,13 @@ class BlogPage(models.Orderable, models.Page):
 	template = 'home/blog_page.html'
 	date_posted = djangomodels.DateField('Publicatie datum', default=date.today)
 	author = djangomodels.CharField('Auteur', max_length=40, null=True)
+	url = djangomodels.CharField(
+		verbose_name=_('URL title'),
+		max_length=255,
+		help_text="Is nodig om unieke URL voor blog artikel aan te maken",
+		default='',
+	)
+
 
 	blog_content = fields.StreamField([
 		('blog_title', TitleBlock(help_text='Dit is de titel van het artikel, voorzien van een afbeelding')),
@@ -568,16 +575,33 @@ class BlogPage(models.Orderable, models.Page):
 		#('vid', EmbedBlock()),
 	], verbose_name='Blog inhoud')
 
+
+	def save(self, *args, **kwargs):
+		'''
+		Deze methode werd overschreven om de title en slug attributes van een Page model in te stellen
+		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
+		'''
+
+		# -- PAGE TITLE AND PAGE SLUG FUNCTIONALITY -- #
+
+		if self.slug == "" and self.title == "":
+			self.title = self.url
+			self.slug = slugify(self.url)
+
+		return super(BlogPage, self).save(*args, **kwargs)
+
+
 BlogPage.parent_page_types = ['home.BlogIndexPage', ]
 BlogPage.subpage_types = []
 
 BlogPage.content_panels = [
 	MultiFieldPanel([
 		FieldRowPanel([
+				FieldPanel('title', classname='col12',),
 				FieldPanel('author', classname='col6'),
 				FieldPanel('date_posted', classname='col6'),
 			]),
-		], heading='Blog informatie'
+		], heading='Blog informatie',
 	),
 	StreamFieldPanel('blog_content'),
 ]
