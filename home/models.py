@@ -543,26 +543,20 @@ class FestivalIndexPage(RoutablePageMixin, models.Page):
 		return TemplateResponse(request, template=template, context=context)
 
 #FestivalPage.parent_page_types = ['home.FestivalIndexPage', ]
-FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', 'home.BlogIndexPage', ]
+FestivalIndexPage.subpage_types = ['home.FestivalPage', 'home.CalendarPage', ]
 
 #
 #
 # BLOG PAGE
 #
 #
-
+'''
 class BlogPage(models.Orderable, models.Page):
 
 	template = 'home/blog_page.html'
 	date_posted = djangomodels.DateField('Publicatie datum', default=date.today)
 	author = djangomodels.CharField('Auteur', max_length=40, null=True)
-	url = djangomodels.CharField(
-		verbose_name=_('URL title'),
-		max_length=255,
-		help_text="Is nodig om unieke URL voor blog artikel aan te maken",
-		default='',
-	)
-
+	url_title = djangomodels.CharField('URL titel', max_length=40)
 
 	blog_content = fields.StreamField([
 		('blog_title', TitleBlock(help_text='Dit is de titel van het artikel, voorzien van een afbeelding')),
@@ -577,18 +571,16 @@ class BlogPage(models.Orderable, models.Page):
 
 
 	def save(self, *args, **kwargs):
-		'''
-		Deze methode werd overschreven om de title en slug attributes van een Page model in te stellen
-		Ze worden ingesteld op basis van de festival naam, en dit bespaart de content editor wat werk
-		'''
 
 		# -- PAGE TITLE AND PAGE SLUG FUNCTIONALITY -- #
 
 		if self.slug == "" and self.title == "":
-			self.title = self.url
-			self.slug = slugify(self.url)
+			self.title = self.url_title
+			self.slug = slugify(self.url_title)
+
 
 		return super(BlogPage, self).save(*args, **kwargs)
+
 
 
 BlogPage.parent_page_types = ['home.BlogIndexPage', ]
@@ -597,7 +589,7 @@ BlogPage.subpage_types = []
 BlogPage.content_panels = [
 	MultiFieldPanel([
 		FieldRowPanel([
-				FieldPanel('title', classname='col12',),
+				FieldPanel('url_title', classname='col12',),
 				FieldPanel('author', classname='col6'),
 				FieldPanel('date_posted', classname='col6'),
 			]),
@@ -651,7 +643,7 @@ BlogIndexPage.parent_page_types = ['home.FestivalIndexPage', ]
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
 ]
-
+'''
 
 
 #
