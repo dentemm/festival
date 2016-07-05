@@ -47,21 +47,24 @@ def register_user(request):
 
 				if user is not None:
 					if user.is_active:
-						print('auth login')
+						#print('auth login')
 						auth_login(request, user)
 
 					else:
-						print('not active')
+						#print('not active')
+						pass
 
 				return HttpResponseRedirect('/user/')
 
 			else:
-				print('invalid!!!')
-				print(form.errors)
+				#print('invalid!!!')
+				#print(form.errors)
+				pass
 
 		context = {}
 		context.update(csrf(request))
 		context['form'] = CustomUserCreationForm()
+		context['redirect'] = request.META.get('HTTP_REFERER','/')
 
 		#return render(request, 'festivaluser/user_profile.html', context)
 		return render(request, 'festivaluser/register_modal.html', context)
@@ -86,6 +89,7 @@ def login_user(request):
 	context = {}
 	context.update(csrf(request))
 	context['form'] = AuthenticationForm()
+	context['redirect'] = request.META.get('HTTP_REFERER','/')
 
 	return render(request, 'festivaluser/login_modal.html', context)
 
