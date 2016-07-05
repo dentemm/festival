@@ -4,7 +4,7 @@
     <div class="modal-content">
         <div class="modal-body">
             <div style="width:22em; margin: 0 auto;">
-                <a href="/login/facebook/?next={{ request.path }}">
+                <a href="/login/facebook/">
                     <img class="img-responsive center-block" src="{% static 'assets/fb_login_new.png' %}">    
                 </a>
                 <br>
@@ -17,7 +17,7 @@
             <br>
             {{ form.errors }}
             <div style="width:22em; margin: 0 auto;">
-                <form action="/user/login/?next={{ request.path }}" method="POST">
+                <form action="/user/login/" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         {% render_field form.username class+="form-control" placeholder="Gebruikernaam" %}
