@@ -112,6 +112,11 @@
                 $('body').on('hidden.bs.popover', function(event) {
                     $(event.target).data('bs.popover').inState = { click: false, hover: false, focus: false}
                 });
+
+                $(".modal").on('hidden.bs.modal', function () {
+                    $(this).data('bs.modal', null);
+                });
+
             });
 
 

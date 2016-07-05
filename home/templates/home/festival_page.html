@@ -419,6 +419,11 @@
 	            }
            });
         </script>
+        <script type="text/javascript">
+        	$(".modal").on('hidden.bs.modal', function () {
+			    $(this).data('bs.modal', null);
+			});
+        </script>
 
 	    {% endcompress %}
 {% endblock extra_js %}

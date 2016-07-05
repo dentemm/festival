@@ -34,7 +34,8 @@
 					<h2 class="block-title">Inloggen</h2>
 					<h4 class="text-muted">Selecteer hieronder je login methode</h4>
 					<!--<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">-->
-					<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}?next={% url 'account' %}">
+					<!--<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}?next={% url 'account' %}">-->
+					<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}">
 						<span class="icon icon-facebook"> Inloggen via facebook</span>
 					</a>
 				</div>
@@ -44,6 +45,7 @@
 					<h2 class="block-title">Nieuwe gebruiker?</h2>
 					<h4 class="text-muted">Selecteer hier je gewenste aanmeld methode</h4>
 					<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">
+					<!--<a class="btn btn-facebook m-t" href="{% url 'social:begin' 'facebook' %}">-->
 						<span class="icon icon-facebook"> Aanmelden via facebook</span>
 					</a>
 				</div>
