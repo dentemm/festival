@@ -58,7 +58,7 @@
 		{{ user.email }}
 		<br>
 	{% else %}
-		<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"> login with facebook</a>
+		<a href="{% url 'social:begin' 'facebook' %}"> login with facebook</a>
 	{% endif %}
 	</div>
 
