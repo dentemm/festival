@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static compress wagtailimages_tags wagtailcore_tags rating_tags %}
+{% load static compress wagtailimages_tags wagtailcore_tags rating_tags home_tags %}
 
 {% block extra_css %}
 	{% compress css %}
@@ -41,6 +41,7 @@
 	    	<div class="item" style="background-image: url({{ item.main_image.file.url }})">
 	            <div class="caption">
 	                <h6>{{ item.name }} / {{ item.location|title }} / {{ item.date_representation }}</h6>
+
 	                <h1><span>{{ item.name }}</span></h1>
 	                <a class="btn btn-transparent" href="{% pageurl item %}">Meer info</a><a class="btn btn-light" href="{% pageurl item %}">Koop tickets</a>
 	            </div>

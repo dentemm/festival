@@ -1,4 +1,4 @@
-{% load rating_tags static comments wagtailuserbar wagtailcore_tags wagtailimages_tags %}
+{% load home_tags rating_tags static comments wagtailuserbar wagtailcore_tags wagtailimages_tags %}
 
 <div id="current_item" style="display: none;">{{ festival.pk }}</div>
 <div class="container">
@@ -21,7 +21,13 @@
             <h4>{{ festival.description|safe }}</h4>
         </div>
         <div class="col-md-4 col-md-offset-1 fa_tickets">
+    {% check_ticket_link item as check %}
+        {% if check == '' %}
             <a href="{{ festival.website }}" target="_blank">
+        {% else %}
+            <a href="{{ check }}" target="_blank">
+            {{ check }}
+        {% endif %}
                 <button type="button" class="btn btn-success">Koop Tickets</button>
             </a>
             <a href="{{ festival.website }}"><i class="fa fa-internet-explorer" aria-hidden="true"></i> Website</a> 
