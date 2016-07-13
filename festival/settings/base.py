@@ -206,15 +206,25 @@ WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'home/templates/home/search/search_results
 #SOCIAL_AUTH_USER_MODEL = 'django.contrib.auth.User'
 
 SOCIAL_AUTH_PIPELINE = (
+    # GET USER INFO
     'social.pipeline.social_auth.social_details',
+    # GET USER UUID FROM AUTH BACKEND SERVICE
     'social.pipeline.social_auth.social_uid',
+    # AUTH ALLOWED?
     'social.pipeline.social_auth.auth_allowed',
+    # CHECK IF EXISTS
     'social.pipeline.social_auth.social_user',
+    # CREATE DJANGO USERNAME
     'social.pipeline.user.get_username',
+    # CREATE DJANGO USER OBJECT IF NEW
     'social.pipeline.user.create_user',
+    # --- CUSTOM!!!! ---
     'festivaluser.pipeline.save_profile',  # <--- set the path to the function
+    # LINK NEW DJANGO USER OBJECT WITH CURRENT AUTH USER
     'social.pipeline.social_auth.associate_user',
+    # EXTRA_DATA FIELD IS INSTANTIATED WITH WHICHEVER DATA I REQUEST
     'social.pipeline.social_auth.load_extra_data',
+    # UPDATE USER RECORD WITH CHANGED INFO FROM AUTH SERVIVE
     'social.pipeline.user.user_details',
 )
 

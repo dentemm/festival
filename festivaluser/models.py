@@ -16,6 +16,9 @@ class FestivalAdvisorUser(models.Model):
 	#user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='loser')
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='festprofile')
 	picture = models.ImageField(verbose_name='Profielafbeelding', upload_to=get_image_path, blank=True, null=True)
+	gender = models.CharField(max_length=27, blank=True, null=True)
+	age_min = models.PositiveIntegerField(blank=True, null=True)
+	age_max = models.PositiveIntegerField(blank=True, null=True)
 
 	favorite_festival = models.ForeignKey(FestivalPage, related_name='+', blank=True, null=True)
 
