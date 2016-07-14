@@ -242,8 +242,8 @@ Navigation Style
   height: auto;
 }
 .top-nav-collapse .navbar-brand img {
-  width: 52px;
-  height: 52px;
+  width: 120px;
+  height: 60px;
 }
 .top-nav-collapse .nav > li > a {
   padding: 30px 15px;
