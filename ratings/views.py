@@ -1,14 +1,16 @@
+import csv
 from decimal import Decimal
 
 from django.apps import apps
 from django.views.generic import View, TemplateView, FormView
-from django.http import JsonResponse 
+from django.http import JsonResponse, HttpResponse
 from django.template.response import TemplateResponse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.contenttypes.models import ContentType
 from django.forms.formsets import formset_factory
 
+from home.models import FestivalPage
 
 from .models import Vote
 from .forms import VoteForm, BaseVoteFormSet
@@ -197,3 +199,44 @@ class RatingView(LoginRequiredMixin, View):
 		}
 
 		return JsonResponse(data)
+
+
+def csvRatings(request):
+
+	response = HttpResponse(content_type='text/csv')
+	response['Content-Disposition'] = 'attachment; filename="allefestivaladvisorusers.csv"'
+
+	writer = csv.writer(response)
+
+
+	for fest in FestivalPage.objects.all():
+
+		score = fest.get_ratings()
+
+		if score is not None:
+
+			votes = score.votes
+
+			print(score.num_votes)
+
+			for vote in votes.objects.all():
+
+				print('vote: %s' % vote)
+
+
+		print('ratings: %s?' % fest.get_ratings())
+		#print('votes: %s' % fest.get_votes())
+
+
+
+		#votes = fest.rating_votes
+		#votes = 'test'
+		#score = fest.rating_scores.num_votes
+		#print('votes en score: %s -- %s' % (votes, score))
+
+		#writer.writerow([fest.name, user.user.email, user.user.first_name, user.user.last_name])
+
+
+	return HttpResponse(request)
+
+

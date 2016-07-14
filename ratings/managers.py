@@ -21,3 +21,15 @@ class RatingManager(models.Manager):
 
 		except self.model.DoesNotExist:
 			return None
+
+'''class VoteManager(models.Manager):
+
+	def get_for(self, content_object, **kwargs):
+
+		content_type = ContentType.objects.get_for_model(type(content_object))
+
+		try:
+			return self.get(content_type=content_type, object_id=content_object.pk, **kwargs)
+
+		except self.model.DoesNotExist:
+			return None'''

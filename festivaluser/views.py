@@ -145,7 +145,7 @@ def csvView(request):
 
 	all_users = FestivalAdvisorUser.objects.all()
 
-	print(all_users)
+	#print(all_users)
 
 	for user in all_users:
 

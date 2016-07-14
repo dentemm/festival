@@ -10,7 +10,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.auth.models import User
 #from django.utils import timezone
 
-from .managers import RatingManager
+from .managers import RatingManager#, VoteManager
 
 # Create your models here.
 
@@ -47,6 +47,8 @@ class Vote(BaseContentTypesModel):
 	overall_rating = models.ForeignKey('Score', blank=True, null=True, related_name='votes',)	# foreignkey naar Score, een Score bestaat uit een aantal Votes
 
 
+	#objects = VoteManager()
+
 	class Meta:
 		unique_together = ('content_type', 'object_id', 'user')
 		#unique_together = ('content_type', 'object_id', 'user', 'content_object')
@@ -59,6 +61,7 @@ class Vote(BaseContentTypesModel):
 	def save(self, *args, **kwargs):
 
 		return super(Vote, self).save(*args, **kwargs)
+
 
 	@classmethod
 	def vote(cls, rating_object, user, score):
@@ -256,5 +259,9 @@ class RatedModelMixin(models.Model):
 		#print('hmm? %s' % Score.objects.get_for(self))
 
 		return Score.objects.get_for(self)
+
+	#def get_votes(self):
+
+	#	return Vote.objects.get_for(self)
 
 
