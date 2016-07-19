@@ -29,7 +29,7 @@ def save_profile(backend, user, response, *args, **kwargs):
 
 		new = FestivalAdvisorUser.objects.get(user=user)
 
-		if not new.gender:
+		if new.gender == '':
 			new.gender = gender
 			new.age_min = age_min
 			new.age_max = age_max
