@@ -13,3 +13,5 @@ class CommentWithTitle(CommentAbstractModel):
 	class Meta:
 
 		unique_together = ('content_type', 'object_pk', 'user')
+		verbose_name = 'commentaar'
+		verbose_name_plural = 'User comments'
