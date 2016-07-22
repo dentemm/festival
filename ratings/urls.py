@@ -9,4 +9,5 @@ urlpatterns = [
 
     # CSV report about user ratings
     url(r'^report/$', csvRatings, name='report'),
+   
 ]

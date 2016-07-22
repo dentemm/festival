@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static compress rating_tags %}
+
+{% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    <!-- BOOTSTRAP DASHBOARD THEME-->
+    {% compress css %}
+    	<link rel="stylesheet" type="text/css" href="{% static 'plugins/bs-dashboard/css/toolkit-inverse.css' %}">
+    {% endcompress %}
+{% endblock %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+	<div class="container m-t-lg">
+		<div class="dashhead">
+		  <div class="dashhead-titles">
+		    <h3 class="dashhead-subtitle">Dashboards</h3>
+		    <h1 class="dashhead-title">{{ page }}</h1>
+		  </div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Votes</h3>
+				<div class="table-responsive">
+				    <table class="table" data-sort="table">
+				      <thead>
+				        <tr>
+				          <th class="header headerSortDown">User</th>
+				          <th class="header">Vote</th>
+				          <th class="header">Datum</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				      {% ratings page as votes %}
+				      {% for vote in votes %}
+				      	<tr>
+				          <td>{{ vote.user }}</td>
+				          <td>{{ vote.score }}</td>
+				          <td>{{ vote.timestamp }}</td>
+
+				        </tr>
+				      {% endfor %}  
+						</tbody>
+				    </table>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+
+		<h3>Ratings</h3>
+		<div class="row">
+			<div class="col-md-3">
+				<h4>Algemene score</h4>
+				<div class="m-a">
+					{% overall_score page as overall_score %}
+					<canvas
+					    class="ex-graph"
+					    width="200" height="200"
+					    data-chart="doughnut"
+					    data-value="[{ value: {% overall_score page %}, color: '#1bc98e', label: 'Score' }, { value: 5-{% overall_score page %}, color: '#e64759'}]"
+					    data-segment-stroke-color="#252830">
+					</canvas>
+				</div>
+			</div>
+			<div class="col-md-9">
+				<h4>Alle kenmerken</h4>
+				  <canvas
+				    class="ex-line-graph"
+				    width="600" height="200"
+				    data-chart="bar"
+				    data-scale-line-color="transparent"
+				    data-scale-grid-line-color="rgba(255,255,255,.05)"
+				    data-scale-font-color="#a2a2a2"
+				    data-labels="[{% for attr in page.rateable_attributes.all %}'{{ attr.rateable_attribute.name }}',{% endfor %}]"
+				    data-value="[{ label: 'First dataset', data: [{% for attr in page.rateable_attributes.all %}{% overall_score attr %},{% endfor %}] }, ]">
+				  </canvas>
+		</div>
+		</div>
+
+	</div>
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    	{% compress js %}
+    	<!-- CHART JS -->
+    	<script type="text/javascript" src="{% static 'plugins/bs-dashboard/js/chart.js' %}"></script>
+	    <!-- BOOTSTRAP THEME DASHBOARD -->
+	    <script type="text/javascript" src="{% static 'plugins/bs-dashboard/js/toolkit.min.js' %}"></script>	   
+	    {% endcompress %}
+{% endblock extra_js %}

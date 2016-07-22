@@ -370,6 +370,22 @@ def overall_rating(obj):
 	return score
 
 @register.simple_tag
+def overall_score(obj):
+
+	try:
+		ct = ContentType.objects.get_for_model(obj)
+
+		score = Score.objects.get(
+			object_id=obj.pk,
+			content_type=ct,
+		).score or -1
+
+	except Score.DoesNotExist:
+		score = -1
+
+	return score
+
+@register.simple_tag
 def user_rating_value(user, obj):
 	'''
 	Deze template tag retourneert de score die een gebruiker heeft uitgebracht op het object
@@ -518,3 +534,20 @@ def user_rating(user, obj):
 		return False
 
 	return True
+
+@register.simple_tag
+def ratings(obj):
+	'''
+	Deze template tag retourneert alle votes voor een gegeven festival
+	Gebruik {% ratings obj %}
+	'''
+
+	ct = ContentType.objects.get_for_model(obj)
+	try:
+		return Score.objects.get(
+			content_type=ct,
+			object_id=obj.pk,
+			).votes.all()
+
+	except Score.DoesNotExist:
+		return []

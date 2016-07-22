@@ -39,7 +39,9 @@
         {% block content %}{% endblock %}
 
         <!-- FOOTER--> 
-        {% include 'footer.html' %}
+        {% block footer %}
+            {% include 'footer.html' %}
+        {% endblock footer %}
 
         {# Global javascript #}
         <!-- BOOTSTRAP + JQUERY (requirement) -->

@@ -652,7 +652,7 @@ class FestivalPageRelatedLink(models.Orderable, RelatedLink):
 		return super(FestivalPageRelatedLink, self).save(*args, **kwargs)
 
 
-class FestivalPage(RatedModelMixin, models.Page):
+class FestivalPage(RoutablePageMixin, RatedModelMixin, models.Page):
 	'''
 	Deze klasse beschrijft een festival. 
 		* Via FestivalPageRateableAttribuut kunnen de te beoordelen aspecten van een festival toegekend worden
@@ -702,6 +702,24 @@ class FestivalPage(RatedModelMixin, models.Page):
 
 
 	base_form_class = FestivalPageForm
+
+
+	# ROUTABLE PAGE
+
+	@route(r'^stats/$', name='stats')
+	#@route(r'^stats/(\d+)/$')
+	def stats(self, request):
+
+		print('name: %s' % self.name)
+
+		#print('kwargs %s' % kwargs)
+
+		template = 'home/festival_stats.html'
+
+		context = {}
+		context['page'] = self
+
+		return TemplateResponse(request, template=template, context=context)
 
 	# PROPERTIES
 

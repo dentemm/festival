@@ -204,7 +204,7 @@ class RatingView(LoginRequiredMixin, View):
 def csvRatings(request):
 
 	response = HttpResponse(content_type='text/csv')
-	response['Content-Disposition'] = 'attachment; filename="allefestivaladvisorusers.csv"'
+	response['Content-Disposition'] = 'attachment; filename="votes.csv"'
 
 	writer = csv.writer(response)
 
@@ -217,14 +217,16 @@ def csvRatings(request):
 
 			votes = score.votes
 
-			print(score.num_votes)
+			#print(score.num_votes)
 
-			for vote in votes.objects.all():
+			for vote in votes.all():
 
-				print('vote: %s' % vote)
+				#print('vote: %s' % vote)
+
+				writer.writerow([fest.name, vote.user, vote.score])
 
 
-		print('ratings: %s?' % fest.get_ratings())
+		#print('ratings: %s?' % fest.get_ratings())
 		#print('votes: %s' % fest.get_votes())
 
 
@@ -237,6 +239,6 @@ def csvRatings(request):
 		#writer.writerow([fest.name, user.user.email, user.user.first_name, user.user.last_name])
 
 
-	return HttpResponse(request)
+	return response
 
 

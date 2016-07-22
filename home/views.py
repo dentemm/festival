@@ -1,6 +1,7 @@
 import csv
 
 from django.http import HttpResponse
+from django import views
 
 from .models import FestivalPage
 
@@ -24,3 +25,6 @@ def csvView(request):
 
 	return response
 
+def statsView(request):
+	
+	return HttpResponse(request)
