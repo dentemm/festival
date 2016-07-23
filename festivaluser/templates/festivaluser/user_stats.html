@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static compress rating_tags %}
+{% load static compress user_tags %}
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
@@ -18,13 +18,40 @@
 		<div class="dashhead">
 		  	<div class="dashhead-titles">
 		    	<h3 class="dashhead-subtitle">Dashboards</h3>
-		    	<h1 class="dashhead-title">{{ page }}</h1>
+		    	<h1 class="dashhead-title">Gebruiker gegevens {% user_count %}</h1>
 		  	</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-6">
-				<h3>Votes</h3>
+			<div class="col-lg-4 col-sm-6">
+				<div class="statcard statcard-primary p-a-sm m-b">
+				  	<h3 class="statcard-number">
+				    	{% fb_user_count %}
+				    	<!--<small class="delta-indicator delta-positive">5%</small>-->
+				  	</h3>
+				  	<span class="statcard-desc">Totaal aantal gebruikers</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-2 col-sm-3 col-xs-5">
+				<h4>Facebook gebruikers</h4>
+				<div class="m-a">
+					<canvas
+					    class="ex-graph"
+					    width="200" height="200"
+					    data-chart="doughnut"
+					    data-value="[{ value: {% fb_user_count %}, color: '#1bc98e', label: 'FB' }, { value: {% user_count %}-{% fb_user_count %}, color: '#e64759', label:'Niet-FB'}]"
+					    data-segment-stroke-color="#252830">
+					</canvas>
+				</div>
+			</div>
+			<div class="col-xs-12">
+
+
+
+
+				<h3>Statistieken</h3>
 				<div class="table-responsive">
 				    <table class="table" data-sort="table">
 				      	<thead>
@@ -35,7 +62,6 @@
 				        	</tr>
 				      	</thead>
 				      	<tbody>
-				      	{% ratings page as votes %}
 				      	{% for vote in votes %}
 				      		<tr>
 				          		<td>{{ vote.user }}</td>
@@ -46,38 +72,6 @@
 						</tbody>
 				    </table>
 				</div>
-			</div>
-		</div>
-		<hr>
-		<h3>Ratings</h3>
-		<div class="row">
-			<div class="col-md-3 col-xs-6">
-				<h4>Algemene score</h4>
-				<div class="m-a">
-					{% overall_score page as overall_score %}
-					<canvas
-					    class="ex-graph"
-					    width="200" height="200"
-					    data-chart="doughnut"
-					    data-value="[{ value: {% overall_score page %}, color: '#1bc98e', label: 'Score' }, { value: 5-{% overall_score page %}, color: '#e64759'}]"
-					    data-segment-stroke-color="#252830">
-					</canvas>
-				</div>
-			</div>
-			<div class="col-md-9 col-xs-12">
-				<h4>Score per kenmerk</h4>
-				  <canvas
-				    class="ex-line-graph"
-				    width="600" height="200"
-				    data-chart="bar"
-				    data-scale-line-color="transparent"
-				    data-scale-grid-line-color="rgba(255,255,255,.05)"
-				    data-scale-font-color="#a2a2a2"
-				    data-scale-steps="5"
-				    data-scale-step-width="1"
-				    data-labels="[{% for attr in page.rateable_attributes.all %}'{{ attr.rateable_attribute.name }}',{% endfor %}]"
-				    data-value="[{ label: 'First dataset', data: [{% for attr in page.rateable_attributes.all %}{% overall_score attr %},{% endfor %}] }, ]">
-				  </canvas>
 			</div>
 		</div>
 	</div>

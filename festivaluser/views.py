@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, UpdateView, View
 from django.core.context_processors import csrf
+from django.template.response import TemplateResponse
 
 from .models import FestivalAdvisorUser
 from .forms import CustomUserCreationForm
@@ -154,3 +155,8 @@ def csvView(request):
 
 	return response
 
+def statsView(request):
+
+	template = 'festivaluser/user_stats.html'
+
+	return TemplateResponse(request, template=template)

@@ -69,7 +69,6 @@ INSTALLED_APPS = [
     'comments',
     'ratings',
     'festivaluser',
-    #'pagemore',                         # Zie hier: https://github.com/pennersr/django-pagemore
 ]
 
 # CUSTOMIZING DJANGO CONTRIB COMMENTS
