@@ -34,8 +34,20 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-2 col-sm-3 col-xs-5">
+			<div class="col-sm-3 col-xs-4">
 				<h4>Facebook gebruikers</h4>
+				<div class="m-a">
+					<canvas
+					    class="ex-graph"
+					    width="200" height="200"
+					    data-chart="doughnut"
+					    data-value="[{ value: {% fb_user_count %}, color: '#1bc98e', label: 'FB' }, { value: {% user_count %}-{% fb_user_count %}, color: '#e64759', label:'Niet-FB'}]"
+					    data-segment-stroke-color="#252830">
+					</canvas>
+				</div>
+			</div>
+			<div class="col-sm-3 col-xs-4">
+				<h4>Geslacht</h4>
 				<div class="m-a">
 					<canvas
 					    class="ex-graph"
