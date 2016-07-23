@@ -30,10 +30,12 @@ def save_profile(backend, user, response, *args, **kwargs):
 
 		try: 
 			new = FestivalAdvisorUser.objects.get(user=user)
-			new.gender = gender
-			new.age_min = age_min
-			new.age_max = age_max
-			new.save()
+
+			if new.gender == '':
+				new.gender = gender
+				new.age_min = age_min
+				new.age_max = age_max
+				new.save()
 
 		except FestivalAdvisorUser.DoesNotExist:
 
