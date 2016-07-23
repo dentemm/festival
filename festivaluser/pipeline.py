@@ -17,7 +17,7 @@ def save_profile(backend, user, response, *args, **kwargs):
 	#print('kwargs: %s' % str(kwargs))
 
 	if kwargs['is_new']:
-		print('nieuwe aanmelding!')
+		#print('nieuwe aanmelding!')
 		new = FestivalAdvisorUser(user=user)
 		new.gender = gender
 		new.age_min = age_min
@@ -25,8 +25,8 @@ def save_profile(backend, user, response, *args, **kwargs):
 		new.save()
 
 	else:
-		print('geen nieuwe!')
-		print('gender: %s' % gender)
+		#print('geen nieuwe!')
+		#print('gender: %s' % gender)
 
 		try: 
 			new = FestivalAdvisorUser.objects.get(user=user)
@@ -38,7 +38,11 @@ def save_profile(backend, user, response, *args, **kwargs):
 				new.save()
 
 		except FestivalAdvisorUser.DoesNotExist:
+			
 			new = FestivalAdvisorUser(user=user)
+			new.gender = gender
+			new.age_min = age_min
+			new.age_max = age_max
 			new.save()
 
 
