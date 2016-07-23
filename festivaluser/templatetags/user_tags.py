@@ -98,7 +98,7 @@ def user_stats():
 @register.simple_tag
 def last_register():
 
-	last = FestivalAdvisorUser.objects.first()
+	last = FestivalAdvisorUser.objects.last()
 	date = last.user.date_joined.date()
 
 	return date.strftime('%d/%m/%y')
