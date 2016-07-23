@@ -16,10 +16,10 @@
 {% block content %}
 	<div class="container m-t-lg">
 		<div class="dashhead">
-		  <div class="dashhead-titles">
-		    <h3 class="dashhead-subtitle">Dashboards</h3>
-		    <h1 class="dashhead-title">{{ page }}</h1>
-		  </div>
+		  	<div class="dashhead-titles">
+		    	<h3 class="dashhead-subtitle">Dashboards</h3>
+		    	<h1 class="dashhead-title">{{ page }}</h1>
+		  	</div>
 		</div>
 		<hr>
 		<div class="row">
@@ -27,31 +27,28 @@
 				<h3>Votes</h3>
 				<div class="table-responsive">
 				    <table class="table" data-sort="table">
-				      <thead>
-				        <tr>
-				          <th class="header headerSortDown">User</th>
-				          <th class="header">Vote</th>
-				          <th class="header">Datum</th>
-				        </tr>
-				      </thead>
-				      <tbody>
-				      {% ratings page as votes %}
-				      {% for vote in votes %}
-				      	<tr>
-				          <td>{{ vote.user }}</td>
-				          <td>{{ vote.score }}</td>
-				          <td>{{ vote.timestamp }}</td>
-
-				        </tr>
-				      {% endfor %}  
+				      	<thead>
+				        	<tr>
+				          		<th class="header">User</th>
+				          		<th class="header">Vote</th>
+				          		<th class="header">Datum</th>
+				        	</tr>
+				      	</thead>
+				      	<tbody>
+				      	{% ratings page as votes %}
+				      	{% for vote in votes %}
+				      		<tr>
+				          		<td>{{ vote.user }}</td>
+				          		<td>{{ vote.score }}</td>
+				          		<td>{{ vote.timestamp }}</td>
+				        	</tr>
+				      	{% endfor %}  
 						</tbody>
 				    </table>
 				</div>
 			</div>
 		</div>
-
 		<hr>
-
 		<h3>Ratings</h3>
 		<div class="row">
 			<div class="col-md-3">
@@ -81,9 +78,8 @@
 				    data-labels="[{% for attr in page.rateable_attributes.all %}'{{ attr.rateable_attribute.name }}',{% endfor %}]"
 				    data-value="[{ label: 'First dataset', data: [{% for attr in page.rateable_attributes.all %}{% overall_score attr %},{% endfor %}] }, ]">
 				  </canvas>
+			</div>
 		</div>
-		</div>
-
 	</div>
 
 {% endblock content %}
@@ -96,8 +92,19 @@
     	<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>-->
     	{% compress js %}
     	<!-- CHART JS -->
+    	<script type="text/javascript" src="{% static 'plugins/bs-dashboard/js/tablesorter.min.js' %}"></script>
+    	<!-- TABLESORTER -->
     	<script type="text/javascript" src="{% static 'plugins/bs-dashboard/js/chart.js' %}"></script>
 		<!-- BOOTSTRAP THEME DASHBOARD -->
 	    <script type="text/javascript" src="{% static 'plugins/bs-dashboard/js/toolkit.min.js' %}"></script>	   
 	    {% endcompress %}
+		<script type="text/javascript">
+			$(document).ready(function() {
+			  	// call the tablesorter plugin
+			  	$("[data-sort=table]").tablesorter({
+			    	// Sort on the second column, in ascending order
+			    	sortList: [[0,0]]
+			  	});
+			s});
+		</script>
 {% endblock extra_js %}
