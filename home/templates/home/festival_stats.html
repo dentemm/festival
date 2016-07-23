@@ -68,7 +68,7 @@
 				</div>
 			</div>
 			<div class="col-md-9">
-				<h4>Alle kenmerken</h4>
+				<h4>Score per kenmerk</h4>
 				  <canvas
 				    class="ex-line-graph"
 				    width="600" height="200"
@@ -76,6 +76,8 @@
 				    data-scale-line-color="transparent"
 				    data-scale-grid-line-color="rgba(255,255,255,.05)"
 				    data-scale-font-color="#a2a2a2"
+				    data-scale-steps="5"
+				    data-scale-step-width="1"
 				    data-labels="[{% for attr in page.rateable_attributes.all %}'{{ attr.rateable_attribute.name }}',{% endfor %}]"
 				    data-value="[{ label: 'First dataset', data: [{% for attr in page.rateable_attributes.all %}{% overall_score attr %},{% endfor %}] }, ]">
 				  </canvas>
@@ -91,10 +93,11 @@
 
 {% block extra_js %}
     {# Override this in templates to add extra javascript #}
+    	<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>-->
     	{% compress js %}
     	<!-- CHART JS -->
     	<script type="text/javascript" src="{% static 'plugins/bs-dashboard/js/chart.js' %}"></script>
-	    <!-- BOOTSTRAP THEME DASHBOARD -->
+		<!-- BOOTSTRAP THEME DASHBOARD -->
 	    <script type="text/javascript" src="{% static 'plugins/bs-dashboard/js/toolkit.min.js' %}"></script>	   
 	    {% endcompress %}
 {% endblock extra_js %}
