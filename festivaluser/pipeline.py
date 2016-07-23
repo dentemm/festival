@@ -39,6 +39,7 @@ def save_profile(backend, user, response, *args, **kwargs):
 
 		except FestivalAdvisorUser.DoesNotExist:
 			new = FestivalAdvisorUser(user=user)
+			new.save()
 
 
 
