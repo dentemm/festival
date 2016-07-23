@@ -350,7 +350,6 @@ def votes_count(obj):
 def overall_rating(obj):
 	'''
 	Deze template tag retourneert de overall score van een object
-
 	Gebruik {% overall_rating obj as var %}
 	'''
 
@@ -551,3 +550,11 @@ def ratings(obj):
 
 	except Score.DoesNotExist:
 		return []
+
+@register.simple_tag
+def total_votes():
+
+	ct = ContentType.objects.get_for_model(FestivalPage)
+
+	return Score.objects.filter(content_type=ct).count()
+

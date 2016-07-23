@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static compress user_tags %}
+{% load static compress user_tags rating_tags %}
 
 {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
@@ -23,7 +23,7 @@
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-lg-4 col-sm-6">
+			<div class="col-lg-4 col-xs-6">
 				<div class="statcard statcard-primary p-a-sm m-b">
 				  	<h3 class="statcard-number">
 				    	{{ user_statistics.total_users }}
@@ -32,6 +32,24 @@
 				  	<span class="statcard-desc">Totaal aantal gebruikers</span>
 				</div>
 			</div>
+			<div class="col-lg-4 col-xs-6">
+				<div class="statcard statcard-danger p-a-sm m-b">
+				  	<h3 class="statcard-number">
+				    	 {% total_votes %}
+				    	<small class="delta-indicator delta-positive"></small>
+				  	</h3>
+				  	<span class="statcard-desc">Aantal beoordelingen</span>
+				</div>
+			</div>
+			<div class="col-lg-4 col-xs-6">
+				<div class="statcard statcard-info p-a-sm m-b">
+				  	<h3 class="statcard-number">
+				    	{% last_register %}
+				    	<small class="delta-indicator delta-positive"></small>
+				  	</h3>
+				  	<span class="statcard-desc">Laatste aanmelding</span>
+				</div>
+			</div>	
 		</div>
 		<div class="row">
 			<div class="col-sm-3 col-xs-4">

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import template
 
 from ..models import FestivalAdvisorUser
@@ -92,6 +94,14 @@ def user_stats():
 	user_dict['gender_unknown'] = gender_unknown
 
 	return user_dict
+
+@register.simple_tag
+def last_register():
+
+	last = FestivalAdvisorUser.objects.first()
+	date = last.user.date_joined.date()
+
+	return date.strftime('%d/%m/%y')
 
 
 

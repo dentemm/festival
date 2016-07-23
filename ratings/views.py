@@ -225,20 +225,6 @@ def csvRatings(request):
 
 				writer.writerow([fest.name, vote.user, vote.score])
 
-
-		#print('ratings: %s?' % fest.get_ratings())
-		#print('votes: %s' % fest.get_votes())
-
-
-
-		#votes = fest.rating_votes
-		#votes = 'test'
-		#score = fest.rating_scores.num_votes
-		#print('votes en score: %s -- %s' % (votes, score))
-
-		#writer.writerow([fest.name, user.user.email, user.user.first_name, user.user.last_name])
-
-
 	return response
 
 
