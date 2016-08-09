@@ -227,3 +227,5 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details',
 )
 
+SESSION_COOKIE_SECURE=False
+
