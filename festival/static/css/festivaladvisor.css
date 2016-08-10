@@ -685,11 +685,12 @@ span.input-group-btn button i.fa {
   color: #FFF;
   margin: 0px;
   text-shadow: 3px 3px 3px #333;
+  font-size: 27px;
 }
 
 .fa_rated {
   text-decoration: underline;
-  font-size: 24px;
+  font-size: 21px;
 }
 
 div.related {

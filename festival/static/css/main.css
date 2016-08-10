@@ -264,20 +264,44 @@ Sliders Style
   background-repeat: no-repeat;
   margin-bottom: -85px;
 }
+
+@media screen and ( max-height: 599px ){
+  #owl-hero .item .caption {
+    top: 200px;
+  }
+
+  h1 {
+    font-size: 64px;
+  }
+
+  #owl-hero .item .caption h1 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+}
+
+@media screen and ( min-height: 600px ){
+  #owl-hero .item .caption {
+    top: 50%;
+  }
+
+  #owl-hero .item .caption h1 {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+  }
+}
+
 #owl-hero .item .caption {
   position: absolute;
-  top: 50%;
   margin-top: -104px;
   left: 0;
   right: 0;
   text-align: center;
   z-index: 15;
 }
-#owl-hero .item .caption h1 {
-  margin-top: 40px;
-  margin-bottom: 50px;
-  text-transform: uppercase;
-}
+
 #owl-hero .item .caption h1 span {
   font-weight: 500;
 }
