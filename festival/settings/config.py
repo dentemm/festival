@@ -14,7 +14,11 @@ SOCIAL_AUTH_FACEBOOK_KEY = '1733548576884914'
 SOCIAL_AUTH_FACEBOOK_SECRET = '47ba3545489bf848f83773981f027e2b'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', ]
+#SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_hometown', 'user_actions.music', 'user_actions.video', 'user_likes', 'user_tagged_places']
+
+#SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'fields': 'id,name,email,gender,age_range'}
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 	#'fields': 'id,name,email'
-	'fields': 'id,name,email,gender,age_range'
+	'fields': 'id, name, email, gender, age_range, hometown, likes, music, tagged_places, videos'
+	#'fields': 'id, name, email, gender, age_range, hometown, likes, user_actions.music'
 }

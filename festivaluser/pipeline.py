@@ -6,15 +6,29 @@ def save_profile(backend, user, response, *args, **kwargs):
 	om een User Profile (= FestivalAdvisorUser) te linken aan de nieuwe gebruiker
 	'''
 
-	print('response: %s' % response)
+	print('--------------------save profile!')
 
 	gender = response.get('gender', '')
 	age_range = response.get('age_range', {})
+	hometown = response.get('hometown', '')
 	age_min = age_range.get('min', 0)
 	age_max = age_range.get('max', 100)
 
-	#print('args: %s' % str(args))
-	#print('kwargs: %s' % str(kwargs))
+	music = response.get('music', 'geen muziek')
+	likes = response.get('likes', 'geen likes')
+	videos = response.get('videos', 'geen videos')
+	tagged_places = response.get('tagged_places', 'geen tagged places')
+
+	print(music)
+	print(likes)
+	print(videos)
+	print(tagged_places)
+
+
+
+	print('hometown: %s' % hometown)
+	print('args: %s' % str(args))
+	print('kwargs: %s' % str(kwargs))
 
 	if kwargs['is_new']:
 		#print('nieuwe aanmelding!')
