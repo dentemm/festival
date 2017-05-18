@@ -27,7 +27,6 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailadmin.forms import WagtailAdminPageForm, WagtailAdminModelForm
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailsearch import index
-from wagtail.wagtailcore import blocks
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailembeds.blocks import EmbedBlock
 

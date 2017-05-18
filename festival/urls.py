@@ -30,6 +30,7 @@ urlpatterns = [
 
     # CSV file -- festivals en contact personen
     url(r'contactpersonen/$', home_views.csvView, name='csv'),
+    url(r'database-export/$', home_views.databaseExtractView, name='database'),
 
     url(r'', include(wagtail_urls)),
 ]
