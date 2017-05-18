@@ -25,7 +25,12 @@ def databaseExtractView(request):
 		datum = festival.date
 		duur = festival.duration
 		website = festival.website
-		foto = festival.main_image.file.url
+
+		if festival.main_image:
+			foto = festival.main_image.file.url
+
+		else: 
+			foto = ''
 
 		if festival.location:
 			locatie = festival.location.name
