@@ -10,7 +10,7 @@ from .models import FestivalPage
 def databaseExtractView(request):
 
 	response = HttpResponse(content_type='text/csv')
-	response['Content-Disposition'] = 'attachment; filename="allefestivaladvisorusers.csv"'
+	response['Content-Disposition'] = 'attachment; filename="database_export.csv"'
 
 	writer = csv.writer(response)
 
