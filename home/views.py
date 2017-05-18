@@ -45,11 +45,6 @@ def databaseExtractView(request):
 			email = ''
 			phone = ''
 
-		
-		contact = festival.contact_person.first_name + ' ' +  festival.contact_person.last_name
-		email = festival.contact_person.email
-		phone = festival.contact_person.phone
-
 		writer.writerow([naam, beschrijving, datum, duur, website, foto, locatie, adres, contact, email, phone])
 
 	return reponse
