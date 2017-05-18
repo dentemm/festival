@@ -1,7 +1,9 @@
 import csv
 
-from django.http import HttpResponse
+
 from django import views
+from django.http import HttpResponse
+from django.utils.encoding import force_text
 
 from .models import FestivalPage
 
@@ -25,7 +27,7 @@ def databaseExtractView(request):
 		website = festival.website
 		foto = festival.main_image.file.url
 		locatie = festival.location.name
-		adres = festival.location.address.street + ' ' + festival.location.address.number + ' ' + festival.location.address.postal_code + ' ' + festival.location.address.city + ', ' + festival.location.address.country.name
+		adres = festival.location.address.street + ' ' + festival.location.address.number + ' ' + festival.location.address.postal_code + ' ' + festival.location.address.city + ', ' + force_text(festival.location.address.country.name)
 		contact = festival.contact_person.first_name + ' ' +  festival.contact_person.last_name
 		email = festival.contact_person.email
 		phone = festival.contact_person.phone
