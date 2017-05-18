@@ -52,7 +52,7 @@ def databaseExtractView(request):
 
 		writer.writerow([naam, beschrijving, datum, duur, website, foto, locatie, adres, contact, email, phone])
 
-	return reponse
+	return response
 
 
 def csvView(request):
