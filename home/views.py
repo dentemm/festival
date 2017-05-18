@@ -26,8 +26,26 @@ def databaseExtractView(request):
 		duur = festival.duration
 		website = festival.website
 		foto = festival.main_image.file.url
-		locatie = festival.location.name
-		adres = festival.location.address.street + ' ' + festival.location.address.number + ' ' + festival.location.address.postal_code + ' ' + festival.location.address.city + ', ' + force_text(festival.location.address.country.name)
+
+		if festival.location:
+			locatie = festival.location.name
+			adres = festival.location.address.street + ' ' + festival.location.address.number + ' ' + festival.location.address.postal_code + ' ' + festival.location.address.city + ', ' + force_text(festival.location.address.country.name)
+
+		else:
+			locatie = ''
+			adres = ''
+
+		if festival.contact_person:
+			contact = festival.contact_person.first_name + ' ' +  festival.contact_person.last_name
+			email = festival.contact_person.email
+			phone = festival.contact_person.phone
+
+		else: 
+			contact = ''
+			email = ''
+			phone = ''
+
+		
 		contact = festival.contact_person.first_name + ' ' +  festival.contact_person.last_name
 		email = festival.contact_person.email
 		phone = festival.contact_person.phone
